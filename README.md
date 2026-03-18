@@ -1,18 +1,13 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🚀 Full Stack Learning Project
+This project is built following a comprehensive 4-month Full Stack Developer curriculum.
 
-## Getting Started
+## 🛠️ Tech Stack
+- **Frontend**: Next.js (React), Tailwind CSS, TypeScript
+- **Backend**: PHP + Laravel (Planned for Phase 3)
+- **Database**: PostgreSQL (Planned for Phase 3)
 
-First, run the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 📖 Curriculum
+See [FULL_STACK_CURRICULUM.md](./FULL_STACK_CURRICULUM.md) for the detailed learning roadmap.
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
