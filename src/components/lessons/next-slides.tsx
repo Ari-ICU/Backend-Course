@@ -783,7 +783,7 @@ function NextLessonContent() {
           <IconComp className="w-3.5 h-3.5" style={{ color: slide.accent }} />
         </div>
         <div className="flex-none">
-          <p className="text-[9px] uppercase tracking-[0.2em] text-zinc-600 font-bold">Module 04 · Advanced</p>
+          <p className="text-[9px] uppercase tracking-[0.2em] text-zinc-600 font-bold">Module 06 · Weeks 11–12</p>
           <p className="text-xs font-black text-white tracking-tight">Next.js 15 Masterclass</p>
         </div>
 

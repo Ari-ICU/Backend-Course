@@ -692,7 +692,7 @@ function BackendLessonContent() {
           <IconComp className="w-3.5 h-3.5" style={{ color: slide.accent }} />
         </div>
         <div className="flex-none">
-          <p className="text-[9px] uppercase tracking-[0.2em] text-zinc-600 font-bold">Module 06 · Weeks 13–14</p>
+          <p className="text-[9px] uppercase tracking-[0.2em] text-zinc-600 font-bold">Module 08 · Weeks 15–16</p>
           <p className="text-xs font-black text-white tracking-tight">PHP & Laravel Masterclass</p>
         </div>
 

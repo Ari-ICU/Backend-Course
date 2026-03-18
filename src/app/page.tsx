@@ -6,7 +6,7 @@ import { useState } from "react";
 import {
   BookOpen, Code, Database, Zap, Palette, Server,
   Star, HardDrive, CheckCircle2, Clock, ArrowRight,
-  ChevronRight, Layers, Globe, Terminal,
+  ChevronRight, Layers, Globe, Terminal, GitBranch,
 } from "lucide-react";
 
 /* ─── MODULE DATA ────────────────────────────────────────────────── */
@@ -65,21 +65,34 @@ const modules: Module[] = [
     skills: ["DOM API", "Promises", "ES6+", "Fetch"],
   },
   {
-    href: "/lessons/react",
+    href: "/lessons/git",
     num: "04",
+    label: "Git & GitHub",
+    tag: "Workflow",
+    description: "Version control, branching, and cloud collaboration — essential for modern engineering.",
+    color: "#f05032",
+    dimColor: "rgba(240,80,50,0.12)",
+    icon: GitBranch,
+    weeks: "Week 7",
+    lessons: 11,
+    skills: ["Init", "Commits", "Branching", "Push/Pull"],
+  },
+  {
+    href: "/lessons/react",
+    num: "05",
     label: "React Mastery",
     tag: "Components",
     description: "Components, state, hooks, context, and the modern React ecosystem.",
     color: "#06b6d4",
     dimColor: "rgba(6,182,212,0.12)",
     icon: Layers,
-    weeks: "Weeks 7–10",
+    weeks: "Weeks 8–10",
     lessons: 37,
     skills: ["Hooks", "Context", "TanStack", "Framer Motion"],
   },
   {
     href: "/lessons/nextjs",
-    num: "05",
+    num: "06",
     label: "Next.js 15",
     tag: "Framework",
     description: "App Router, Server Components, Server Actions — full-stack architecture.",
@@ -92,7 +105,7 @@ const modules: Module[] = [
   },
   {
     href: "/lessons/db",
-    num: "06",
+    num: "07",
     label: "MongoDB & Mongoose",
     tag: "Database",
     description: "Atlas, schemas, CRUD, aggregation pipelines, and NoSQL architecture.",
@@ -105,7 +118,7 @@ const modules: Module[] = [
   },
   {
     href: "/lessons/backend-db",
-    num: "07",
+    num: "08",
     label: "PHP & Laravel",
     tag: "Backend",
     description: "PHP fundamentals, Eloquent ORM, Sanctum auth, REST APIs, and deployment.",

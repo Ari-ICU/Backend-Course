@@ -25,7 +25,7 @@ export default function NextjsLessonPage() {
 
           <div className="flex items-center gap-2 px-4 py-2 rounded-full border border-white/5 bg-black/20 backdrop-blur-sm">
             <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-            <span className="text-[10px] uppercase tracking-[0.2em] font-bold text-white/30">Module 05: Next.js</span>
+            <span className="text-[10px] uppercase tracking-[0.2em] font-bold text-white/30">Module 06 · Weeks 11–12</span>
           </div>
         </div>
       </nav>

@@ -30,7 +30,7 @@ export default function ReactLessonPage() {
 
           <div className="flex items-center gap-2 px-4 py-2 rounded-full border border-white/5 bg-black/30 backdrop-blur-sm">
             <Atom className="w-3.5 h-3.5 text-blue-400" />
-            <span className="sr-only">Module 04 — React</span>
+            <span className="sr-only">Module 05 — React</span>
             <span className="w-1.5 h-1.5 rounded-full bg-blue-400 animate-pulse ml-1" />
           </div>
         </div>

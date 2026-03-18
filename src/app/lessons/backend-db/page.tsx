@@ -31,8 +31,8 @@ export default function BackendLessonPage() {
           {/* Module Indicator */}
           <div className="flex items-center gap-2 px-4 py-2 rounded-full border border-white/10 bg-black/30 backdrop-blur-sm shadow-sm">
             <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-            <span className="text-[10px] uppercase tracking-wider font-bold text-white/40">
-              Module 06 · PHP & Laravel
+            <span className="text-[10px] uppercase tracking-[0.2em] font-bold text-white/40">
+              Module 08 · Weeks 15–16
             </span>
           </div>
         </div>

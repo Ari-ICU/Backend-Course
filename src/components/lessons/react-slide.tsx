@@ -582,7 +582,7 @@ function ReactLessonContent() {
           <IconComp className="w-3.5 h-3.5" style={{ color: slide.accent }} />
         </div>
         <div className="flex-none">
-          <p className="text-[9px] uppercase tracking-[0.2em] text-zinc-600 font-bold">Module 04 · Weeks 07–10</p>
+          <p className="text-[9px] uppercase tracking-[0.2em] text-zinc-600 font-bold">Module 05 · Weeks 08–10</p>
           <p className="text-xs font-black text-white tracking-tight">React Mastery</p>
         </div>
 
