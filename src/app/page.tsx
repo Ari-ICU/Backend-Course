@@ -2,22 +2,26 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { useState } from "react";
 import {
-  BookOpen, Code, Database, Zap, Palette, Server, Star,
-  HardDrive, ArrowRight, CheckCircle2, Clock,
+  BookOpen, Code, Database, Zap, Palette, Server,
+  Star, HardDrive, CheckCircle2, Clock, ArrowRight,
+  ChevronRight, Layers, Globe, Terminal,
 } from "lucide-react";
 
 /* ─── MODULE DATA ────────────────────────────────────────────────── */
 interface Module {
   href: string;
-  label: string;
   num: string;
+  label: string;
   tag: string;
   description: string;
-  accent: string;
+  color: string;
+  dimColor: string;
   icon: React.ElementType;
   weeks: string;
   lessons: number;
+  skills: string[];
 }
 
 const modules: Module[] = [
@@ -26,170 +30,410 @@ const modules: Module[] = [
     num: "01",
     label: "HTML5 Essentials",
     tag: "Foundation",
-    description: "Master semantic structure, forms, accessibility, and the building blocks every web page needs.",
-    accent: "blue",
+    description: "Semantic structure, forms, accessibility — the skeleton of every web page.",
+    color: "#3b82f6",
+    dimColor: "rgba(59,130,246,0.12)",
     icon: Code,
     weeks: "Week 1",
     lessons: 12,
+    skills: ["Semantic Tags", "Forms", "Accessibility", "SEO"],
   },
   {
     href: "/lessons/css",
     num: "02",
     label: "CSS Mastery",
     tag: "Styling",
-    description: "Make it beautiful. Flexbox, Grid, animations, media queries, and modern design systems.",
-    accent: "purple",
+    description: "Flexbox, Grid, animations, and modern responsive design patterns.",
+    color: "#a855f7",
+    dimColor: "rgba(168,85,247,0.12)",
     icon: Palette,
     weeks: "Weeks 2–3",
     lessons: 16,
+    skills: ["Flexbox", "CSS Grid", "Animations", "Media Queries"],
   },
   {
     href: "/lessons/js",
     num: "03",
     label: "JavaScript",
     tag: "Interactivity",
-    description: "Bring pages to life. Variables, DOM, async/await, and the full power of ES6+ syntax.",
-    accent: "yellow",
+    description: "Variables, DOM, async/await, and the full power of ES6+ syntax.",
+    color: "#eab308",
+    dimColor: "rgba(234,179,8,0.12)",
     icon: Zap,
     weeks: "Weeks 4–6",
     lessons: 24,
+    skills: ["DOM API", "Promises", "ES6+", "Fetch"],
   },
   {
     href: "/lessons/react",
     num: "04",
     label: "React Mastery",
     tag: "Components",
-    description: "Modern professional UI. Components, props, state, hooks, context, and the ecosystem.",
-    accent: "green",
-    icon: BookOpen,
+    description: "Components, state, hooks, context, and the modern React ecosystem.",
+    color: "#06b6d4",
+    dimColor: "rgba(6,182,212,0.12)",
+    icon: Layers,
     weeks: "Weeks 7–10",
     lessons: 37,
+    skills: ["Hooks", "Context", "TanStack", "Framer Motion"],
   },
   {
     href: "/lessons/nextjs",
     num: "05",
     label: "Next.js 15",
-    tag: "Optional",
-    description: "Server Components, App Router, Server Actions, and full-stack architecture. (Overview module)",
-    accent: "rose",
-    icon: Server,
+    tag: "Framework",
+    description: "App Router, Server Components, Server Actions — full-stack architecture.",
+    color: "#f43f5e",
+    dimColor: "rgba(244,63,94,0.12)",
+    icon: Globe,
     weeks: "Weeks 11–12",
     lessons: 13,
-  },
-  {
-    href: "/lessons/backend-db",
-    num: "06",
-    label: "PHP & Laravel",
-    tag: "Backend",
-    description: "PHP fundamentals, Laravel framework, Eloquent ORM, Sanctum auth, and production deployment.",
-    accent: "emerald",
-    icon: Server,
-    weeks: "Weeks 13–14",
-    lessons: 31,
+    skills: ["App Router", "RSC", "Metadata", "Deploy"],
   },
   {
     href: "/lessons/db",
-    num: "07",
+    num: "06",
     label: "MongoDB & Mongoose",
     tag: "Database",
-    description: "Atlas, schemas, CRUD, aggregation pipelines, references, indexing, and NoSQL architecture.",
-    accent: "teal",
+    description: "Atlas, schemas, CRUD, aggregation pipelines, and NoSQL architecture.",
+    color: "#14b8a6",
+    dimColor: "rgba(20,184,166,0.12)",
     icon: HardDrive,
-    weeks: "Weeks 15–16",
+    weeks: "Weeks 13–14",
     lessons: 35,
+    skills: ["Schemas", "CRUD", "Aggregation", "Indexing"],
+  },
+  {
+    href: "/lessons/backend-db",
+    num: "07",
+    label: "PHP & Laravel",
+    tag: "Backend",
+    description: "PHP fundamentals, Eloquent ORM, Sanctum auth, REST APIs, and deployment.",
+    color: "#10b981",
+    dimColor: "rgba(16,185,129,0.12)",
+    icon: Terminal,
+    weeks: "Weeks 15–16",
+    lessons: 31,
+    skills: ["Eloquent", "Sanctum", "Queues", "Deploy"],
   },
 ];
 
-/* ─── ACCENT MAP ─────────────────────────────────────────────────── */
-const accentMap: Record<string, {
-  border: string; bg: string; icon: string; tag: string;
-  glow: string; bar: string;
-}> = {
-  blue:    { border: "hover:border-blue-500/40",    bg: "bg-blue-500/15",    icon: "text-blue-400",    tag: "bg-blue-500/10 text-blue-400 border-blue-500/20",    glow: "rgba(59,130,246,0.12)",  bar: "#3b82f6" },
-  purple:  { border: "hover:border-purple-500/40",  bg: "bg-purple-500/15",  icon: "text-purple-400",  tag: "bg-purple-500/10 text-purple-400 border-purple-500/20",glow: "rgba(168,85,247,0.12)", bar: "#a855f7" },
-  yellow:  { border: "hover:border-yellow-400/40",  bg: "bg-yellow-400/15",  icon: "text-yellow-400",  tag: "bg-yellow-400/10 text-yellow-400 border-yellow-400/20", glow: "rgba(250,204,21,0.12)", bar: "#facc15" },
-  green:   { border: "hover:border-green-500/40",   bg: "bg-green-500/15",   icon: "text-green-400",   tag: "bg-green-500/10 text-green-400 border-green-500/20",   glow: "rgba(34,197,94,0.12)",  bar: "#22c55e" },
-  rose:    { border: "hover:border-rose-500/40",    bg: "bg-rose-500/15",    icon: "text-rose-400",    tag: "bg-rose-500/10 text-rose-400 border-rose-500/20",      glow: "rgba(244,63,94,0.12)",  bar: "#f43f5e" },
-  emerald: { border: "hover:border-emerald-500/40", bg: "bg-emerald-500/15", icon: "text-emerald-400", tag: "bg-emerald-500/10 text-emerald-400 border-emerald-500/20",glow:"rgba(16,185,129,0.12)",bar:"#10b981" },
-  teal:    { border: "hover:border-teal-500/40",    bg: "bg-teal-500/15",    icon: "text-teal-400",    tag: "bg-teal-500/10 text-teal-400 border-teal-500/20",      glow: "rgba(20,184,166,0.12)", bar: "#14b8a6" },
-};
-
-const totalLessons = modules.reduce((sum, m) => sum + m.lessons, 0);
-
-/* ─── ANIMATION VARIANTS ─────────────────────────────────────────── */
-const container = {
-  hidden: { opacity: 0 },
-  show: { opacity: 1, transition: { staggerChildren: 0.1, delayChildren: 0.25 } },
-};
-const item = {
-  hidden: { opacity: 0, y: 24 },
-  show: { opacity: 1, y: 0, transition: { type: "spring" as const, stiffness: 120, damping: 20 } },
-};
+const totalLessons = modules.reduce((s, m) => s + m.lessons, 0);
 
 /* ─── MODULE CARD ────────────────────────────────────────────────── */
-function ModuleCard({ mod, idx }: { mod: Module; idx: number }) {
-  const a = accentMap[mod.accent];
+function ModuleCard({ mod, isLeft }: { mod: Module; isLeft: boolean }) {
+  const [hovered, setHovered] = useState(false);
   const Icon = mod.icon;
 
   return (
-    <motion.div variants={item}>
-      <Link href={mod.href} className="group block h-full">
+    <motion.div
+      initial={{ opacity: 0, x: isLeft ? -40 : 40 }}
+      whileInView={{ opacity: 1, x: 0 }}
+      viewport={{ once: true, margin: "-60px" }}
+      transition={{ duration: 0.55, ease: [0.32, 0.72, 0, 1] }}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+    >
+      <Link href={mod.href} className="block">
         <div
-          className={`relative h-full flex flex-col p-7 rounded-3xl bg-white/[0.03] border border-white/8 ${a.border} transition-all duration-400 overflow-hidden hover:-translate-y-1`}
-          style={{ transition: 'border-color 0.3s, transform 0.3s, box-shadow 0.3s' }}
+          className="relative rounded-3xl border overflow-hidden"
+          style={{
+            background: hovered
+              ? `linear-gradient(135deg, rgba(255,255,255,0.04) 0%, ${mod.dimColor} 100%)`
+              : 'rgba(255,255,255,0.02)',
+            borderColor: hovered ? `${mod.color}55` : 'rgba(255,255,255,0.07)',
+            boxShadow: hovered ? `0 0 40px ${mod.color}15, 0 0 0 1px ${mod.color}25` : 'none',
+            transform: hovered ? 'translateY(-4px)' : 'translateY(0)',
+            transition: 'all 0.35s cubic-bezier(0.32, 0.72, 0, 1)',
+          }}
         >
-          {/* Hover glow */}
+          {/* Top accent bar */}
           <div
-            className="absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
-            style={{ background: `radial-gradient(ellipse at 80% 80%, ${a.glow} 0%, transparent 70%)` }}
+            className="absolute top-0 left-0 right-0 h-[2px] transition-opacity duration-400"
+            style={{
+              background: `linear-gradient(90deg, transparent, ${mod.color}, transparent)`,
+              opacity: hovered ? 1 : 0,
+            }}
           />
 
-          {/* Top row */}
-          <div className="flex items-start justify-between mb-6 relative z-10">
-            <div className={`w-12 h-12 rounded-2xl ${a.bg} border border-white/8 flex items-center justify-center group-hover:rotate-6 transition-transform duration-300`}>
-              <Icon className={`w-6 h-6 ${a.icon}`} />
+          <div className="p-6">
+            {/* Header */}
+            <div className="flex items-start justify-between mb-4">
+              <div className="flex items-center gap-2.5">
+                <div
+                  className="w-7 h-7 rounded-full flex items-center justify-center text-[10px] font-black border"
+                  style={{ borderColor: `${mod.color}45`, background: mod.dimColor, color: mod.color }}
+                >
+                  {mod.num}
+                </div>
+                <span
+                  className="text-[9px] font-black uppercase tracking-widest px-2.5 py-1 rounded-full border"
+                  style={{ color: mod.color, borderColor: `${mod.color}35`, background: `${mod.color}08` }}
+                >
+                  {mod.tag}
+                </span>
+              </div>
+              <div
+                className="w-10 h-10 rounded-xl flex items-center justify-center"
+                style={{
+                  background: mod.dimColor,
+                  transform: hovered ? 'rotate(8deg) scale(1.08)' : 'rotate(0deg) scale(1)',
+                  transition: 'transform 0.3s ease',
+                }}
+              >
+                <Icon className="w-5 h-5" style={{ color: mod.color }} />
+              </div>
             </div>
-            <div className="text-right">
-              <div className="text-[10px] font-black text-white/20 uppercase tracking-widest">{mod.weeks}</div>
-              <div className="text-[10px] font-medium text-white/30 mt-0.5">{mod.lessons} slides</div>
+
+            {/* Content */}
+            <h3 className="text-lg font-black tracking-tight text-white mb-1.5">{mod.label}</h3>
+            <p className="text-sm text-white/30 leading-relaxed mb-4 font-light">{mod.description}</p>
+
+            {/* Skills */}
+            <div className="flex flex-wrap gap-1.5 mb-5">
+              {mod.skills.map(skill => (
+                <span
+                  key={skill}
+                  className="text-[9px] font-bold px-2 py-1 rounded-lg"
+                  style={{ background: 'rgba(255,255,255,0.04)', color: 'rgba(255,255,255,0.35)' }}
+                >
+                  {skill}
+                </span>
+              ))}
+            </div>
+
+            {/* Footer */}
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2 text-[10px] text-white/20 font-mono">
+                <span>{mod.weeks}</span>
+                <span className="w-1 h-1 rounded-full bg-white/10" />
+                <span>{mod.lessons} slides</span>
+              </div>
+              <div
+                className="flex items-center gap-1.5 text-[10px] font-black uppercase tracking-widest"
+                style={{ color: mod.color, gap: hovered ? '10px' : '6px', transition: 'gap 0.3s' }}
+              >
+                Open <ChevronRight className="w-3.5 h-3.5" />
+              </div>
             </div>
           </div>
-
-          {/* Content */}
-          <div className="flex-1 space-y-3 relative z-10">
-            <div className="flex items-center gap-2">
-              <span className={`text-[9px] font-black uppercase tracking-widest px-2 py-0.5 rounded-full border ${a.tag}`}>
-                {mod.tag}
-              </span>
-              <span className="text-[10px] font-black text-white/20 font-mono">{mod.num}</span>
-            </div>
-            <h3 className="text-xl font-black tracking-tight text-white leading-tight">{mod.label}</h3>
-            <p className="text-sm text-white/35 font-light leading-relaxed">{mod.description}</p>
-          </div>
-
-          {/* CTA */}
-          <div className={`mt-6 flex items-center gap-2 text-xs font-black uppercase tracking-widest ${a.icon} relative z-10 group-hover:gap-3 transition-all duration-300`}>
-            Begin Module
-            <ArrowRight className="w-3.5 h-3.5" />
-          </div>
-
-          {/* Bottom accent bar */}
-          <div
-            className="absolute bottom-0 left-0 right-0 h-[2px] opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-            style={{ background: `linear-gradient(90deg, transparent, ${a.bar}, transparent)` }}
-          />
         </div>
       </Link>
     </motion.div>
   );
 }
 
-/* ─── STAT PILL ──────────────────────────────────────────────────── */
-function StatPill({ label, value, color }: { label: string; value: string; color?: string }) {
+/* ─── SPINE NODE (centre column) ─────────────────────────────────── */
+function SpineNode({ mod }: { mod: Module }) {
   return (
-    <div className="flex flex-col gap-0.5">
-      <span className="text-[9px] font-black text-white/20 uppercase tracking-[0.2em]">{label}</span>
-      <span className={`text-sm font-bold ${color ?? 'text-white/50'}`}>{value}</span>
+    <motion.div
+      initial={{ scale: 0, opacity: 0 }}
+      whileInView={{ scale: 1, opacity: 1 }}
+      viewport={{ once: true }}
+      transition={{ type: 'spring', stiffness: 240, damping: 22, delay: 0.15 }}
+      className="flex flex-col items-center gap-2"
+    >
+      <div
+        className="w-14 h-14 rounded-full border-2 flex items-center justify-center text-xs font-black"
+        style={{
+          borderColor: `${mod.color}50`,
+          background: `${mod.color}10`,
+          color: mod.color,
+          boxShadow: `0 0 20px ${mod.color}20`,
+        }}
+      >
+        {mod.num}
+      </div>
+    </motion.div>
+  );
+}
+
+/* ─── SVG CONNECTOR ──────────────────────────────────────────────── */
+function Connector({ from, to, toRight }: { from: string; to: string; toRight: boolean }) {
+  return (
+    <div className="flex justify-center h-12 items-center">
+      <svg width="320" height="48" viewBox="0 0 320 48" fill="none">
+        <defs>
+          <linearGradient id={`cg-${from}-${to}`} x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stopColor={from} stopOpacity="0.5" />
+            <stop offset="100%" stopColor={to} stopOpacity="0.5" />
+          </linearGradient>
+        </defs>
+
+        {toRight ? (
+          // Card on left → Card on right: sweep right
+          <>
+            <path
+              d="M 40 8 Q 160 8 160 24 Q 160 40 280 40"
+              stroke={`url(#cg-${from}-${to})`}
+              strokeWidth="1.5"
+              strokeDasharray="7 5"
+              strokeLinecap="round"
+              fill="none"
+            />
+            <circle cx="280" cy="40" r="3" fill={to} opacity="0.7" />
+            <path d="M 275 36 L 280 40 L 285 36" stroke={to} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" opacity="0.7" />
+          </>
+        ) : (
+          // Card on right → Card on left: sweep left
+          <>
+            <path
+              d="M 280 8 Q 160 8 160 24 Q 160 40 40 40"
+              stroke={`url(#cg-${from}-${to})`}
+              strokeWidth="1.5"
+              strokeDasharray="7 5"
+              strokeLinecap="round"
+              fill="none"
+            />
+            <circle cx="40" cy="40" r="3" fill={to} opacity="0.7" />
+            <path d="M 35 36 L 40 40 L 45 36" stroke={to} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" opacity="0.7" />
+          </>
+        )}
+      </svg>
+    </div>
+  );
+}
+
+/* ─── ROADMAP SECTION ────────────────────────────────────────────── */
+function RoadmapSection() {
+  return (
+    <div className="relative max-w-4xl mx-auto">
+      {/* Vertical spine — desktop only */}
+      <div
+        className="absolute left-1/2 top-8 bottom-8 w-px -translate-x-1/2 hidden md:block pointer-events-none"
+        style={{
+          background: 'linear-gradient(to bottom, transparent, rgba(255,255,255,0.05) 8%, rgba(255,255,255,0.05) 92%, transparent)',
+        }}
+      />
+
+      <div className="space-y-0">
+        {modules.map((mod, i) => {
+          const isLeft = i % 2 === 0;   // card on LEFT side
+          const nextMod = modules[i + 1];
+
+          return (
+            <div key={mod.href}>
+              {/* ── ROW ── */}
+              <div className="grid md:grid-cols-[1fr_auto_1fr] gap-x-6 items-center">
+
+                {/* Left column */}
+                <div>
+                  {isLeft
+                    ? <ModuleCard mod={mod} isLeft={true} />
+                    : <div className="hidden md:flex justify-end pr-4">
+                        <div
+                          className="text-[9px] font-black uppercase tracking-widest text-right"
+                          style={{ color: mod.color, opacity: 0.4 }}
+                        >{mod.weeks}</div>
+                      </div>
+                  }
+                </div>
+
+                {/* Centre spine node — desktop */}
+                <div className="hidden md:flex justify-center">
+                  <SpineNode mod={mod} />
+                </div>
+
+                {/* Right column */}
+                <div>
+                  {!isLeft
+                    ? <ModuleCard mod={mod} isLeft={false} />
+                    : <div className="hidden md:flex justify-start pl-4">
+                        <div
+                          className="text-[9px] font-black uppercase tracking-widest"
+                          style={{ color: mod.color, opacity: 0.4 }}
+                        >{mod.weeks}</div>
+                      </div>
+                  }
+                </div>
+
+                {/* Mobile: always show card */}
+                <div className="md:hidden col-span-3">
+                  <ModuleCard mod={mod} isLeft={true} />
+                </div>
+              </div>
+
+              {/* ── CONNECTOR ── */}
+              {nextMod && (
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  whileInView={{ opacity: 1 }}
+                  viewport={{ once: true }}
+                  className="hidden md:block"
+                >
+                  <Connector
+                    from={mod.color}
+                    to={nextMod.color}
+                    toRight={isLeft}  // card was on left → connector goes right
+                  />
+                </motion.div>
+              )}
+
+              {/* Mobile: simple vertical line between cards */}
+              {nextMod && (
+                <div className="md:hidden flex flex-col items-center py-3">
+                  <div
+                    className="w-px h-8"
+                    style={{ background: `linear-gradient(to bottom, ${mod.color}55, ${nextMod.color}55)` }}
+                  />
+                  <div className="w-2 h-2 rounded-full mt-1" style={{ background: nextMod.color, opacity: 0.6 }} />
+                </div>
+              )}
+            </div>
+          );
+        })}
+
+        {/* ── FINISH NODE ── */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.7 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.3, type: 'spring', stiffness: 180 }}
+          className="flex justify-center mt-8 pt-4"
+        >
+          <div className="flex flex-col items-center gap-3">
+            <div
+              className="w-20 h-20 rounded-full border-2 flex items-center justify-center"
+              style={{
+                borderColor: 'rgba(234,179,8,0.45)',
+                background: 'rgba(234,179,8,0.08)',
+                boxShadow: '0 0 50px rgba(234,179,8,0.12)',
+              }}
+            >
+              <Star className="w-8 h-8 fill-current" style={{ color: '#eab308' }} />
+            </div>
+            <div className="text-center">
+              <p className="text-xs font-black uppercase tracking-[0.25em] text-yellow-400/60">Full-Stack Engineer</p>
+              <p className="text-[10px] text-white/20 mt-1 font-mono">{totalLessons}+ slides · 16 weeks</p>
+            </div>
+          </div>
+        </motion.div>
+      </div>
+    </div>
+  );
+}
+
+/* ─── MODULE STRIP (top navigation bar) ─────────────────────────── */
+function ModuleStrip() {
+  return (
+    <div className="flex items-stretch rounded-2xl overflow-hidden border border-white/6 mt-8">
+      {modules.map((mod, i) => (
+        <Link
+          key={mod.href}
+          href={mod.href}
+          className="flex-1 group relative flex flex-col items-center gap-1.5 py-3.5 px-2 hover:bg-white/4 transition-colors"
+          style={{ borderRight: i < modules.length - 1 ? '1px solid rgba(255,255,255,0.05)' : 'none' }}
+        >
+          <mod.icon className="w-4 h-4" style={{ color: mod.color, opacity: 0.7 }} />
+          <span className="text-[8px] font-black text-white/20 uppercase tracking-widest text-center leading-tight hidden sm:block">
+            {mod.num}
+          </span>
+          <div
+            className="absolute bottom-0 left-0 right-0 h-[1.5px] opacity-0 group-hover:opacity-100 transition-opacity"
+            style={{ background: mod.color }}
+          />
+        </Link>
+      ))}
     </div>
   );
 }
@@ -198,100 +442,136 @@ function StatPill({ label, value, color }: { label: string; value: string; color
 export default function Home() {
   return (
     <div
-      className="min-h-screen bg-[#080c14] text-white selection:bg-blue-500/30 overflow-x-hidden"
-      style={{ fontFamily: "'Inter','DM Sans',system-ui,sans-serif" }}
+      className="min-h-screen bg-[#080c14] text-white selection:bg-blue-500/25 overflow-x-hidden"
+      style={{ fontFamily: "'DM Mono','JetBrains Mono',system-ui,sans-serif" }}
     >
       {/* Fixed background */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden">
-        <div className="absolute top-[-15%] left-[-10%] w-[45%] h-[45%] bg-blue-500/8 rounded-full blur-[140px]" />
-        <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-indigo-500/8 rounded-full blur-[140px]" />
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff08_1px,transparent_1px),linear-gradient(to_bottom,#ffffff08_1px,transparent_1px)] bg-[size:44px_44px]" />
+        <div className="absolute top-[-20%] left-[-15%] w-[55%] h-[55%] bg-blue-700/5 rounded-full blur-[180px]" />
+        <div className="absolute bottom-[-15%] right-[-10%] w-[45%] h-[45%] bg-emerald-700/5 rounded-full blur-[160px]" />
+        <div className="absolute top-[45%] left-[35%] w-[30%] h-[30%] bg-purple-700/4 rounded-full blur-[130px]" />
+        <div
+          className="absolute inset-0 opacity-100"
+          style={{
+            backgroundImage: `
+              linear-gradient(rgba(255,255,255,0.022) 1px, transparent 1px),
+              linear-gradient(90deg, rgba(255,255,255,0.022) 1px, transparent 1px)
+            `,
+            backgroundSize: '48px 48px',
+          }}
+        />
       </div>
 
-      <main className="max-w-6xl mx-auto px-6 py-24 md:py-32 relative z-10">
+      <main className="max-w-5xl mx-auto px-6 py-20 md:py-28 relative z-10">
 
         {/* ── HERO ── */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 36 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, ease: [0.32, 0.72, 0, 1] }}
-          className="mb-24 max-w-3xl space-y-7"
+          transition={{ duration: 0.75, ease: [0.32, 0.72, 0, 1] }}
+          className="mb-20 space-y-7"
         >
-          {/* Badge */}
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-[10px] font-black uppercase tracking-widest">
-            <Star className="w-3 h-3 fill-current" />
-            Modern Full-Stack Roadmap
+          {/* Live badge */}
+          <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full border border-blue-500/20 bg-blue-500/6 text-blue-400 text-[10px] font-black uppercase tracking-[0.22em]">
+            <span className="w-1.5 h-1.5 rounded-full bg-blue-400 animate-pulse" />
+            Full-Stack Development Roadmap · 2024–2025
           </div>
 
-          <h1 className="text-6xl md:text-8xl font-black tracking-tighter leading-[0.9]">
-            The Path to<br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-emerald-400 to-indigo-400">
-              Mastery.
-            </span>
-          </h1>
-
-          <p className="text-lg text-white/35 leading-relaxed font-light max-w-2xl">
-            A precision-engineered curriculum designed for a{" "}
-            <span className="text-white font-semibold">4-month journey</span>.
-            Balanced at{" "}
-            <span className="text-blue-400 font-bold">1 hour / day, Mon–Fri</span>{" "}
-            to take you from curious beginner to professional engineer.
-          </p>
-
-          {/* Stat pills */}
-          <div className="flex flex-wrap items-center gap-6 pt-2">
-            <div className="flex items-center gap-2 px-5 py-3 rounded-2xl bg-white text-black font-black text-sm">
-              <Zap className="w-4 h-4 fill-current" />
-              {totalLessons}+ Slides
-            </div>
-            <div className="flex items-center gap-2 px-5 py-3 rounded-2xl bg-white/5 border border-white/10 font-bold text-sm hover:bg-white/8 transition-colors">
-              <Clock className="w-4 h-4 text-white/40" />
-              16-Week Roadmap
-            </div>
-            <div className="flex items-center gap-2 px-5 py-3 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 font-bold text-sm">
-              <CheckCircle2 className="w-4 h-4" />
-              {modules.length} Active Modules
-            </div>
+          {/* Headline */}
+          <div className="max-w-3xl space-y-3">
+            <h1
+              className="text-5xl md:text-7xl font-black tracking-tighter leading-[0.86]"
+              style={{ fontFamily: "'DM Mono','JetBrains Mono',monospace" }}
+            >
+              From Zero
+              <br />
+              <span
+                style={{
+                  WebkitTextStroke: '2px rgba(255,255,255,0.12)',
+                  color: 'transparent',
+                }}
+              >
+                to Engineer.
+              </span>
+            </h1>
+            <p
+              className="text-base text-white/28 leading-relaxed max-w-xl"
+              style={{ fontFamily: 'system-ui', fontWeight: 300 }}
+            >
+              A precision-engineered{' '}
+              <span className="text-white/55 font-semibold">16-week journey</span>
+              {' '}— one hour a day, five days a week. From semantic HTML to full-stack
+              PHP APIs and production databases.
+            </p>
           </div>
+
+          {/* Stat chips */}
+          <div className="flex flex-wrap gap-2.5">
+            {[
+              { label: `${totalLessons}+ Slides`, Icon: BookOpen, color: '#3b82f6' },
+              { label: '16 Weeks',                Icon: Clock,    color: '#a855f7' },
+              { label: `${modules.length} Modules`, Icon: CheckCircle2, color: '#10b981' },
+              { label: '1h / Day',                Icon: Zap,      color: '#eab308' },
+            ].map(s => (
+              <div
+                key={s.label}
+                className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl border text-xs font-bold"
+                style={{
+                  borderColor: `${s.color}22`,
+                  background: `${s.color}07`,
+                  color: `${s.color}bb`,
+                }}
+              >
+                <s.Icon className="w-3.5 h-3.5" />
+                {s.label}
+              </div>
+            ))}
+          </div>
+
+          {/* Quick-access strip */}
+          <ModuleStrip />
         </motion.div>
 
-        {/* ── MODULE GRID ── */}
-        <div className="space-y-8">
-          <div className="flex items-center gap-4">
-            <h2 className="text-[10px] font-black uppercase tracking-[0.4em] text-white/20 whitespace-nowrap">
-              Learning Sequence
-            </h2>
-            <div className="h-px flex-1 bg-white/5" />
-            <span className="text-[10px] font-mono text-white/20">{modules.length} modules</span>
+        {/* ── SECTION DIVIDER ── */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          className="flex items-center gap-4 mb-14"
+        >
+          <div className="h-px flex-1 bg-white/5" />
+          <div className="flex items-center gap-2 text-[10px] font-black text-white/20 uppercase tracking-[0.3em]">
+            <ArrowRight className="w-3 h-3" />
+            The Journey
           </div>
+          <div className="h-px flex-1 bg-white/5" />
+        </motion.div>
 
-          <motion.div
-            variants={container}
-            initial="hidden"
-            animate="show"
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"
-          >
-            {modules.map((mod, idx) => (
-              <ModuleCard key={mod.href} mod={mod} idx={idx} />
-            ))}
-          </motion.div>
-        </div>
+        {/* ── ZIGZAG ROADMAP ── */}
+        <RoadmapSection />
 
         {/* ── FOOTER ── */}
         <motion.footer
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          className="mt-32 pt-10 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-8"
+          className="mt-24 pt-8 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-6"
         >
-          <div className="flex items-center gap-8 flex-wrap justify-center md:justify-start">
-            <StatPill label="Weekly Pace" value="5 Hours / Week" />
-            <div className="w-px h-8 bg-white/5 hidden md:block" />
-            <StatPill label="Total Slides" value={`${totalLessons}+ Lessons`} />
-            <div className="w-px h-8 bg-white/5 hidden md:block" />
-            <StatPill label="Duration" value="~16 Weeks" />
+          <div className="flex items-center gap-6 flex-wrap justify-center md:justify-start">
+            {[
+              { l: 'Pace',    v: '5h / Week' },
+              { l: 'Format',  v: 'Interactive Slides' },
+              { l: 'Level',   v: 'Beginner → Pro' },
+            ].map((s, i) => (
+              <div key={s.l} className="flex items-center gap-6">
+                {i > 0 && <div className="w-px h-6 bg-white/5 hidden md:block" />}
+                <div className="flex flex-col gap-0.5">
+                  <span className="text-[9px] font-black text-white/18 uppercase tracking-[0.2em]">{s.l}</span>
+                  <span className="text-sm font-bold text-white/38">{s.v}</span>
+                </div>
+              </div>
+            ))}
           </div>
-
           <div className="flex items-center gap-2 text-sm font-bold text-emerald-400">
             <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
             Live Beta Access
