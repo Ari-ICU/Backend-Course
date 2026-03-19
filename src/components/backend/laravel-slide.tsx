@@ -9,7 +9,7 @@ import {
   Server, Package, Workflow, FileCode, ArrowRight, BookOpen,
   GitBranch, Star, Trophy, ShoppingCart, Key, Fingerprint,
   List, RefreshCw, Send, Search, Activity, StickyNote, Play,
-  Box, HardDrive, Layout, Edit3, Sparkles,
+  Box, HardDrive, Layout, Edit3, Sparkles, Clock,
 } from 'lucide-react';
 
 /* ─── TYPES ──────────────────────────────────────────────────────── */
@@ -39,6 +39,7 @@ const CHAPTERS = [
   { id: 'blade',        label: '04 · Blade',         color: '#22c55e' },
   { id: 'eloquent',     label: '05 · Eloquent',      color: '#06b6d4' },
   { id: 'auth',         label: '06 · Auth & API',    color: '#a855f7' },
+  { id: 'queues',       label: '07 · Queues & Jobs', color: '#ec4899' },
 ];
 
 /* ─── SLIDE DATA ─────────────────────────────────────────────────── */
@@ -757,6 +758,75 @@ echo "✅ Deployment complete."`,
 
    INFO  Optimization complete.`,
     icon: Rocket,
+  },
+  /* ── CHAPTER 7: QUEUES & JOBS ── */
+  {
+    id: 'S7-1', chapter: 'queues',
+    title: 'Background Jobs', subtitle: 'Processing tasks asynchronously',
+    accent: '#ec4899',
+    bg: 'radial-gradient(ellipse at 20% 50%, rgba(236,72,153,0.15) 0%, transparent 55%)',
+    concepts: [
+      { label: 'Why Queues?', desc: 'Never make users wait for slow tasks like sending emails or processing video.' },
+      { label: 'QUEUE_CONNECTION', desc: 'Set to redis or database in production, sync for local dev.' },
+      { label: 'make:job', desc: 'Artisan command to create a new job class.' },
+      { label: 'handle()', desc: 'The method inside the job class where the heavy lifting happens.' },
+    ],
+    tip: 'Always dispatch email sending to a queue. It makes your API response time instant instead of taking 2+ seconds.',
+    lab: 'Create a SendWelcomeEmail job and dispatch it from your registration controller.',
+    result: 'The user receives the email, but your API responds in < 50ms.',
+    filename: 'terminal',
+    code: `# 1. Create the migrations for the jobs table
+php artisan make:queue-table
+php artisan migrate
+
+# 2. Set QUEUE_CONNECTION=database in .env
+
+# 3. Create a new Job class
+php artisan make:job ProcessPayment`,
+    terminal: 'php artisan make:job ProcessPayment',
+    terminalOutput: '   INFO  Job [app/Jobs/ProcessPayment.php] created successfully.',
+    icon: Clock,
+  },
+  {
+    id: 'S7-2', chapter: 'queues',
+    title: 'Dispatching & Workers', subtitle: 'Executing the background tasks',
+    accent: '#ec4899',
+    bg: 'radial-gradient(ellipse at 70% 30%, rgba(236,72,153,0.12) 0%, transparent 55%)',
+    concepts: [
+      { label: 'dispatch()', desc: 'Send the job to the queue implicitly.' },
+      { label: 'delay()', desc: 'Schedule the job to run after a certain amount of time.' },
+      { label: 'queue:work', desc: 'The daemon process that constantly listens for new jobs and runs them.' },
+      { label: 'Supervisor', desc: 'A Linux process manager used in production to keep queue:work running forever.' },
+    ],
+    tip: 'In production, use Laravel Horizon for a beautiful dashboard to monitor your Redis queues.',
+    lab: 'Dispatch a job with a 5-minute delay and watch it appear in the database jobs table.',
+    result: 'The job waits patiently in the table until the worker picks it up 5 minutes later.',
+    filename: 'app/Http/Controllers/OrderController.php',
+    code: `<?php
+
+namespace App\Http\Controllers;
+
+use App\Jobs\ProcessPayment;
+use Illuminate\Http\Request;
+
+class OrderController extends Controller
+{
+    public function store(Request $request)
+    {
+        // 1. Create the order in DB instantly
+        $order = Order::create($request->all());
+
+        // 2. Dispatch payment processing to background!
+        ProcessPayment::dispatch($order->id);
+
+        // 3. You can also delay execution
+        // ProcessPayment::dispatch($order->id)->delay(now()->addMinutes(10));
+
+        // 4. Respond to user immediately
+        return response()->json(['message' => 'Order received!'], 201);
+    }
+}`,
+    icon: Zap,
   },
 ];
 
