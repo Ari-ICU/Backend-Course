@@ -1,4 +1,4 @@
-import PHPLaravelLesson from "@/components/backend/php-laravel-slides";
+import PHPLaravelLesson from "@/components/backend/php-slides";
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import { Suspense } from "react";

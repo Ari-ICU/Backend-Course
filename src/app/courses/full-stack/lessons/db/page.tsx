@@ -1,7 +1,7 @@
 "use client";
 
 import React from 'react';
-import DbLesson from '@/components/full-stack/lessons/db-slides';
+import DbLesson from '@/components/full-stack/db-slides';
 import { ChevronLeft, Home } from 'lucide-react';
 import Link from 'next/link';
 

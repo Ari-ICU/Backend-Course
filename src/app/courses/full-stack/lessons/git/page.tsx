@@ -1,4 +1,4 @@
-import GitLessonSlides from "@/components/full-stack/lessons/git-slides";
+import GitLessonSlides from "@/components/full-stack/git-slides";
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 

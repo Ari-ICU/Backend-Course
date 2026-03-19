@@ -1,5 +1,5 @@
 // page.tsx (Server Component)
-import NextLessonWrapper from "@/components/full-stack/lessons/next-slides";
+import NextLessonWrapper from "@/components/full-stack/next-slides";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 

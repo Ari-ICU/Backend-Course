@@ -1,4 +1,4 @@
-import CssLessonSlides from "@/components/full-stack/lessons/css-slides";
+import CssLessonSlides from "@/components/full-stack/css-slides";
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 

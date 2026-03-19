@@ -28,7 +28,7 @@ interface Module {
 
 const modules: Module[] = [
   {
-    href: "/courses/backend/lessons/php-laravel?module=01",
+    href: "/courses/backend/lessons/php?module=01",
     num: "01",
     label: "PHP Zero to Pro & Laravel Setup",
     tag: "Weeks 1–2",
@@ -45,7 +45,7 @@ const modules: Module[] = [
     ],
   },
   {
-    href: "/courses/backend/lessons/php-laravel?module=02",
+    href: "/courses/backend/lessons/laravel?module=02",
     num: "02",
     label: "MVC & Blade Template",
     tag: "Weeks 3–4",
@@ -62,7 +62,7 @@ const modules: Module[] = [
     ],
   },
   {
-    href: "/courses/backend/lessons/php-laravel?module=03",
+    href: "/courses/backend/lessons/laravel?module=03",
     num: "03",
     label: "Database & Eloquent",
     tag: "Weeks 5–6",
@@ -79,7 +79,7 @@ const modules: Module[] = [
     ],
   },
   {
-    href: "/courses/backend/lessons/php-laravel?module=04",
+    href: "/courses/backend/lessons/laravel?module=04",
     num: "04",
     label: "CRUD & API Design",
     tag: "Weeks 7–8",
@@ -96,7 +96,7 @@ const modules: Module[] = [
     ],
   },
   {
-    href: "/courses/backend/lessons/php-laravel?module=05",
+    href: "/courses/backend/lessons/laravel?module=05",
     num: "05",
     label: "Auth & Relationships",
     tag: "Weeks 9–10",
@@ -113,7 +113,7 @@ const modules: Module[] = [
     ],
   },
   {
-    href: "/courses/backend/lessons/php-laravel?module=06",
+    href: "/courses/backend/lessons/laravel?module=06",
     num: "06",
     label: "Final Project & Deploy",
     tag: "Weeks 11–12",

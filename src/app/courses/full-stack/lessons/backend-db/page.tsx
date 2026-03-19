@@ -1,4 +1,4 @@
-import BackendLesson from "@/components/full-stack/lessons/backend-db-slides";
+import BackendLesson from "@/components/full-stack/backend-db-slides";
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 
