@@ -689,10 +689,9 @@ if (! function_exists('initials')) {
 
 export default function LaravelCoreLessonPage() {
   return (
-    <main className="min-h-screen overflow-hidden" style={{ background: '#fafaf8' }}>
+    <main className="min-h-screen overflow-hidden">
       <nav
         className="px-8 py-5 sticky top-0 z-50 border-b"
-        style={{ borderColor: 'rgba(0,0,0,0.06)', background: 'rgba(250,250,248,0.92)', backdropFilter: 'blur(12px)' }}
       >
         <div className="max-w-5xl mx-auto flex items-center justify-between">
           <Link

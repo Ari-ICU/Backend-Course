@@ -1,55 +1,56 @@
 "use client";
 
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef, Suspense } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronLeft, ChevronRight, CheckCircle, XCircle } from 'lucide-react';
+import {
+  ChevronLeft, ChevronRight, CheckCircle, XCircle,
+  Braces, Cpu, Network, BookOpen, HelpCircle, GitCompare, ListOrdered,
+  Code2, Terminal, Play, Layout, Settings, Eye, Sparkles,
+  RotateCcw, Monitor, Shield, Database, Smartphone, ArrowLeft
+} from 'lucide-react';
 
-export interface DiagramNode {
-  label: string;
-  desc: string;
-  color: string;
-}
-
-export interface QuizOption {
-  text: string;
-  correct: boolean;
-  explanation: string;
-}
+// ─── Types ────────────────────────────────────────────────────────────────────
+export interface DiagramNode { label: string; desc: string; color: string; }
+export interface QuizOption  { text: string; correct: boolean; explanation: string; }
+export interface CompareItem { name: string; badge?: string; badgeColor?: string; points: string[]; }
+export interface TimelineStep { step: string; title: string; desc: string; color?: string; }
 
 export interface Slide {
   title: string;
   subtitle: string;
   content: string;
-  type: 'concept' | 'code' | 'diagram' | 'hero' | 'quiz';
+  type: 'concept' | 'code' | 'diagram' | 'hero' | 'quiz' | 'compare' | 'timeline';
   icon: React.ElementType;
-  // Code slides
   codeSnippet?: string;
   language?: 'php' | 'ts' | 'js' | 'bash';
   codeFileName?: string;
   keyPoints?: string[];
-  // Diagram slides
   diagramNodes?: DiagramNode[];
-  // Quiz slides
   question?: string;
   options?: QuizOption[];
-  // Concept slides
   callout?: string;
+  syntax?: string;
+  compareItems?: CompareItem[];
+  timelineSteps?: TimelineStep[];
+  accent?: string;
+  htmlSnippet?: string;
+  cssSnippet?: string;
+  id?: string;
 }
 
-// ─── PHP-aware Syntax Highlighter ─────────────────────────────────────────────
-function highlightPHP(line: string): React.ReactNode[] {
+// ─── Syntax highlighter ───────────────────────────────────────────────────────
+function highlight(line: string): React.ReactNode[] {
   const rules: { regex: RegExp; cls: string }[] = [
-    { regex: /(#\[.*?\])/g,                                                                        cls: 'tok-attr' },
-    { regex: /(\/\/.*|#(?!\[).*)/g,                                                                cls: 'tok-comment' },
-    { regex: /("(?:[^"\\]|\\.)*"|'(?:[^'\\]|\\.)*')/g,                                            cls: 'tok-str' },
-    { regex: /\b(declare|strict_types|namespace|use|class|interface|trait|enum|abstract|final|readonly|extends|implements|new|return|fn|function|match|throw|try|catch|finally|if|else|elseif|foreach|for|while|echo|print|yield|static|public|protected|private|const|case|default|break|continue|null|true|false)\b/g, cls: 'tok-kw' },
-    { regex: /\b(string|int|float|bool|array|void|never|mixed|self|parent|iterable|callable|object)\b/g, cls: 'tok-type' },
-    { regex: /(\$[a-zA-Z_][a-zA-Z0-9_]*)/g,                                                       cls: 'tok-var' },
-    { regex: /\b(\d+(\.\d+)?)\b/g,                                                                cls: 'tok-num' },
-    { regex: /([a-zA-Z_][a-zA-Z0-9_]*)\s*(?=\()/g,                                               cls: 'tok-fn' },
-    { regex: /\b([A-Z][a-zA-Z0-9_]*)\b/g,                                                         cls: 'tok-class' },
+    { regex: /(#\[.*?\])/g,                                                                        cls: 'h-attr' },
+    { regex: /(\/\/.*|#(?!\[).*|\/\*[\s\S]*?\*\/)/g,                                              cls: 'h-comment' },
+    { regex: /("(?:[^"\\]|\\.)*"|'(?:[^'\\]|\\.)*'|`(?:[^`\\]|\\.)*`)/g,                         cls: 'tok-value' },
+    { regex: /\b(declare|strict_types|namespace|use|class|interface|trait|enum|abstract|final|readonly|extends|implements|new|return|fn|function|match|throw|try|catch|finally|if|else|elseif|foreach|for|while|echo|print|yield|static|public|protected|private|const|case|default|break|continue|null|true|false|async|await|import|from|export)\b/g, cls: 'h-kw' },
+    { regex: /\b(string|int|float|bool|array|void|never|mixed|self|parent|iterable|callable|object)\b/g, cls: 'h-type' },
+    { regex: /(\$[a-zA-Z_][a-zA-Z0-9_]*)/g,                                                       cls: 'h-var' },
+    { regex: /\b(\d+(\.\d+)?)\b/g,                                                                cls: 'h-num' },
+    { regex: /([a-zA-Z_][a-zA-Z0-9_]*)\s*(?=\()/g,                                               cls: 'h-fn' },
+    { regex: /\b([A-Z][a-zA-Z0-9_]*)\b/g,                                                         cls: 'h-class' },
   ];
-
   type Seg = { s: number; e: number; cls: string };
   const segs: Seg[] = [];
   for (const { regex, cls } of rules) {
@@ -72,191 +73,25 @@ function highlightPHP(line: string): React.ReactNode[] {
   return out;
 }
 
-// ─── Slide Components ─────────────────────────────────────────────────────────
+// ─── Components ───────────────────────────────────────────────────────────────
 
-function HeroSlide({ slide, lessonTitle, index, total }: { slide: Slide; lessonTitle: string; index: number; total: number }) {
-  const Icon = slide.icon;
+const TYPE_ICONS: Record<string, React.ElementType> = {
+  concept: BookOpen, code: Code2, diagram: Network,
+  hero: Cpu, quiz: HelpCircle, compare: GitCompare, timeline: ListOrdered,
+};
+
+function GutterLines({ count }: { count: number }) {
   return (
-    <div className="hero-slide">
-      <div className="hero-left">
-        <div className="hero-eyebrow">{lessonTitle}</div>
-        <h1 className="hero-title">{slide.title}</h1>
-        <div className="hero-rule" />
-        <p className="hero-sub">{slide.subtitle}</p>
-        <p className="hero-body">{slide.content}</p>
-        <div className="hero-progress">
-          <div className="hero-progress-bar" style={{ width: `${((index + 1) / total) * 100}%` }} />
-        </div>
-        <span className="hero-progress-label">{index + 1} of {total} slides</span>
-      </div>
-      <div className="hero-right">
-        <div className="hero-icon-circle"><Icon size={40} strokeWidth={1.2} /></div>
-        <div className="hero-type-badge">{slide.subtitle}</div>
-      </div>
+    <div className="t-gutter">
+      {Array.from({ length: count }).map((_, i) => (
+        <div key={i} className="t-ln">{i + 1}</div>
+      ))}
     </div>
   );
 }
 
-function ConceptSlide({ slide }: { slide: Slide }) {
-  const Icon = slide.icon;
-  return (
-    <div className="concept-slide">
-      <div className="concept-left">
-        <div className="slide-label">Concept</div>
-        <h2 className="slide-title">{slide.title}</h2>
-        <div className="slide-sub">{slide.subtitle}</div>
-        <p className="concept-body">{slide.content}</p>
-        {slide.callout && (
-          <div className="concept-callout">
-            <span className="callout-icon">💡</span>
-            <span>{slide.callout}</span>
-          </div>
-        )}
-        {slide.keyPoints && (
-          <ul className="key-points">
-            {slide.keyPoints.map((pt, i) => (
-              <li key={i} className="key-point"><span className="kp-dot" />{pt}</li>
-            ))}
-          </ul>
-        )}
-      </div>
-      <div className="concept-right">
-        <div className="concept-panel">
-          <Icon size={88} strokeWidth={0.5} className="concept-bg-icon" />
-          <div className="concept-badge">Architectural Pattern</div>
-        </div>
-        {slide.subtitle && (
-          <blockquote className="concept-pull">&ldquo;{slide.subtitle}&rdquo;</blockquote>
-        )}
-      </div>
-    </div>
-  );
-}
+// ─── Shell Component ─────────────────────────────────────────────────────────
 
-function CodeSlide({ slide }: { slide: Slide }) {
-  const Icon = slide.icon;
-  const lines = (slide.codeSnippet ?? '').split('\n');
-  const lang = slide.language ?? 'php';
-  const fileName = slide.codeFileName ?? `example.${lang}`;
-  return (
-    <div className="code-slide">
-      <div className="code-header">
-        <div className="code-meta">
-          <div className="slide-label">Code</div>
-          <h2 className="slide-title">{slide.title}</h2>
-          <p className="code-desc">{slide.content}</p>
-        </div>
-        <div className="code-icon"><Icon size={20} /></div>
-      </div>
-      <div className="code-terminal">
-        <div className="code-bar">
-          <div className="dots"><div className="dot dr" /><div className="dot dy" /><div className="dot dg" /></div>
-          <span className="code-filename">{fileName}</span>
-          <span className="code-lang">{lang.toUpperCase()}</span>
-        </div>
-        <div className="code-body">
-          <div className="code-gutter">
-            {lines.map((_, i) => <div key={i} className="ln">{i + 1}</div>)}
-          </div>
-          <pre className="code-pre">
-            {lines.map((line, i) => (
-              <div key={i} className="code-line">{highlightPHP(line)}</div>
-            ))}
-          </pre>
-        </div>
-      </div>
-      {slide.keyPoints && (
-        <div className="code-takeaways">
-          <span className="takeaway-label">Key takeaways</span>
-          <div className="takeaway-list">
-            {slide.keyPoints.map((pt, i) => (
-              <div key={i} className="takeaway-item"><span className="kp-dot" />{pt}</div>
-            ))}
-          </div>
-        </div>
-      )}
-    </div>
-  );
-}
-
-function DiagramSlide({ slide }: { slide: Slide }) {
-  const Icon = slide.icon;
-  const nodes = slide.diagramNodes ?? [];
-  return (
-    <div className="diagram-slide">
-      <div className="diagram-header">
-        <div>
-          <div className="slide-label">Diagram</div>
-          <h2 className="slide-title">{slide.title}</h2>
-          <p className="slide-sub">{slide.subtitle}</p>
-        </div>
-        <div className="code-icon"><Icon size={20} /></div>
-      </div>
-      <div className="diagram-flow">
-        {nodes.map((node, i) => (
-          <React.Fragment key={i}>
-            <div className="d-node">
-              <div className="d-dot" style={{ background: node.color }} />
-              <div className="d-label">{node.label}</div>
-              <div className="d-desc">{node.desc}</div>
-            </div>
-            {i < nodes.length - 1 && (
-              <div className="d-arrow">
-                <div className="d-line" />
-                <div className="d-head" />
-              </div>
-            )}
-          </React.Fragment>
-        ))}
-      </div>
-      <p className="diagram-caption">{slide.content}</p>
-    </div>
-  );
-}
-
-function QuizSlide({ slide }: { slide: Slide }) {
-  const [selected, setSelected] = useState<number | null>(null);
-  const opts = slide.options ?? [];
-  const answered = selected !== null;
-  return (
-    <div className="quiz-slide">
-      <div className="slide-label">Knowledge Check</div>
-      <h2 className="quiz-question">{slide.question ?? slide.title}</h2>
-      <div className="quiz-options">
-        {opts.map((opt, i) => {
-          const chosen = selected === i;
-          const reveal = answered;
-          const state = !reveal ? 'idle' : opt.correct ? 'correct' : chosen ? 'wrong' : 'idle';
-          return (
-            <button
-              key={i}
-              className={`quiz-option qo-${state} ${chosen ? 'qo-chosen' : ''}`}
-              onClick={() => !answered && setSelected(i)}
-              disabled={answered}
-            >
-              <span className="qo-letter">{String.fromCharCode(65 + i)}</span>
-              <span className="qo-text">{opt.text}</span>
-              {reveal && opt.correct && <CheckCircle size={16} className="qo-icon" />}
-              {reveal && chosen && !opt.correct && <XCircle size={16} className="qo-icon" />}
-            </button>
-          );
-        })}
-      </div>
-      {answered && (
-        <motion.div
-          initial={{ opacity: 0, y: 8 }}
-          animate={{ opacity: 1, y: 0 }}
-          className={`quiz-explain ${opts[selected!]?.correct ? 'qe-correct' : 'qe-wrong'}`}
-        >
-          <strong>{opts[selected!]?.correct ? '✓ Correct!' : '✗ Not quite.'}</strong>{' '}
-          {opts[selected!]?.explanation}
-        </motion.div>
-      )}
-    </div>
-  );
-}
-
-// ─── Shell ─────────────────────────────────────────────────────────────────────
 export default function BackendGenericSlides({
   lessonTitle = 'Backend Engineering',
   slides = [],
@@ -265,234 +100,710 @@ export default function BackendGenericSlides({
   slides?: Slide[];
 }) {
   const [cur, setCur] = useState(0);
-  const next = useCallback(() => setCur(c => Math.min(c + 1, slides.length - 1)), [slides.length]);
-  const prev = useCallback(() => setCur(c => Math.max(c - 1, 0)), []);
+  const [showKey, setShowKey] = useState(false);
+  const [codes, setCodes] = useState<string[]>(slides.map(s => s.codeSnippet || ''));
+  const [viewMode, setViewMode] = useState<'visual' | 'code'>('visual');
+  const [dir, setDir] = useState(1);
 
   useEffect(() => {
-    const fn = (e: KeyboardEvent) => { if (e.key === 'ArrowRight') next(); if (e.key === 'ArrowLeft') prev(); };
-    window.addEventListener('keydown', fn);
-    return () => window.removeEventListener('keydown', fn);
-  }, [next, prev]);
+    setCodes(slides.map(s => s.codeSnippet || ''));
+  }, [slides]);
 
   const slide = slides[cur];
-  const pct = ((cur + 1) / slides.length) * 100;
+  const accent = slide?.accent || (slide?.type === 'hero' ? '#f59e0b' : slide?.type === 'code' ? '#60a5fa' : slide?.type === 'quiz' ? '#f472b6' : '#8b5cf6');
 
-  const renderSlide = () => {
-    switch (slide.type) {
-      case 'hero':    return <HeroSlide slide={slide} lessonTitle={lessonTitle} index={cur} total={slides.length} />;
-      case 'concept': return <ConceptSlide slide={slide} />;
-      case 'code':    return <CodeSlide slide={slide} />;
-      case 'diagram': return <DiagramSlide slide={slide} />;
-      case 'quiz':    return <QuizSlide slide={slide} />;
+  const goTo = useCallback((idx: number) => {
+    setDir(idx > cur ? 1 : -1);
+    setCur(idx);
+    setViewMode('visual');
+  }, [cur]);
+
+  const next = () => cur < slides.length - 1 && goTo(cur + 1);
+  const prev = () => cur > 0 && goTo(cur - 1);
+
+  useEffect(() => {
+    const fn = (e: KeyboardEvent) => {
+      if (document.activeElement?.tagName === 'TEXTAREA') return;
+      if (e.key === 'ArrowRight') { next(); setShowKey(true); setTimeout(() => setShowKey(false), 800); }
+      if (e.key === 'ArrowLeft')  { prev(); setShowKey(true); setTimeout(() => setShowKey(false), 800); }
+    };
+    window.addEventListener('keydown', fn);
+    return () => window.removeEventListener('keydown', fn);
+  }, [cur, slides.length]);
+
+  if (!slides.length) return null;
+
+  const currentCode = codes[cur] || '';
+  const updateCode = (val: string) => {
+    const nextCodeArr = [...codes];
+    nextCodeArr[cur] = val;
+    setCodes(nextCodeArr);
+  };
+
+  const progress = ((cur + 1) / slides.length) * 100;
+  const TypeIcon = TYPE_ICONS[slide.type] || BookOpen;
+
+  return (
+    <main
+      className="min-h-screen text-white flex flex-col overflow-hidden relative"
+      style={{ background: '#080c14', fontFamily: "'Inter', sans-serif" }}
+    >
+      <style>{CSS}</style>
+
+      {/* Dynamic Glows inspired by HTML lesson */}
+      <div
+        className="fixed inset-0 pointer-events-none transition-all duration-700"
+        style={{
+          background: `radial-gradient(ellipse at 20% 50%, ${accent}15 0%, transparent 60%), radial-gradient(ellipse at 80% 20%, ${accent}08 0%, transparent 50%)`,
+        }}
+      />
+      <div className="fixed inset-0 pointer-events-none" style={{ background: 'radial-gradient(ellipse at 50% 0%, rgba(255,255,255,0.02) 0%, transparent 70%)' }} />
+
+      {/* ── HEADER ── */}
+      <header className="relative z-30 flex items-center justify-between px-6 py-4 border-b border-white/8 bg-black/40 backdrop-blur-2xl flex-none">
+        <div className="flex items-center gap-3">
+          <div className="w-9 h-9 rounded-xl flex items-center justify-center border border-white/10 shadow-lg shadow-black/20" style={{ background: `${accent}15` }}>
+            <TypeIcon className="w-5 h-5" style={{ color: accent }} />
+          </div>
+          <div>
+            <p className="text-[10px] uppercase tracking-[0.2em] text-zinc-500 font-black">Backend Masterclass</p>
+            <p className="text-sm font-bold text-white tracking-tight">{lessonTitle}</p>
+          </div>
+        </div>
+
+        <div className="flex-1 mx-12 hidden md:block max-w-xl">
+          <div className="h-1 bg-white/5 rounded-full overflow-hidden">
+            <motion.div
+              className="h-full rounded-full"
+              initial={{ width: 0 }}
+              animate={{ width: `${progress}%` }}
+              transition={{ duration: 0.5, ease: "easeOut" }}
+              style={{ background: `linear-gradient(90deg, ${accent}, ${accent}aa)` }}
+            />
+          </div>
+        </div>
+
+        <div className="flex items-center gap-3">
+          <span className="text-[10px] font-black px-3 py-1.5 rounded-full border bg-black/20 backdrop-blur-sm" style={{ color: accent, borderColor: `${accent}40` }}>
+            {slide.type.toUpperCase()}
+          </span>
+          <span className="text-xs font-mono font-bold text-zinc-500 tabular-nums">{cur + 1}<span className="text-zinc-800"> / {slides.length}</span></span>
+        </div>
+      </header>
+
+      {/* ── MAIN ── */}
+      <main className="relative z-20 flex-1 flex flex-col lg:flex-row gap-0 overflow-hidden">
+        {/* Left Panel: Content (Balanced 50/50 split) */}
+        <AnimatePresence mode="wait" custom={dir}>
+          <motion.div
+            key={cur}
+            custom={dir}
+            initial={{ x: dir * 40, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            exit={{ x: dir * -40, opacity: 0 }}
+            transition={{ duration: 0.4, ease: [0.32, 0.72, 0, 1] }}
+            className="flex-none lg:w-1/2 flex flex-col justify-between p-8 lg:p-14 lg:border-r border-white/8 overflow-y-auto bg-black/10"
+          >
+            <div className="space-y-8">
+              <div className="flex items-start gap-4">
+                <div className="text-5xl font-black text-white/5 font-mono leading-none flex-none">
+                  {String(cur + 1).padStart(2, '0')}
+                </div>
+                <div>
+                  <h1 className="text-4xl lg:text-5xl font-black leading-[1.1] text-white tracking-tighter">{slide.title}</h1>
+                  <p className="text-xl text-white font-bold mt-2 leading-snug">{slide.subtitle}</p>
+                </div>
+              </div>
+
+              <div className="w-16 h-1 rounded-full" style={{ background: accent }} />
+
+              <div className="space-y-6">
+                {slide.syntax && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="bg-emerald-500/10 border border-emerald-500/20 rounded-2xl p-6"
+                  >
+                    <div className="flex items-center gap-2 mb-3">
+                      <Terminal size={12} className="text-emerald-400" />
+                      <span className="text-[10px] font-black tracking-widest text-emerald-400 uppercase">Formal Syntax Reference</span>
+                    </div>
+                    <code className="text-lg font-mono text-emerald-100 font-bold block leading-relaxed tracking-tight">
+                      {slide.syntax}
+                    </code>
+                  </motion.div>
+                )}
+                
+                <p className="text-xl lg:text-2xl text-white leading-relaxed font-medium">{slide.content}</p>
+              </div>
+
+              {slide.keyPoints && (
+                <div className="space-y-5 pt-4">
+                  {slide.keyPoints.map((pt, i) => (
+                    <motion.div
+                      key={i}
+                      initial={{ opacity: 0, x: -10 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.2 + i * 0.1 }}
+                      className="flex items-start gap-5"
+                    >
+                      <div className="w-6 h-6 rounded-full bg-white/10 border border-white/20 flex items-center justify-center flex-none mt-1 shadow-sm">
+                        <CheckCircle className="w-4 h-4" style={{ color: accent }} />
+                      </div>
+                      <p className="text-lg lg:text-xl text-white font-medium leading-relaxed">{pt}</p>
+                    </motion.div>
+                  ))}
+                </div>
+              )}
+
+              {slide.callout && (
+                <div className="p-5 rounded-2xl border flex gap-4 bg-white/[0.02]" style={{ borderColor: `${accent}20` }}>
+                  <Sparkles className="w-6 h-6 flex-none" style={{ color: accent }} />
+                  <p className="text-sm text-zinc-300 leading-relaxed font-medium">{slide.callout}</p>
+                </div>
+              )}
+            </div>
+
+            <div className="flex items-center gap-4 mt-12 lg:mt-0">
+              <button
+                onClick={prev}
+                disabled={cur === 0}
+                className="p-4 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 active:scale-95 disabled:opacity-20 transition-all"
+              >
+                <ChevronLeft className="w-6 h-6" />
+              </button>
+              <button
+                onClick={next}
+                className="flex-1 py-4 px-6 rounded-xl font-black text-sm active:scale-95 transition-all flex items-center justify-center gap-3 shadow-2xl shadow-black/40"
+                style={{ background: accent, color: '#000' }}
+              >
+                {cur === slides.length - 1 ? 'RESTART MODULE' : 'NEXT SESSION'}
+                <ChevronRight className="w-5 h-5" />
+              </button>
+            </div>
+          </motion.div>
+        </AnimatePresence>
+
+        {/* Right Panel: Visual / Interactive */}
+        <div className="flex-1 flex flex-col p-6 lg:p-10 overflow-hidden relative">
+          <AnimatePresence mode="wait">
+             <motion.div
+                key={`${slide.type}-${cur}`}
+                initial={{ opacity: 0, scale: 0.98, y: 10 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.98, y: -10 }}
+                transition={{ duration: 0.3 }}
+                className="flex-1 flex flex-col overflow-hidden"
+             >
+                <RightPanel slide={slide} accent={accent} code={currentCode} onUpdateCode={updateCode} />
+             </motion.div>
+          </AnimatePresence>
+        </div>
+      </main>
+
+      {/* Footer Nav Dots */}
+      <footer className="relative z-40 flex justify-center items-center gap-2.5 py-4 border-t border-white/8 bg-black/40 backdrop-blur-2xl flex-none">
+        {slides.map((s, i) => (
+          <button
+            key={i}
+            onClick={() => goTo(i)}
+            title={s.title}
+            className="transition-all duration-500 rounded-full cursor-pointer hover:bg-white/40"
+            style={{
+              width: i === cur ? 32 : 10,
+              height: 10,
+              background: i === cur ? accent : 'rgba(255,255,255,0.15)',
+              boxShadow: i === cur ? `0 0 15px ${accent}40` : 'none'
+            }}
+          />
+        ))}
+      </footer>
+
+      {/* Keyboard Hint */}
+      <div className={`fixed bottom-20 left-1/2 -translate-x-1/2 z-50 flex items-center gap-2 px-6 py-3 rounded-2xl bg-black border border-white/10 text-zinc-500 text-xs font-bold transition-all duration-300 pointer-events-none ${showKey ? 'opacity-100' : 'opacity-0 translate-y-4'}`}>
+        <kbd className="px-2 py-1 bg-white/10 rounded border border-white/10 text-white">←</kbd>
+        <kbd className="px-2 py-1 bg-white/10 rounded border border-white/10 text-white">→</kbd>
+        <span>Use arrow keys to navigate</span>
+      </div>
+    </main>
+  );
+}
+
+// ─── Sub-components for Right Panel ─────────────────────────────────────────
+
+function RightPanel({ slide, accent, code, onUpdateCode }: { slide: Slide; accent: string; code: string; onUpdateCode: (v: string) => void }) {
+  switch (slide.type) {
+    case 'hero':
+      return <HeroVisual icon={slide.icon} accent={accent} />;
+    case 'code':
+      return <CodeVisual slide={slide} accent={accent} code={code} onUpdateCode={onUpdateCode} />;
+    case 'diagram':
+      return <DiagramVisual nodes={slide.diagramNodes || []} accent={accent} />;
+    case 'quiz':
+      return <QuizVisual question={slide.question || slide.title} options={slide.options || []} accent={accent} />;
+    case 'compare':
+      return <CompareVisual items={slide.compareItems || []} accent={accent} />;
+    case 'timeline':
+      return <TimelineVisual steps={slide.timelineSteps || []} accent={accent} />;
+    default:
+      return <div className="flex-1 flex items-center justify-center opacity-20"><Cpu size={120} /></div>;
+  }
+}
+
+function HeroVisual({ icon: Icon = Cpu, accent }: { icon?: React.ElementType; accent: string }) {
+  return (
+    <div className="flex-1 flex items-center justify-center relative">
+       <div className="absolute inset-0 flex items-center justify-center opacity-20">
+          <div className="w-[400px] h-[400px] rounded-full border border-white/5 animate-pulse" />
+          <div className="absolute w-[280px] h-[280px] rounded-full border border-white/10" />
+       </div>
+       <motion.div
+         initial={{ scale: 0.5, opacity: 0 }}
+         animate={{ scale: 1, opacity: 1 }}
+         className="w-48 h-48 rounded-[40px] bg-black/40 border border-white/10 backdrop-blur-2xl flex items-center justify-center relative z-10 shadow-3xl shadow-black"
+       >
+         <Icon className="w-24 h-24" style={{ color: accent }} strokeWidth={1} />
+       </motion.div>
+    </div>
+  );
+}
+
+function CodeVisual({ slide, accent, code, onUpdateCode }: { slide: Slide; accent: string; code: string; onUpdateCode: (v: string) => void }) {
+  const [ran, setRan] = useState(false);
+  const [view, setView] = useState<'code' | 'html' | 'css' | 'output' | 'preview'>(slide.htmlSnippet ? 'preview' : 'code');
+  const [output, setOutput] = useState<{ lines: string[]; error: boolean }>({ lines: [], error: false });
+  const [html, setHtml] = useState(slide.htmlSnippet || '');
+  const [css, setCss] = useState(slide.cssSnippet || '');
+
+  const lines = view === 'code' ? code.split('\n') : (view === 'html' ? html.split('\n') : css.split('\n'));
+  const lang = slide.language || 'php';
+
+  const runCode = () => {
+    setRan(true);
+    setView('output');
+    // ... same simulator logic as before ...
+
+    if (lang === 'php') {
+      const logs: string[] = [];
+      const cleanCode = code.replace(/<\?php|\?>/g, '').trim();
+      const lines = cleanCode.split('\n');
+      const vars: Record<string, any> = {};
+
+      try {
+        let i = 0;
+        while (i < lines.length) {
+          const l = lines[i].trim();
+          if (!l || l.startsWith('//') || l.startsWith('#') || l.startsWith('/*')) { i++; continue; }
+
+          // array assignment: $students = ["a", "b"]; or ["k" => "v"]
+          const varMatch = l.match(/^\$([a-zA-Z_\x80-\xff][a-zA-Z0-9_\x80-\xff]*)\s*=\s*\[(.*)\];$/);
+          if (varMatch) {
+            const arrStr = varMatch[2].trim();
+            if (arrStr.includes('=>')) {
+              const obj: Record<string, any> = {};
+              arrStr.split(',').forEach(pair => {
+                const [k, v] = pair.split('=>').map(s => s.trim().replace(/["']/g, ''));
+                if (k) obj[k] = isNaN(Number(v)) ? v : Number(v);
+              });
+              vars[varMatch[1]] = obj;
+            } else {
+              vars[varMatch[1]] = arrStr.split(',').map(s => s.trim().replace(/["']/g, ''));
+            }
+            i++; continue;
+          }
+
+          // basic assignment: $x = 10;
+          const assignMatch = l.match(/^\$([a-zA-Z_\x80-\xff][a-zA-Z0-9_\x80-\xff]*)\s*=\s*(.+);$/);
+          if (assignMatch) {
+            vars[assignMatch[1]] = assignMatch[2].trim().replace(/["']/g, '');
+            i++; continue;
+          }
+
+          // foreach ($arr as $val) or ($arr as $k => $v)
+          const foreachMatch = l.match(/^foreach\s*\(\s*\$([a-zA-Z_]+)\s+as\s+(.*)\s*\)\s*{$/);
+          if (foreachMatch) {
+            const arrName = foreachMatch[1], loopVars = foreachMatch[2].trim();
+            const arr = vars[arrName];
+            // find loop body
+            let body = [], j = i + 1;
+            while (j < lines.length && !lines[j].trim().startsWith('}')) {
+              body.push(lines[j]); j++;
+            }
+            // Execute loop
+            if (arr) {
+              const entries = Array.isArray(arr) ? arr.map((v, idx) => [idx, v]) : Object.entries(arr);
+              entries.forEach(([key, val]) => {
+                const kName = loopVars.includes('=>') ? loopVars.split('=>')[0].trim().replace('$', '') : null;
+                const vName = loopVars.includes('=>') ? loopVars.split('=>')[1].trim().replace('$', '') : loopVars.replace('$', '');
+                const loopLocalVars = { [vName]: val };
+                if (kName) loopLocalVars[kName] = key;
+
+                body.forEach(bLine => {
+                  const b = bLine.trim();
+                  const eMatch = b.match(/^(echo|print)\s+(.+);$/);
+                  if (eMatch) {
+                    let out = eMatch[2].trim();
+                    Object.entries({ ...vars, ...loopLocalVars }).forEach(([v, val]) => {
+                      out = out.replace(new RegExp(`\\$${v}\\b`, 'g'), val);
+                    });
+                    logs.push(out.replace(/["']/g, '').replace(/\s*\.\s*/g, ''));
+                  }
+                });
+              });
+            }
+            i = j + 1; continue;
+          }
+
+          // top-level echo
+          const echoMatch = l.match(/^(echo|print)\s+(.+);$/);
+          if (echoMatch) {
+            let out = echoMatch[2].trim();
+            Object.entries(vars).forEach(([v, val]) => {
+              out = out.replace(new RegExp(`\\$${v}\\b`, 'g'), val);
+            });
+            logs.push(out.replace(/["']/g, '').replace(/\s*\.\s*/g, ''));
+          }
+          i++;
+        }
+        if (logs.length === 0) logs.push("// Script executed (No output generated)");
+        setOutput({ lines: logs, error: false });
+      } catch (err: any) { setOutput({ lines: ["▶ PHP Parse Error: " + err.message], error: true }); }
+      return;
+    }
+
+    if (lang === 'bash') {
+      setOutput({
+        lines: [
+          `admin@server:~$ ${code.trim().split('\n')[0]}`,
+          `// Command sequence acknowledged.`,
+          `✓ Success`,
+        ],
+        error: false
+      });
+      return;
+    }
+    try {
+      const logs: string[] = [];
+      const mockConsole = { log: (...args: any[]) => logs.push(args.join(' ')) };
+      new Function('console', code.replace(/export |import /g, ''))(mockConsole);
+      setOutput({ lines: logs.length ? logs : ['✓ Executed successfully (no output)'], error: false });
+    } catch (e: any) {
+      setOutput({ lines: [e.message], error: true });
     }
   };
 
   return (
-    <>
-      <style>{CSS}</style>
-      <div className="shell">
-        <div className="progress-track">
-          <div className="progress-fill" style={{ width: `${pct}%` }} />
-        </div>
-        <div className="top-bar">
-          <span className="top-lesson">{lessonTitle}</span>
-          <span className="top-type">{slide.type}</span>
-          <span className="top-count">{cur + 1} / {slides.length}</span>
-        </div>
-        <div className="stage">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={cur}
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -20 }}
-              transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
-              className="slide-frame"
-            >
-              {renderSlide()}
-            </motion.div>
-          </AnimatePresence>
-        </div>
-        <div className="nav-bar">
-          <button className="nav-btn" onClick={prev} disabled={cur === 0}>
-            <ChevronLeft size={16} /><span>Prev</span>
-          </button>
-          <div className="nav-dots">
-            {slides.map((s, i) => (
-              <button
-                key={i}
-                title={s.title}
-                onClick={() => setCur(i)}
-                className={`nav-dot ${i === cur ? 'nd-active' : ''} nd-${s.type}`}
-              />
-            ))}
+    <div className="flex-1 flex flex-col bg-[#0d1117] rounded-3xl border border-white/10 overflow-hidden shadow-2xl relative">
+       {/* High-End Tab Toolbar */}
+       <div className="px-6 py-3 bg-[#161b22] border-b border-white/8 flex items-center justify-between flex-none overflow-x-auto">
+          <div className="flex items-center gap-3">
+             <div className="flex bg-black/40 p-1 rounded-xl border border-white/5">
+                <button onClick={() => setView('code')} className={`px-3 py-1.5 rounded-lg text-[10px] font-black transition-all flex items-center gap-2 ${view === 'code' ? 'bg-white/10 text-white' : 'text-zinc-500'}`}>
+                  <Code2 size={12} /> PHP
+                </button>
+                {slide.htmlSnippet && (
+                  <button onClick={() => setView('html')} className={`px-3 py-1.5 rounded-lg text-[10px] font-black transition-all flex items-center gap-2 ${view === 'html' ? 'bg-white/10 text-white' : 'text-zinc-500'}`}>
+                    <Layout size={12} /> HTML
+                  </button>
+                )}
+                {slide.cssSnippet && (
+                  <button onClick={() => setView('css')} className={`px-3 py-1.5 rounded-lg text-[10px] font-black transition-all flex items-center gap-2 ${view === 'css' ? 'bg-white/10 text-white' : 'text-zinc-500'}`}>
+                    <Settings size={12} /> CSS
+                  </button>
+                )}
+                <button onClick={() => setView('output')} className={`px-3 py-1.5 rounded-lg text-[10px] font-black transition-all flex items-center gap-2 ${view === 'output' ? 'bg-white/10 text-white' : 'text-zinc-500'}`}>
+                  <Terminal size={12} /> OUTPUT
+                </button>
+                {slide.htmlSnippet && (
+                  <button onClick={() => setView('preview')} className={`px-3 py-1.5 rounded-lg text-[10px] font-black transition-all flex items-center gap-2 ${view === 'preview' ? 'bg-white/10 text-white' : 'text-zinc-500'}`}>
+                    <Eye size={12} /> PREVIEW
+                  </button>
+                )}
+             </div>
           </div>
-          <button className="nav-btn" onClick={next} disabled={cur === slides.length - 1}>
-            <span>Next</span><ChevronRight size={16} />
+
+          <button onClick={runCode} className="px-5 py-2 rounded-full font-black text-[10px] tracking-widest transition-all flex items-center gap-2 shadow-lg" style={{ background: accent, color: '#000' }}>
+             <Play size={11} fill="currentColor" /> RUN SCRIPT
           </button>
-        </div>
-      </div>
-    </>
+       </div>
+
+       <div className="flex-1 overflow-hidden relative">
+          <AnimatePresence mode="wait">
+             {view === 'preview' ? (
+                <motion.div key="preview" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="absolute inset-0 bg-white">
+                   <div className="h-full w-full flex flex-col">
+                      <div className="p-3 border-b border-zinc-200 flex items-center gap-2 bg-zinc-50">
+                        <div className="flex gap-1.5 mr-4">
+                           <div className="w-2.5 h-2.5 rounded-full bg-zinc-300" />
+                           <div className="w-2.5 h-2.5 rounded-full bg-zinc-300" />
+                           <div className="w-2.5 h-2.5 rounded-full bg-zinc-300" />
+                        </div>
+                        <div className="flex-1 bg-white border border-zinc-200 h-6 rounded-md text-[10px] flex items-center px-3 text-zinc-400 font-mono">
+                           localhost:8000/register.php
+                        </div>
+                      </div>
+                      <iframe
+                        srcDoc={`
+                          <html>
+                            <head><style>${css}</style></head>
+                            <body style="font-family: sans-serif; padding: 40px; color: #000;">${html}</body>
+                          </html>
+                        `}
+                        className="flex-1 w-full border-none"
+                      />
+                   </div>
+                </motion.div>
+             ) : view === 'output' ? (
+                <motion.div key="output" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="absolute inset-0 p-8 bg-black/10 overflow-auto">
+                   {/* Output logic here */}
+                   <div className="space-y-2">
+                     {output.lines.map((l, i) => <div key={i} className="font-mono text-sm text-zinc-400">{l}</div>)}
+                   </div>
+                </motion.div>
+             ) : (
+                <motion.div key={view} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="absolute inset-0 flex">
+                   <div className="w-14 bg-black/20 border-r border-white/5 flex flex-col items-end pr-4 pt-8 select-none">
+                      {lines.map((_, i: number) => <div key={i} className="text-[11px] font-mono text-zinc-700 leading-8">{i + 1}</div>)}
+                   </div>
+                   <div className="flex-1 relative bg-transparent">
+                      <pre className="absolute inset-0 p-8 pointer-events-none font-mono text-sm leading-8 overflow-hidden whitespace-pre">
+                         {lines.map((l: string, i: number) => <div key={i} className="min-h-[32px]">{highlight(l)}</div>)}
+                      </pre>
+                      <textarea
+                        value={view === 'code' ? code : (view === 'html' ? html : css)}
+                        onChange={(e) => view === 'code' ? onUpdateCode(e.target.value) : (view === 'html' ? setHtml(e.target.value) : setCss(e.target.value))}
+                        className="absolute inset-0 w-full h-full p-8 bg-transparent text-transparent caret-blue-400 font-mono text-sm leading-8 outline-none resize-none overflow-auto"
+                        spellCheck={false}
+                        wrap="off"
+                      />
+                   </div>
+                </motion.div>
+             )}
+          </AnimatePresence>
+       </div>
+    </div>
   );
 }
 
-// ─── Styles ────────────────────────────────────────────────────────────────────
+function DiagramVisual({ nodes, accent }: { nodes: DiagramNode[]; accent: string }) {
+  return (
+    <div className="flex-1 flex flex-col items-center justify-center p-8 bg-black/20 rounded-[40px] border border-white/5 overflow-x-auto">
+       <div className="flex items-center gap-0">
+          {nodes.map((node, i) => (
+            <React.Fragment key={i}>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: i * 0.1 }}
+                className="w-44 p-6 rounded-3xl bg-zinc-900 border-2 border-white/5 flex flex-col gap-3 relative shadow-xl hover:border-white/20 transition-all group"
+                style={{ '--accent': node.color } as any}
+              >
+                <div className="absolute top-0 left-0 right-0 h-1.5 rounded-t-3xl" style={{ background: node.color }} />
+                <div className="text-[10px] font-black text-zinc-600 uppercase tracking-widest">LAYER {i + 1}</div>
+                <div className="text-md font-black text-white">{node.label}</div>
+                <div className="text-xs text-zinc-500 font-medium leading-relaxed">{node.desc}</div>
+              </motion.div>
+              {i < nodes.length - 1 && (
+                <div className="w-12 h-0.5 bg-white/10 relative">
+                  <div className="absolute right-0 top-1/2 -translate-y-1/2 w-0 h-0 border-t-4 border-t-transparent border-b-4 border-b-transparent border-l-6 border-l-white/10" />
+                </div>
+              )}
+            </React.Fragment>
+          ))}
+       </div>
+    </div>
+  );
+}
+
+function QuizVisual({ question, options, accent }: { question: string; options: QuizOption[]; accent: string }) {
+  const [sel, setSel] = useState<number | null>(null);
+  const done = sel !== null;
+
+  return (
+    <div className="flex-1 flex flex-col justify-center gap-8 max-w-2xl mx-auto px-6">
+       <div className="p-8 rounded-[32px] bg-white/5 border border-white/10 backdrop-blur-xl space-y-4">
+          <div className="w-10 h-10 rounded-xl bg-pink-500/20 flex items-center justify-center border border-pink-500/30">
+             <HelpCircle className="w-5 h-5 text-pink-400" />
+          </div>
+          <h3 className="text-2xl font-black text-white leading-tight">{question}</h3>
+       </div>
+
+       <div className="grid gap-3">
+          {options.map((opt, i) => {
+            const isSel = sel === i;
+            const isCorrect = opt.correct;
+            return (
+              <button
+                key={i}
+                onClick={() => !done && setSel(i)}
+                className={`w-full p-5 rounded-2xl border transition-all flex items-center justify-between text-left group active:scale-[0.98] ${
+                  !done
+                    ? 'bg-white/5 border-white/10 hover:bg-white/10 hover:border-white/20'
+                    : isCorrect
+                      ? 'bg-emerald-500/10 border-emerald-500/40 text-emerald-400 shadow-lg shadow-emerald-500/10'
+                      : isSel
+                        ? 'bg-red-500/10 border-red-500/40 text-red-400'
+                        : 'opacity-30'
+                }`}
+              >
+                <div className="flex items-center gap-4">
+                  <div className={`w-10 h-10 rounded-xl border flex items-center justify-center font-black text-xs ${
+                    !done ? 'bg-black/40 border-white/10 group-hover:border-white/30' : isCorrect ? 'bg-emerald-500/20 border-emerald-500/40' : 'bg-red-500/20 border-red-500/40'
+                  }`}>
+                    {String.fromCharCode(65 + i)}
+                  </div>
+                  <span className="text-base font-bold">{opt.text}</span>
+                </div>
+                {done && isCorrect && <CheckCircle className="w-6 h-6 text-emerald-500" />}
+                {done && isSel && !isCorrect && <XCircle className="w-6 h-6 text-red-500" />}
+              </button>
+            );
+          })}
+       </div>
+
+       <AnimatePresence>
+          {done && (
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              className={`p-6 rounded-2xl border flex gap-4 ${options[sel!].correct ? 'bg-emerald-500/5 border-emerald-500/20' : 'bg-red-500/5 border-red-500/20'}`}
+            >
+               <BookOpen className="w-6 h-6 flex-none" style={{ color: options[sel!].correct ? '#10b981' : '#f43f5e' }} />
+               <p className="text-sm text-zinc-300 font-medium leading-relaxed">
+                  <strong className="text-white">{options[sel!].correct ? 'Spot on!' : 'Not quite.'}</strong> {options[sel!].explanation}
+               </p>
+            </motion.div>
+          )}
+       </AnimatePresence>
+    </div>
+  );
+}
+
+function CompareVisual({ items, accent }: { items: CompareItem[]; accent: string }) {
+  return (
+    <div className="flex-1 flex items-center justify-center p-4">
+       <div className="grid lg:grid-cols-2 gap-6 w-full max-w-4xl">
+          {items.map((item, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: i * 0.1 }}
+              className="rounded-[32px] bg-white/5 border border-white/10 overflow-hidden flex flex-col shadow-2xl"
+            >
+               <div className="px-8 py-6 bg-white/[0.03] border-b border-white/5 flex items-center justify-between">
+                  <h4 className="text-xl font-black text-white tracking-tight">{item.name}</h4>
+                  {item.badge && (
+                    <span className="text-[10px] font-black uppercase tracking-widest px-3 py-1.5 rounded-full border" style={{ background: `${item.badgeColor || '#8b5cf6'}15`, color: item.badgeColor || '#8b5cf6', borderColor: `${item.badgeColor || '#8b5cf6'}30` }}>
+                      {item.badge}
+                    </span>
+                  )}
+               </div>
+               <div className="p-8 space-y-4">
+                  {item.points.map((pt, j) => (
+                    <div key={j} className="flex gap-4">
+                       <div className="w-2 h-2 rounded-full mt-2 flex-none" style={{ background: accent }} />
+                       <p className="text-base text-zinc-400 font-medium leading-relaxed">{pt}</p>
+                    </div>
+                  ))}
+               </div>
+            </motion.div>
+          ))}
+       </div>
+    </div>
+  );
+}
+
+function TimelineVisual({ steps, accent }: { steps: TimelineStep[]; accent: string }) {
+  return (
+    <div className="flex-1 flex flex-col justify-center p-8 lg:p-12 overflow-y-auto">
+       <div className="relative space-y-12">
+          <div className="absolute left-6 top-4 bottom-4 w-1 bg-white/5 rounded-full" />
+          {steps.map((step, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: i * 0.1 }}
+              className="flex items-start gap-10 relative group"
+            >
+               <div
+                 className="w-12 h-12 rounded-2xl flex items-center justify-center font-black text-white relative z-10 shadow-lg transition-transform group-hover:scale-110"
+                 style={{ background: step.color || accent, boxShadow: `0 8px 16px ${(step.color || accent)}40` }}
+               >
+                 {step.step}
+               </div>
+               <div className="space-y-2 pt-1 border-b border-white/5 pb-8 flex-1">
+                  <h4 className="text-xl font-black text-white tracking-tight">{step.title}</h4>
+                  <p className="text-base text-zinc-400 font-medium leading-relaxed max-w-lg">{step.desc}</p>
+               </div>
+            </motion.div>
+          ))}
+       </div>
+    </div>
+  );
+}
+
 const CSS = `
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700;1,900&family=JetBrains+Mono:wght@400;500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap');
+/* Premium Typography & Global Resets */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700&family=JetBrains+Mono:wght@500&display=swap');
 
-:root {
-  --ink:   #0e0e0e;
-  --ink-2: #383838;
-  --ink-3: #7a7a7a;
-  --ink-4: #b8b8b8;
-  --paper:   #fafaf8;
-  --paper-2: #f2f1ee;
-  --paper-3: #e5e3de;
-  --rule: rgba(0,0,0,0.07);
-  --accent: #bf4e20;
-  --green: #1e7a45;
-  --red:   #a82020;
-  --code-bg: #0d1117;
-  --code-border: rgba(255,255,255,0.07);
+::selection { background: rgba(242,184,64,0.15); color: #fff; }
+
+h1, .s-title { 
+  font-family: 'Playfair Display', serif; 
+  font-weight: 800; 
+  letter-spacing: -0.01em; 
+  cursor: default; 
+  color: #fff;
+}
+p, div, span, label { font-family: 'Inter', sans-serif; color: #fff; }
+
+.s-eyebrow {
+  font-family: 'Inter', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  font-weight: 900;
+  font-size: 10px;
+  color: rgba(255,255,255,0.4);
 }
 
-.shell {
-  font-family: 'DM Sans', sans-serif;
-  background: var(--paper);
-  color: var(--ink);
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
+/* Code Editor Tokens */
+.h-kw      { color: #c678dd; font-weight: 700; }
+.tok-value { color: #98c379; }
+.h-var     { color: #e06c75; }
+.h-fn      { color: #61afef; }
+.h-comment { color: #5c6370; font-style: italic; }
+.h-class   { color: #e5c07b; }
+.h-num     { color: #d19a66; }
+.h-attr    { color: #56b6c2; }
+.h-type    { color: #56b6c2; opacity: 0.8; }
+
+/* Custom Scrollbars */
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.05); border-radius: 10px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.1); }
+
+/* Glass Effects */
+.glass { background: rgba(0,0,0,0.4); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.08); }
+
+/* Animation Utils */
+.anim-float { animation: float 6s ease-in-out infinite; }
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
 }
 
-.progress-track { height: 2px; background: var(--paper-3); }
-.progress-fill  { height: 100%; background: var(--accent); transition: width 0.4s ease; }
+/* Slide Specific Layouts */
+.s-code textarea { tab-size: 4; }
 
-.top-bar {
-  display: flex; align-items: center; gap: 12px;
-  padding: 13px 40px; border-bottom: 1px solid var(--rule);
+/* Prism-like highlight layer for textarea */
+.h-layer {
+  position: absolute;
+  top: 0; left: 0;
+  pointer-events: none;
+  white-space: pre-wrap;
+  word-wrap: break-word;
 }
-.top-lesson { font-size: 11px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-3); flex: 1; }
-.top-type { font-size: 10px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); background: rgba(191,78,32,0.08); padding: 3px 10px; border-radius: 20px; }
-.top-count { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--ink-4); }
-
-.stage { flex: 1; padding: 40px 56px 24px; display: flex; align-items: stretch; }
-.slide-frame { width: 100%; display: flex; flex-direction: column; justify-content: center; }
-
-.nav-bar { display: flex; align-items: center; justify-content: space-between; padding: 18px 40px; border-top: 1px solid var(--rule); }
-.nav-btn {
-  display: flex; align-items: center; gap: 6px;
-  font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500; color: var(--ink-3);
-  background: none; border: 1px solid var(--paper-3); border-radius: 8px; padding: 8px 16px; cursor: pointer;
-  transition: color .15s, border-color .15s, background .15s;
-}
-.nav-btn:hover:not(:disabled) { color: var(--ink); border-color: var(--ink-4); background: var(--paper-2); }
-.nav-btn:disabled { opacity: 0.22; cursor: default; }
-.nav-dots { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; max-width: 500px; justify-content: center; }
-.nav-dot { width: 7px; height: 7px; border-radius: 50%; border: none; background: var(--paper-3); cursor: pointer; padding: 0; transition: background .2s, transform .2s; }
-.nav-dot:hover { background: var(--ink-4); }
-.nd-active { background: var(--accent) !important; transform: scale(1.5); }
-.nd-quiz.nd-active  { background: #1a6b8a !important; }
-.nd-hero.nd-active  { background: var(--ink-2) !important; }
-
-.slide-label { font-size: 10px; font-weight: 600; letter-spacing: 0.28em; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; }
-.slide-title { font-family: 'Playfair Display', serif; font-size: clamp(30px, 4vw, 50px); font-weight: 900; line-height: 1.0; color: var(--ink); margin: 0 0 8px; }
-.slide-sub   { font-size: 12px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-3); margin: 0; }
-
-/* ─── HERO ─── */
-.hero-slide { display: grid; grid-template-columns: 1fr 280px; gap: 56px; align-items: center; min-height: 400px; }
-.hero-left  { display: flex; flex-direction: column; gap: 16px; }
-.hero-eyebrow { font-size: 10px; font-weight: 600; letter-spacing: 0.3em; text-transform: uppercase; color: var(--accent); }
-.hero-title { font-family: 'Playfair Display', serif; font-size: clamp(48px, 6.5vw, 80px); font-weight: 900; font-style: italic; line-height: 0.93; letter-spacing: -0.02em; color: var(--ink); margin: 0; }
-.hero-rule  { height: 1px; width: 56px; background: var(--ink); }
-.hero-sub   { font-size: 12px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-3); margin: 0; }
-.hero-body  { font-size: 17px; line-height: 1.65; color: var(--ink-2); font-weight: 300; max-width: 520px; margin: 0; }
-.hero-progress { height: 2px; background: var(--paper-3); border-radius: 2px; max-width: 320px; overflow: hidden; }
-.hero-progress-bar { height: 100%; background: var(--accent); transition: width 0.4s; }
-.hero-progress-label { font-size: 11px; color: var(--ink-4); font-family: 'JetBrains Mono', monospace; }
-.hero-right { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 20px; border-left: 1px solid var(--rule); padding-left: 40px; height: 100%; }
-.hero-icon-circle { width: 88px; height: 88px; border-radius: 50%; border: 1px solid var(--paper-3); display: flex; align-items: center; justify-content: center; color: var(--ink-3); }
-.hero-type-badge { font-size: 10px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--ink-4); text-align: center; }
-
-/* ─── CONCEPT ─── */
-.concept-slide { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; min-height: 400px; }
-.concept-left  { display: flex; flex-direction: column; gap: 18px; }
-.concept-body  { font-size: 16px; line-height: 1.72; color: var(--ink-2); font-weight: 300; margin: 0; }
-.concept-callout { display: flex; gap: 10px; align-items: flex-start; background: rgba(191,78,32,0.06); border-left: 2px solid var(--accent); padding: 12px 14px; border-radius: 0 4px 4px 0; font-size: 14px; color: var(--ink-2); line-height: 1.5; }
-.callout-icon { flex-shrink: 0; font-size: 14px; }
-.key-points { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 8px; }
-.key-point  { display: flex; align-items: flex-start; gap: 10px; font-size: 14px; color: var(--ink-2); line-height: 1.5; }
-.kp-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); flex-shrink: 0; margin-top: 7px; }
-.concept-right { display: flex; flex-direction: column; gap: 20px; }
-.concept-panel { background: var(--paper-2); border: 1px solid var(--paper-3); border-radius: 4px; aspect-ratio: 4/3; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
-.concept-bg-icon { color: var(--paper-3); }
-.concept-badge { position: absolute; bottom: 12px; left: 12px; font-size: 9px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink-4); background: var(--paper); padding: 4px 8px; border: 1px solid var(--paper-3); }
-.concept-pull { font-family: 'Playfair Display', serif; font-size: 20px; font-style: italic; font-weight: 700; line-height: 1.3; color: var(--ink-3); border-top: 1px solid var(--rule); padding-top: 18px; margin: 0; }
-
-/* ─── CODE ─── */
-.code-slide  { display: flex; flex-direction: column; gap: 20px; }
-.code-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 24px; }
-.code-meta   { display: flex; flex-direction: column; gap: 6px; }
-.code-desc   { font-size: 14px; color: var(--ink-3); margin: 0; font-weight: 300; max-width: 560px; line-height: 1.6; }
-.code-icon   { color: var(--ink-4); flex-shrink: 0; padding-top: 4px; }
-.code-terminal { background: var(--code-bg); border-radius: 8px; overflow: hidden; border: 1px solid var(--code-border); }
-.code-bar { display: flex; align-items: center; gap: 8px; padding: 10px 16px; background: rgba(255,255,255,0.04); border-bottom: 1px solid var(--code-border); }
-.dots { display: flex; gap: 5px; }
-.dot { width: 10px; height: 10px; border-radius: 50%; }
-.dr { background: #ff5f57; } .dy { background: #ffbd2e; } .dg { background: #28c840; }
-.code-filename { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: rgba(255,255,255,0.3); margin-left: 4px; flex: 1; }
-.code-lang     { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: rgba(255,255,255,0.18); letter-spacing: 0.1em; }
-.code-body     { display: flex; overflow-x: auto; max-height: 320px; overflow-y: auto; }
-.code-gutter   { padding: 16px 0; border-right: 1px solid rgba(255,255,255,0.05); flex-shrink: 0; user-select: none; }
-.ln  { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: rgba(255,255,255,0.18); padding: 0 14px; line-height: 1.75; text-align: right; }
-.code-pre  { margin: 0; padding: 16px 20px; font-family: 'JetBrains Mono', monospace; font-size: 13px; line-height: 1.75; color: #cdd5e0; white-space: pre; }
-.code-line { display: block; }
-
-.tok-kw      { color: #c792ea; }
-.tok-type    { color: #80cbc4; }
-.tok-var     { color: #f07178; }
-.tok-str     { color: #c3e88d; }
-.tok-comment { color: #546e7a; font-style: italic; }
-.tok-num     { color: #f78c6c; }
-.tok-fn      { color: #82aaff; }
-.tok-class   { color: #ffcb6b; }
-.tok-attr    { color: #89ddff; }
-
-.code-takeaways { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; padding: 12px 16px; background: var(--paper-2); border: 1px solid var(--paper-3); border-radius: 4px; }
-.takeaway-label { font-size: 10px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-3); }
-.takeaway-list  { display: flex; flex-wrap: wrap; gap: 8px; }
-.takeaway-item  { display: flex; align-items: center; gap: 6px; font-size: 13px; color: var(--ink-2); }
-
-/* ─── DIAGRAM ─── */
-.diagram-slide  { display: flex; flex-direction: column; gap: 28px; }
-.diagram-header { display: flex; justify-content: space-between; align-items: flex-start; }
-.diagram-flow   { display: flex; align-items: center; background: var(--paper-2); border: 1px solid var(--paper-3); border-radius: 4px; padding: 28px 24px; overflow-x: auto; gap: 0; }
-.d-node { display: flex; flex-direction: column; align-items: center; gap: 8px; flex-shrink: 0; min-width: 88px; }
-.d-dot  { width: 42px; height: 42px; border-radius: 50%; opacity: 0.85; transition: opacity .15s, transform .15s; }
-.d-node:hover .d-dot { opacity: 1; transform: scale(1.12); }
-.d-label { font-size: 12px; font-weight: 600; color: var(--ink); text-align: center; }
-.d-desc  { font-size: 10px; color: var(--ink-3); text-align: center; font-family: 'JetBrains Mono', monospace; }
-.d-arrow { flex: 1; display: flex; align-items: center; min-width: 18px; margin-bottom: 28px; }
-.d-line  { flex: 1; height: 1px; background: var(--ink-4); }
-.d-head  { width: 0; height: 0; border-top: 5px solid transparent; border-bottom: 5px solid transparent; border-left: 7px solid var(--ink-4); }
-.diagram-caption { font-size: 15px; line-height: 1.65; color: var(--ink-3); font-weight: 300; margin: 0; font-style: italic; border-left: 2px solid var(--paper-3); padding-left: 16px; }
-
-/* ─── QUIZ ─── */
-.quiz-slide    { display: flex; flex-direction: column; gap: 24px; max-width: 680px; margin: 0 auto; width: 100%; }
-.quiz-question { font-family: 'Playfair Display', serif; font-size: clamp(22px, 3vw, 32px); font-weight: 700; line-height: 1.2; color: var(--ink); margin: 0; }
-.quiz-options  { display: flex; flex-direction: column; gap: 10px; }
-.quiz-option   { display: flex; align-items: center; gap: 14px; padding: 14px 18px; border: 1px solid var(--paper-3); border-radius: 6px; background: var(--paper); cursor: pointer; text-align: left; font-family: 'DM Sans', sans-serif; font-size: 15px; color: var(--ink-2); transition: border-color .15s, background .15s; }
-.quiz-option:hover:not(:disabled) { border-color: var(--accent); background: var(--paper-2); }
-.qo-letter { width: 28px; height: 28px; border-radius: 50%; flex-shrink: 0; border: 1px solid var(--paper-3); display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; color: var(--ink-3); }
-.qo-text   { flex: 1; line-height: 1.4; }
-.qo-icon   { flex-shrink: 0; }
-.qo-correct { border-color: var(--green) !important; background: rgba(30,122,69,0.06) !important; }
-.qo-correct .qo-letter { border-color: var(--green); color: var(--green); }
-.qo-correct .qo-icon   { color: var(--green); }
-.qo-wrong   { border-color: var(--red)   !important; background: rgba(168,32,32,0.06) !important; }
-.qo-wrong   .qo-letter { border-color: var(--red);   color: var(--red); }
-.qo-wrong   .qo-icon   { color: var(--red); }
-.quiz-explain { padding: 14px 18px; border-radius: 6px; font-size: 14px; line-height: 1.6; border-left: 3px solid transparent; }
-.qe-correct { background: rgba(30,122,69,0.07); border-color: var(--green); color: var(--ink-2); }
-.qe-wrong   { background: rgba(168,32,32,0.07); border-color: var(--red);   color: var(--ink-2); }
 `;

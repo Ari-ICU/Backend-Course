@@ -1,669 +1,654 @@
 "use client";
 
 import BackendGenericSlides, { Slide } from "@/components/backend/lessons/backend-generic-slides";
-import { ArrowLeft, Code, Zap, Layers, Terminal, Cpu, ShieldCheck, Database } from "lucide-react";
+import { ArrowLeft, Code, Zap, Layers, Terminal, Cpu, ShieldCheck, Database, Globe, MousePointer2, Settings, List, Repeat, Layout, Save, Lock, Rocket, Eye, User, Key } from "lucide-react";
 import Link from "next/link";
+
 
 const phpSlides: Slide[] = [
   // ── 01 · Hero ──────────────────────────────────────────────────────────────
   {
     type: 'hero',
-    title: 'PHP 8.x Architecture',
-    subtitle: 'Module 01 · Modern Foundations',
-    content: 'PHP is no longer the "simple" scripting language of the early web. It is a high-performance, strictly-typed backend runtime powering some of the largest systems on the planet. This module covers the internals and modern features of PHP 8.x.',
+    title: 'PHP Foundations',
+    subtitle: 'Module 01 · Server-Side Programming',
+    content: 'Welcome to the engine of the web. PHP powers over 75% of the internet. In this module, we transition from static HTML to dynamic, server-side scripting — learning how to process data, manage sessions, and build interactive applications.',
     icon: Code,
   },
 
-  // ── 02 · Concept: Zend Engine ─────────────────────────────────────────────
+  // ── 02 · Concept: What is PHP? ─────────────────────────────────────────────
   {
     type: 'concept',
-    title: 'The Zend Engine',
-    subtitle: 'PHP Internals',
-    content: 'Every PHP script you write is processed by the Zend Engine — the virtual machine at PHP\'s core. It lexes your source into tokens, parses them into an AST, compiles to opcodes, and executes them. Understanding this pipeline explains why opcache is transformative and where JIT fits in.',
-    icon: Cpu,
-    callout: 'Opcache stores pre-compiled opcode on disk, skipping the lex → parse → compile phases on repeat requests. Enable it in production — always.',
+    title: 'Server-Side Scripting',
+    subtitle: 'The PHP Request Lifecycle',
+    content: 'Unlike HTML/CSS which runs in the browser, PHP runs on the server. When a user requests a page, the server executes the PHP code, generates a plain HTML document, and sends only the HTML back to the user. The browser never sees your PHP logic.',
+    icon: Globe,
+    callout: 'Think of PHP as a "factory" that builds the HTML page on-demand based on variables like user login status or database content.',
     keyPoints: [
-      'Lexing: source text → token stream',
-      'Parsing: tokens → Abstract Syntax Tree (AST)',
-      'Compilation: AST → Zend opcodes',
-      'Execution: opcodes run on the Zend VM',
+      'PHP stands for "Hypertext Preprocessor"',
+      'Runs on the server (Apache, Nginx, or Built-in PHP server)',
+      'Interacts with Databases and File Systems',
+      'Browser receives only the generated output (usually HTML)',
     ],
   },
 
-  // ── 03 · Diagram: JIT ─────────────────────────────────────────────────────
-  {
-    type: 'diagram',
-    title: 'JIT Compilation',
-    subtitle: 'Performance Breakthrough',
-    content: 'Without JIT, the Zend VM interprets opcodes on every execution. With JIT enabled, hot opcodes are compiled to native machine code on first run and cached — removing the interpreter entirely for those paths.',
-    icon: Zap,
-    diagramNodes: [
-      { label: 'PHP Source', desc: '.php file',         color: '#6366f1' },
-      { label: 'Opcache',    desc: 'cached opcodes',    color: '#8b5cf6' },
-      { label: 'JIT',        desc: 'tracing / function',color: '#0ea5e9' },
-      { label: 'Native',     desc: 'machine code',      color: '#10b981' },
-      { label: 'CPU',        desc: 'direct execution',  color: '#f59e0b' },
-    ],
-  },
-
-  // ── 04 · Code: Strict Types ────────────────────────────────────────────────
+  // ── 03 · Code: PHP Tags & Basics ──────────────────────────────────────────
   {
     type: 'code',
-    title: 'Strict Type Safety',
-    subtitle: 'Modern Type System',
-    content: 'Placing declare(strict_types=1) at the top of a file forces PHP to reject coercions — passing a string "42" where an int is expected throws a TypeError instead of silently converting. It\'s the single most impactful line in any professional PHP codebase.',
-    icon: ShieldCheck,
-    language: 'php',
-    codeFileName: 'UserService.php',
-    codeSnippet: `<?php
-declare(strict_types=1);
-
-namespace App\\Services;
-
-class UserService
-{
-    public function getAge(int $userId): int
-    {
-        // Strict mode: passing "42" throws TypeError
-        $user = $this->repository->find($userId);
-        return $user->age; // guaranteed int
-    }
-
-    public function formatName(string $first, string $last): string
-    {
-        return trim("$first $last");
-    }
-}
-
-// Without strict_types — this would silently work:
-// $service->getAge("42");  // "42" coerced to 42
-
-// With strict_types — this throws TypeError:
-// $service->getAge("42");  // TypeError: must be int`,
-    keyPoints: [
-      'Per-file declaration — each file opts in independently',
-      'Applies to calls made FROM that file, not calls TO it',
-      'Catches bugs at call sites before they corrupt data',
-    ],
-  },
-
-  // ── 05 · Code: Union & Intersection Types ─────────────────────────────────
-  {
-    type: 'code',
-    title: 'Union & Intersection Types',
-    subtitle: 'Advanced Type Logic',
-    content: 'Union types (|) let a parameter accept multiple distinct types. Intersection types (&) require a value to satisfy multiple interfaces simultaneously. Together they give PHP a powerful and expressive type algebra.',
+    title: 'PHP Tags & Comments',
+    subtitle: 'Escaping from HTML',
+    content: 'A PHP file can contain HTML, but any PHP code must be wrapped in <?php ... ?> tags. You can echo text directly into the page or use comments to document your logic for other developers.',
     icon: Terminal,
     language: 'php',
-    codeFileName: 'types.php',
+    codeFileName: 'index.php',
     codeSnippet: `<?php
-declare(strict_types=1);
+// This is a single-line comment
+/* This is a multi-line
+   comment block */
 
-// Union type: int OR float OR null
-function divide(int|float $a, int|float $b): int|float
-{
-    if ($b === 0) {
-        throw new \\DivisionByZeroError();
-    }
-    return $a / $b;
-}
+echo "<h1>Hello from PHP!</h1>";
 
-// Intersection type: must be BOTH Countable AND Stringable
-function describe(Countable&Stringable $collection): string
-{
-    return "Items: " . count($collection)
-         . " — " . (string) $collection;
-}
+# Another way to do a single-line comment
 
-// DNF (Disjunctive Normal Form) — PHP 8.2
-// (A&B) | null
-function process((Countable&Stringable)|null $data): void
-{
-    if ($data === null) return;
-    echo describe($data);
-}`,
+?>
+<p>This is standard HTML outside the tags.</p>
+
+<?php
+echo "<p>Back in PHP mode.</p>";`,
     keyPoints: [
-      'Union (|) — either this OR that type',
-      'Intersection (&) — must satisfy ALL listed interfaces',
-      'DNF types combine both: (A&B)|null is valid in PHP 8.2',
+      '<?php ... ?> — the standard tags for PHP blocks',
+      'echo — the primary command for outputting text/HTML',
+      '// and /* */ — for code documentation',
+      'Semicolon (;) — required after every PHP statement',
     ],
   },
 
-  // ── 06 · Quiz: Types ──────────────────────────────────────────────────────
+  // ── 04 · Concept: Data Types ───────────────────────────────────────────────
+  {
+    type: 'concept',
+    title: 'Syntax & Data Types',
+    subtitle: 'The Building Blocks',
+    content: 'PHP is a loosely typed language, meaning you don\'t have to explicitly declare the type of a variable. However, it still uses strict types internally: Integers for numbers, Strings for text, Booleans for logic, and Arrays for collections.',
+    icon: Layers,
+    keyPoints: [
+      'String: "John Doe" or \'PHP\'',
+      'Integer: 42, -5, 0',
+      'Float (Double): 10.5, 3.14',
+      'Boolean: true or false',
+      'Array: [1, 2, 3] or ["name" => "Ratha"]',
+      'NULL: A variable with no value',
+    ],
+  },
+
+  // ── 05 · Code: Variables & Operators ───────────────────────────────────────
+  {
+    type: 'code',
+    title: 'Variables & Arithmetic',
+    subtitle: 'Storing and Calculating',
+    content: 'Variables start with a dollar sign ($). You use them to store data that can change throughout your script. Arithmetic operators (+, -, *, /) allow you to perform calculations on numeric data.',
+    icon: Zap,
+    language: 'php',
+    codeFileName: 'math.php',
+    codeSnippet: `<?php
+$price = 100;
+$taxRate = 0.15;
+$quantity = 3;
+
+$taxAmount = $price * $taxRate;
+$total = ($price + $taxAmount) * $quantity;
+
+echo "Item Price: $" . $price . "<br>";
+echo "Total for $quantity items: $" . $total;
+
+// The dot (.) is used for string concatenation`,
+    keyPoints: [
+      '$variableName — variables are case-sensitive',
+      'Concatenation (.) — used to join strings together',
+      'Arithmetic (+, -, *, /, %) — standard mathematical operations',
+      'Assignment (=) — assigns a value to a variable',
+    ],
+  },
+
+  // ── 06 · Diagram: Logic Gates ──────────────────────────────────────────────
+  {
+    type: 'diagram',
+    title: 'Comparison & Logical Operators',
+    subtitle: 'Making Decisions',
+    content: 'Control structures rely on comparison operators (==, !=, <, >) to determine if a condition is true or false. Logical operators (&&, ||, !) allow you to combine multiple conditions.',
+    icon: ShieldCheck,
+    diagramNodes: [
+      { label: '$age >= 18', desc: 'Comparison (True/False)', color: '#6366f1' },
+      { label: 'AND (&&)',    desc: 'Both must be true',      color: '#8b5cf6' },
+      { label: 'OR (||)',     desc: 'One must be true',       color: '#10b981' },
+      { label: 'Result',      desc: 'Execute if true',        color: '#f59e0b' },
+    ],
+  },
+
+  // ── 07 · Code: Control Flow ────────────────────────────────────────────────
+  {
+    type: 'code',
+    title: 'If-Else Statements',
+    subtitle: 'Branching Logic',
+    content: 'Conditional statements allow your application to behave differently based on different inputs. This is the foundation of interactivity in web development.',
+    icon: Settings,
+    language: 'php',
+    codeFileName: 'auth.php',
+    codeSnippet: `<?php
+$isLoggedIn = true;
+$userRole = 'admin';
+
+if ($isLoggedIn && $userRole === 'admin') {
+    echo "Welcome back, Admin!";
+} elseif ($isLoggedIn) {
+    echo "Welcome back, User!";
+} else {
+    echo "Please log in to continue.";
+}
+
+// Ternary operator (Shorthand)
+$message = $isLoggedIn ? 'Online' : 'Offline';`,
+    keyPoints: [
+      'if / elseif / else — basic branching structure',
+      '=== (Strict) vs == (Loose) — always prefer === for security',
+      'Ternary (? :) — shorthand for simple if-else',
+      'Switch Statements — useful for many fixed options',
+    ],
+  },
+
+  // ── 08 · Code: Switch Case ────────────────────────────────────────────────
+  {
+    type: 'code',
+    title: 'Switch Case',
+    subtitle: 'Managing Multi-Choice',
+    content: 'When you have many possible outcomes for a single variable, a switch statement is often cleaner and easier to read than multiple if-elseif blocks.',
+    icon: List,
+    language: 'php',
+    codeFileName: 'colors.php',
+    codeSnippet: `<?php
+$favColor = "red";
+
+switch ($favColor) {
+    case "red":
+        echo "Your favorite color is red!";
+        break;
+    case "blue":
+        echo "Your favorite color is blue!";
+        break;
+    case "green":
+        echo "Your favorite color is green!";
+        break;
+    default:
+        echo "We don't know your favorite color.";
+}
+
+// Important: break is required to prevent "fall-through"`,
+    keyPoints: [
+      'case — a specific value to check',
+      'break — exits the switch block',
+      'default — runs if no case matches',
+      'Multiple cases can share the same code block',
+    ],
+  },
+
+  // ── 09 · Quiz: Control Flow ───────────────────────────────────────────────
   {
     type: 'quiz',
-    title: 'Type System Check',
+    title: 'Logic Check',
     subtitle: 'Knowledge Check',
     content: '',
     icon: ShieldCheck,
-    question: 'You have a function typed as fn process(Countable&Stringable $x). Which of the following would satisfy it?',
+    question: 'How many echo statements will execute in this code? $x=5; if($x > 0){ echo "A"; } if($x < 10){ echo "B"; } else { echo "C"; }',
     options: [
       {
-        text: 'An object implementing only Countable',
+        text: 'Only A',
         correct: false,
-        explanation: 'Intersection types require ALL constraints. An object that only implements Countable fails the Stringable requirement and will cause a TypeError.',
+        explanation: 'Both conditions involve independent if statements or if/else blocks. $x > 0 is true (echo A). The second block is $x < 10 which is also true (echo B).',
       },
       {
-        text: 'An object implementing both Countable and Stringable',
+        text: 'A and B',
         correct: true,
-        explanation: 'Correct — intersection types require the value to satisfy every interface listed. Both must be implemented simultaneously.',
+        explanation: 'Correct. The first "if" is independent. The second "if" and its "else" are separate. Since $x satisfies both $x > 0 and $x < 10, both A and B are printed.',
       },
       {
-        text: 'A plain PHP array',
+        text: 'A and C',
         correct: false,
-        explanation: 'Arrays are Countable natively, but they do not implement Stringable. They fail the intersection constraint and will throw a TypeError.',
+        explanation: 'The else (C) only runs if the second if ($x < 10) is false. Since 5 < 10 is true, C will never execute.',
       },
       {
-        text: 'null',
+        text: 'Only B',
         correct: false,
-        explanation: 'null satisfies neither Countable nor Stringable. To allow null you\'d need a DNF type: (Countable&Stringable)|null.',
+        explanation: 'PHP executes script sequentially. The first condition is evaluated first and evaluates to true.',
       },
     ],
   },
 
-  // ── 07 · Code: Match Expressions ──────────────────────────────────────────
+  // ── 10 · Concept: Loops ───────────────────────────────────────────────────
   {
-    type: 'code',
-    title: 'Match Expressions',
-    subtitle: 'Powerful Control Flow',
-    content: 'match is the strict, expression-form successor to switch. It uses strict (===) comparison, throws UnhandledMatchError if no arm matches, and each arm returns a value directly — no break needed, no silent fall-through.',
-    icon: Layers,
-    language: 'php',
-    codeFileName: 'StatusMapper.php',
-    codeSnippet: `<?php
-declare(strict_types=1);
-
-enum Status: string
-{
-    case Active   = 'active';
-    case Inactive = 'inactive';
-    case Banned   = 'banned';
-}
-
-function getStatusLabel(Status $status): string
-{
-    return match($status) {
-        Status::Active   => 'Active User',
-        Status::Inactive => 'Account Inactive',
-        Status::Banned   => 'Access Revoked',
-    };
-    // UnhandledMatchError thrown if new enum case
-    // is added but not handled here — a compile-time
-    // safety net that switch never gave us.
-}
-
-// Multiple conditions per arm:
-$httpLabel = match(true) {
-    $code >= 500 => 'Server Error',
-    $code >= 400 => 'Client Error',
-    $code >= 300 => 'Redirect',
-    default      => 'Success',
-};`,
+    type: 'concept',
+    title: 'Loops: While and For',
+    subtitle: 'Repeating Tasks',
+    content: 'Loops are used to execute the same block of code repeatedly as long as a certain condition is met. This is essential for rendering lists or processing large sets of data.',
+    icon: Repeat,
     keyPoints: [
-      'Strict === comparison — no type coercion surprises',
-      'Returns a value — assign it directly to a variable',
-      'UnhandledMatchError forces you to handle every case',
-      'Multiple conditions per arm: case1, case2 => value',
+      'While Loop: Runs while a condition is true (don\'t know how many times).',
+      'For Loop: Runs a specific number of times (know exactly how many).',
+      'Do-While: Guarateed to run at least once before checking condition.',
+      'Infinite Loop: A mistake where the condition never becomes false.',
     ],
   },
 
-  // ── 08 · Code: Named Arguments ────────────────────────────────────────────
+  // ── 11 · Code: Iteration in Practice ──────────────────────────────────────
   {
     type: 'code',
-    title: 'Named Arguments',
-    subtitle: 'Self-Documenting Code',
-    content: 'Named arguments let you pass values by parameter name instead of position. This eliminates parameter-order confusion, lets you skip optional parameters in the middle, and makes call sites far more readable — especially for built-in functions with many options.',
-    icon: Code,
+    title: 'For & While Loops',
+    subtitle: 'Counting and Checking',
+    content: 'A for loop is structured with initialization, condition, and increment. A while loop is simpler, relying only on a condition evaluated at the start of each iteration.',
+    icon: Repeat,
     language: 'php',
-    codeFileName: 'named-args.php',
+    codeFileName: 'loops.php',
     codeSnippet: `<?php
-declare(strict_types=1);
-
-// ── Before named args ─────────────────────────────
-// Which position is which? Must read the signature.
-$result = array_slice($items, 0, 5, true);
-
-// ── After named args ──────────────────────────────
-$result = array_slice(
-    array:        $items,
-    offset:       0,
-    length:       5,
-    preserve_keys: true,  // skip nothing, crystal clear
-);
-
-// ── Skip optional middle params ───────────────────
-function createUser(
-    string $name,
-    string $role   = 'viewer',
-    bool   $active = true,
-    ?string $team  = null,
-): User {
-    // ...
+// For Loop: Count 1 to 5
+for ($i = 1; $i <= 5; $i++) {
+    echo "Iteration: $i <br>";
 }
 
-// Only set what you need — role keeps its default:
-$user = createUser(
-    name:   'Amara Nwosu',
-    active: true,
-    team:   'backend',
-);`,
+echo "<hr>";
+
+// While Loop: Countdown
+$count = 5;
+while ($count > 0) {
+    echo "Countdown: $count <br>";
+    $count--;
+}
+echo "Blast off!";`,
     keyPoints: [
-      'Pass in any order — the name is the contract, not the position',
-      'Skip optional parameters without passing dummy values',
-      'Combine with positional args — named args must come last',
+      '$i++ — incrementing the counter',
+      'Condition — the loop stops when this is false',
+      'HTML inside echo — loops are great for building HTML tables/lists',
     ],
   },
 
-  // ── 09 · Code: Constructor Promotion ──────────────────────────────────────
+  // ── 12 · Concept: Arrays ──────────────────────────────────────────────────
+  {
+    type: 'concept',
+    title: 'Arrays & Data Structures',
+    subtitle: 'Managing Collections',
+    content: 'Arrays allow you to store multiple values in a single variable. PHP supports Indexed Arrays (numeric keys) and Associative Arrays (descriptive string keys).',
+    icon: List,
+    keyPoints: [
+      'Indexed Array: $colors = ["Red", "Green", "Blue"];',
+      'Associative Array: $user = ["name" => "Ratha", "age" => 25];',
+      'Multidimensional Arrays: Arrays containing other arrays.',
+      'count() — function to get the number of items in an array.',
+    ],
+  },
+
+  // ── 13 · Code: Foreach Loop ───────────────────────────────────────────────
   {
     type: 'code',
-    title: 'Constructor Promotion',
-    subtitle: 'Reducing Boilerplate',
-    content: 'Constructor property promotion lets you declare and assign class properties directly in the constructor signature using a visibility modifier. It eliminates three lines of boilerplate per property — declaration, parameter, assignment — condensing them into one.',
-    icon: Zap,
+    title: 'The Foreach Loop',
+    subtitle: 'Simplifying Array Traversal',
+    content: 'The foreach loop is specifically designed to work with arrays. It iterates through every element without needing an manual counter or index, making it the most used loop in PHP.',
+    icon: Repeat,
     language: 'php',
-    codeFileName: 'OrderService.php',
+    codeFileName: 'arrays.php',
     codeSnippet: `<?php
-declare(strict_types=1);
+$students = ["Sok", "Sao", "Srey"];
 
-// ── Old style (verbose) ───────────────────────────
-class OrderServiceOld
-{
-    private OrderRepository $orders;
-    private PaymentGateway  $payments;
-    private EventDispatcher $events;
-
-    public function __construct(
-        OrderRepository $orders,
-        PaymentGateway  $payments,
-        EventDispatcher $events,
-    ) {
-        $this->orders   = $orders;
-        $this->payments = $payments;
-        $this->events   = $events;
-    }
+echo "<ul>";
+foreach ($students as $name) {
+    echo "<li>Student: $name</li>";
 }
+echo "</ul>";
 
-// ── New style (promoted) ──────────────────────────
-class OrderService
-{
-    public function __construct(
-        private readonly OrderRepository $orders,
-        private readonly PaymentGateway  $payments,
-        private readonly EventDispatcher $events,
-    ) {} // body empty — PHP wires it all up
+$prices = ["Apple" => 1.5, "Orange" => 2.0];
+foreach ($prices as $fruit => $price) {
+    echo "$fruit costs $$price <br>";
 }`,
     keyPoints: [
-      'Add public/protected/private to any constructor param to promote it',
-      'readonly prevents accidental mutation after construction',
-      'Works with default values: private string $role = "viewer"',
+      'as $item — extracts the value for each element',
+      'as $key => $value — extracts both the key and the value',
+      'Highly readable — best for rendering database results',
     ],
   },
 
-  // ── 10 · Concept: PHP Attributes ──────────────────────────────────────────
-  {
-    type: 'concept',
-    title: 'PHP Attributes',
-    subtitle: 'Native Metadata',
-    content: 'Attributes replace DocBlock annotations with first-class PHP syntax. They are parsed by the reflection API at runtime, making them reliable and IDE-friendly. Frameworks like Laravel and Symfony use Attributes for routing, dependency injection, middleware, and validation — all without runtime string parsing.',
-    icon: Layers,
-    callout: 'Attributes are not executed when the class loads — they are inert metadata until something reads them via reflection. This makes them zero-cost unless inspected.',
-    keyPoints: [
-      '#[Route(\'/api/users\', methods: [\'GET\'])] replaces /** @Route(...) */',
-      'Repeatable attributes: stack multiple #[Middleware(...)] on one method',
-      'Target-aware: attributes can be restricted to class/method/property/parameter',
-      'Fully tree-shakeable by static analysis and IDE tooling',
-    ],
-  },
-
-  // ── 11 · Diagram: Attributes in Laravel ───────────────────────────────────
-  {
-    type: 'diagram',
-    title: 'Attribute Processing',
-    subtitle: 'From Source to Runtime',
-    content: 'Laravel\'s service container reads Attributes from your controller via reflection, resolves the matching middleware and route definitions, and registers them — all without a separate routing config file.',
-    icon: Layers,
-    diagramNodes: [
-      { label: 'Controller',  desc: '#[Route] attribute',   color: '#6366f1' },
-      { label: 'Reflection',  desc: 'ReflectionClass API',  color: '#8b5cf6' },
-      { label: 'Container',   desc: 'Service container',    color: '#0ea5e9' },
-      { label: 'Router',      desc: 'Route registration',   color: '#10b981' },
-      { label: 'Request',     desc: 'Incoming HTTP',        color: '#f59e0b' },
-    ],
-  },
-
-  // ── 12 · Concept: SOLID ───────────────────────────────────────────────────
-  {
-    type: 'concept',
-    title: 'SOLID in PHP',
-    subtitle: 'Clean Architecture',
-    content: 'SOLID is not a PHP concept — but PHP\'s type system, interfaces, and traits make all five principles directly expressible in code. Applying them consistently produces codebases that are testable by default, open to extension, and resistant to cascading breakage.',
-    icon: ShieldCheck,
-    keyPoints: [
-      'S — Single Responsibility: one class, one reason to change',
-      'O — Open/Closed: extend behaviour without modifying existing code',
-      'L — Liskov Substitution: subtypes must honour the parent contract',
-      'I — Interface Segregation: many thin interfaces beat one fat one',
-      'D — Dependency Inversion: depend on abstractions, inject concretions',
-    ],
-    callout: 'The "D" in SOLID is why PHP frameworks use DI containers. Your classes declare what they need via constructor types; the container wires up the concrete implementations.',
-  },
-
-  // ── 13 · Diagram: Interface Segregation ───────────────────────────────────
-  {
-    type: 'diagram',
-    title: 'Interface Segregation',
-    subtitle: 'Decoupling Logic',
-    content: 'Rather than a single UserRepository interface with 12 methods, split by consumer need. A read-only dashboard only needs ReadableUserRepository. A command handler only needs WritableUserRepository. Neither is forced to implement what it does not use.',
-    icon: Database,
-    diagramNodes: [
-      { label: 'ReadableRepo',  desc: 'find, findAll, paginate', color: '#0ea5e9' },
-      { label: 'WritableRepo',  desc: 'save, delete, update',    color: '#10b981' },
-      { label: 'UserRepo',      desc: 'implements both',         color: '#6366f1' },
-      { label: 'Dashboard',     desc: 'uses Readable only',      color: '#f59e0b' },
-      { label: 'CommandHandler',desc: 'uses Writable only',      color: '#ef4444' },
-    ],
-  },
-
-  // ── 14 · Concept: Traits ──────────────────────────────────────────────────
-  {
-    type: 'concept',
-    title: 'Understanding Traits',
-    subtitle: 'Horizontal Code Reuse',
-    content: 'PHP\'s single-inheritance model limits vertical reuse. Traits solve the horizontal problem: share concrete method implementations across unrelated classes without a common parent. Think mixins — but with PHP\'s type system enforcing the contract.',
-    icon: Layers,
-    callout: 'If you find yourself copying the same 3 methods into multiple unrelated classes, that\'s the trait signal. Extract them, give the trait a clear single responsibility, then use it.',
-    keyPoints: [
-      '"has-a" behaviour vs "is-a" inheritance — traits express behaviour',
-      'Conflict resolution: insteadof and as resolve method name collisions',
-      'Traits can declare abstract methods — enforcing consuming class contracts',
-      'Avoid state in traits — stateful traits cause subtle bugs across classes',
-    ],
-  },
-
-  // ── 15 · Code: Enums ──────────────────────────────────────────────────────
+  // ── 14 · Code: Custom Functions ───────────────────────────────────────────
   {
     type: 'code',
-    title: 'Enums in PHP 8.1',
-    subtitle: 'Type-Safe Constants',
-    content: 'PHP 8.1 Enums are first-class types, not syntactic sugar over constants. Backed Enums map each case to a string or int value for serialisation. You can attach methods, implement interfaces, and use them in match expressions — getting compile-time exhaustiveness.',
-    icon: Layers,
+    title: 'User-Defined Functions',
+    subtitle: 'Reusable Code Blocks',
+    content: 'Functions allow you to group code into a named block that can be called multiple times with different inputs (parameters). They should generally perform one specific task.',
+    icon: Cpu,
     language: 'php',
-    codeFileName: 'PaymentStatus.php',
+    codeFileName: 'functions.php',
     codeSnippet: `<?php
-declare(strict_types=1);
-
-// Backed Enum (string-backed)
-enum PaymentStatus: string
-{
-    case Pending   = 'pending';
-    case Captured  = 'captured';
-    case Refunded  = 'refunded';
-    case Failed    = 'failed';
-
-    public function label(): string
-    {
-        return match($this) {
-            self::Pending  => 'Awaiting Capture',
-            self::Captured => 'Payment Successful',
-            self::Refunded => 'Amount Returned',
-            self::Failed   => 'Transaction Declined',
-        };
-    }
-
-    public function isFinal(): bool
-    {
-        return match($this) {
-            self::Captured,
-            self::Refunded,
-            self::Failed => true,
-            default      => false,
-        };
-    }
+function calculateDiscount($price, $percentage = 10) {
+    $discount = $price * ($percentage / 100);
+    return $price - $discount;
 }
 
-// Usage
-$status = PaymentStatus::from('captured');   // PaymentStatus::Captured
-echo $status->label();                        // "Payment Successful"
-echo $status->value;                          // "captured"
+$iphone = calculateDiscount(1000, 20); // 800
+$macbook = calculateDiscount(2000);     // 1800 (uses default 10%)
 
-$maybe = PaymentStatus::tryFrom('unknown');  // null — safe`,
+echo "iPhone: $$iphone, Macbook: $$macbook";`,
     keyPoints: [
-      'from() throws ValueError on invalid input — use tryFrom() for safety',
-      'Enums implement Stringable? No — call ->value explicitly',
-      'Implement interfaces on Enums: enum Status: string implements HasLabel',
-      'Store backed enum values in the DB, hydrate with from() on read',
+      'function name() — declaration syntax',
+      'Parameters — inputs passed into the function',
+      'Default Values — percentage = 10 sets a fallback',
+      'Return — passes the result back to the caller',
     ],
   },
 
-  // ── 16 · Quiz: Enums ──────────────────────────────────────────────────────
-  {
-    type: 'quiz',
-    title: 'Enum Knowledge Check',
-    subtitle: 'Knowledge Check',
-    content: '',
-    icon: Layers,
-    question: "What is the difference between PaymentStatus::from('unknown') and PaymentStatus::tryFrom('unknown')?",
-    options: [
-      {
-        text: "Both return null when the value doesn't exist",
-        correct: false,
-        explanation: "Only tryFrom() returns null. from() throws a ValueError. Using from() without a try/catch on untrusted input will crash your application.",
-      },
-      {
-        text: "from() throws ValueError; tryFrom() returns null",
-        correct: true,
-        explanation: "Correct. from() is for trusted data (e.g. reading from your own DB). tryFrom() is for untrusted input (API payloads, user input) where the value may not exist.",
-      },
-      {
-        text: "from() returns null; tryFrom() throws an exception",
-        correct: false,
-        explanation: "This is backwards. from() is the strict version that throws. tryFrom() is the safe version that returns null on failure.",
-      },
-      {
-        text: "There is no difference — they are aliases",
-        correct: false,
-        explanation: "They have distinct, intentional semantics. from() = strict (throws). tryFrom() = lenient (returns null). Always choose based on whether the input is trusted.",
-      },
-    ],
-  },
-
-  // ── 17 · Code: Fibers ─────────────────────────────────────────────────────
-  {
-    type: 'code',
-    title: 'The Fibers API',
-    subtitle: 'Concurrency Prelims',
-    content: 'Fibers are lightweight coroutines added in PHP 8.1. They allow a function to pause execution mid-run and yield control back to the caller, then resume exactly where it left off. This is the building block that async PHP runtimes like Revolt and ReactPHP use under the hood.',
-    icon: Zap,
-    language: 'php',
-    codeFileName: 'fiber-demo.php',
-    codeSnippet: `<?php
-declare(strict_types=1);
-
-$fiber = new Fiber(function(): string {
-    echo "Fiber started\\n";
-
-    // Suspend: yield value to caller, wait for resume
-    $valueFromCaller = Fiber::suspend('first suspend');
-
-    echo "Fiber resumed with: $valueFromCaller\\n";
-
-    Fiber::suspend('second suspend');
-
-    echo "Fiber finishing\\n";
-    return 'done';
-});
-
-// Start the fiber — runs until first suspend
-$val1 = $fiber->start();           // "Fiber started"
-echo "Got: $val1\\n";              // "Got: first suspend"
-
-// Resume — runs until next suspend or return
-$val2 = $fiber->resume('hello');   // "Fiber resumed with: hello"
-echo "Got: $val2\\n";              // "Got: second suspend"
-
-$fiber->resume();                   // "Fiber finishing"
-echo $fiber->getReturn() . "\\n";  // "done"`,
-    keyPoints: [
-      'Fibers are NOT threads — they run on the same OS thread, no parallelism',
-      'Fiber::suspend() pauses execution and returns a value to the caller',
-      'resume($value) passes a value back INTO the fiber at the suspend point',
-      'Async libraries (Revolt, ReactPHP) build event loops on top of Fibers',
-    ],
-  },
-
-  // ── 18 · Diagram: Fibers vs Traditional ───────────────────────────────────
-  {
-    type: 'diagram',
-    title: 'Sync vs Fiber Execution',
-    subtitle: 'Concurrency Model',
-    content: 'In synchronous PHP, one blocking I/O call stalls the entire thread. With Fibers, the event loop can suspend the waiting fiber and run another — squeezing more work into the same CPU time without threads or processes.',
-    icon: Zap,
-    diagramNodes: [
-      { label: 'Event Loop',  desc: 'Revolt / ReactPHP',  color: '#6366f1' },
-      { label: 'Fiber A',     desc: 'DB query (waiting)',  color: '#0ea5e9' },
-      { label: 'Fiber B',     desc: 'HTTP call (waiting)', color: '#10b981' },
-      { label: 'Fiber C',     desc: 'CPU work (running)',  color: '#f59e0b' },
-      { label: 'OS I/O',      desc: 'epoll / kqueue',     color: '#8b5cf6' },
-    ],
-  },
-
-  // ── 19 · Concept: Composer ────────────────────────────────────────────────
+  // ── 15 · Concept: Form Handling ───────────────────────────────────────────
   {
     type: 'concept',
-    title: 'Composer Mastery',
-    subtitle: 'Dependency Ecosystem',
-    content: 'Composer is PHP\'s dependency manager — but it is also an autoloader, a build tool, and a package publisher. The composer.lock file is the source of truth for reproducible deployments: it pins every transitive dependency to an exact version so that "works on my machine" stays dead.',
+    title: 'Web Features: GET & POST',
+    subtitle: 'Capturing User Input',
+    content: 'PHP uses superglobals like $_GET and $_POST to capture data sent from HTML forms. GET sends data through the URL (visible), while POST sends it in the request body (invisible).',
+    icon: MousePointer2,
+    callout: 'Always use POST for sensitive data like passwords. Use GET for non-sensitive data like search queries or filters.',
+    keyPoints: [
+      '$_GET — parameters visible in URL (?id=5)',
+      '$_POST — safer, large data, hidden from URL',
+      'action — the PHP file that processes the form',
+      'method — specifies whether to use GET or POST',
+    ],
+  },
+
+  // ── 16 · Code: Form Processing ────────────────────────────────────────────
+  {
+    type: 'code',
+    title: 'Basic Form Handling',
+    subtitle: 'Interacting with Users',
+    content: 'Processing a form involves checking if the request method is POST, and then accessing the values from the $_POST array using the "name" attribute of the HTML inputs.',
+    icon: Layout,
+    language: 'php',
+    codeFileName: 'process.php',
+    codeSnippet: `<!-- HTML Form -->
+<form action="process.php" method="POST">
+    <input type="text" name="username" placeholder="Name">
+    <button type="submit">Submit</button>
+</form>
+
+<?php
+// PHP Processing (in process.php)
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $name = $_POST['username'];
+    echo "Hello, " . htmlspecialchars($name);
+}
+?>`,
+    keyPoints: [
+      '$_SERVER["REQUEST_METHOD"] — identifies how the form was submitted',
+      'htmlspecialchars() — CRITICAL for security (prevents XSS)',
+      'isset() — check if a form field exists before using it',
+    ],
+  },
+
+  // ── 17 · Concept: Web Security ────────────────────────────────────────────
+  {
+    type: 'concept',
+    title: 'Basic Security Measures',
+    subtitle: 'Protecting Your App',
+    content: 'Never trust user input. Hackers can submit malicious scripts through your forms. Two primary defenses at this stage are sanitization (removing unwanted characters) and validation (checking if data meets rules).',
+    icon: ShieldCheck,
+    keyPoints: [
+      'XSS (Cross-Site Scripting): Prevent by using htmlspecialchars().',
+      'SQL Injection: Prevent by using Prepared Statements (will learn in DB section).',
+      'Validation: Check if an email is actually a valid email format.',
+      'Sanitization: Stripping HTML tags from user comments.',
+    ],
+  },
+
+  // ── 18 · Code: Sessions & Cookies ─────────────────────────────────────────
+  {
+    type: 'code',
+    title: 'Managing State: Sessions',
+    subtitle: 'Persistent User Data',
+    content: 'HTTP is stateless, meaning the server forgets the user after each request. Sessions solve this by storing data on the server with a unique browser ID, allowing features like "Login" to work.',
+    icon: Lock,
+    language: 'php',
+    codeFileName: 'session.php',
+    codeSnippet: `<?php
+session_start(); // Must be the FIRST line!
+
+$_SESSION['user'] = "Admin";
+$_SESSION['role'] = "Editor";
+
+echo "Session started for " . $_SESSION['user'];
+
+// To clear:
+// session_destroy();`,
+    keyPoints: [
+      'session_start() — initializes or resumes a session',
+      '$_SESSION — a global associative array for session data',
+      'Data is stored on server — safer than cookies for secrets',
+      'Cookies — small files stored on the user\'s local browser',
+    ],
+  },
+
+  // ── 19 · Concept: Database Connectivity ───────────────────────────────────
+  {
+    type: 'concept',
+    title: 'PHP & MySQL',
+    subtitle: 'Database Integration',
+    content: 'Modern PHP applications use PDO (PHP Data Objects) to connect to databases. PDO is more secure and supports multiple database types like MySQL, SQLite, and PostgreSQL with the same code syntax.',
     icon: Database,
-    callout: 'Commit composer.lock to version control. Always. It is not an artifact — it is part of your application. CI should run composer install (not update) to reproduce the exact locked state.',
     keyPoints: [
-      'composer.json declares constraints; composer.lock declares exact versions',
-      'Semantic versioning: ^2.0 allows 2.x, ~2.1 allows 2.1.x',
-      'composer install — reproduces lock exactly (use in CI and production)',
-      'composer update — resolves newest versions within constraints (use locally)',
-      'Private packages: host on Satis, Packeton, or use path repositories',
+      'Connection String: host, dbname, user, password',
+      'Dsn (Data Source Name): Defines the connection driver',
+      'Prepared Statements: The only safe way to run queries with variables.',
+      'Fetch Modes: How we get the data (as associative array, object, etc.)',
     ],
   },
 
-  // ── 20 · Concept: PSR Standards ───────────────────────────────────────────
-  {
-    type: 'concept',
-    title: 'PSR Standards',
-    subtitle: 'PHP FIG Consistency',
-    content: 'The PHP-FIG (Framework Interoperability Group) publishes PSRs that let libraries interoperate without knowing about each other. PSR-4 autoloading is why you never write require again. PSR-12 is the coding style that keeps the global PHP community readable across teams.',
-    icon: Layers,
-    keyPoints: [
-      'PSR-1 — Basic coding standard: one class per file, StudlyCaps class names',
-      'PSR-4 — Autoloading: namespace App\\Services maps to src/Services/ directory',
-      'PSR-7 — HTTP message interfaces: framework-agnostic request/response objects',
-      'PSR-11 — Container interface: swap DI containers without changing consumers',
-      'PSR-12 — Extended coding style: indentation, braces, line length rules',
-      'PSR-15 — HTTP middleware: the interface Laravel and Slim both implement',
-    ],
-    callout: 'PSR-4 autoloading + Composer = zero require/include in modern PHP. Define the namespace-to-path mapping in composer.json autoload and never look back.',
-  },
-
-  // ── 21 · Code: Pest Testing ───────────────────────────────────────────────
+  // ── 20 · Code: Connecting to DB ───────────────────────────────────────────
   {
     type: 'code',
-    title: 'Pest Testing',
-    subtitle: 'Beautiful Testing',
-    content: 'Pest is built on PHPUnit but replaces the verbose class-per-test-case model with a minimal expressive syntax inspired by Jest. Tests read like sentences. Architectural tests, mutation testing, and parallel execution come built-in.',
-    icon: Zap,
+    title: 'Database Connection (PDO)',
+    subtitle: 'Establishing a Link',
+    content: 'We use a try-catch block to handle connection errors gracefully. Once connected, we can execute SQL queries to retrieve or save data.',
+    icon: Save,
     language: 'php',
-    codeFileName: 'UserTest.php',
+    codeFileName: 'db.php',
     codeSnippet: `<?php
-declare(strict_types=1);
+$host = 'localhost';
+$db   = 'my_blog';
+$user = 'root';
+$pass = '';
 
-use App\\Models\\User;
-use App\\Services\\UserService;
+try {
+    $pdo = new PDO("mysql:host=$host;dbname=$db", $user, $pass);
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    echo "Connected successfully!";
+} catch(PDOException $e) {
+    echo "Connection failed: " . $e->getMessage();
+}`,
+    keyPoints: [
+      'new PDO() — creates the connection object',
+      'ATTR_ERRMODE — tells PDO to throw exceptions on SQL errors',
+      'catch(PDOException) — captures errors without crashing the server',
+    ],
+  },
 
-// Group related tests in a describe block
-describe('UserService', function () {
+  // ── 21 · Code: Prepared Statements & CRUD ─────────────────────────────────
+  {
+    type: 'code',
+    title: 'CRUD Operations',
+    subtitle: 'Create, Read, Update, Delete',
+    content: 'CRUD is the backbone of most web applications. Here we see how to use Prepared Statements to safely update and delete data from our database based on user IDs.',
+    icon: ShieldCheck,
+    language: 'php',
+    codeFileName: 'crud.php',
+    codeSnippet: `<?php
+// 1. READ (Select)
+$stmt = $pdo->prepare("SELECT * FROM users WHERE id = ?");
+$stmt->execute([$userId]);
+$user = $stmt->fetch();
 
-    beforeEach(function () {
-        $this->service = new UserService(
-            new InMemoryUserRepository()
-        );
-    });
+// 2. UPDATE
+$update = $pdo->prepare("UPDATE users SET name = ? WHERE id = ?");
+$update->execute(["New Name", $userId]);
 
-    it('creates a user with the given name', function () {
-        $user = $this->service->create('Amara Nwosu');
+// 3. DELETE
+$delete = $pdo->prepare("DELETE FROM users WHERE id = ?");
+$delete->execute([$userId]);
 
-        expect($user)
-            ->toBeInstanceOf(User::class)
-            ->and($user->name)->toBe('Amara Nwosu')
-            ->and($user->id)->not->toBeNull();
-    });
+// 4. CREATE (Insert)
+$insert = $pdo->prepare("INSERT INTO users (name, email) VALUES (?, ?)");
+$insert->execute(["Sok", "sok@example.com"]);`,
+    keyPoints: [
+      'UPDATE — uses the SET keyword to change values',
+      'DELETE — always include a WHERE clause or you\'ll wipe the table',
+      'rowCount() — check how many rows were affected by an update/delete',
+      'lastInsertId() — get the ID of the row you just created',
+    ],
+  },
 
-    it('throws when name is empty', function () {
-        $this->service->create('');
-    })->throws(\\InvalidArgumentException::class);
+  // ── 22 · Code: REST API Login ─────────────────────────────────────────────
+  {
+    type: 'code',
+    title: 'REST API Login',
+    subtitle: 'JSON & Security',
+    content: 'Modern apps often use PHP as a backend API. This code shows how to accept a JSON payload, verify a hashed password, and return a JSON response — the foundation of headless authentication.',
+    icon: Key,
+    language: 'php',
+    codeFileName: 'api/login.php',
+    codeSnippet: `<?php
+header("Content-Type: application/json");
 
-    // Data-driven: run the same test with different inputs
-    it('formats names correctly', function (string $input, string $expected) {
-        expect($this->service->formatName($input))->toBe($expected);
-    })->with([
-        ['  john doe  ', 'john doe'],
-        ['JANE',         'JANE'],
+// Capture JSON input
+$input = json_decode(file_get_contents('php://input'), true);
+$email = $input['email'] ?? '';
+$password = $input['password'] ?? '';
+
+// 1. Fetch user by email
+$stmt = $pdo->prepare("SELECT * FROM users WHERE email = ?");
+$stmt->execute([$email]);
+$user = $stmt->fetch();
+
+// 2. Verify Hashed Password
+if ($user && password_verify($password, $user['password'])) {
+    echo json_encode([
+        "status" => "success",
+        "message" => "Login successful",
+        "user_id" => $user['id']
     ]);
-});`,
+} else {
+    http_response_code(401);
+    echo json_encode(["status" => "error", "message" => "Invalid credentials"]);
+}`,
     keyPoints: [
-      'it() replaces test methods — reads like a specification',
-      'expect() chains: expect($x)->toBe()->and()->not->toBeNull()',
-      'with() drives parametric tests without copy-paste',
-      'arch()->preset()->php() enforces architecture rules in CI',
+      'password_verify() — safely checks a plain text password against a hash',
+      'json_encode() — converts PHP arrays into JSON for the frontend',
+      'file_get_contents(\'php://input\') — reads raw data from the request body',
+      'http_response_code(401) — sets the Unauthorised header correctly',
     ],
   },
 
-  // ── 22 · Quiz: Final ──────────────────────────────────────────────────────
+  // ── 23 · Diagram: Project Alpha Preview ───────────────────────────────────
   {
-    type: 'quiz',
-    title: 'Module Review',
-    subtitle: 'Knowledge Check',
-    content: '',
-    icon: Code,
-    question: "In a Composer project, what is the correct command to run in CI and production to get a reproducible build?",
-    options: [
-      {
-        text: 'composer update',
-        correct: false,
-        explanation: 'composer update resolves the newest versions satisfying your constraints and writes a new lock file. This is non-deterministic across environments — never use it in CI or production.',
-      },
-      {
-        text: 'composer install',
-        correct: true,
-        explanation: 'Correct. composer install reads composer.lock and installs the exact pinned versions. If the lock file is missing it falls back to update — which is why you must commit the lock file.',
-      },
-      {
-        text: 'composer require',
-        correct: false,
-        explanation: 'composer require adds a new package to composer.json and resolves its version. It is for adding new dependencies during development, not for deploying.',
-      },
-      {
-        text: 'composer dump-autoload',
-        correct: false,
-        explanation: 'composer dump-autoload regenerates the autoloader class map. It does not install packages. You might run it after install, but not instead of it.',
-      },
+    type: 'diagram',
+    title: 'Project Preview',
+    subtitle: 'The Contact Manager Dashboard',
+    content: 'A preview of the architecture we are building for Project Alpha. It combines everything learned: Forms, Sessions, Database CRUD, and secure API responses.',
+    icon: Eye,
+    diagramNodes: [
+      { label: 'Login.php',    desc: 'Auth UI + session_start', color: '#6366f1' },
+      { label: 'Dashboard',    desc: 'List All Contacts (READ)', color: '#8b5cf6' },
+      { label: 'Add/Edit modal', desc: 'CREATE & UPDATE Logic',   color: '#10b981' },
+      { label: 'Delete button', desc: 'DELETE Logic + Confirm',  color: '#ef4444' },
+      { label: 'MySQL',        desc: 'Persistent Store',         color: '#f59e0b' },
     ],
   },
 
-  // ── 23 · Hero: Final ──────────────────────────────────────────────────────
+  // ── 24 · Concept: Object Oriented Programming ──────────────────────────
+  {
+    type: 'concept',
+    title: 'Intro to OOP',
+    subtitle: 'Classes & Objects',
+    content: 'Professional PHP (and Laravel) is built on Object Oriented Programming. Instead of writing separate functions, we group data and behavior into "Classes". Think of a Class as a blueprint (e.g., "Car") and an Object as the actual instance (e.g., your "Toyota").',
+    icon: Code,
+    keyPoints: [
+      'Class: The blueprint (properties and methods).',
+      'Object: An instance created with the "new" keyword.',
+      'Properties: Variables belonging to the class (public/private).',
+      'Methods: Functions belonging to the class.',
+    ],
+  },
+
+  // ── 25 · Code: Classes & Namespaces ───────────────────────────────────────
+  {
+    type: 'code',
+    title: 'Namespaces & PSR-4',
+    subtitle: 'Organizing Large Apps',
+    content: 'Namespaces prevent name collisions (e.g., having two "User" classes). They also allow Composer to "autoload" your files automatically based on the directory structure. This eliminates the need for manual "include" or "require" statements.',
+    icon: Layers,
+    language: 'php',
+    codeFileName: 'User.php',
+    codeSnippet: `<?php
+namespace App\\Models;
+
+class User {
+    public string $name;
+
+    public function __construct($name) {
+        $this->name = $name;
+    }
+
+    public function sayHello() {
+        return "Hello, I am {$this->name}";
+    }
+}
+
+// ── In another file ─────────────────────────────────
+// use App\\Models\\User;
+// $user = new User("Ratha");`,
+    keyPoints: [
+      'namespace — defines the "address" of the class',
+      'use — imports a class from another namespace',
+      '__construct — the function that runs on "new Class()"',
+      'visibility (public/private) — controls access to data',
+    ],
+  },
+
+  // ── 26 · Concept: Composer Essentials ─────────────────────────────────────
+  {
+    type: 'concept',
+    title: 'Composer: Dependency Manager',
+    subtitle: 'The Heart of the Ecosystem',
+    content: 'Composer is the tool that manages external PHP libraries. It is how we install Laravel, testing tools like Pest, or security packages. It handles "Autoloading" so you can use any class in your project instantly.',
+    icon: Database,
+    keyPoints: [
+      'composer.json: Lists the libraries your project needs.',
+      'composer.lock: Pins exact versions for production.',
+      'vendor/: The folder where all external code lives.',
+      'composer require: The command to add a new library.',
+    ],
+  },
+
+  // ── 27 · Hero: Review ──────────────────────────────────────────────────────
   {
     type: 'hero',
-    title: 'PHP Mastery Project',
-    subtitle: 'Final Module Review',
-    content: 'You have covered the Zend Engine, JIT, strict typing, union and intersection types, match expressions, named arguments, constructor promotion, Attributes, SOLID principles, Traits, Enums, Fibers, Composer, PSR standards, and modern testing with Pest. Now build something with all of it.',
-    icon: Code,
+    title: 'Foundations Complete',
+    subtitle: 'PHP Specialist Graduation',
+    content: 'You have mastered the foundations: from basic syntax and logic to web features, database connectivity, and the transition to Object Oriented Architecture. You are now fully equipped for the Laravel Masterclass.',
+    icon: ShieldCheck,
   },
+
+  // ── 28 · Hero: Project Alpha ───────────────────────────────────────────────
+  {
+    type: 'hero',
+    title: 'Launch Project Alpha',
+    subtitle: 'The Capstone Challenge',
+    content: 'Challenge: Build a secure "Contact Manager" using PHP and MySQL. Implement search (GET), addition (POST), user login (Sessions), and organize your code using Classes and Namespaces.',
+    icon: Rocket,
+  }
 ];
 
 export default function PhpFundamentalsLessonPage() {
   return (
-    <main className="min-h-screen bg-[#fafaf8] overflow-hidden">
+    <main className="min-h-screen overflow-hidden">
       <nav
         className="px-8 py-5 sticky top-0 z-50 border-b"
-        style={{ borderColor: 'rgba(0,0,0,0.06)', background: 'rgba(250,250,248,0.92)', backdropFilter: 'blur(12px)' }}
       >
         <div className="max-w-5xl mx-auto flex items-center justify-between">
           <Link

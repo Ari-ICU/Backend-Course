@@ -37,7 +37,7 @@ const modules: Module[] = [
     dimColor: "rgba(79,91,147,0.12)",
     icon: Code,
     weeks: "Weeks 1–2",
-    lessons: 15,
+    lessons: 28,
     skills: ["PHP 8.x", "OOP", "Composer", "Attributes"],
     lessonsList: [
       "PHP Setup & Syntax", "Types & Variables", "Control Structures", "Functional PHP",
@@ -55,7 +55,7 @@ const modules: Module[] = [
     dimColor: "rgba(255,45,32,0.12)",
     icon: Zap,
     weeks: "Weeks 3–4",
-    lessons: 22,
+    lessons: 23,
     skills: ["Routing", "Service Container", "Blade", "Controllers"],
     lessonsList: [
       "Laravel Installation", "The Request Lifecycle", "Service Container Deep Dive", "Service Providers",
@@ -91,7 +91,7 @@ const modules: Module[] = [
     dimColor: "rgba(99,102,241,0.12)",
     icon: ShieldCheck,
     weeks: "Weeks 7–8",
-    lessons: 16,
+    lessons: 23,
     skills: ["Sanctum", "Breeze", "Gates", "Policies"],
     lessonsList: [
       "Authentication Basics", "Laravel Breeze/Jetstream", "Sanctum for APIs", "Authorizing Actions (Gates)",
@@ -226,7 +226,7 @@ function ModuleCard({ mod, isLeft }: { mod: Module; isLeft: boolean }) {
               <div className="flex items-center gap-2 text-[10px] text-white/20 font-mono">
                 <span>{mod.weeks}</span>
                 <span className="w-1 h-1 rounded-full bg-white/10" />
-                <span>{mod.lessons} slides</span>
+                <span>{mod.lessons} Sessions</span>
               </div>
               <div
                 className="flex items-center gap-1.5 text-[10px] font-black uppercase tracking-widest"
