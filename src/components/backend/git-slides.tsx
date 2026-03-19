@@ -573,8 +573,9 @@ export default function GitSlides() {
                     const isActive = ch.id === chapterParam;
                     return (
                       <button key={ch.id} onClick={() => {
-                          router.push(`?chapter=${ch.id}`);
-                          setCurrent(0);
+                          const params = new URLSearchParams();
+                          params.set('chapter', ch.id);
+                          router.push(`?${params.toString()}`);
                           setIsMenuOpen(false);
                         }}
                         className={`group relative flex items-center gap-4 p-4 sm:p-5 rounded-2xl transition-all border ${

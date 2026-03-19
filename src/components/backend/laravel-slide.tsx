@@ -1840,8 +1840,9 @@ export default function LaravelSlide() {
                     return (
                       <button key={ch.id} 
                         onClick={() => {
-                          router.push(`?chapter=${ch.id}`);
-                          setCurrent(0);
+                          const params = new URLSearchParams();
+                          params.set('chapter', ch.id);
+                          router.push(`?${params.toString()}`);
                           setIsMenuOpen(false);
                         }}
                         className={`group relative flex items-center gap-4 sm:gap-5 p-4 sm:p-5 rounded-2xl transition-all duration-300 border ${
