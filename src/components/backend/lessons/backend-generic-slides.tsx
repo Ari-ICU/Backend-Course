@@ -8,6 +8,7 @@ import {
   Code2, Terminal, Play, Layout, Settings, Eye, Sparkles,
   RotateCcw, Monitor, Shield, Database, Smartphone, ArrowLeft
 } from 'lucide-react';
+import BackendInteractiveWorkspace from './backend-interactive-workspace';
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 export interface DiagramNode { label: string; desc: string; color: string; }
@@ -24,18 +25,18 @@ export interface Slide {
   codeSnippet?: string;
   language?: 'php' | 'ts' | 'js' | 'bash';
   codeFileName?: string;
+  htmlSnippet?: string;
+  cssSnippet?: string;
+  syntax?: string;
+  id?: string;
   keyPoints?: string[];
   diagramNodes?: DiagramNode[];
   question?: string;
   options?: QuizOption[];
   callout?: string;
-  syntax?: string;
   compareItems?: CompareItem[];
   timelineSteps?: TimelineStep[];
   accent?: string;
-  htmlSnippet?: string;
-  cssSnippet?: string;
-  id?: string;
 }
 
 // ─── Syntax highlighter ───────────────────────────────────────────────────────
@@ -336,7 +337,17 @@ function RightPanel({ slide, accent, code, onUpdateCode }: { slide: Slide; accen
     case 'hero':
       return <HeroVisual icon={slide.icon} accent={accent} />;
     case 'code':
-      return <CodeVisual slide={slide} accent={accent} code={code} onUpdateCode={onUpdateCode} />;
+      return (
+        <BackendInteractiveWorkspace
+          code={code}
+          onUpdateCode={onUpdateCode}
+          language={slide.language}
+          fileName={slide.codeFileName}
+          htmlSnippet={slide.htmlSnippet}
+          cssSnippet={slide.cssSnippet}
+          accent={accent}
+        />
+      );
     case 'diagram':
       return <DiagramVisual nodes={slide.diagramNodes || []} accent={accent} />;
     case 'quiz':
@@ -346,7 +357,17 @@ function RightPanel({ slide, accent, code, onUpdateCode }: { slide: Slide; accen
     case 'timeline':
       return <TimelineVisual steps={slide.timelineSteps || []} accent={accent} />;
     default:
-      return <div className="flex-1 flex items-center justify-center opacity-20"><Cpu size={120} /></div>;
+      return (
+        <div className="flex-1 flex flex-col items-center justify-center p-12 text-center relative overflow-hidden group">
+           <div className="absolute inset-0 bg-gradient-radial from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
+           <div className="w-40 h-40 rounded-full border border-white/5 bg-white/[0.02] flex items-center justify-center mb-10 relative z-10 backdrop-blur-3xl shadow-2xl">
+              <slide.icon size={80} strokeWidth={1} style={{ color: accent }} className="opacity-80" />
+              <div className="absolute inset-0 rounded-full bg-white/5 animate-ping opacity-20 pointer-events-none" />
+           </div>
+           <h3 className="text-3xl font-black text-white/50 mb-4 tracking-widest uppercase">{slide.type}</h3>
+           <p className="text-white/30 font-medium max-w-sm leading-relaxed italic">Interactive Visualization Mode</p>
+        </div>
+      );
   }
 }
 
@@ -391,77 +412,101 @@ function CodeVisual({ slide, accent, code, onUpdateCode }: { slide: Slide; accen
 
       try {
         let i = 0;
+        let skipBranch = false;
+        let matchedBranch = false;
+
         while (i < lines.length) {
           const l = lines[i].trim();
           if (!l || l.startsWith('//') || l.startsWith('#') || l.startsWith('/*')) { i++; continue; }
 
-          // array assignment: $students = ["a", "b"]; or ["k" => "v"]
-          const varMatch = l.match(/^\$([a-zA-Z_\x80-\xff][a-zA-Z0-9_\x80-\xff]*)\s*=\s*\[(.*)\];$/);
-          if (varMatch) {
-            const arrStr = varMatch[2].trim();
+          // Ternary Assignment: $x = $a ? 'y' : 'z';
+          const ternaryMatch = l.match(/^\$([a-zA-Z_]+)\s*=\s*(.+?)\s*\?\s*(.+?)\s*:\s*(.+?)\s*;$/);
+          if (ternaryMatch) {
+            const [_, name, condStr, val1, val2] = ternaryMatch;
+            let check = condStr.trim();
+            Object.entries(vars).forEach(([v, val]) => check = check.replace(new RegExp(`\\$${v}\\b`, 'g'), JSON.stringify(val)));
+            // eslint-disable-next-line no-eval
+            vars[name] = eval(check) ? val1.trim().replace(/["']/g, '') : val2.trim().replace(/["']/g, '');
+            i++; continue;
+          }
+
+          // Array assignment
+          const arrMatch = l.match(/^\$([a-zA-Z_]+)\s*=\s*\[(.*)\];$/);
+          if (arrMatch) {
+            const arrStr = arrMatch[2].trim();
             if (arrStr.includes('=>')) {
-              const obj: Record<string, any> = {};
-              arrStr.split(',').forEach(pair => {
-                const [k, v] = pair.split('=>').map(s => s.trim().replace(/["']/g, ''));
-                if (k) obj[k] = isNaN(Number(v)) ? v : Number(v);
-              });
-              vars[varMatch[1]] = obj;
-            } else {
-              vars[varMatch[1]] = arrStr.split(',').map(s => s.trim().replace(/["']/g, ''));
-            }
+              const obj: any = {};
+              arrStr.split(',').forEach(p => { const [k,v] = p.split('=>').map(s => s.trim().replace(/["']/g, '')); if (k) obj[k]=v; });
+              vars[arrMatch[1]] = obj;
+            } else vars[arrMatch[1]] = arrStr.split(',').map(s => s.trim().replace(/["']/g, ''));
             i++; continue;
           }
 
-          // basic assignment: $x = 10;
-          const assignMatch = l.match(/^\$([a-zA-Z_\x80-\xff][a-zA-Z0-9_\x80-\xff]*)\s*=\s*(.+);$/);
+          // Variable assignment (including Booleans)
+          const assignMatch = l.match(/^\$([a-zA-Z_]+)\s*=\s*(.+);$/);
           if (assignMatch) {
-            vars[assignMatch[1]] = assignMatch[2].trim().replace(/["']/g, '');
+            let val = assignMatch[2].trim().replace(/;$/, '');
+            if (val === 'true') vars[assignMatch[1]] = true;
+            else if (val === 'false') vars[assignMatch[1]] = false;
+            else if (!isNaN(Number(val))) vars[assignMatch[1]] = Number(val);
+            else vars[assignMatch[1]] = val.replace(/["']/g, '');
             i++; continue;
           }
 
-          // foreach ($arr as $val) or ($arr as $k => $v)
-          const foreachMatch = l.match(/^foreach\s*\(\s*\$([a-zA-Z_]+)\s+as\s+(.*)\s*\)\s*{$/);
-          if (foreachMatch) {
-            const arrName = foreachMatch[1], loopVars = foreachMatch[2].trim();
-            const arr = vars[arrName];
-            // find loop body
-            let body = [], j = i + 1;
-            while (j < lines.length && !lines[j].trim().startsWith('}')) {
+          // IF / ELSE IF / ELSE logic
+          const ifMatch = l.match(/^(if|elseif)\s*\((.*)\)\s*{$/);
+          const elseMatch = l.match(/^else\s*{$/);
+
+          if (ifMatch || elseMatch) {
+            let shouldExecute = false;
+            if (ifMatch) {
+              if (matchedBranch) shouldExecute = false;
+              else {
+                let check = ifMatch[2].trim();
+                Object.entries(vars).forEach(([v, val]) => check = check.replace(new RegExp(`\\$${v}\\b`, 'g'), JSON.stringify(val)));
+                // eslint-disable-next-line no-eval
+                try { shouldExecute = !!eval(check); } catch { shouldExecute = false; }
+                if (shouldExecute) matchedBranch = true;
+              }
+            } else { // else
+              shouldExecute = !matchedBranch;
+            }
+
+            // find block end
+            let body: string[] = [], j = i + 1, depth = 1;
+            while (j < lines.length) {
+              const bl = lines[j].trim();
+              if (bl.endsWith('{')) depth++;
+              if (bl.startsWith('}')) depth--;
+              if (depth === 0) break;
               body.push(lines[j]); j++;
             }
-            // Execute loop
-            if (arr) {
-              const entries = Array.isArray(arr) ? arr.map((v, idx) => [idx, v]) : Object.entries(arr);
-              entries.forEach(([key, val]) => {
-                const kName = loopVars.includes('=>') ? loopVars.split('=>')[0].trim().replace('$', '') : null;
-                const vName = loopVars.includes('=>') ? loopVars.split('=>')[1].trim().replace('$', '') : loopVars.replace('$', '');
-                const loopLocalVars = { [vName]: val };
-                if (kName) loopLocalVars[kName] = key;
 
-                body.forEach(bLine => {
-                  const b = bLine.trim();
-                  const eMatch = b.match(/^(echo|print)\s+(.+);$/);
-                  if (eMatch) {
-                    let out = eMatch[2].trim();
-                    Object.entries({ ...vars, ...loopLocalVars }).forEach(([v, val]) => {
-                      out = out.replace(new RegExp(`\\$${v}\\b`, 'g'), val);
-                    });
-                    logs.push(out.replace(/["']/g, '').replace(/\s*\.\s*/g, ''));
-                  }
-                });
+            if (shouldExecute) {
+              body.forEach(bLine => {
+                const b = bLine.trim();
+                const eMatch = b.match(/^(echo|print)\s+(.+);$/);
+                if (eMatch) {
+                  let out = eMatch[2].trim();
+                  Object.entries(vars).forEach(([v, val]) => out = out.replace(new RegExp(`\\$${v}\\b`, 'g'), val));
+                  logs.push(out.replace(/["']/g, '').replace(/\. /g, '').replace(/ \./g, ''));
+                }
               });
             }
-            i = j + 1; continue;
+            i = j;
+            if (l.startsWith('} else') || l.endsWith('}')) matchedBranch = false; // reset for next IF sequence if fully done
+            i++; continue;
           }
 
-          // top-level echo
+          // Reset matchedBranch if we encounter a non-conditional line
+          if (!l.startsWith('}')) matchedBranch = false;
+
+          // echo / print
           const echoMatch = l.match(/^(echo|print)\s+(.+);$/);
           if (echoMatch) {
             let out = echoMatch[2].trim();
-            Object.entries(vars).forEach(([v, val]) => {
-              out = out.replace(new RegExp(`\\$${v}\\b`, 'g'), val);
-            });
-            logs.push(out.replace(/["']/g, '').replace(/\s*\.\s*/g, ''));
+            Object.entries(vars).forEach(([v, val]) => out = out.replace(new RegExp(`\\$${v}\\b`, 'g'), val));
+            logs.push(out.replace(/["']/g, '').replace(/\. /g, '').replace(/ \./g, ''));
           }
           i++;
         }
@@ -554,15 +599,21 @@ function CodeVisual({ slide, accent, code, onUpdateCode }: { slide: Slide; accen
                    </div>
                 </motion.div>
              ) : view === 'output' ? (
-                <motion.div key="output" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="absolute inset-0 p-8 bg-black/10 overflow-auto">
-                   {/* Output logic here */}
-                   <div className="space-y-2">
-                     {output.lines.map((l, i) => <div key={i} className="font-mono text-sm text-zinc-400">{l}</div>)}
+                <motion.div key="output" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="absolute inset-0 p-8 bg-black/20 overflow-auto scroll-smooth">
+                   <div className="space-y-3">
+                     {output.lines.map((l, i) => (
+                       <div key={i} className="flex gap-4 group">
+                         <span className="text-zinc-700 font-mono text-xs select-none w-4 text-right pt-0.5">{(i + 1)}</span>
+                         <div className="font-mono text-sm tracking-tight leading-relaxed text-zinc-400 group-hover:text-emerald-400 transition-colors">
+                           {l}
+                         </div>
+                       </div>
+                     ))}
                    </div>
                 </motion.div>
              ) : (
                 <motion.div key={view} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="absolute inset-0 flex">
-                   <div className="w-14 bg-black/20 border-r border-white/5 flex flex-col items-end pr-4 pt-8 select-none">
+                   <div className="w-14 bg-black/30 border-r border-white/5 flex flex-col items-end pr-4 pt-8 select-none">
                       {lines.map((_, i: number) => <div key={i} className="text-[11px] font-mono text-zinc-700 leading-8">{i + 1}</div>)}
                    </div>
                    <div className="flex-1 relative bg-transparent">
@@ -768,16 +819,21 @@ p, div, span, label { font-family: 'Inter', sans-serif; color: #fff; }
   color: rgba(255,255,255,0.4);
 }
 
-/* Code Editor Tokens */
-.h-kw      { color: #c678dd; font-weight: 700; }
-.tok-value { color: #98c379; }
-.h-var     { color: #e06c75; }
-.h-fn      { color: #61afef; }
+/* Code Editor Tokens (Matched to reference) */
+.h-kw      { color: #c678dd; font-weight: 700; } /* echo, foreach... */
+.h-var     { color: #e06c75; font-weight: 500; } /* $variables */
+.tok-value { color: #98c379; } /* strings */
+.h-num     { color: #d19a66; } /* numbers */
 .h-comment { color: #5c6370; font-style: italic; }
-.h-class   { color: #e5c07b; }
-.h-num     { color: #d19a66; }
-.h-attr    { color: #56b6c2; }
-.h-type    { color: #56b6c2; opacity: 0.8; }
+.h-fn      { color: #61afef; } /* functions */
+.h-class   { color: #e5c07b; } /* Classes */
+.h-type    { color: #e5c07b; } /* types */
+.h-attr    { color: #d19a66; }
+
+/* Terminal Layout Tweaks */
+.t-gutter { border-right: 1px solid rgba(255,255,255,0.05); }
+.t-active-tab { background: rgba(255,255,255,0.1); color: #fff; }
+.t-run-btn { background: #61afef; color: #000; font-weight: 900; }
 
 /* Custom Scrollbars */
 ::-webkit-scrollbar { width: 8px; height: 8px; }

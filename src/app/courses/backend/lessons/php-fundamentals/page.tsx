@@ -39,21 +39,15 @@ const phpSlides: Slide[] = [
     content: 'A PHP file can contain HTML, but any PHP code must be wrapped in <?php ... ?> tags. You can echo text directly into the page or use comments to document your logic for other developers.',
     icon: Terminal,
     language: 'php',
+    syntax: '<?php /* code */ ?>',
     codeFileName: 'index.php',
     codeSnippet: `<?php
 // This is a single-line comment
+echo "Hello from PHP!";
+
 /* This is a multi-line
    comment block */
-
-echo "<h1>Hello from PHP!</h1>";
-
-# Another way to do a single-line comment
-
-?>
-<p>This is standard HTML outside the tags.</p>
-
-<?php
-echo "<p>Back in PHP mode.</p>";`,
+echo "<br>Finalizing script...";`,
     keyPoints: [
       '<?php ... ?> — the standard tags for PHP blocks',
       'echo — the primary command for outputting text/HTML',
@@ -87,6 +81,7 @@ echo "<p>Back in PHP mode.</p>";`,
     content: 'Variables start with a dollar sign ($). You use them to store data that can change throughout your script. Arithmetic operators (+, -, *, /) allow you to perform calculations on numeric data.',
     icon: Zap,
     language: 'php',
+    syntax: '$name = value;',
     codeFileName: 'math.php',
     codeSnippet: `<?php
 $price = 100;
@@ -96,41 +91,25 @@ $quantity = 3;
 $taxAmount = $price * $taxRate;
 $total = ($price + $taxAmount) * $quantity;
 
-echo "Item Price: $" . $price . "<br>";
-echo "Total for $quantity items: $" . $total;
-
-// The dot (.) is used for string concatenation`,
+echo "Item Price: $" . $price;
+echo "<br>Total for items: $" . $total;`,
     keyPoints: [
-      '$variableName — variables are case-sensitive',
-      'Concatenation (.) — used to join strings together',
-      'Arithmetic (+, -, *, /, %) — standard mathematical operations',
-      'Assignment (=) — assigns a value to a variable',
+      '$ - Always start variable names with $',
+      '. - Use the dot (.) for string concatenation',
+      '+, -, *, / - Standard arithmetic operators',
+      '% - Modulo (remainder) operator',
     ],
   },
 
-  // ── 06 · Diagram: Logic Gates ──────────────────────────────────────────────
-  {
-    type: 'diagram',
-    title: 'Comparison & Logical Operators',
-    subtitle: 'Making Decisions',
-    content: 'Control structures rely on comparison operators (==, !=, <, >) to determine if a condition is true or false. Logical operators (&&, ||, !) allow you to combine multiple conditions.',
-    icon: ShieldCheck,
-    diagramNodes: [
-      { label: '$age >= 18', desc: 'Comparison (True/False)', color: '#6366f1' },
-      { label: 'AND (&&)',    desc: 'Both must be true',      color: '#8b5cf6' },
-      { label: 'OR (||)',     desc: 'One must be true',       color: '#10b981' },
-      { label: 'Result',      desc: 'Execute if true',        color: '#f59e0b' },
-    ],
-  },
-
-  // ── 07 · Code: Control Flow ────────────────────────────────────────────────
+  // ── 06 · Code: Logic & Decisions ──────────────────────────────────────────
   {
     type: 'code',
-    title: 'If-Else Statements',
-    subtitle: 'Branching Logic',
-    content: 'Conditional statements allow your application to behave differently based on different inputs. This is the foundation of interactivity in web development.',
-    icon: Settings,
+    title: 'Conditional Logic',
+    subtitle: 'Decision Making',
+    content: 'Control structures allow your code to make decisions based on logical conditions. Use if, elseif, and else to execute different blocks of code depending on variable values like user roles or account status.',
+    icon: ShieldCheck,
     language: 'php',
+    syntax: 'if (condition) { /* ... */ } else { /* ... */ }',
     codeFileName: 'auth.php',
     codeSnippet: `<?php
 $isLoggedIn = true;
@@ -144,48 +123,87 @@ if ($isLoggedIn && $userRole === 'admin') {
     echo "Please log in to continue.";
 }
 
-// Ternary operator (Shorthand)
-$message = $isLoggedIn ? 'Online' : 'Offline';`,
+// Ternary operator
+$status = $isLoggedIn ? 'Online' : 'Offline';
+echo "<br>Status: $status";`,
     keyPoints: [
-      'if / elseif / else — basic branching structure',
-      '=== (Strict) vs == (Loose) — always prefer === for security',
-      'Ternary (? :) — shorthand for simple if-else',
-      'Switch Statements — useful for many fixed options',
+      '== - Checks for value equality',
+      '=== - Checks for value AND type equality',
+      '&& / || - Logic AND and OR operators',
+      '! - NOT operator (negation)',
     ],
   },
 
-  // ── 08 · Code: Switch Case ────────────────────────────────────────────────
+  // ── 06 · Diagram: Logic Gates ──────────────────────────────────────────────
+  {
+    type: 'diagram',
+    title: 'Comparison & Logical Operators',
+    subtitle: 'Making Decisions',
+    content: 'Control structures rely on comparison operators (==, !=, <, >) to determine if a condition is true or false. Logical operators (&&, ||, !) allow you to combine multiple conditions.',
+    icon: ShieldCheck,
+    diagramNodes: [
+      { label: '$age >= 18', desc: 'Comparison (True/False)', color: '#6366f1' },
+      { label: 'AND (&&)', desc: 'Both must be true', color: '#8b5cf6' },
+      { label: 'OR (||)', desc: 'One must be true', color: '#10b981' },
+      { label: 'Result', desc: 'Execute if true', color: '#f59e0b' },
+    ],
+  },
+
+  // ── 08 · Code: Array Foundations ──────────────────────────────────────────
   {
     type: 'code',
-    title: 'Switch Case',
-    subtitle: 'Managing Multi-Choice',
-    content: 'When you have many possible outcomes for a single variable, a switch statement is often cleaner and easier to read than multiple if-elseif blocks.',
+    title: 'Indexed Arrays',
+    subtitle: 'Ordered Collections',
+    content: 'Arrays allow you to store multiple values in a single variable. Indexed arrays use numeric keys starting from 0. They are perfect for lists like student names, products, or categories.',
     icon: List,
     language: 'php',
-    codeFileName: 'colors.php',
+    syntax: '$list = ["v1", "v2"];',
+    codeFileName: 'arrays.php',
     codeSnippet: `<?php
-$favColor = "red";
+$students = ["Sok", "Sao", "Srey"];
 
-switch ($favColor) {
-    case "red":
-        echo "Your favorite color is red!";
-        break;
-    case "blue":
-        echo "Your favorite color is blue!";
-        break;
-    case "green":
-        echo "Your favorite color is green!";
-        break;
-    default:
-        echo "We don't know your favorite color.";
-}
+echo "First Student: " . $students[0];
+echo "<br>Last Student: " . $students[2];
 
-// Important: break is required to prevent "fall-through"`,
+// Getting total count
+$total = count($students);
+echo "<br>Total Class Size: $total";`,
     keyPoints: [
-      'case — a specific value to check',
-      'break — exits the switch block',
-      'default — runs if no case matches',
-      'Multiple cases can share the same code block',
+      '0-based — the first item is always at index 0',
+      'count() — returns the number of elements in an array',
+      '[] — preferred modern syntax for array declaration',
+      'Can store different data types in the same array',
+    ],
+  },
+
+  // ── 09 · Code: Associative Arrays ─────────────────────────────────────────
+  {
+    type: 'code',
+    title: 'Associative Arrays',
+    subtitle: 'Key-Value Pairs',
+    content: 'Associations allow you to use named keys instead of numbers. This is how PHP represents complex objects like User profiles or Product details, where each value has a specific label.',
+    icon: Layout,
+    language: 'php',
+    syntax: '$map = ["key" => "val"];',
+    codeFileName: 'mapping.php',
+    codeSnippet: `<?php
+$prices = [
+    "Apple" => 1.5,
+    "Orange" => 2.0,
+    "Banana" => 0.75
+];
+
+echo "Orange Price: $" . $prices["Orange"];
+
+// Iterating with foreach
+foreach ($prices as $item => $cost) {
+    echo "<br>$item costs $$cost";
+}`,
+    keyPoints: [
+      '=> — the "double arrow" used to map keys to values',
+      'Names — keys must be strings or integers',
+      'foreach — the most efficient way to loop through arrays',
+      'Essential for processing Database results',
     ],
   },
 
@@ -354,32 +372,41 @@ echo "iPhone: $$iphone, Macbook: $$macbook";`,
     ],
   },
 
-  // ── 16 · Code: Form Processing ────────────────────────────────────────────
+  // ── 16 · Code: Form Processing Lab ─────────────────────────────────────────
   {
     type: 'code',
-    title: 'Basic Form Handling',
-    subtitle: 'Interacting with Users',
-    content: 'Processing a form involves checking if the request method is POST, and then accessing the values from the $_POST array using the "name" attribute of the HTML inputs.',
+    title: 'Registration Lab',
+    subtitle: 'HTML + PHP Integration',
+    content: 'In this lab, you can see how PHP processes a real HTML form. Switch to the PREVIEW tab to see the form UI, then switch to CODE to see how we capture the data using the $_POST superglobal.',
     icon: Layout,
     language: 'php',
-    codeFileName: 'process.php',
-    codeSnippet: `<!-- HTML Form -->
-<form action="process.php" method="POST">
-    <input type="text" name="username" placeholder="Name">
-    <button type="submit">Submit</button>
-</form>
-
-<?php
-// PHP Processing (in process.php)
+    syntax: '$_POST["input_name"];',
+    codeFileName: 'register.php',
+    htmlSnippet: `<form method="POST">
+  <div style="margin-bottom: 20px;">
+    <label style="display: block; margin-bottom: 8px; font-weight: 600;">Username</label>
+    <input type="text" name="username" placeholder="e.g. sok_developer" style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px;">
+  </div>
+  <button type="submit" style="width: 100%; background: #61afef; color: #fff; padding: 12px; border: none; border-radius: 8px; font-weight: 800; cursor: pointer;">
+    Create Account
+  </button>
+</form>`,
+    cssSnippet: `body { background: #f8fafc; color: #1e293b; }
+form { background: #fff; padding: 32px; border-radius: 16px; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1); max-width: 400px; margin: 0 auto; }`,
+    codeSnippet: `<?php
+// PHP processing logic
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $name = $_POST['username'];
-    echo "Hello, " . htmlspecialchars($name);
-}
-?>`,
+    echo "<h1>Welcome, $name!</h1>";
+    echo "Your account has been initialized.";
+} else {
+    echo "Waiting for form submission...";
+}`,
     keyPoints: [
-      '$_SERVER["REQUEST_METHOD"] — identifies how the form was submitted',
-      'htmlspecialchars() — CRITICAL for security (prevents XSS)',
-      'isset() — check if a form field exists before using it',
+      'PREVIEW — See the live HTML form',
+      '$_POST — Captures input from the "name" attribute',
+      'action — (Empty here) submits to the same file',
+      'Integration — PHP and HTML working in harmony',
     ],
   },
 
@@ -398,30 +425,29 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     ],
   },
 
-  // ── 18 · Code: Sessions & Cookies ─────────────────────────────────────────
+  // ── 18 · Code: Sessions & Lock ────────────────────────────────────────────
   {
     type: 'code',
-    title: 'Managing State: Sessions',
-    subtitle: 'Persistent User Data',
-    content: 'HTTP is stateless, meaning the server forgets the user after each request. Sessions solve this by storing data on the server with a unique browser ID, allowing features like "Login" to work.',
+    title: 'Managing State',
+    subtitle: 'Persistent Sessions',
+    content: 'HTTP is stateless—the server forgets you after every click. Sessions solve this by storing data on the server with a unique browser ID, allowing features like "Login" to persist across pages.',
     icon: Lock,
     language: 'php',
-    codeFileName: 'session.php',
+    syntax: 'session_start();',
+    codeFileName: 'auth.php',
     codeSnippet: `<?php
-session_start(); // Must be the FIRST line!
+session_start(); // Essential first step
 
-$_SESSION['user'] = "Admin";
-$_SESSION['role'] = "Editor";
+$_SESSION['user'] = "Professor Ratha";
+$_SESSION['role'] = "Admin";
 
-echo "Session started for " . $_SESSION['user'];
-
-// To clear:
-// session_destroy();`,
+echo "Session active for: " . $_SESSION['user'];
+echo "<br>Access Level: " . $_SESSION['role'];`,
     keyPoints: [
       'session_start() — initializes or resumes a session',
       '$_SESSION — a global associative array for session data',
-      'Data is stored on server — safer than cookies for secrets',
-      'Cookies — small files stored on the user\'s local browser',
+      'Data resides on the server — highly secure for secrets',
+      'stateless — why we need sessions for web apps',
     ],
   },
 
@@ -440,66 +466,59 @@ echo "Session started for " . $_SESSION['user'];
     ],
   },
 
-  // ── 20 · Code: Connecting to DB ───────────────────────────────────────────
+  // ── 20 · Code: Database Link ──────────────────────────────────────────────
   {
     type: 'code',
-    title: 'Database Connection (PDO)',
-    subtitle: 'Establishing a Link',
-    content: 'We use a try-catch block to handle connection errors gracefully. Once connected, we can execute SQL queries to retrieve or save data.',
+    title: 'PDO Connection',
+    subtitle: 'Safe Data Bridging',
+    content: 'We use PDO (PHP Data Objects) to connect to databases. It is more secure and flexible than older methods, supporting MySQL, SQLite, and more with the same elegant syntax.',
     icon: Save,
     language: 'php',
+    syntax: 'new PDO($dsn, $user, $pass);',
     codeFileName: 'db.php',
     codeSnippet: `<?php
 $host = 'localhost';
-$db   = 'my_blog';
-$user = 'root';
-$pass = '';
+$db   = 'ari_icu_db';
 
 try {
-    $pdo = new PDO("mysql:host=$host;dbname=$db", $user, $pass);
+    $pdo = new PDO("mysql:host=$host;dbname=$db", 'root', '');
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    echo "Connected successfully!";
+    echo "Connection link established.";
 } catch(PDOException $e) {
-    echo "Connection failed: " . $e->getMessage();
+    echo "Access Denied: " . $e->getMessage();
 }`,
     keyPoints: [
       'new PDO() — creates the connection object',
-      'ATTR_ERRMODE — tells PDO to throw exceptions on SQL errors',
-      'catch(PDOException) — captures errors without crashing the server',
+      'ATTR_ERRMODE — enables error reporting for SQL',
+      'try/catch — prevents "white screens of death" on errors',
     ],
   },
 
-  // ── 21 · Code: Prepared Statements & CRUD ─────────────────────────────────
+  // ── 21 · Code: Data Mastery ───────────────────────────────────────────────
   {
     type: 'code',
-    title: 'CRUD Operations',
-    subtitle: 'Create, Read, Update, Delete',
-    content: 'CRUD is the backbone of most web applications. Here we see how to use Prepared Statements to safely update and delete data from our database based on user IDs.',
+    title: 'CRUD Mastery',
+    subtitle: 'Secure Data Handling',
+    content: 'CRUD (Create, Read, Update, Delete) is the heart of web apps. Using Prepared Statements (?) ensures that user input can never malicious inject SQL into your database.',
     icon: ShieldCheck,
     language: 'php',
+    syntax: '$stmt->execute([$data]);',
     codeFileName: 'crud.php',
     codeSnippet: `<?php
 // 1. READ (Select)
 $stmt = $pdo->prepare("SELECT * FROM users WHERE id = ?");
-$stmt->execute([$userId]);
+$stmt->execute([1]);
 $user = $stmt->fetch();
 
-// 2. UPDATE
-$update = $pdo->prepare("UPDATE users SET name = ? WHERE id = ?");
-$update->execute(["New Name", $userId]);
+echo "User: " . $user['name'];
 
-// 3. DELETE
-$delete = $pdo->prepare("DELETE FROM users WHERE id = ?");
-$delete->execute([$userId]);
-
-// 4. CREATE (Insert)
-$insert = $pdo->prepare("INSERT INTO users (name, email) VALUES (?, ?)");
-$insert->execute(["Sok", "sok@example.com"]);`,
+// 2. CREATE (Insert)
+$insert = $pdo->prepare("INSERT INTO users (name) VALUES (?)");
+$insert->execute(["Sok"]);`,
     keyPoints: [
-      'UPDATE — uses the SET keyword to change values',
-      'DELETE — always include a WHERE clause or you\'ll wipe the table',
-      'rowCount() — check how many rows were affected by an update/delete',
-      'lastInsertId() — get the ID of the row you just created',
+      'prepare() — pre-compiles the SQL for security',
+      'execute() — safely binds the variables to the query',
+      'fetch() — retrieves the resulting row as an array',
     ],
   },
 
@@ -552,41 +571,25 @@ if ($user && password_verify($password, $user['password'])) {
     content: 'A preview of the architecture we are building for Project Alpha. It combines everything learned: Forms, Sessions, Database CRUD, and secure API responses.',
     icon: Eye,
     diagramNodes: [
-      { label: 'Login.php',    desc: 'Auth UI + session_start', color: '#6366f1' },
-      { label: 'Dashboard',    desc: 'List All Contacts (READ)', color: '#8b5cf6' },
-      { label: 'Add/Edit modal', desc: 'CREATE & UPDATE Logic',   color: '#10b981' },
-      { label: 'Delete button', desc: 'DELETE Logic + Confirm',  color: '#ef4444' },
-      { label: 'MySQL',        desc: 'Persistent Store',         color: '#f59e0b' },
+      { label: 'Login.php', desc: 'Auth UI + session_start', color: '#6366f1' },
+      { label: 'Dashboard', desc: 'List All Contacts (READ)', color: '#8b5cf6' },
+      { label: 'Add/Edit modal', desc: 'CREATE & UPDATE Logic', color: '#10b981' },
+      { label: 'Delete button', desc: 'DELETE Logic + Confirm', color: '#ef4444' },
+      { label: 'MySQL', desc: 'Persistent Store', color: '#f59e0b' },
     ],
   },
 
-  // ── 24 · Concept: Object Oriented Programming ──────────────────────────
-  {
-    type: 'concept',
-    title: 'Intro to OOP',
-    subtitle: 'Classes & Objects',
-    content: 'Professional PHP (and Laravel) is built on Object Oriented Programming. Instead of writing separate functions, we group data and behavior into "Classes". Think of a Class as a blueprint (e.g., "Car") and an Object as the actual instance (e.g., your "Toyota").',
-    icon: Code,
-    keyPoints: [
-      'Class: The blueprint (properties and methods).',
-      'Object: An instance created with the "new" keyword.',
-      'Properties: Variables belonging to the class (public/private).',
-      'Methods: Functions belonging to the class.',
-    ],
-  },
-
-  // ── 25 · Code: Classes & Namespaces ───────────────────────────────────────
+  // ── 25 · Code: Blueprinting ───────────────────────────────────────────────
   {
     type: 'code',
-    title: 'Namespaces & PSR-4',
-    subtitle: 'Organizing Large Apps',
-    content: 'Namespaces prevent name collisions (e.g., having two "User" classes). They also allow Composer to "autoload" your files automatically based on the directory structure. This eliminates the need for manual "include" or "require" statements.',
-    icon: Layers,
+    title: 'Classes & Objects',
+    subtitle: 'The Blueprints of PHP',
+    content: 'Object Oriented Programming (OOP) allows you to group data and logic into "Classes". This is the standard for modern Laravel development, enabling reusable and organized codebases.',
+    icon: Code,
     language: 'php',
+    syntax: 'class User { /* ... */ }',
     codeFileName: 'User.php',
     codeSnippet: `<?php
-namespace App\\Models;
-
 class User {
     public string $name;
 
@@ -594,34 +597,33 @@ class User {
         $this->name = $name;
     }
 
-    public function sayHello() {
-        return "Hello, I am {$this->name}";
+    public function welcome() {
+        return "Hello, my name is {$this->name}";
     }
 }
 
-// ── In another file ─────────────────────────────────
-// use App\\Models\\User;
-// $user = new User("Ratha");`,
+$person = new User("Ratha");
+echo $person->welcome();`,
     keyPoints: [
-      'namespace — defines the "address" of the class',
-      'use — imports a class from another namespace',
-      '__construct — the function that runs on "new Class()"',
-      'visibility (public/private) — controls access to data',
+      '__construct — runs instantly when an object is created',
+      'public — makes properties accessible from outside',
+      'new — the keyword used to create an instance (object)',
+      '-> — "arrow" syntax used to access object methods',
     ],
   },
 
-  // ── 26 · Concept: Composer Essentials ─────────────────────────────────────
+  // ── 26 · Concept: Ecosystem ───────────────────────────────────────────────
   {
     type: 'concept',
-    title: 'Composer: Dependency Manager',
-    subtitle: 'The Heart of the Ecosystem',
-    content: 'Composer is the tool that manages external PHP libraries. It is how we install Laravel, testing tools like Pest, or security packages. It handles "Autoloading" so you can use any class in your project instantly.',
+    title: 'Composer & Autoloading',
+    subtitle: 'The Modern Ecosystem',
+    content: 'Composer is the tool that manages external libraries and handles "Autoloading". It ensures your classes are available instantly without manual "include" statements.',
     icon: Database,
     keyPoints: [
-      'composer.json: Lists the libraries your project needs.',
-      'composer.lock: Pins exact versions for production.',
-      'vendor/: The folder where all external code lives.',
-      'composer require: The command to add a new library.',
+      'composer.json — lists your project dependencies',
+      'vendor/ — where all external code is safely stored',
+      'autoload — mapping your namespaces to directories',
+      'Composer require — the industry standard for installing packages',
     ],
   },
 
@@ -646,34 +648,34 @@ class User {
 
 export default function PhpFundamentalsLessonPage() {
   return (
-    <main className="min-h-screen overflow-hidden">
-      <nav
-        className="px-8 py-5 sticky top-0 z-50 border-b"
-      >
-        <div className="max-w-5xl mx-auto flex items-center justify-between">
-          <Link
-            href="/courses/backend"
-            className="group flex items-center gap-2.5 text-sm font-medium transition-colors"
-            style={{ color: '#7a7a7a' }}
-          >
-            <ArrowLeft size={15} />
-            <span style={{ letterSpacing: '0.01em' }}>Back to Roadmap</span>
-          </Link>
+      <main className="min-h-screen overflow-hidden">
+        <nav
+          className="px-8 py-5 sticky top-0 z-50 border-b"
+        >
+          <div className="max-w-5xl mx-auto flex items-center justify-between">
+            <Link
+              href="/courses/backend"
+              className="group flex items-center gap-2.5 text-sm font-medium transition-colors"
+              style={{ color: '#7a7a7a' }}
+            >
+              <ArrowLeft size={15} />
+              <span style={{ letterSpacing: '0.01em' }}>Back to Roadmap</span>
+            </Link>
 
-          <div
-            className="flex items-center gap-2 px-3.5 py-1.5 rounded-full border text-xs font-semibold uppercase tracking-widest"
-            style={{ borderColor: 'rgba(0,0,0,0.08)', color: '#b8b8b8', letterSpacing: '0.16em' }}
-          >
-            <span
-              className="w-1.5 h-1.5 rounded-full animate-pulse"
-              style={{ background: '#bf4e20' }}
-            />
-            Module 01 · PHP Foundations
+            <div
+              className="flex items-center gap-2 px-3.5 py-1.5 rounded-full border text-xs font-semibold uppercase tracking-widest"
+              style={{ borderColor: 'rgba(0,0,0,0.08)', color: '#b8b8b8', letterSpacing: '0.16em' }}
+            >
+              <span
+                className="w-1.5 h-1.5 rounded-full animate-pulse"
+                style={{ background: '#bf4e20' }}
+              />
+              Module 01 · PHP Foundations
+            </div>
           </div>
-        </div>
-      </nav>
+        </nav>
 
-      <BackendGenericSlides lessonTitle="PHP Specialist Core" slides={phpSlides} />
-    </main>
+        <BackendGenericSlides lessonTitle="PHP Specialist Core" slides={phpSlides} />
+      </main>
   );
 }
