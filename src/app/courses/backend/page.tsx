@@ -59,7 +59,7 @@ const modules: Module[] = [
 
   // STAGE 3: LARAVEL FRAMEWORK
   {
-    href: "/courses/backend/lessons/laravel?chapter=routing",
+    href: "/courses/backend/lessons/laravel?chapter=intro",
     num: "04", label: "Laravel Architecture", tag: "Stage 3",
     description: "The Framework: Routing, Controllers, Blade engine, and the Artisan CLI ecosystem.",
     color: "#f43f5e", dimColor: "rgba(244,63,94,0.12)", icon: Layers,
@@ -353,40 +353,6 @@ export default function BackendRoadmap() {
                 </div>
               );
             })}
-          </div>
-        </div>
-
-        {/* ── PROJECTS SECTION ── */}
-        <div className="mt-40 max-w-5xl mx-auto px-6">
-          <div className="flex flex-col items-center mb-16">
-            <span className="text-[10px] font-black uppercase tracking-[0.4em] text-emerald-500 mb-4 px-4 py-2 rounded-full border border-emerald-500/15 bg-emerald-500/5">
-              Practical Application
-            </span>
-            <h2 className="text-4xl md:text-5xl font-black text-white tracking-tighter text-center max-w-2xl leading-[1.1]">
-              Common Project-Based Learning
-            </h2>
-            <p className="text-white/30 text-center mt-6 text-lg font-light max-w-xl">
-              Apply your Laravel skills by building three production-ready industry projects.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-6">
-            {[
-              { title: "CMS Engine", desc: "Building a Content Management System with full versioning and multi-user roles.", icon: Layout, accent: "#10b981" },
-              { title: "Job Platform", desc: "Developing a Job Board or Portfolio platform with filtering and search.", icon: Search, accent: "#3b82f6" },
-              { title: "RESTful API", desc: "Creating a secure REST API for a mobile application with Sanctum auth.", icon: RefreshCw, accent: "#a855f7" }
-            ].map((proj, i) => (
-              <motion.div key={i} whileHover={{ y: -5 }} className="group relative p-8 rounded-3xl bg-white/[0.02] border border-white/5 overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-br from-white/[0.03] to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-                <div className="relative z-10">
-                  <div className="w-12 h-12 rounded-2xl flex items-center justify-center mb-6 border border-white/10" style={{ background: `${proj.accent}12` }}>
-                    <proj.icon className="w-6 h-6" style={{ color: proj.accent }} />
-                  </div>
-                  <h3 className="text-xl font-black text-white mb-3 tracking-tight">{proj.title}</h3>
-                  <p className="text-sm text-white/30 leading-relaxed font-light">{proj.desc}</p>
-                </div>
-              </motion.div>
-            ))}
           </div>
         </div>
 

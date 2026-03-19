@@ -47,6 +47,8 @@ const CHAPTERS = [
   { id: 'api',          label: '10 · API & Sanctum',  color: '#10b981' },
   { id: 'frontend',     label: '11 · Frontend',       color: '#fbbf24' },
   { id: 'deploy',       label: '12 · Deployment',     color: '#8b5cf6' },
+  { id: 'todo',         label: '13 · Todo App Demo',  color: '#0ea5e9' },
+  { id: 'assignment',   label: '14 · E-comm Project',  color: '#f472b6' },
 ];
 
 /* ─── SLIDE DATA ─────────────────────────────────────────────────── */
@@ -1217,6 +1219,274 @@ jobs:
 ],`,
     icon: Server,
   },
+
+  /* ── CHAPTER 13: TODO APP DEMO (START-TO-FINISH) ── */
+  {
+    id: 'L13-S1', chapter: 'todo',
+    title: 'The Foundation', subtitle: 'Step 1: Application Setup',
+    accent: '#0ea5e9',
+    bg: 'radial-gradient(ellipse at 10% 20%, rgba(14,165,233,0.15) 0%, transparent 55%)',
+    concepts: [
+      { label: 'Laravel Installer', desc: 'Bootstrap a fresh galaxy with "laravel new todo-app".' },
+      { label: 'Environment', desc: 'Configure your .env to use a local SQLite or MySQL database.' },
+      { label: 'Initial Server', desc: 'Boot up the dev server to see the welcome page.' },
+    ],
+    tip: 'Choose the "SQLite" option during installation for the fastest local setup without needing a DB server.',
+    lab: 'Create a new Laravel project and verify the .env database credentials.',
+    result: 'Fresh Laravel installation ready for development.',
+    filename: 'terminal',
+    code: `# Create the project
+laravel new todo-app
+
+# Choose your stack
+# -> Starter kit: None
+# -> Testing: Pest
+# -> DB: SQLite`,
+    terminal: 'laravel new todo-app',
+    terminalOutput: '   INFO  Application ready! Build something amazing.',
+    icon: Rocket,
+  },
+  {
+    id: 'L13-S2', chapter: 'todo',
+    title: 'Visual Architecture', subtitle: 'Step 2: Base Layout',
+    accent: '#0ea5e9',
+    bg: 'radial-gradient(ellipse at 80% 30%, rgba(14,165,233,0.12) 0%, transparent 55%)',
+    concepts: [
+      { label: 'App Layout', desc: 'Create a master layout.blade.php to host your navigation and styles.' },
+      { label: 'Tailwind CDN', desc: 'Quickly add Tailwind CSS for rapid prototyping.' },
+      { label: 'Content Yield', desc: 'Define a @yield("content") area for individual pages.' },
+    ],
+    tip: 'Keep your layout clean. Separate your navigation into an @include partial later.',
+    lab: 'Create a basic HTML layout with a centered container for your todo list.',
+    result: 'A professional-looking container skeleton for your app.',
+    filename: 'views/layout.blade.php',
+    code: `<!DOCTYPE html>
+<html>
+<head>
+    <title>Todo App</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 p-10">
+    <div class="max-w-md mx-auto bg-white p-6 rounded-xl shadow-lg">
+        @yield('content')
+    </div>
+</body>
+</html>`,
+    icon: Layout,
+  },
+  {
+    id: 'L13-S3', chapter: 'todo',
+    title: 'Defining the Data', subtitle: 'Step 3: Migration & Model',
+    accent: '#0ea5e9',
+    bg: 'radial-gradient(ellipse at 30% 50%, rgba(14,165,233,0.1) 0%, transparent 60%)',
+    concepts: [
+      { label: 'The Task Model', desc: 'The PHP object representing your database record.' },
+      { label: 'The Schema', desc: 'A migration that defines the "title" and "is_completed" columns.' },
+      { label: 'Fillables', desc: 'Whitelist the columns to allow mass-assignment.' },
+    ],
+    tip: 'Always include a default(false) for your boolean status columns.',
+    lab: 'Generate a model with a migration and define the schema.',
+    result: 'Data structure finalized and table migrated.',
+    filename: 'database/migrations/xxx_tasks.php',
+    code: `public function up() {
+    Schema::create('tasks', function (Blueprint $table) {
+        $table->id();
+        $table->string('title');
+        $table->boolean('is_completed')->default(false);
+        $table->timestamps();
+    });
+}`,
+    icon: Database,
+  },
+  {
+    id: 'L13-S4', chapter: 'todo',
+    title: 'The URL Map', subtitle: 'Step 4: Defining Routes',
+    accent: '#0ea5e9',
+    bg: 'radial-gradient(ellipse at center, rgba(14,165,233,0.08) 0%, transparent 70%)',
+    concepts: [
+      { label: 'GET Route', desc: 'Defines where to view the todo list (/) .' },
+      { label: 'POST Route', desc: 'Handles the submission of a new task.' },
+      { label: 'PATCH Route', desc: 'Updates the status of an existing task.' },
+    ],
+    tip: 'Group your routes for cleaner organization as your app grows.',
+    lab: 'Add routes for listing and storing tasks in routes/web.php.',
+    result: 'Endpoints established for the TaskController.',
+    filename: 'routes/web.php',
+    code: `use App\\Http\\Controllers\\TaskController;
+
+Route::get('/', [TaskController::class, 'index']);
+Route::post('/tasks', [TaskController::class, 'store']);
+Route::patch('/tasks/{task}', [TaskController::class, 'update']);`,
+    icon: Globe,
+  },
+  {
+    id: 'L13-S5', chapter: 'todo',
+    title: 'The Brain', subtitle: 'Step 5: Controller Logic',
+    accent: '#0ea5e9',
+    bg: 'radial-gradient(ellipse at 10% 80%, rgba(14,165,233,0.06) 0%, transparent 60%)',
+    concepts: [
+      { label: 'Index Logic', desc: 'Fetch Task::latest()->get() and pass it to a view.' },
+      { label: 'Store Logic', desc: 'Validate the request and save the task to the DB.' },
+      { label: 'Redirects', desc: 'Use return back() to keep the user on the same page.' },
+    ],
+    tip: 'Validation protects your database from empty or malicious strings.',
+    lab: 'Write the index and store methods in your TaskController.',
+    result: 'Application logic can now receive and store real user tasks.',
+    filename: 'app/Http/Controllers/TaskController.php',
+    code: `public function index() {
+    return view('tasks', ['tasks' => Task::latest()->get()]);
+}
+
+public function store(Request $request) {
+    Task::create($request->validate(['title' => 'required']));
+    return back();
+}`,
+    icon: Zap,
+  },
+  {
+    id: 'L13-S6', chapter: 'todo',
+    title: 'Dynamic Rendering', subtitle: 'Step 6: Iterating Tasks',
+    accent: '#0ea5e9',
+    bg: 'radial-gradient(ellipse at 50% 50%, rgba(14,165,233,0.1) 0%, transparent 55%)',
+    concepts: [
+      { label: '@forelse', desc: 'A powerful loop that handles empty lists gracefully.' },
+      { label: 'Input Binding', desc: 'Binding the $task->id to the update forms.' },
+      { label: 'UI Feedback', desc: 'Display a strike-through if is_completed is true.' },
+    ],
+    tip: 'Use Tailwind-colors (text-gray-400) for completed items to lower their visual priority.',
+    lab: 'Implement a @forelse loop in your tasks.blade.php file.',
+    result: 'List dynamically updates based on your database content.',
+    filename: 'views/tasks.blade.php',
+    code: `@forelse($tasks as $task)
+    <li class="{{ $task->is_completed ? 'line-through text-gray-400' : '' }}">
+        {{ $task->title }}
+    </li>
+@empty
+    <p>No tasks yet. Take a break!</p>
+@endforelse`,
+    icon: List,
+  },
+  {
+    id: 'L13-S7', chapter: 'todo',
+    title: 'Interactivity', subtitle: 'Step 7: Toggling Status',
+    accent: '#0ea5e9',
+    bg: 'radial-gradient(ellipse at 80% 20%, rgba(14,165,233,0.12) 0%, transparent 55%)',
+    concepts: [
+      { label: 'Toggle Logic', desc: '$task->update(["is_completed" => !$task->is_completed]).' },
+      { label: 'Method Spoofing', desc: 'Use @method("PATCH") in your small forms.' },
+      { label: 'UX', desc: 'The user clicks a button, the page refreshes, and the task is crossed out.' },
+    ],
+    tip: 'A small form around a button is the standard way to trigger status changes in Blade.',
+    lab: 'Add a toggle button inside your task list item.',
+    result: 'Users can now mark tasks as completed in real-time.',
+    filename: 'views/tasks.blade.php',
+    code: `<form action="/tasks/{{ $task->id }}" method="POST">
+    @csrf
+    @method('PATCH')
+    <button class="text-xs text-blue-500">
+        {{ $task->is_completed ? 'Undo' : 'Done' }}
+    </button>
+</form>`,
+    icon: RefreshCw,
+  },
+  {
+    id: 'L13-S8', chapter: 'todo',
+    title: 'Finish Line', subtitle: 'Step 8: Polish & Validation',
+    accent: '#0ea5e9',
+    bg: 'radial-gradient(ellipse at center, rgba(14,165,233,0.08) 0%, transparent 70%)',
+    concepts: [
+      { label: 'Error Messages', desc: 'Use @error("title") to show a red message if input is blank.' },
+      { label: 'Flash Success', desc: 'Tell the user "Task Added!" using session()->flash().' },
+      { label: 'Optimization', desc: 'Review your code for any N+1 query issues (though not likely here).' },
+    ],
+    tip: 'Users appreciate feedback. A simple success message makes the app feel "alive".',
+    lab: 'Implement a validation alert and a success banner.',
+    result: 'A complete, professional-grade Todo Application.',
+    filename: 'app/Http/Controllers/TaskController.php',
+    code: `// Success flash message
+return back()->with('success', 'Hooray! Task added.');
+
+// In the view:
+@if(session('success'))
+    <div class="bg-green-100 text-green-700">...</div>
+@endif`,
+    icon: Trophy,
+  },
+
+  /* ── CHAPTER 14: E-COMMERCE CAPSTONE PROJECT ── */
+  {
+    id: 'L14-S1', chapter: 'assignment',
+    title: 'Assignment Scope', subtitle: 'The Grand Mission',
+    accent: '#f472b6',
+    bg: 'radial-gradient(ellipse at 10% 20%, rgba(244,114,182,0.15) 0%, transparent 55%)',
+    concepts: [
+      { label: 'Product Catalog', desc: 'Display categories, searches, and item detail pages.' },
+      { label: 'Shopping Cart', desc: 'Use Laravel sessions to maintain state for guest users.' },
+      { label: 'Order Logic', desc: 'Complex relationships between Users, Addresses, and Orders.' },
+    ],
+    tip: 'Start with the schema. If your database is solid, the rest is just plumbing!',
+    lab: 'Prepare a list of at least 5 major database tables you will need.',
+    result: 'Clear roadmap for your capstone project development.',
+    filename: 'requirements.md',
+    code: `Architecture Goals:
+1. Custom Auth (Breeze/Jetstream)
+2. Product CRUD with Image Upload
+3. Cart Session Management
+4. Email Receipts (via Queues)
+5. Admin Dashboard for Orders`,
+    icon: Star,
+  },
+  {
+    id: 'L14-S2', chapter: 'assignment',
+    title: 'Core Schema Design', subtitle: 'Phase 1: Database Architecture',
+    accent: '#f472b6',
+    bg: 'radial-gradient(ellipse at 80% 30%, rgba(244,114,182,0.12) 0%, transparent 55%)',
+    concepts: [
+      { label: 'Categories', desc: 'Nested relationships for navigation (e.g. Electronics > Laptops).' },
+      { label: 'Orders', desc: 'Link users to multiple "order_items" for history tracking.' },
+      { label: 'Stock Tracking', desc: 'Implement logic to prevent over-selling popular items.' },
+    ],
+    tip: 'Use polymorphic relations if you want users to be able to "Comment" on both Products and Reviews.',
+    lab: 'Design a "One-to-Many" relationship between Categories and Products.',
+    result: 'A scalable data structure capable of handling thousands of SKUs.',
+    filename: 'database/migrations/order_items.php',
+    code: `Schema::create('order_items', function (Blueprint $table) {
+    $table->id();
+    $table->foreignId('order_id')->constrained();
+    $table->foreignId('product_id')->constrained();
+    $table->integer('quantity');
+    $table->decimal('price', 10, 2);
+    $table->timestamps();
+});`,
+    icon: Workflow,
+  },
+  {
+    id: 'L14-S3', chapter: 'assignment',
+    title: 'Final Submission', subtitle: 'Phase 2: Deployment & Polish',
+    accent: '#f472b6',
+    bg: 'radial-gradient(ellipse at center, rgba(244,114,182,0.1) 0%, transparent 70%)',
+    concepts: [
+      { label: 'Optimization', desc: 'Use eager loading (with()) to prevent N+1 queries when listing products.' },
+      { label: 'Gate Security', desc: 'Protect your /admin routes using a custom Middleware or Gate.' },
+      { label: 'Deployment', desc: 'Push your code to Forge, Vapor, or Heroku for the world to see.' },
+    ],
+    tip: 'Build a "Seed Profile" that populates 100 products and 10 categories for your demo.',
+    lab: 'Finalize your README.md and push your repository to GitHub.',
+    result: 'Professional portfolio piece ready for potential employers.',
+    filename: 'README.md',
+    code: `# Project Nebula E-commerce
+## Tech Stack
+- Laravel 11 (PHP 8.3)
+- Tailwind CSS
+- MySQL
+- Stripe API Integration
+
+## Features
+- Real-time cart updates
+- One-click checkout
+- Administrative inventory controls`,
+    icon: Trophy,
+  },
 ];
 
 /* ─── SYNTAX HIGHLIGHTER ─────────────────────────────────────────── */
@@ -1571,6 +1841,7 @@ export default function LaravelSlide() {
                       <button key={ch.id} 
                         onClick={() => {
                           router.push(`?chapter=${ch.id}`);
+                          setCurrent(0);
                           setIsMenuOpen(false);
                         }}
                         className={`group relative flex items-center gap-4 sm:gap-5 p-4 sm:p-5 rounded-2xl transition-all duration-300 border ${

@@ -383,8 +383,15 @@ export default function GitSlides() {
   const router = useRouter();
   
   const chapterParam = searchParams.get('chapter') || 'foundations';
-  const slideParam = searchParams.get('slide') || 'intro';
+  
+  const displaySlides = useMemo(() => {
+    return GIT_SLIDES.filter(s => s.chapter === chapterParam);
+  }, [chapterParam]);
 
+  const slideParam = searchParams.get('slide');
+  const initialSlide = slideParam ? Math.max(0, Math.min(parseInt(slideParam) - 1, displaySlides.length - 1)) : 0;
+
+  const [current, setCurrent] = useState(initialSlide);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [showNotes, setShowNotes] = useState(false);
   const [notes, setNotes] = useState<any>({});
@@ -392,24 +399,20 @@ export default function GitSlides() {
   const [isAnimating, setIsAnimating] = useState(false);
 
   useEffect(() => {
+    setCurrent(initialSlide);
+  }, [initialSlide, chapterParam]);
+
+  useEffect(() => {
     const saved = localStorage.getItem('git_slide_notes');
     if (saved) setNotes(JSON.parse(saved));
   }, []);
 
   const saveNote = (val: string) => {
-    const newNotes = { ...notes, [slideParam]: val };
+    const slideId = displaySlides[current]?.id || 'unknown';
+    const newNotes = { ...notes, [slideId]: val };
     setNotes(newNotes);
     localStorage.setItem('git_slide_notes', JSON.stringify(newNotes));
   };
-
-  const displaySlides = useMemo(() => {
-    return GIT_SLIDES.filter(s => s.chapter === chapterParam);
-  }, [chapterParam]);
-
-  const current = useMemo(() => {
-    const idx = displaySlides.findIndex(s => s.id === slideParam);
-    return idx === -1 ? 0 : idx;
-  }, [displaySlides, slideParam]);
 
   const slide = displaySlides[current] || displaySlides[0];
   const Icon = slide.icon;
@@ -450,8 +453,7 @@ export default function GitSlides() {
       if (chIdx < CHAPTERS.length - 1) {
         setDir(1);
         const nextCh = CHAPTERS[chIdx + 1];
-        const nextSlide = GIT_SLIDES.find(s => s.chapter === nextCh.id);
-        router.push(`?chapter=${nextCh.id}&slide=${nextSlide?.id}`);
+        router.push(`?chapter=${nextCh.id}`);
       }
     }
   };
@@ -464,8 +466,8 @@ export default function GitSlides() {
       if (chIdx > 0) {
         setDir(-1);
         const prevCh = CHAPTERS[chIdx - 1];
-        const prevSlides = GIT_SLIDES.filter(s => s.chapter === prevCh.id);
-        router.push(`?chapter=${prevCh.id}&slide=${prevSlides[prevSlides.length - 1].id}`);
+        const prevSlidesCount = GIT_SLIDES.filter(s => s.chapter === prevCh.id).length;
+        router.push(`?chapter=${prevCh.id}&slide=${prevSlidesCount}`);
       }
     }
   };
@@ -571,8 +573,8 @@ export default function GitSlides() {
                     const isActive = ch.id === chapterParam;
                     return (
                       <button key={ch.id} onClick={() => {
-                          const firstSlide = GIT_SLIDES.find(s => s.chapter === ch.id);
-                          router.push(`?chapter=${ch.id}&slide=${firstSlide?.id}`);
+                          router.push(`?chapter=${ch.id}`);
+                          setCurrent(0);
                           setIsMenuOpen(false);
                         }}
                         className={`group relative flex items-center gap-4 p-4 sm:p-5 rounded-2xl transition-all border ${
