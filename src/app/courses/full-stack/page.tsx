@@ -581,8 +581,8 @@ export default function Home() {
             {[
               { label: `${totalLessons}+ Slides`, Icon: BookOpen, color: '#3b82f6' },
               { label: '16 Weeks',                Icon: Clock,    color: '#a855f7' },
-              { label: `${modules.length} Modules`, Icon: CheckCircle2, color: '#10b981' },
               { label: '1h / Day',                Icon: Zap,      color: '#eab308' },
+              { label: 'Mon - Fri',               Icon: CheckCircle2, color: '#10b981' },
             ].map(s => (
               <div
                 key={s.label}

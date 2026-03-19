@@ -110,110 +110,94 @@ const modules: Module[] = [
     weeks: "Week 10", lessons: 4, skills: ["AJAX", "JSON", "Exceptions"],
     lessonsList: ["Regex", "AJAX Fetch", "API Logic", "Try/Catch"]
   },
-  {
-    href: "/courses/backend/lessons/php?chapter=mvc",
-    num: "11", label: "MVC Patterns", tag: "Week 11",
-    description: "Structured Apps: Transitioning to Model-View-Controller.",
-    color: "#f97316", dimColor: "rgba(249,115,22,0.12)", icon: Layout,
-    weeks: "Week 11", lessons: 3, skills: ["MVC", "Router", "Logic Separation"],
-    lessonsList: ["Patterns", "Architecture", "Framwork Prep"]
-  },
-  {
-    href: "/courses/backend/lessons/php?chapter=project",
-    num: "12", label: "Project Lab", tag: "Week 12",
-    description: "Capestone: Building a full-stack PHP/MySQL application.",
-    color: "#10b981", dimColor: "rgba(16,185,129,0.12)", icon: Trophy,
-    weeks: "Week 12", lessons: 5, skills: ["Portfolio", "Systems", "Production"],
-    lessonsList: ["Project Init", "DB Design", "UI Linking", "Go Live"]
-  },
 
   // LARAVEL MASTERY (13-23)
   {
     href: "/courses/backend/lessons/laravel?chapter=setup",
-    num: "13", label: "Laravel Setup", tag: "Week 13",
+    num: "11", label: "Laravel Setup", tag: "Week 11",
     description: "Ecosystem: Herd, Sail, Composer, and directory structure.",
     color: "#f43f5e", dimColor: "rgba(244,63,94,0.12)", icon: HardDrive,
-    weeks: "Week 13", lessons: 3, skills: ["Herd/Sail", "Artisan"],
+    weeks: "Week 11", lessons: 3, skills: ["Herd/Sail", "Artisan"],
     lessonsList: ["Install", "Structure", "Config"]
   },
   {
     href: "/courses/backend/lessons/laravel?chapter=routing",
-    num: "14", label: "Routing & Ctrl", tag: "Week 14",
+    num: "12", label: "Routing & Ctrl", tag: "Week 12",
     description: "Handling requests, URL parameters, and controller logic.",
     color: "#f97316", dimColor: "rgba(249,115,22,0.12)", icon: Globe,
-    weeks: "Week 14", lessons: 3, skills: ["Routes", "Controllers"],
+    weeks: "Week 12", lessons: 3, skills: ["Routes", "Controllers"],
     lessonsList: ["Routing", "Requests", "Params"]
   },
   {
     href: "/courses/backend/lessons/laravel?chapter=blade",
-    num: "15", label: "Blade Engine", tag: "Week 15",
+    num: "13", label: "Blade Engine", tag: "Week 13",
     description: "Layouts, components, and template inheritance logic.",
     color: "#22c55e", dimColor: "rgba(34,197,94,0.12)", icon: Layout,
-    weeks: "Week 15", lessons: 2, skills: ["Directives", "Inheritance"],
+    weeks: "Week 13", lessons: 2, skills: ["Directives", "Inheritance"],
     lessonsList: ["Syntax", "Components"]
   },
   {
     href: "/courses/backend/lessons/laravel?chapter=database",
-    num: "16", label: "DB & Eloquent", tag: "Week 16",
+    num: "14", label: "DB & Eloquent", tag: "Week 14",
     description: "Migrations, models, seeding, and DB relationships.",
     color: "#06b6d4", dimColor: "rgba(6,182,212,0.12)", icon: Database,
-    weeks: "Week 16", lessons: 3, skills: ["Migrations", "Eloquent"],
+    weeks: "Week 14", lessons: 3, skills: ["Migrations", "Eloquent"],
     lessonsList: ["Schema", "ORM", "Relates"]
   },
   {
     href: "/courses/backend/lessons/laravel?chapter=forms",
-    num: "17", label: "Forms & Vali", tag: "Week 17",
+    num: "15", label: "Forms & Vali", tag: "Week 15",
     description: "Secure data submissions and validation logic.",
     color: "#eab308", dimColor: "rgba(234,179,8,0.12)", icon: Search,
-    weeks: "Week 17", lessons: 3, skills: ["CSRF", "Validation"],
+    weeks: "Week 15", lessons: 3, skills: ["CSRF", "Validation"],
     lessonsList: ["POST", "Rules", "Old Data"]
   },
   {
     href: "/courses/backend/lessons/laravel?chapter=auth",
-    num: "18", label: "Auth & Security", tag: "Week 18",
+    num: "16", label: "Auth & Security", tag: "Week 16",
     description: "Logins, Hashing, Middleware, and Authorization.",
     color: "#a855f7", dimColor: "rgba(168,85,247,0.12)", icon: Lock,
-    weeks: "Week 18", lessons: 3, skills: ["Breeze", "Gates"],
+    weeks: "Week 16", lessons: 3, skills: ["Breeze", "Gates"],
     lessonsList: ["Breeze", "Auth", "Access"]
   },
   {
     href: "/courses/backend/lessons/laravel?chapter=crud",
-    num: "19", label: "CRUD Ops", tag: "Week 19",
+    num: "17", label: "CRUD Ops", tag: "Week 17",
     description: "Building full Create, Read, Update, Delete systems.",
     color: "#ec4899", dimColor: "rgba(236,72,153,0.12)", icon: Zap,
-    weeks: "Week 19", lessons: 5, skills: ["CRUD", "UI Flow"],
+    weeks: "Week 17", lessons: 5, skills: ["CRUD", "UI Flow"],
     lessonsList: ["Index", "Store", "Destroy"]
   },
   {
     href: "/courses/backend/lessons/laravel?chapter=advanced",
-    num: "20", label: "Advanced", tag: "Week 20",
+    num: "18", label: "Advanced", tag: "Week 18",
     description: "Storage, sessions, caching, and background queues.",
     color: "#3b82f6", dimColor: "rgba(59,130,246,0.12)", icon: Clock,
-    weeks: "Week 20", lessons: 4, skills: ["Storage", "Queues"],
+    weeks: "Week 18", lessons: 4, skills: ["Storage", "Queues"],
     lessonsList: ["S3", "Jobs", "Cache"]
   },
   {
     href: "/courses/backend/lessons/laravel?chapter=api",
-    num: "21", label: "API & Sanctum", tag: "Week 21",
+    num: "19", label: "API & Sanctum", tag: "Week 19",
     description: "RESTful API development with Sanctum token auth.",
     color: "#10b981", dimColor: "rgba(16,185,129,0.12)", icon: RefreshCw,
-    weeks: "Week 21", lessons: 3, skills: ["JSON", "Tokens"],
+    weeks: "Week 19", lessons: 3, skills: ["JSON", "Tokens"],
     lessonsList: ["Sanctum", "Resources"]
   },
   {
     href: "/courses/backend/lessons/laravel?chapter=frontend",
-    num: "22", label: "Frontend", tag: "Week 22",
+    num: "20", label: "Frontend", tag: "Week 20",
     description: "Modern styling with Tailwind CSS and Vite.",
     color: "#fbbf24", dimColor: "rgba(251,191,36,0.12)", icon: Sparkles,
-    weeks: "Week 22", lessons: 2, skills: ["Vite", "Tailwind"],
+    weeks: "Week 20", lessons: 2, skills: ["Vite", "Tailwind"],
     lessonsList: ["Config", "Bundling"]
   },
   {
     href: "/courses/backend/lessons/laravel?chapter=deploy",
-    num: "23", label: "Deployment", tag: "Week 23",
+    num: "21", label: "Deployment", tag: "Week 21",
     description: "Deploying applications with Forge or Cloud.",
     color: "#8b5cf6", dimColor: "rgba(139,92,246,0.12)", icon: Rocket,
-    weeks: "Week 23", lessons: 2, skills: ["Forge", "CI/CD"],
+    weeks: "Week 21", lessons: 2, skills: ["Forge", "CI/CD"],
     lessonsList: ["Forge", "Live"]
   }
 ];
@@ -424,26 +408,26 @@ export default function BackendRoadmap() {
         >
           <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full border border-emerald-500/20 bg-emerald-500/6 text-emerald-400 text-[10px] font-black uppercase tracking-[0.22em]">
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-            Backend Engineer Roadmap · 3-Month Mastery
+            Backend Engineer Roadmap · 1h/Day · Mon-Fri
           </div>
 
           <div className="max-w-3xl space-y-3">
             <h1 className="text-5xl md:text-7xl font-black tracking-tighter leading-[0.86] italic">
               Roadmap to be a Backend Engineer
               <br />
-              <span style={{ WebkitTextStroke: '2px rgba(255,255,255,0.12)', color: 'transparent' }}>with PHP & Laravel</span>
+              <span style={{ WebkitTextStroke: '2px rgba(255,255,255,0.12)', color: 'transparent' }}>with Core PHP & Laravel</span>
             </h1>
             <p className="text-base text-white/28 leading-relaxed max-w-xl font-light">
-              A 23-week comprehensive journey from foundations to scalable e-commerce APIs.
+              A precision-engineered <span className="text-white/55 font-semibold">21-week journey</span> — one hour a day, five days a week.
             </p>
           </div>
 
           <div className="flex flex-wrap gap-2.5">
             {[
-              { label: '60 Lessons',              Icon: BookOpen, color: '#10b981' },
-              { label: '23 Weeks',                Icon: Clock,    color: '#3b82f6' },
-              { label: '23 Modules',               Icon: CheckCircle2, color: '#a855f7' },
-              { label: 'PHP + Laravel',           Icon: Terminal, color: '#fb923c' },
+              { label: '52 Lessons',              Icon: BookOpen, color: '#10b981' },
+              { label: '21 Weeks',                Icon: Clock,    color: '#3b82f6' },
+              { label: '1h / Day',                Icon: Zap,      color: '#fb923c' },
+              { label: 'Mon - Fri',               Icon: Terminal, color: '#a855f7' },
             ].map(s => (
               <div
                 key={s.label}
@@ -532,8 +516,8 @@ export default function BackendRoadmap() {
               <span className="text-sm font-bold text-white/38">Interactive Masterclass</span>
             </div>
             <div className="flex flex-col gap-0.5">
-              <span className="text-[9px] font-black text-white/18 uppercase tracking-[0.2em]">Level</span>
-              <span className="text-sm font-bold text-white/38">Beginner to Senior</span>
+              <span className="text-[9px] font-black text-white/18 uppercase tracking-[0.2em]">Pace</span>
+              <span className="text-sm font-bold text-white/38">1h/Day · 5h/Week</span>
             </div>
           </div>
           <div className="text-[10px] font-black uppercase tracking-widest text-emerald-400/60 flex items-center gap-2">

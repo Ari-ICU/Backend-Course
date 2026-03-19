@@ -13,7 +13,7 @@ const coursePaths = [
     title: "Full-Stack Engineer",
     tag: "Most Popular",
     tagColor: "#3b82f6",
-    description: "From semantic HTML to professional PHP & Laravel APIs. The complete 4-month mastery.",
+    description: "From semantic HTML to professional PHP & Laravel APIs. 16 weeks, 1h/day.",
     icon: Code,
     color: "#3b82f6",
     dimColor: "rgba(59,130,246,0.1)",
@@ -26,12 +26,12 @@ const coursePaths = [
     title: "Backend Engineer",
     tag: "Core Logic",
     tagColor: "#10b981",
-    description: "Master world-class PHP & Laravel systems. From fundamentals to professional REST APIs, Authentication, and Scalable Architectures.",
+    description: "Master world-class PHP & Laravel systems. 21 weeks of precision-engineered learning, 1h/day.",
     icon: Server,
     color: "#10b981",
     dimColor: "rgba(16,185,129,0.1)",
-    weeks: 12,
-    modules: 6,
+    weeks: 21,
+    modules: 21,
     difficulty: "Beginner → Pro",
   },
 ];
@@ -177,7 +177,7 @@ export default function Home() {
           <div className="flex items-center gap-10 flex-wrap justify-center">
             {[
               { l: 'Certification', v: 'Industry Standard' },
-              { l: 'Pace', v: 'Flexible / Part-time' },
+              { l: 'Pace', v: '1H/Day · Mon-Fri' },
               { l: 'Live Sessions', v: 'Weekly Masterclass' }
             ].map(s => (
               <div key={s.l} className="flex flex-col gap-1">
