@@ -7,7 +7,7 @@ import {
   BookOpen, Code, Database, Zap, Palette, Server,
   Star, HardDrive, CheckCircle2, Clock, ArrowRight,
   ChevronRight, Layers, Globe, Terminal, GitBranch,
-  MousePointer2, ArrowLeft, Search,
+  MousePointer2, ArrowLeft, Search, RotateCcw, Lock,
 } from "lucide-react";
 
 /* ─── MODULE DATA ────────────────────────────────────────────────── */
@@ -28,113 +28,169 @@ interface Module {
 
 const modules: Module[] = [
   {
-    href: "/courses/backend/lessons/php?module=01",
+    href: "/courses/backend/lessons/php?chapter=intro",
     num: "01",
-    label: "PHP Fundamentals",
-    tag: "Weeks 1–2",
-    description: "Deep dive into pure PHP foundations, from variables and logic loops to Object-Oriented architecture.",
-    color: "#3b82f6",
-    dimColor: "rgba(59,130,246,0.12)",
+    label: "Intro & Environment",
+    tag: "Week 1",
+    description: "Get your PHP and IDE environment setup perfectly for maximum DX.",
+    color: "#10b981",
+    dimColor: "rgba(16,185,129,0.12)",
     icon: Code,
-    weeks: "Weeks 1–2",
-    lessons: 4,
-    skills: ["Variables", "Logic", "Loops", "Functions", "OOP Classes"],
-    lessonsList: ["Foundations", "Conditionals", "Foreach Loops", "Functions", "Classes & Methods"]
+    weeks: "Week 1",
+    lessons: 5,
+    skills: ["IDE Setup", "Local Server", "echo", "Variables", "Mix HTML"],
+    lessonsList: ["VS Code Tools", "PHP In HTML", "Output", "Syntax", "Basics"]
   },
   {
-    href: "/courses/backend/lessons/laravel?module=02",
+    href: "/courses/backend/lessons/php?chapter=data",
     num: "02",
+    label: "Data Types & Structures",
+    tag: "Week 2",
+    description: "Understand variables, types, operators and arrays natively in PHP.",
+    color: "#6366f1",
+    dimColor: "rgba(99,102,241,0.12)",
+    icon: Database,
+    weeks: "Week 2",
+    lessons: 4,
+    skills: ["Var Types", "Math Logic", "Arrays", "Assoc Arrays", "Keys"],
+    lessonsList: ["Dynamic Types", "Operators", "Indexes", "Dictionaries", "Nesting"]
+  },
+  {
+    href: "/courses/backend/lessons/php?chapter=logic",
+    num: "03",
+    label: "Logic & Control",
+    tag: "Week 3",
+    description: "Build logic trees and condition evaluations with modern precision.",
+    color: "#06b6d4",
+    dimColor: "rgba(6,182,212,0.12)",
+    icon: Terminal,
+    weeks: "Week 3",
+    lessons: 4,
+    skills: ["If / Else", "Strict Checks", "And / Or", "Switch", "Match"],
+    lessonsList: ["Conditionals", "Comparisons", "Security Checks", "Auth Logic", "Multiple Paths"]
+  },
+  {
+    href: "/courses/backend/lessons/php?chapter=loops",
+    num: "04",
+    label: "Loops & Functions",
+    tag: "Week 4",
+    description: "Avoid repetition natively with loops and DRY functions.",
+    color: "#f59e0b",
+    dimColor: "rgba(245,158,11,0.12)",
+    icon: RotateCcw,
+    weeks: "Week 4",
+    lessons: 4,
+    skills: ["Foreach", "While", "For", "Functions", "Scope", "Returns"],
+    lessonsList: ["Foreach array", "Counters", "DRY code", "Parameters", "Data Returns"]
+  },
+  {
+    href: "/courses/backend/lessons/php?chapter=oop",
+    num: "05",
+    label: "OOP Foundations",
+    tag: "Week 5",
+    description: "Write classes, constructors and objects as the bridge to Laravel.",
+    color: "#f97316",
+    dimColor: "rgba(249,115,22,0.12)",
+    icon: Layers,
+    weeks: "Week 5",
+    lessons: 4,
+    skills: ["Classes", "Methods", "Public/Private", "$this", "Constructors"],
+    lessonsList: ["Classes", "Object Instances", "Methods", "Init Params", "Final Exam"]
+  },
+  {
+    href: "/courses/backend/lessons/laravel?chapter=setup",
+    num: "06",
     label: "Laravel Setup",
-    tag: "Weeks 3–4",
+    tag: "Week 6",
     description: "Getting up and running with Composer, Artisan, and understanding the core Laravel structure.",
     color: "#f43f5e",
     dimColor: "rgba(244,63,94,0.12)",
     icon: HardDrive,
-    weeks: "Weeks 3–4",
+    weeks: "Week 6",
     lessons: 3,
     skills: ["Composer", "Artisan CLI", "Folder Structure", ".env Config", "Serve"],
     lessonsList: ["Install Laravel", "Project Map", "Environment Variables", "Serve App", "Storage"]
   },
   {
-    href: "/courses/backend/lessons/laravel?module=03",
-    num: "03",
+    href: "/courses/backend/lessons/laravel?chapter=routing",
+    num: "07",
     label: "Routing Engine",
-    tag: "Weeks 5–6",
+    tag: "Week 7",
     description: "Connect URLs to your logic. Master static, dynamic, and grouped routes with ease.",
-    color: "#f97316",
-    dimColor: "rgba(249,115,22,0.12)",
+    color: "#eab308",
+    dimColor: "rgba(234,179,8,0.12)",
     icon: Globe,
-    weeks: "Weeks 5–6",
+    weeks: "Week 7",
     lessons: 3,
     skills: ["Web Routes", "Closures", "Route Params", "Model Binding", "Grouping"],
     lessonsList: ["Basic Routes", "JSON Responses", "Route Parameters", "Route Groups", "Named Routes"]
   },
   {
-    href: "/courses/backend/lessons/laravel?module=04",
-    num: "04",
-    label: "Controllers & Validation",
-    tag: "Weeks 7–8",
-    description: "Build robust backend logic with MVC Resource controllers, Form Requests, and Data Validation.",
-    color: "#eab308",
-    dimColor: "rgba(234,179,8,0.12)",
+    href: "/courses/backend/lessons/laravel?chapter=controllers",
+    num: "08",
+    label: "Controllers & Vali",
+    tag: "Week 8",
+    description: "Build robust backend logic with MVC Resource controllers, Form Requests, and Validation.",
+    color: "#22c55e",
+    dimColor: "rgba(34,197,94,0.12)",
     icon: Search,
-    weeks: "Weeks 7–8",
+    weeks: "Week 8",
     lessons: 3,
     skills: ["MVC", "Make:Controller", "Requests", "JSON output", "Validation"],
     lessonsList: ["Create Controller", "Resource Routes", "Request Object", "Response Types", "Form validation"]
   },
   {
-    href: "/courses/backend/lessons/laravel?module=05",
-    num: "05",
+    href: "/courses/backend/lessons/laravel?chapter=blade",
+    num: "09",
     label: "Blade Templating",
-    tag: "Weeks 9–10",
+    tag: "Week 9",
     description: "Construct scalable user interfaces using Laravel's native, powerful Blade engine.",
-    color: "#22c55e",
-    dimColor: "rgba(34,197,94,0.12)",
+    color: "#14b8a6",
+    dimColor: "rgba(20,184,166,0.12)",
     icon: Palette,
-    weeks: "Weeks 9–10",
+    weeks: "Week 9",
     lessons: 2,
     skills: ["Blade Syntax", "Directives", "Layouts", "Components", "Props"],
     lessonsList: ["Echo Variables", "Conditional Logic", "Blade Loops", "Layout Extending", "X-Components"]
   },
   {
-    href: "/courses/backend/lessons/laravel?module=06",
-    num: "06",
-    label: "Database & Eloquent",
-    tag: "Weeks 11",
+    href: "/courses/backend/lessons/laravel?chapter=eloquent",
+    num: "10",
+    label: "Database Eloquent",
+    tag: "Week 10",
     description: "Schema as code. Dive deep into Migrations, Eloquent CRUD, and Model Relationships.",
     color: "#06b6d4",
     dimColor: "rgba(6,182,212,0.12)",
     icon: Database,
-    weeks: "Week 11",
+    weeks: "Week 10",
     lessons: 3,
     skills: ["Migrations", "Schema", "Eloquent", "CRUD", "Relationships"],
     lessonsList: ["Create Tables", "Foreign Keys", "Model Classes", "Eager Loading", "Mass Assignment"]
   },
   {
-    href: "/courses/backend/lessons/laravel?module=07",
-    num: "07",
+    href: "/courses/backend/lessons/laravel?chapter=auth",
+    num: "11",
     label: "Auth, API & Deploy",
-    tag: "Weeks 12",
-    description: "Secure your endpoints using Sanctum, sculpt JSON with API Resources, and deploy to production.",
-    color: "#a855f7",
-    dimColor: "rgba(168,85,247,0.12)",
-    icon: Terminal,
-    weeks: "Week 12",
+    tag: "Week 11",
+    description: "Secure your endpoints using Sanctum, sculpt JSON with API Resources, and deploy.",
+    color: "#8b5cf6",
+    dimColor: "rgba(139,92,246,0.12)",
+    icon: Lock,
+    weeks: "Week 11",
     lessons: 3,
     skills: ["Sanctum Auth", "Tokens", "API Resources", "Optimization", "Deployment"],
     lessonsList: ["Sanctum Setup", "Login Endpoint", "Bearer Tokens", "API Formatting", "Production Deploy"]
   },
   {
-    href: "/courses/backend/lessons/laravel?module=08",
-    num: "08",
-    label: "Queues & Async Jobs",
-    tag: "Weeks 13",
-    description: "Scale your application by moving heavy processing to the background. Master Laravel's powerful queue system.",
+    href: "/courses/backend/lessons/laravel?chapter=queues",
+    num: "12",
+    label: "Queues & Async",
+    tag: "Week 12",
+    description: "Scale your application by moving heavy processing to the background with Queues.",
     color: "#ec4899",
     dimColor: "rgba(236,72,153,0.12)",
-    icon: Clock,
-    weeks: "Week 13",
+    icon: Zap,
+    weeks: "Week 12",
     lessons: 2,
     skills: ["Job Classes", "Queue Workers", "Async Processing", "Supervisor", "Redis"],
     lessonsList: ["Why Queues?", "Database Driver", "Creating Jobs", "Dispatching", "Running Workers"]
@@ -351,21 +407,20 @@ export default function BackendRoadmap() {
 
           <div className="max-w-3xl space-y-3">
             <h1 className="text-5xl md:text-7xl font-black tracking-tighter leading-[0.86] italic">
-              Architect
+              Roadmap to be a Backend Engineer
               <br />
-              <span style={{ WebkitTextStroke: '2px rgba(255,255,255,0.12)', color: 'transparent' }}>the Logic.</span>
+              <span style={{ WebkitTextStroke: '2px rgba(255,255,255,0.12)', color: 'transparent' }}>with PHP & Laravel</span>
             </h1>
             <p className="text-base text-white/28 leading-relaxed max-w-xl font-light">
-              Master world-class <span className="text-white/55 font-semibold">PHP & Laravel</span> systems. 
-              A 13-week comprehensive journey from foundations to scalable e-commerce APIs.
+              A 12-week comprehensive journey from foundations to scalable e-commerce APIs.
             </p>
           </div>
 
           <div className="flex flex-wrap gap-2.5">
             {[
               { label: '60 Lessons',              Icon: BookOpen, color: '#10b981' },
-              { label: '13 Weeks',                Icon: Clock,    color: '#3b82f6' },
-              { label: '8 Modules',               Icon: CheckCircle2, color: '#a855f7' },
+              { label: '12 Weeks',                Icon: Clock,    color: '#3b82f6' },
+              { label: '12 Modules',               Icon: CheckCircle2, color: '#a855f7' },
               { label: 'PHP + Laravel',           Icon: Terminal, color: '#fb923c' },
             ].map(s => (
               <div

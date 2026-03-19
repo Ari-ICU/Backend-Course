@@ -983,7 +983,14 @@ const CodePanel = ({
 export default function LaravelSlide() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const initialSlide = Math.max(0, Math.min(parseInt(searchParams.get('slide') || '1') - 1, slides.length - 1));
+  const chapterParam = searchParams.get('chapter') || 'setup';
+
+  // ISOLATE SLIDES: Only show slides for the active chapter (2-5 slides)
+  const activeSlides = slides.filter(s => s.chapter === chapterParam);
+  const displaySlides = activeSlides.length > 0 ? activeSlides : slides.filter(s => s.chapter === 'setup');
+
+  const slideParam = searchParams.get('slide');
+  const initialSlide = slideParam ? Math.max(0, Math.min(parseInt(slideParam) - 1, displaySlides.length - 1)) : 0;
 
   const [current, setCurrent] = useState(initialSlide);
   const [isAnimating, setIsAnimating] = useState(false);
@@ -991,9 +998,9 @@ export default function LaravelSlide() {
   const [showNotes, setShowNotes] = useState(false);
   const [notes, setNotes] = useState<Record<string, string>>({});
 
-  const slide = slides[current];
+  const slide = displaySlides[current];
   const Icon = slide.icon;
-  const progress = ((current + 1) / slides.length) * 100;
+  const progress = ((current + 1) / displaySlides.length) * 100;
   const chapterInfo = CHAPTERS.find(c => c.id === slide.chapter)!;
 
   useEffect(() => {
@@ -1020,17 +1027,27 @@ export default function LaravelSlide() {
     setTimeout(() => { setCurrent(idx); setIsAnimating(false); }, 280);
   }, [isAnimating]);
 
-  const next = () => goTo((current + 1) % slides.length, 1);
-  const prev = () => goTo((current - 1 + slides.length) % slides.length, -1);
+  const next = () => goTo((current + 1) % displaySlides.length, 1);
+  const prev = () => goTo((current - 1 + displaySlides.length) % displaySlides.length, -1);
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'ArrowRight') next();
-      if (e.key === 'ArrowLeft') prev();
+      // Don't navigate if user is typing in an input or textarea
+      if (document.activeElement?.tagName === 'INPUT' || document.activeElement?.tagName === 'TEXTAREA') {
+        return;
+      }
+      if (e.key === 'ArrowRight') {
+        e.preventDefault();
+        next();
+      }
+      if (e.key === 'ArrowLeft') {
+        e.preventDefault();
+        prev();
+      }
     };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
-  }, [current, isAnimating]);
+  }, [current, isAnimating]); // Keep deps to ensure functions use closure-latest state or depend on functions
 
   const variants = {
     enter: (d: number) => ({ y: d * 30, opacity: 0, scale: 0.98 }),
@@ -1050,10 +1067,9 @@ export default function LaravelSlide() {
       {/* ── CHAPTER NAV BAR ── */}
       <div className="relative z-20 flex items-center gap-1 px-6 py-3 border-b border-white/5 bg-black/30 backdrop-blur-xl overflow-x-auto mt-16 lg:mt-0">
         {CHAPTERS.map((ch, i) => {
-          const isActive = ch.id === slide.chapter;
-          const slideIdx = slides.findIndex(s => s.chapter === ch.id);
+          const isActive = ch.id === (activeSlides.length > 0 ? chapterParam : 'setup');
           return (
-            <button key={ch.id} onClick={() => goTo(slideIdx, slideIdx > current ? 1 : -1)}
+            <button key={ch.id} onClick={() => router.push(`?chapter=${ch.id}`)}
               className={`flex items-center gap-2 px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest whitespace-nowrap transition-all border ${
                 isActive
                   ? 'text-black border-transparent'
@@ -1160,7 +1176,7 @@ export default function LaravelSlide() {
               <button onClick={next}
                 className="flex-1 py-3 px-5 rounded-xl font-black text-xs active:scale-95 transition-all flex items-center justify-center gap-2 shadow-lg"
                 style={{ background: slide.accent, color: '#000' }}>
-                {current === slides.length - 1 ? 'Restart' : 'Next'}
+                {current === displaySlides.length - 1 ? 'Restart' : 'Next'}
                 <ChevronRight className="w-4 h-4" />
               </button>
               <button onClick={() => setShowNotes(!showNotes)}

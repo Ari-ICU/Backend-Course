@@ -14,6 +14,7 @@ import {
 
 /* ─── SLIDE DATA ─────────────────────────────────────────────────── */
 interface Slide {
+  chapter: string;
   id: string;
   title: string;
   subtitle: string;
@@ -33,12 +34,21 @@ interface Slide {
   icon: React.ElementType;
 }
 
+/* ─── CHAPTERS ───────────────────────────────────────────────────── */
+const CHAPTERS = [
+  { id: 'intro',  label: '01 · Intro & Tools', color: '#10b981' },
+  { id: 'data',   label: '02 · Data & Storage', color: '#6366f1' },
+  { id: 'logic',  label: '03 · Logic Flow',     color: '#06b6d4' },
+  { id: 'loops',  label: '04 · Loops & Funcs',  color: '#f59e0b' },
+  { id: 'oop',    label: '05 · OOP Basis',      color: '#f97316' },
+];
+
 const slides: Slide[] = [
   /* ─── MONTH 1: PHP FOUNDATION ─── */
   /* WEEK 1: PHP Essentials */
   /* Day 1: Tools & Intro */
   {
-    id: "W1-D1-S0", 
+    id: "W1-D1-S0", chapter: "intro", 
     title: "Choose Your IDE", 
     subtitle: "The Developer's Cockpit",
     tag: "PHP Foundation", tagColor: "#34d399", accent: "#10b981",
@@ -60,7 +70,7 @@ const slides: Slide[] = [
     icon: Layout,
   },
   {
-    id: "W1-D1-S1", 
+    id: "W1-D1-S1", chapter: "intro", 
     title: "The Backend Engine", 
     subtitle: "What is PHP?",
     tag: "PHP Foundation", tagColor: "#34d399", accent: "#10b981",
@@ -79,7 +89,7 @@ const slides: Slide[] = [
     icon: Globe,
   },
   {
-    id: "W1-D1-S2", 
+    id: "W1-D1-S2", chapter: "intro", 
     title: "Server Environment", 
     subtitle: "XAMPP & Localhost",
     tag: "PHP Foundation", tagColor: "#34d399", accent: "#10b981",
@@ -100,7 +110,7 @@ const slides: Slide[] = [
     icon: HardDrive,
   },
   {
-    id: "W1-D1-S3", 
+    id: "W1-D1-S3", chapter: "intro", 
     title: "First Echo", 
     subtitle: "Hello PHP World",
     tag: "PHP Foundation", tagColor: "#34d399", accent: "#10b981",
@@ -122,7 +132,7 @@ const slides: Slide[] = [
     icon: Terminal,
   },
   {
-    id: "W1-D1-S4", 
+    id: "W1-D1-S4", chapter: "intro", 
     title: "PHP in HTML", 
     subtitle: "The Injection Power",
     tag: "PHP Foundation", tagColor: "#34d399", accent: "#10b981",
@@ -145,7 +155,7 @@ const slides: Slide[] = [
 
   /* Day 2: Data & Storage */
   {
-    id: "W1-D2-S1", 
+    id: "W1-D2-S1", chapter: "data", 
     title: "Variables & Types", 
     subtitle: "Memory for your data",
     tag: "PHP Foundation", tagColor: "#818cf8", accent: "#6366f1",
@@ -166,7 +176,7 @@ const slides: Slide[] = [
     icon: Code2,
   },
   {
-    id: "W1-D2-S2", 
+    id: "W1-D2-S2", chapter: "data", 
     title: "Operators", 
     subtitle: "Math & Logic",
     tag: "PHP Foundation", tagColor: "#818cf8", accent: "#6366f1",
@@ -187,7 +197,7 @@ const slides: Slide[] = [
     icon: Sparkles,
   },
   {
-    id: "W1-D2-S3", 
+    id: "W1-D2-S3", chapter: "data", 
     title: "Indexed Arrays", 
     subtitle: "Ordered Lists",
     tag: "PHP Foundation", tagColor: "#818cf8", accent: "#6366f1",
@@ -208,7 +218,7 @@ const slides: Slide[] = [
     icon: List,
   },
   {
-    id: "W1-D2-S4", 
+    id: "W1-D2-S4", chapter: "data", 
     title: "Assoc Arrays", 
     subtitle: "The Bridge Operator (=>)",
     tag: "PHP Foundation", tagColor: "#818cf8", accent: "#6366f1",
@@ -231,7 +241,7 @@ const slides: Slide[] = [
 
   /* Day 3: Logic & Control */
   {
-    id: "W1-D3-S1", 
+    id: "W1-D3-S1", chapter: "logic", 
     title: "Conditionals", 
     subtitle: "If / Else Statements",
     tag: "PHP Foundation", tagColor: "#22d3ee", accent: "#06b6d4",
@@ -252,7 +262,7 @@ const slides: Slide[] = [
     icon: ShieldCheck,
   },
   {
-    id: "W1-D3-S2", 
+    id: "W1-D3-S2", chapter: "logic", 
     title: "Comparisons", 
     subtitle: "Strict vs Loose",
     tag: "PHP Foundation", tagColor: "#22d3ee", accent: "#06b6d4",
@@ -273,7 +283,7 @@ const slides: Slide[] = [
     icon: Lock,
   },
   {
-    id: "W1-D3-S3", 
+    id: "W1-D3-S3", chapter: "logic", 
     title: "Logical Ops", 
     subtitle: "Complex conditions",
     tag: "PHP Foundation", tagColor: "#22d3ee", accent: "#06b6d4",
@@ -294,7 +304,7 @@ const slides: Slide[] = [
     icon: ShieldAlert,
   },
   {
-    id: "W1-D3-S4", 
+    id: "W1-D3-S4", chapter: "logic", 
     title: "Switch / Match", 
     subtitle: "Multiple values",
     tag: "PHP Foundation", tagColor: "#22d3ee", accent: "#06b6d4",
@@ -317,7 +327,7 @@ const slides: Slide[] = [
 
   /* Day 4: Repetition & Reusability */
   {
-    id: "W1-D4-S1", 
+    id: "W1-D4-S1", chapter: "loops", 
     title: "The Foreach King", 
     subtitle: "Looping through life",
     tag: "PHP Foundation", tagColor: "#fbbf24", accent: "#f59e0b",
@@ -339,7 +349,7 @@ const slides: Slide[] = [
     icon: RotateCcw,
   },
   {
-    id: "W1-D4-S2", 
+    id: "W1-D4-S2", chapter: "loops", 
     title: "While & For", 
     subtitle: "Traditional loops",
     tag: "PHP Foundation", tagColor: "#fbbf24", accent: "#f59e0b",
@@ -360,7 +370,7 @@ const slides: Slide[] = [
     icon: RefreshCw,
   },
   {
-    id: "W1-D4-S3", 
+    id: "W1-D4-S3", chapter: "loops", 
     title: "Intro to Functions", 
     subtitle: "Don't Repeat Yourself (DRY)",
     tag: "PHP Foundation", tagColor: "#fbbf24", accent: "#f59e0b",
@@ -381,7 +391,7 @@ const slides: Slide[] = [
     icon: Zap,
   },
   {
-    id: "W1-D4-S4", 
+    id: "W1-D4-S4", chapter: "loops", 
     title: "Returns & Scopes", 
     subtitle: "Sending data back",
     tag: "PHP Foundation", tagColor: "#fbbf24", accent: "#f59e0b",
@@ -404,7 +414,7 @@ const slides: Slide[] = [
 
   /* Day 5: OOP & Advanced */
   {
-    id: "W1-D5-S1", 
+    id: "W1-D5-S1", chapter: "oop", 
     title: "OOP: Classes", 
     subtitle: "The Blueprint",
     tag: "PHP Foundation", tagColor: "#fb923c", accent: "#f97316",
@@ -425,7 +435,7 @@ const slides: Slide[] = [
     icon: Box,
   },
   {
-    id: "W1-D5-S2", 
+    id: "W1-D5-S2", chapter: "oop", 
     title: "OOP: Methods", 
     subtitle: "Object Actions",
     tag: "PHP Foundation", tagColor: "#fb923c", accent: "#f97316",
@@ -446,7 +456,7 @@ const slides: Slide[] = [
     icon: Workflow,
   },
   {
-    id: "W1-D5-S3", 
+    id: "W1-D5-S3", chapter: "oop", 
     title: "OOP: Construct", 
     subtitle: "Magic initialization",
     tag: "PHP Foundation", tagColor: "#fb923c", accent: "#f97316",
@@ -467,7 +477,7 @@ const slides: Slide[] = [
     icon: Sparkles,
   },
   {
-    id: "W1-D5-S4", 
+    id: "W1-D5-S4", chapter: "oop", 
     title: "Week 1 Finale", 
     subtitle: "Foundation Complete",
     tag: "PHP Foundation", tagColor: "#34d399", accent: "#10b981",
@@ -491,279 +501,148 @@ const slides: Slide[] = [
 
 ];
 
-/* ─── PHP SYNTAX HIGHLIGHTER ─────────────────────────────────────── */
-const PHP_KEYWORDS = new Set([
-  'php','echo','print','return','if','else','elseif','foreach','for',
-  'while','do','switch','case','break','continue','class','extends',
-  'implements','interface','trait','namespace','use','new','public',
-  'protected','private','static','abstract','final','function','fn',
-  'array','string','int','float','bool','void','null','true','false',
-  'require','include','require_once','include_once','throw','try',
-  'catch','finally','match','readonly','const','enum',
+/* ─── SYNTAX HIGHLIGHTER ─────────────────────────────────────────── */
+const PHP_KW = new Set([
+  'php','echo','return','if','else','elseif','foreach','for','while',
+  'class','extends','implements','namespace','use','new','public',
+  'protected','private','static','function','fn','array','string',
+  'int','float','bool','void','null','true','false','require',
+  'include','throw','try','catch','match','readonly','const',
 ]);
 
 const HighlightedCode = ({ code }: { code: string }) => {
-  const tokenizeLine = (line: string): React.ReactNode => {
-    if (line.trimStart().startsWith('//') || line.trimStart().startsWith('#'))
+  const tokenize = (line: string): React.ReactNode => {
+    if (/^\s*(\/\/|#|\/\*|\*)/.test(line))
       return <span style={{ color: '#6b7280', fontStyle: 'italic' }}>{line}</span>;
-    if (line.trimStart().startsWith('/*') || line.trimStart().startsWith('*'))
+    if (/^\s*{{--/.test(line))
       return <span style={{ color: '#6b7280', fontStyle: 'italic' }}>{line}</span>;
 
     const parts = line.split(/("(?:[^"\\]|\\.)*"|'(?:[^'\\]|\\.)*'|\$[a-zA-Z_]\w*|\b\d+(?:\.\d+)?\b|\b[a-zA-Z_]\w*\b)/g);
-    return parts.map((part, i) => {
-      if (!part) return null;
-      if (part.startsWith('$')) return <span key={i} style={{ color: '#fbbf24' }}>{part}</span>;
-      if (PHP_KEYWORDS.has(part)) return <span key={i} style={{ color: '#f87171', fontWeight: 700 }}>{part}</span>;
-      if (part.startsWith('"')) {
-        const internalParts = part.split(/(\$[a-zA-Z_]\w*)/g);
-        return (
-          <span key={i} style={{ color: '#86efac' }}>
-            {internalParts.map((ip, j) => 
-              ip.startsWith('$') 
-                ? <span key={j} style={{ color: '#fbbf24', fontWeight: 600 }}>{ip}</span>
-                : ip
-            )}
-          </span>
-        );
-      }
-      if (part.startsWith("'")) return <span key={i} style={{ color: '#86efac' }}>{part}</span>;
-      if (/^\d/.test(part)) return <span key={i} style={{ color: '#c084fc' }}>{part}</span>;
-      if (/^[A-Z]/.test(part)) return <span key={i} style={{ color: '#fbbf24' }}>{part}</span>;
-      return <span key={i} style={{ color: '#e2e8f0' }}>{part}</span>;
+    return parts.map((p, i) => {
+      if (!p) return null;
+      if (p.startsWith('$')) return <span key={i} style={{ color: '#fbbf24' }}>{p}</span>;
+      if (PHP_KW.has(p)) return <span key={i} style={{ color: '#f87171', fontWeight: 700 }}>{p}</span>;
+      if (p.startsWith('"') || p.startsWith("'")) return <span key={i} style={{ color: '#86efac' }}>{p}</span>;
+      if (/^\d/.test(p)) return <span key={i} style={{ color: '#c084fc' }}>{p}</span>;
+      if (/^[A-Z]/.test(p)) return <span key={i} style={{ color: '#fbbf24' }}>{p}</span>;
+      return <span key={i} style={{ color: '#e2e8f0' }}>{p}</span>;
     });
   };
 
   return (
     <div className="font-mono text-sm leading-6 whitespace-pre"
-      style={{ fontFamily: "'JetBrains Mono','Fira Code','Cascadia Code',monospace" }}>
+      style={{ fontFamily: "'JetBrains Mono','Fira Code',monospace" }}>
       {code.split('\n').map((line, i) => (
-        <div key={i} className="min-h-[1.5rem]">{tokenizeLine(line)}</div>
+        <div key={i} className="min-h-[1.5rem]">{tokenize(line)}</div>
       ))}
     </div>
   );
 };
 
-/* ─── SYNTAX PANEL ───────────────────────────────────────────────── */
-const SyntaxPanel = ({ syntax, accent }: { syntax: string; accent: string }) => {
-  if (!syntax) return null;
-  return (
-    <div className="rounded-xl border overflow-hidden" style={{ borderColor: `${accent}30`, background: `${accent}08` }}>
-      <div className="flex items-center gap-2 px-3 py-2 border-b" style={{ borderColor: `${accent}20` }}>
-        <Code2 className="w-3 h-3" style={{ color: accent }} />
-        <span className="text-[9px] font-black uppercase tracking-[0.2em]" style={{ color: accent }}>Syntax Reference</span>
-      </div>
-      <div className="p-3 text-xs leading-6 font-mono whitespace-pre text-zinc-300 overflow-x-auto"
-        style={{ fontFamily: "'JetBrains Mono','Fira Code',monospace" }}>
-        {syntax.split('\n').map((line, i) => (
-          <div key={i} className="min-h-[1.5rem]">
-            {line.trimStart().startsWith('//') || line.trimStart().startsWith('#')
-              ? <span style={{ color: '#6b7280', fontStyle: 'italic' }}>{line}</span>
-              : line}
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-};
-
-/* ─── CODE VIEWER ────────────────────────────────────────────────── */
-const CodeViewer = ({ code: initialCode, terminal, terminalOutput: initialOutput, accent, title, showPreview }: { code: string; terminal?: string; terminalOutput?: string; accent: string; title: string; showPreview?: boolean }) => {
-  const [activeTab, setActiveTab] = useState<'code' | 'terminal' | 'preview'>('code');
+/* ─── CODE PANEL ─────────────────────────────────────────────────── */
+const CodePanel = ({
+  code: initialCode, terminal, terminalOutput: initialOutput, accent, filename,
+}: {
+  code: string; terminal?: string; terminalOutput?: string; accent: string; filename: string;
+}) => {
+  const [tab, setTab] = useState<'code' | 'terminal'>('code');
   const [code, setCode] = useState(initialCode);
-  const [terminalOutput, setTerminalOutput] = useState(initialOutput);
+  const [output, setOutput] = useState(initialOutput);
   const [copied, setCopied] = useState(false);
   const taRef = useRef<HTMLTextAreaElement>(null);
-  const highlightRef = useRef<HTMLDivElement>(null);
-
-  // Sync state when slide changes
-  useEffect(() => {
-    setCode(initialCode);
-    setTerminalOutput(initialOutput);
-  }, [initialCode, initialOutput]);
-
+  const hlRef = useRef<HTMLDivElement>(null);
   const lines = code.split('\n');
 
+  useEffect(() => { setCode(initialCode); setOutput(initialOutput); }, [initialCode, initialOutput]);
+
   const copy = () => {
-    const textToCopy = activeTab === 'code' ? code : (terminalOutput || '');
-    navigator.clipboard.writeText(textToCopy);
+    navigator.clipboard.writeText(tab === 'code' ? code : (output || ''));
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
 
   const syncScroll = () => {
-    if (taRef.current && highlightRef.current) {
-      highlightRef.current.scrollTop = taRef.current.scrollTop;
-      highlightRef.current.scrollLeft = taRef.current.scrollLeft;
+    if (taRef.current && hlRef.current) {
+      hlRef.current.scrollTop = taRef.current.scrollTop;
+      hlRef.current.scrollLeft = taRef.current.scrollLeft;
     }
-  };
-
-  const simulateExecution = (newCode: string) => {
-    // If the code is identical to initial, don't simulate (keep hardcoded output)
-    if (newCode.trim() === initialCode.trim()) {
-      setTerminalOutput(initialOutput);
-      return;
-    }
-
-    if (title.includes('.php')) {
-      // Improved regex to capture more of the echo statement
-      const echoRegex = /(?:echo|print)\s+["'](.*?)["'](?:\s*\.\s*\.[^;]+)?;/g;
-      const shortEchoRegex = /<\?=\s+["'](.*?)["']\s*\?>/g;
-      
-      let outputs: string[] = [];
-      let match;
-      
-      while ((match = echoRegex.exec(newCode)) !== null) {
-        outputs.push(match[1]);
-      }
-      while ((match = shortEchoRegex.exec(newCode)) !== null) {
-        outputs.push(match[1]);
-      }
-
-      if (outputs.length > 0) {
-        setTerminalOutput(outputs.join('\n'));
-      }
-    }
-  };
-
-  const handleCodeChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    const val = e.target.value;
-    setCode(val);
-    simulateExecution(val);
   };
 
   return (
-    <div className="w-full h-full flex flex-col bg-[#080c14] overflow-hidden">
-      {/* Top Controller Bar */}
+    <div className="flex flex-col h-full bg-[#07090f] rounded-2xl overflow-hidden border border-white/8">
+      {/* Tab bar */}
       <div className="flex items-center justify-between px-4 py-2 bg-[#0d1117] border-b border-white/5 flex-none">
         <div className="flex items-center gap-1 p-1 bg-black/40 rounded-xl border border-white/5">
-          <button
-            onClick={() => setActiveTab('code')}
-            className={`flex items-center gap-2 px-4 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-widest transition-all ${
-              activeTab === 'code' 
-                ? 'bg-white/10 text-white shadow-lg' 
-                : 'text-zinc-500 hover:text-zinc-300'
-            }`}
-          >
-            <Code2 className="w-3.5 h-3.5" />
-            Code Editor
-          </button>
-          <button
-            onClick={() => {
-              setActiveTab('terminal');
-              simulateExecution(code);
-            }}
-            className={`flex items-center gap-2 px-4 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-widest transition-all ${
-              activeTab === 'terminal' 
-                ? 'bg-white/10 text-white shadow-lg' 
-                : 'text-zinc-500 hover:text-zinc-300'
-            }`}
-          >
-            <Terminal className="w-3.5 h-3.5" />
-            Terminal
-          </button>
-          
-          {showPreview && (
-            <button
-              onClick={() => setActiveTab('preview')}
-              className={`flex items-center gap-2 px-4 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-widest transition-all ${
-                activeTab === 'preview' 
-                  ? 'bg-white/10 text-white shadow-lg' 
-                  : 'text-zinc-500 hover:text-zinc-300'
-              }`}
-            >
-              <Globe className="w-3.5 h-3.5" />
-              Preview
+          {(['code', 'terminal'] as const).map(t => (
+            <button key={t} onClick={() => setTab(t)}
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-widest transition-all ${
+                tab === t ? 'bg-white/10 text-white' : 'text-zinc-500 hover:text-zinc-300'
+              }`}>
+              {t === 'code' ? <Code2 className="w-3 h-3" /> : <Terminal className="w-3 h-3" />}
+              {t}
             </button>
-          )}
+          ))}
         </div>
-
-        <button
-          className="flex items-center gap-2 px-4 py-1.5 rounded-xl text-[10px] font-black uppercase tracking-widest text-zinc-500 hover:text-white hover:bg-white/5 transition-all"
-          onClick={() => {
-            setCode(initialCode);
-            setTerminalOutput(initialOutput);
-          }}
-        >
-          <RotateCcw className="w-3.5 h-3.5" />
-          Reset
-        </button>
+        <div className="flex items-center gap-2">
+          <button onClick={() => { setCode(initialCode); setOutput(initialOutput); }}
+            className="p-1.5 rounded-lg text-zinc-600 hover:text-zinc-300 hover:bg-white/5 transition-all">
+            <RotateCcw className="w-3.5 h-3.5" />
+          </button>
+          <button onClick={copy}
+            className={`flex items-center gap-1.5 px-3 py-1 rounded-lg text-[10px] font-black uppercase tracking-widest border transition-all ${
+              copied ? 'bg-emerald-500/10 border-emerald-500/20 text-emerald-400' : 'bg-white/5 border-white/10 text-zinc-400 hover:text-white'
+            }`}>
+            {copied ? <><Check className="w-3 h-3" />Copied</> : <><Copy className="w-3 h-3" />Copy</>}
+          </button>
+        </div>
       </div>
 
-      {/* File Info Bar */}
-      <div className="flex items-center justify-between px-4 py-2.5 bg-[#0d1117]/50 border-b border-white/5 flex-none">
-        <div className="flex items-center gap-3">
-          <div className="flex gap-1.5">
-            <span className="w-2.5 h-2.5 rounded-full bg-[#ff5f57]/40" />
-            <span className="w-2.5 h-2.5 rounded-full bg-[#febc2e]/40" />
-            <span className="w-2.5 h-2.5 rounded-full bg-[#28c840]/40" />
-          </div>
-          <div className="flex items-center gap-2 bg-white/5 rounded-lg px-2.5 py-1">
-            <FileCode className="w-3 h-3" style={{ color: accent }} />
-            <span className="text-[10px] font-mono text-zinc-400">
-              {activeTab === 'code' ? title : activeTab === 'terminal' ? 'bash — terminal' : 'browser — preview'}
-            </span>
-          </div>
+      {/* File bar */}
+      <div className="flex items-center gap-3 px-4 py-2 bg-[#0d1117]/60 border-b border-white/5 flex-none">
+        <div className="flex gap-1.5">
+          <span className="w-2.5 h-2.5 rounded-full bg-[#ff5f57]/40" />
+          <span className="w-2.5 h-2.5 rounded-full bg-[#febc2e]/40" />
+          <span className="w-2.5 h-2.5 rounded-full bg-[#28c840]/40" />
         </div>
-        <button 
-          onClick={copy}
-          className={`flex items-center gap-2 px-3 py-1 rounded-lg text-[10px] font-black uppercase tracking-widest border transition-all ${
-            copied 
-              ? 'bg-emerald-500/10 border-emerald-500/20 text-emerald-400' 
-              : 'bg-white/5 border-white/10 text-zinc-400 hover:text-white'
-          }`}
-        >
-          {copied ? <><Check className="w-3 h-3" /> Copied</> : <><Copy className="w-3 h-3" /> Copy</>}
-        </button>
+        <div className="flex items-center gap-2 bg-white/5 rounded-lg px-2.5 py-1">
+          <FileCode className="w-3 h-3" style={{ color: accent }} />
+          <span className="text-[10px] font-mono text-zinc-400">
+            {tab === 'code' ? filename : 'bash — terminal'}
+          </span>
+        </div>
       </div>
 
-      {/* Editor Content */}
-      <div className="flex-1 relative overflow-hidden bg-[#080c14]">
-        {activeTab === 'code' ? (
+      {/* Content */}
+      <div className="flex-1 relative overflow-hidden">
+        {tab === 'code' ? (
           <div className="flex h-full overflow-hidden">
-            <div className="flex-none w-10 bg-[#080c14] border-r border-white/5 pt-4 pb-4 flex flex-col items-end pr-3 overflow-hidden select-none">
+            <div className="flex-none w-10 bg-[#07090f] border-r border-white/5 pt-4 flex flex-col items-end pr-3 select-none overflow-hidden">
               {lines.map((_, i) => (
                 <div key={i} className="text-[11px] font-mono text-zinc-700 leading-6 min-h-[1.5rem]">{i + 1}</div>
               ))}
             </div>
             <div className="relative flex-1 overflow-hidden">
-              <div ref={highlightRef} className="absolute inset-0 overflow-auto p-4 pt-4 pointer-events-none" style={{ scrollbarWidth: 'none' }}>
+              <div ref={hlRef} className="absolute inset-0 overflow-auto p-4 pointer-events-none" style={{ scrollbarWidth: 'none' }}>
                 <HighlightedCode code={code} />
               </div>
-              <textarea 
-                ref={taRef} 
-                value={code} 
-                onChange={handleCodeChange}
-                onScroll={syncScroll}
-                className="absolute inset-0 w-full h-full bg-transparent text-transparent resize-none outline-none p-4 pt-4 font-mono text-sm leading-6 border-none overflow-auto selection:bg-emerald-500/25"
+              <textarea ref={taRef} value={code} onChange={e => setCode(e.target.value)} onScroll={syncScroll}
+                className="absolute inset-0 w-full h-full bg-transparent text-transparent resize-none outline-none p-4 font-mono text-sm leading-6 border-none overflow-auto selection:bg-purple-500/25"
                 style={{ fontFamily: "'JetBrains Mono',monospace", whiteSpace: 'pre', overflowWrap: 'normal' }}
                 spellCheck={false} wrap="off" />
             </div>
           </div>
-        ) : activeTab === 'terminal' ? (
-          <div className="p-6 font-mono text-sm leading-relaxed overflow-auto h-full">
-            <div className="flex gap-2 text-zinc-500 mb-2">
-              <span className="text-emerald-500">➜</span>
-              <span className="text-blue-400">~/php-project</span>
-              <span className="text-zinc-600 font-bold">$</span>
-              <span className="text-zinc-200">{terminal || (title.includes('index.php') || title.includes('script.php') ? "php index.php" : "php artisan serve")}</span>
-            </div>
-            <div className="text-zinc-200 mt-4 h-full">
-              {terminalOutput ? (
-                <pre className="whitespace-pre-wrap">{terminalOutput}</pre>
-              ) : (
-                <div className="text-zinc-400 animate-pulse">
-                   &gt; No server output yet.
-                </div>
-              )}
-            </div>
-          </div>
         ) : (
-          <div className="w-full h-full bg-white p-8 overflow-auto text-black">
-             {terminalOutput ? (
-               <div dangerouslySetInnerHTML={{ __html: terminalOutput }} />
-             ) : (
-               <div className="text-zinc-400 italic">No preview available. Run the code first.</div>
-             )}
+          <div className="p-6 font-mono text-sm leading-relaxed overflow-auto h-full">
+            <div className="flex gap-2 text-zinc-500 mb-3">
+              <span style={{ color: accent }}>➜</span>
+              <span className="text-blue-400">~/laravel-app</span>
+              <span className="text-zinc-600 font-bold">$</span>
+              <span className="text-zinc-200">{terminal || 'php artisan serve'}</span>
+            </div>
+            {output
+              ? <pre className="text-zinc-200 whitespace-pre-wrap">{output}</pre>
+              : <div className="text-zinc-600 animate-pulse">No output yet.</div>
+            }
           </div>
         )}
       </div>
@@ -775,46 +654,36 @@ const CodeViewer = ({ code: initialCode, terminal, terminalOutput: initialOutput
 export default function PHPLessonContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const initialSlide = Math.max(0, Math.min(parseInt(searchParams.get('slide') || '1') - 1, slides.length - 1));
+  const chapterParam = searchParams.get('chapter') || 'setup';
+
+  // ISOLATE SLIDES: Only show slides for the active chapter (2-5 slides)
+  const activeSlides = slides.filter(s => s.chapter === chapterParam);
+  const displaySlides = activeSlides.length > 0 ? activeSlides : slides.filter(s => s.chapter === 'setup');
+
+  const slideParam = searchParams.get('slide');
+  const initialSlide = slideParam ? Math.max(0, Math.min(parseInt(slideParam) - 1, displaySlides.length - 1)) : 0;
 
   const [current, setCurrent] = useState(initialSlide);
   const [isAnimating, setIsAnimating] = useState(false);
   const [dir, setDir] = useState(1);
   const [showNotes, setShowNotes] = useState(false);
-  const [userNotes, setUserNotes] = useState<Record<string, string>>({});
+  const [notes, setNotes] = useState<Record<string, string>>({});
 
-  const slide = slides[current];
-  const IconComp = slide.icon;
-  const progress = ((current + 1) / slides.length) * 100;
+  const slide = displaySlides[current];
+  const Icon = slide.icon;
+  const progress = ((current + 1) / displaySlides.length) * 100;
+  const chapterInfo = CHAPTERS.find(c => c.id === slide.chapter)!;
 
-  // Persistence for notes
   useEffect(() => {
     const saved = localStorage.getItem('php_masterclass_notes');
-    if (saved) setUserNotes(JSON.parse(saved));
+    if (saved) setNotes(JSON.parse(saved));
   }, []);
 
   const saveNote = (val: string) => {
-    const next = { ...userNotes, [slide.id]: val };
-    setUserNotes(next);
+    const next = { ...notes, [slide.id]: val };
+    setNotes(next);
     localStorage.setItem('php_masterclass_notes', JSON.stringify(next));
   };
-
-  useEffect(() => {
-    const mod = searchParams.get('module');
-    if (mod) {
-      const moduleMap: Record<string, number> = {
-        '01': 0,  // W1-D1
-        '02': 28, // W3-D1
-        '03': 38, // W5-D1
-        '04': 50, // W7-D1
-        '05': 60, // W9-D1
-        '06': 71, // W11-D1
-      };
-      if (moduleMap[mod] !== undefined) {
-        setCurrent(moduleMap[mod]);
-      }
-    }
-  }, []); // Only on mount
 
   useEffect(() => {
     const params = new URLSearchParams(searchParams.toString());
@@ -822,15 +691,15 @@ export default function PHPLessonContent() {
     router.replace(`?${params.toString()}`, { scroll: false });
   }, [current]);
 
-  const goTo = useCallback((idx: number, direction: number) => {
+  const goTo = useCallback((idx: number, d: number) => {
     if (isAnimating) return;
-    setDir(direction);
+    setDir(d);
     setIsAnimating(true);
-    setTimeout(() => { setCurrent(idx); setIsAnimating(false); }, 300);
+    setTimeout(() => { setCurrent(idx); setIsAnimating(false); }, 280);
   }, [isAnimating]);
 
-  const next = () => goTo((current + 1) % slides.length, 1);
-  const prev = () => goTo((current - 1 + slides.length) % slides.length, -1);
+  const next = () => goTo((current + 1) % displaySlides.length, 1);
+  const prev = () => goTo((current - 1 + slides.length) % displaySlides.length, -1);
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -842,207 +711,214 @@ export default function PHPLessonContent() {
   }, [current, isAnimating]);
 
   const variants = {
-    enter: (d: number) => ({ x: d * 50, opacity: 0, scale: 0.97 }),
-    center: { x: 0, opacity: 1, scale: 1 },
-    exit:  (d: number) => ({ x: d * -50, opacity: 0, scale: 0.97 }),
+    enter: (d: number) => ({ y: d * 30, opacity: 0, scale: 0.98 }),
+    center: { y: 0, opacity: 1, scale: 1 },
+    exit: (d: number) => ({ y: d * -30, opacity: 0, scale: 0.98 }),
   };
 
   return (
     <div className="min-h-screen text-white flex flex-col overflow-hidden"
-      style={{ background: '#080c14', fontFamily: "'Inter','DM Sans',system-ui,sans-serif" }}>
+      style={{ background: '#07090f', fontFamily: "'Inter','DM Sans',system-ui,sans-serif" }}>
 
-      {/* Background glow */}
+      {/* Ambient background */}
       <div className="fixed inset-0 pointer-events-none transition-all duration-700" style={{ background: slide.bg }} />
       <div className="fixed inset-0 pointer-events-none"
-        style={{ background: 'radial-gradient(ellipse at 50% 0%, rgba(255,255,255,0.02) 0%, transparent 70%)' }} />
+        style={{ background: 'radial-gradient(ellipse at 50% 100%, rgba(168,85,247,0.04) 0%, transparent 60%)' }} />
 
-      {/* ── HEADER ── */}
-      <header className="relative z-20 flex items-center gap-4 px-6 py-4 border-b border-white/8 bg-black/20 backdrop-blur-xl flex-none mt-16 lg:mt-0">
-        <div className="w-8 h-8 rounded-xl flex items-center justify-center border border-white/10 flex-none"
-          style={{ background: `${slide.accent}20` }}>
-          <IconComp className="w-4 h-4" style={{ color: slide.accent }} />
-        </div>
-        <div className="flex-none">
-          <p className="text-[10px] uppercase tracking-[0.2em] text-zinc-600 font-bold">Month 1-3 · Weeks 1–12</p>
-          <p className="text-sm font-black text-white tracking-tight uppercase">PHP Masterclass</p>
-        </div>
-
-        <div className="flex-1 mx-6 hidden md:block">
-          <div className="h-0.5 bg-white/8 rounded-full overflow-hidden">
+      {/* ── CHAPTER NAV BAR ── */}
+      <div className="relative z-20 flex items-center gap-1 px-6 py-3 border-b border-white/5 bg-black/30 backdrop-blur-xl overflow-x-auto mt-16 lg:mt-0">
+        {CHAPTERS.map((ch, i) => {
+          const isActive = ch.id === (activeSlides.length > 0 ? chapterParam : 'setup');
+          return (
+            <button key={ch.id} onClick={() => router.push(`?chapter=${ch.id}`)}
+              className={`flex items-center gap-2 px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest whitespace-nowrap transition-all border ${
+                isActive
+                  ? 'text-black border-transparent'
+                  : 'bg-transparent border-white/8 text-zinc-500 hover:text-zinc-300 hover:border-white/20'
+              }`}
+              style={isActive ? { background: ch.color, borderColor: ch.color } : {}}>
+              {ch.label}
+            </button>
+          );
+        })}
+        <div className="ml-auto flex items-center gap-3 flex-none pl-4">
+          <div className="w-32 h-0.5 bg-white/8 rounded-full overflow-hidden">
             <div className="h-full rounded-full transition-all duration-500"
-              style={{ width: `${progress}%`, background: slide.accent }} />
+              style={{ width: `${progress}%`, background: chapterInfo.color }} />
           </div>
-        </div>
-
-        <div className="flex items-center gap-3 ml-auto">
-          <button
-            onClick={() => setShowNotes(!showNotes)}
-            className={`flex items-center gap-2 px-4 py-1.5 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all border ${
-              showNotes 
-              ? 'bg-amber-500/10 border-amber-500/40 text-amber-400' 
-              : 'bg-white/5 border-white/10 text-zinc-400 hover:text-white hover:bg-white/10'
-            }`}
-          >
-            <StickyNote className="w-3.5 h-3.5" />
-            {userNotes[slide.id] ? 'Edit Notes' : 'Take Notes'}
-          </button>
-          <span className="text-[10px] font-black uppercase tracking-widest px-3 py-1 rounded-full border"
-            style={{ color: slide.tagColor, borderColor: `${slide.tagColor}40`, background: `${slide.tagColor}12` }}>
-            {slide.tag}
-          </span>
-          <span className="text-xs font-mono text-zinc-600 ml-1">
+          <span className="text-[10px] font-mono text-zinc-600">
             {current + 1}<span className="text-zinc-800">/{slides.length}</span>
           </span>
         </div>
-      </header>
+      </div>
 
-      {/* ── MAIN ── */}
+      {/* ── MAIN LAYOUT ── */}
       <main className="relative z-10 flex-1 flex flex-col lg:flex-row overflow-hidden">
 
-        {/* LEFT — Lesson content */}
+        {/* LEFT — Concept cards */}
         <AnimatePresence mode="wait" custom={dir}>
           <motion.div key={`left-${current}`} custom={dir} variants={variants}
             initial="enter" animate="center" exit="exit"
-            transition={{ duration: 0.32, ease: [0.32, 0.72, 0, 1] }}
-            className="flex-none lg:w-1/2 flex flex-col justify-between p-7 lg:p-12 xl:p-16 lg:border-r border-white/8 overflow-y-auto">
+            transition={{ duration: 0.28, ease: [0.32, 0.72, 0, 1] }}
+            className="flex-none lg:w-[45%] flex flex-col p-6 lg:p-10 xl:p-14 lg:border-r border-white/6 overflow-y-auto gap-6">
 
-            <div className="space-y-6">
-              <div className="flex items-start gap-4">
-                <div className="text-4xl font-black tabular-nums leading-none flex-none pt-1"
-                  style={{ color: `${slide.accent}35`, fontFamily: "'JetBrains Mono',monospace" }}>
-                  {slide.id}
-                </div>
-                <div>
-                  <h1 className="text-3xl xl:text-5xl font-black leading-tight text-white mb-2 group-hover:text-blue-400 tracking-tighter italic">
-                    {slide.title}
-                  </h1>
-                  <p className="text-lg xl:text-xl text-white/50 font-bold uppercase tracking-widest">💡 {slide.subtitle}</p>
-                </div>
+            {/* Title block */}
+            <div className="flex items-start gap-4">
+              <div className="w-12 h-12 rounded-2xl flex items-center justify-center flex-none border border-white/10"
+                style={{ background: `${slide.accent}18` }}>
+                <Icon className="w-6 h-6" style={{ color: slide.accent }} />
               </div>
-
-              <div className="space-y-3">
-                {slide.content.map((item, i) => (
-                  <motion.div key={i} initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.08 + i * 0.05 }} className="flex items-start gap-3">
-                    <div className="w-2.5 h-2.5 rounded-full mt-2.5 flex-none shadow-[0_0_10px_rgba(255,255,255,0.3)]" style={{ background: slide.accent }} />
-                    {item.startsWith('http') ? (
-                      <a href={item} target="_blank" rel="noopener noreferrer" 
-                        className="text-lg xl:text-2xl text-blue-400 hover:text-blue-300 underline underline-offset-8 transition-colors break-all">
-                        {item}
-                      </a>
-                    ) : (
-                      <p className="text-lg xl:text-2xl text-white leading-relaxed font-medium tracking-tight whitespace-pre-line">{item}</p>
-                    )}
-                  </motion.div>
-                ))}
-              </div>
-
-              <SyntaxPanel syntax={slide.syntax} accent={slide.accent} />
-
-              <div className="space-y-3">
-                <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.35 }}
-                  className="rounded-2xl border p-4 flex gap-3.5"
-                  style={{ background: `${slide.accent}0a`, borderColor: `${slide.accent}28` }}>
-                  <Play className="w-4 h-4 flex-none mt-1" style={{ color: slide.accent }} />
-                  <div>
-                    <p className="text-xs font-black uppercase tracking-[0.2em] mb-2" style={{ color: slide.accent }}>🛠 Lab Exercise</p>
-                    <p className="text-lg xl:text-xl text-white leading-relaxed font-bold">{slide.lab}</p>
-                  </div>
-                </motion.div>
-
-                <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.45 }}
-                  className="rounded-2xl border p-4 flex gap-3.5 bg-emerald-500/5 border-emerald-500/15">
-                  <Check className="w-4 h-4 flex-none mt-1 text-emerald-400" />
-                  <div>
-                    <p className="text-xs font-black uppercase tracking-[0.2em] mb-2 text-emerald-400">✅ Expected Result</p>
-                    <p className="text-lg xl:text-xl text-white leading-relaxed font-bold">{slide.result}</p>
-                  </div>
-                </motion.div>
+              <div>
+                <div className="flex items-center gap-2 mb-1">
+                  <span className="text-[9px] font-black uppercase tracking-[0.25em] px-2 py-0.5 rounded-full border"
+                    style={{ color: chapterInfo.color, borderColor: `${chapterInfo.color}40`, background: `${chapterInfo.color}12` }}>
+                    {chapterInfo.label}
+                  </span>
+                  <span className="text-[9px] font-mono text-zinc-700">{slide.id}</span>
+                </div>
+                <h1 className="text-3xl xl:text-4xl font-black leading-tight text-white tracking-tighter">
+                  {slide.title}
+                </h1>
+                <p className="text-sm text-white/40 font-bold uppercase tracking-widest mt-1">{slide.subtitle}</p>
               </div>
             </div>
 
-            <div className="flex items-center gap-3 mt-10 lg:mt-0">
+            {/* Content cards grid */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              {(slide as any).content.map((c: string, i: number) => {
+                const isHeading = c.includes(':');
+                const [label, ...descArr] = isHeading ? c.split(':') : [c, ''];
+                const desc = descArr.join(':').trim();
+                
+                return (
+                  <motion.div key={i}
+                    initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.06 + i * 0.06 }}
+                    className="rounded-xl border p-4 flex flex-col gap-1.5"
+                    style={{ borderColor: `${slide.accent}20`, background: `${slide.accent}06` }}>
+                    <span className="text-xs font-black uppercase tracking-widest" style={{ color: slide.accent }}>
+                      {isHeading ? label : `Point ${i + 1}`}
+                    </span>
+                    {c.startsWith('http') ? (
+                      <a href={c} target="_blank" rel="noreferrer" className="text-blue-400 break-all text-sm">{c}</a>
+                    ) : (
+                      <p className="text-sm text-zinc-300 leading-relaxed font-semibold">{isHeading ? desc : label}</p>
+                    )}
+                  </motion.div>
+                )
+              })}
+            </div>
+
+            {/* Syntax or Tip */}
+            {((slide as any).syntax || (slide as any).tip) && (
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.35 }}
+              className="rounded-xl border border-amber-500/15 bg-amber-500/5 p-4 flex gap-3">
+              <Sparkles className="w-4 h-4 text-amber-400 flex-none mt-0.5" />
+              <p className="text-sm text-amber-200/80 leading-relaxed"><span className="font-black text-amber-400">Syntax / Tip: </span>{(slide as any).syntax || (slide as any).tip}</p>
+            </motion.div>
+            )}
+
+            {/* Lab + Result */}
+            <div className="space-y-3">
+              <motion.div initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.42 }}
+                className="rounded-xl border p-4 flex gap-3"
+                style={{ background: `${slide.accent}08`, borderColor: `${slide.accent}25` }}>
+                <Play className="w-4 h-4 flex-none mt-0.5" style={{ color: slide.accent }} />
+                <div>
+                  <p className="text-[10px] font-black uppercase tracking-[0.2em] mb-1.5" style={{ color: slide.accent }}>Lab Exercise</p>
+                  <p className="text-sm text-white font-semibold leading-relaxed">{slide.lab}</p>
+                </div>
+              </motion.div>
+              <motion.div initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5 }}
+                className="rounded-xl border border-emerald-500/15 bg-emerald-500/5 p-4 flex gap-3">
+                <Check className="w-4 h-4 flex-none mt-0.5 text-emerald-400" />
+                <div>
+                  <p className="text-[10px] font-black uppercase tracking-[0.2em] mb-1.5 text-emerald-400">Expected Result</p>
+                  <p className="text-sm text-white font-semibold leading-relaxed">{slide.result}</p>
+                </div>
+              </motion.div>
+            </div>
+
+            {/* Nav buttons */}
+            <div className="flex items-center gap-3 pt-2">
               <button onClick={prev}
-                className="p-3.5 rounded-2xl bg-white/5 border border-white/8 hover:bg-white/10 active:scale-95 transition-all flex items-center gap-2 group">
-                <ChevronLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
-                <span className="text-xs font-bold hidden sm:inline">Previous</span>
+                className="p-3 rounded-xl bg-white/5 border border-white/8 hover:bg-white/10 active:scale-95 transition-all flex items-center gap-2 group">
+                <ChevronLeft className="w-4 h-4 group-hover:-translate-x-0.5 transition-transform" />
+                <span className="text-xs font-bold hidden sm:inline text-zinc-400">Prev</span>
               </button>
               <button onClick={next}
-                className="flex-1 py-3.5 px-6 rounded-2xl font-black text-xs active:scale-95 transition-all flex items-center justify-center gap-2 shadow-xl shadow-black/20"
+                className="flex-1 py-3 px-5 rounded-xl font-black text-xs active:scale-95 transition-all flex items-center justify-center gap-2 shadow-lg"
                 style={{ background: slide.accent, color: '#000' }}>
-                {current === slides.length - 1 ? 'Start Again' : 'Next Lesson'}
+                {current === slides.length - 1 ? 'Restart' : 'Next'}
                 <ChevronRight className="w-4 h-4" />
+              </button>
+              <button onClick={() => setShowNotes(!showNotes)}
+                className={`p-3 rounded-xl border transition-all ${
+                  showNotes ? 'bg-amber-500/10 border-amber-500/30 text-amber-400' : 'bg-white/5 border-white/8 text-zinc-500 hover:text-white'
+                }`}>
+                <StickyNote className="w-4 h-4" />
               </button>
             </div>
           </motion.div>
         </AnimatePresence>
 
-        {/* RIGHT — Code viewer */}
-        <div className="flex-none lg:w-1/2 flex flex-col overflow-hidden p-4 lg:p-8 xl:p-12 gap-4">
-          <div className="flex items-center justify-between flex-none">
-            <div className="flex items-center gap-2 bg-white/5 rounded-xl p-1.5 border border-white/8">
-              <div className="flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-black uppercase tracking-widest shadow-inner"
-                style={{ background: `${slide.accent}25`, color: slide.accent }}>
-                <Terminal className="w-4 h-4" /> 💻 Interactive Implementation
-              </div>
+        {/* RIGHT — Code panel */}
+        <div className="flex-none lg:w-[55%] flex flex-col p-4 lg:p-8 xl:p-10 gap-4 overflow-hidden">
+          <div className="flex items-center gap-2 flex-none">
+            <div className="flex items-center gap-2 px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest border border-white/8 bg-white/5"
+              style={{ color: slide.accent }}>
+              <Terminal className="w-3.5 h-3.5" />
+              Interactive Editor
+            </div>
+            <div className="ml-auto text-[10px] font-mono text-zinc-700 hidden sm:block">
+              ← → arrow keys to navigate
             </div>
           </div>
 
           <AnimatePresence mode="wait">
             <motion.div key={`code-${current}`}
-              initial={{ opacity: 0, y: 12, scale: 0.99 }} 
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: -12, scale: 0.99 }} 
-              transition={{ duration: 0.3, ease: [0.32, 0.72, 0, 1] }}
-              className="flex-1 overflow-hidden rounded-3xl border border-white/10 shadow-2xl">
-              <CodeViewer 
-                code={slide.code} 
-                terminal={slide.terminal} 
-                terminalOutput={slide.terminalOutput} 
-                accent={slide.accent} 
-                title={slide.filename || (slide.id.startsWith('W1') ? 'index.php' : (slide.id.startsWith('W4') ? 'view.blade.php' : 'app/Http/Controllers/Controller.php'))} 
-                showPreview={slide.showPreview}
+              initial={{ opacity: 0, scale: 0.99, y: 8 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.99, y: -8 }}
+              transition={{ duration: 0.28, ease: [0.32, 0.72, 0, 1] }}
+              className="flex-1 overflow-hidden">
+              <CodePanel
+                code={slide.code}
+                terminal={slide.terminal}
+                terminalOutput={slide.terminalOutput}
+                accent={slide.accent}
+                filename={slide.filename || 'code.php'}
               />
             </motion.div>
           </AnimatePresence>
         </div>
       </main>
 
-      {/* --- NOTES PANEL (Overlay) --- */}
+      {/* ── NOTES PANEL ── */}
       <AnimatePresence>
         {showNotes && (
           <motion.div
-            initial={{ x: '100%' }}
-            animate={{ x: 0 }}
-            exit={{ x: '100%' }}
-            transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-            className="fixed inset-y-0 right-0 w-80 bg-[#161b22] border-l border-white/10 z-[100] shadow-2xl p-6 flex flex-col pt-24"
-          >
-            <div className="flex items-center justify-between mb-6">
+            initial={{ x: '100%' }} animate={{ x: 0 }} exit={{ x: '100%' }}
+            transition={{ type: 'spring', damping: 28, stiffness: 220 }}
+            className="fixed inset-y-0 right-0 w-80 bg-[#12151e] border-l border-white/8 z-[100] shadow-2xl p-6 flex flex-col pt-24">
+            <div className="flex items-center justify-between mb-5">
               <div>
-                <h3 className="text-sm font-black uppercase tracking-widest text-amber-400">Student Notes</h3>
-                <p className="text-[10px] text-zinc-500 font-bold uppercase mt-1">Slide {slide.id}</p>
+                <h3 className="text-sm font-black uppercase tracking-widest text-amber-400">Notes</h3>
+                <p className="text-[10px] text-zinc-600 font-bold uppercase mt-0.5">{slide.id} · {slide.title}</p>
               </div>
-              <button onClick={() => setShowNotes(false)} className="text-zinc-500 hover:text-white transition-colors">
+              <button onClick={() => setShowNotes(false)} className="text-zinc-600 hover:text-white transition-colors">
                 <ChevronRight className="w-5 h-5" />
               </button>
             </div>
-
-            <textarea
-              autoFocus
-              value={userNotes[slide.id] || ''}
-              onChange={(e) => saveNote(e.target.value)}
-              placeholder="Type your notes for this slide here... (Auto-saves)"
-              className="flex-1 w-full bg-black/40 rounded-2xl p-4 text-sm font-medium text-zinc-300 resize-none outline-none border border-white/5 focus:border-amber-500/40 transition-all placeholder:text-zinc-700 font-mono"
+            <textarea autoFocus
+              value={notes[slide.id] || ''}
+              onChange={e => saveNote(e.target.value)}
+              placeholder="Your notes here... (auto-saves)"
+              className="flex-1 w-full bg-black/40 rounded-xl p-4 text-sm text-zinc-300 resize-none outline-none border border-white/5 focus:border-amber-500/30 transition-all placeholder:text-zinc-700 font-mono"
             />
-
-            <div className="mt-6 p-4 rounded-xl bg-amber-500/5 border border-amber-500/10">
-              <p className="text-[10px] text-amber-500/70 font-bold uppercase leading-relaxed">
-                💡 Tip: Use notes to save lab results, snippets, or questions for your mentor.
-              </p>
-            </div>
+            <p className="mt-4 text-[10px] text-zinc-700 font-bold uppercase leading-relaxed">
+              Saved per slide in localStorage
+            </p>
           </motion.div>
         )}
       </AnimatePresence>
