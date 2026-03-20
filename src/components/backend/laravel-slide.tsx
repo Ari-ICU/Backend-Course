@@ -39,310 +39,328 @@ type DisplayPage = Slide & { subType: 'concept' | 'variables' | 'lab' };
 
 /* ─── CHAPTERS ───────────────────────────────────────────────────── */
 const CHAPTERS = [
-  { id: 'intro', label: '01 · Introduction to Laravel', color: '#f43f5e' },
-  { id: 'setup', label: '02 · Setting Up Laravel', color: '#e11d48' },
-  { id: 'mvc', label: '03 · Understanding the MVC Pattern', color: '#f97316' },
-  { id: 'routing', label: '04 · Routes and Controllers', color: '#eab308' },
-  { id: 'resources', label: '05 · Resources and Controllers', color: '#22c55e' },
-  { id: 'middleware', label: '06 · Middleware in Laravel', color: '#06b6d4' },
-  { id: 'security', label: '07 · Security and Protection', color: '#a855f7' },
-  { id: 'restapi', label: '08 · Understanding REST APIs', color: '#ec4899' },
-  { id: 'database', label: '09 · Database Overview', color: '#3b82f6' },
-  { id: 'migrations', label: '10 · Laravel Migrations', color: '#10b981' },
-  { id: 'rawsql', label: '11 · Working with Raw SQL Queries', color: '#fb923c' },
-  { id: 'eloquent', label: '12 · Database with Eloquent ORM', color: '#8b5cf6' },
-  { id: 'tinker', label: '13 · Using Laravel Tinker', color: '#f59e0b' },
-  { id: 'relationships', label: '14 · Eloquent Relationships', color: '#ef4444' },
-  { id: 'onetone', label: '15 · Eloquent One-to-One', color: '#14b8a6' },
-  { id: 'onetomany', label: '16 · Eloquent One-to-Many', color: '#6366f1' },
-  { id: 'manytomany', label: '17 · Eloquent Many-to-Many', color: '#f43f5e' },
-  { id: 'fileupload', label: '18 · Uploading Files in Laravel', color: '#84cc16' },
-  { id: 'crud', label: '19 · Building CRUD Operations', color: '#f97316' },
-  { id: 'postman', label: '20 · API Requests with Postman', color: '#06b6d4' },
-  { id: 'auth', label: '21 · Authentication: Passport or JWT', color: '#a855f7' },
+  { id: 'intro',         label: '01 · Introduction to Laravel',       color: '#f43f5e' },
+  { id: 'setup',         label: '02 · Setting Up Laravel',            color: '#e11d48' },
+  { id: 'mvc',           label: '03 · Understanding the MVC Pattern',  color: '#f97316' },
+  { id: 'routing',       label: '04 · Routes and Controllers',         color: '#eab308' },
+  { id: 'resources',     label: '05 · Resources and Controllers',      color: '#22c55e' },
+  { id: 'middleware',    label: '06 · Middleware in Laravel',          color: '#06b6d4' },
+  { id: 'security',      label: '07 · Security and Protection',        color: '#a855f7' },
+  { id: 'restapi',       label: '08 · Understanding REST APIs',        color: '#ec4899' },
+  { id: 'database',      label: '09 · Database Overview',              color: '#3b82f6' },
+  { id: 'migrations',    label: '10 · Laravel Migrations',             color: '#10b981' },
+  { id: 'rawsql',        label: '11 · Working with Raw SQL Queries',   color: '#fb923c' },
+  { id: 'eloquent',      label: '12 · Database with Eloquent ORM',     color: '#8b5cf6' },
+  { id: 'tinker',        label: '13 · Using Laravel Tinker',           color: '#f59e0b' },
+  { id: 'relationships', label: '14 · Eloquent Relationships',         color: '#ef4444' },
+  { id: 'onetone',       label: '15 · Eloquent One-to-One',            color: '#14b8a6' },
+  { id: 'onetomany',     label: '16 · Eloquent One-to-Many',           color: '#6366f1' },
+  { id: 'manytomany',    label: '17 · Eloquent Many-to-Many',          color: '#f43f5e' },
+  { id: 'fileupload',    label: '18 · Uploading Files in Laravel',     color: '#84cc16' },
+  { id: 'crud',          label: '19 · Building CRUD Operations',       color: '#f97316' },
+  { id: 'postman',       label: '20 · API Requests with Postman',      color: '#06b6d4' },
+  { id: 'auth',          label: '21 · Authentication: Passport or JWT',color: '#a855f7' },
 ];
 
 /* ─── SLIDES DATA ────────────────────────────────────────────────── */
 const slides: Slide[] = [
-  /* ── CH 01: INTRODUCTION TO LARAVEL ── */
+
+  /* ══════════════════════════════════════════════════════
+     CHAPTER 1: INTRODUCTION TO LARAVEL
+  ══════════════════════════════════════════════════════ */
   {
     id: 'L00-S1', chapter: 'intro',
     section: 'Overview (1/2)',
-    title: 'What is Laravel?', subtitle: 'The PHP Framework for Web Artisans',
+    title: 'What is Laravel?', subtitle: 'PHP Framework សម្រាប់ Web Artisans',
     accent: '#f43f5e',
     bg: 'radial-gradient(ellipse at 10% 20%, rgba(244,63,94,0.15) 0%, transparent 55%)',
     concepts: [
-      { label: 'Modern PHP', desc: 'Laravel provides an elegant, expressive syntax that takes PHP development to the next level of productivity.' },
-      { label: 'Battery-Included', desc: 'Authentication, Routing, Sessions, and Caching are built-in features, ready to use out of the box.' },
-    ],
-    tip: 'Laravel helps you focus on your business logic instead of boilerplate code. Speed is everything !',
-    lab: '', result: '', code: '', filename: '', icon: Globe,
-  },
-  {
-    id: 'L00-S1-续', chapter: 'intro',
-    section: 'Overview (2/2)',
-    title: 'What is Laravel? (Cont.)', subtitle: 'The Industry Standard for PHP',
-    accent: '#f43f5e',
-    bg: 'radial-gradient(ellipse at 10% 20%, rgba(244,63,94,0.1) 0%, transparent 55%)',
-    concepts: [
-      { label: 'Developer Happiness', desc: 'Created by Taylor Otwell, Laravel focuses on developer experience, making web development enjoyable.' },
-      { label: 'Market Leader', desc: 'It is the most popular PHP framework globaly, used for everything from tiny sites to enterprise apps.' },
+      { label: 'Modern PHP Framework', desc: 'Laravel គឺជា PHP framework ដែលផ្ដល់ syntax ស្អាត ងាយអាន ─ developer អាចសរសេរ backend web app បានលឿន និងមានលំដាប់ ។' },
+      { label: 'Battery-Included', desc: 'Authentication, Routing, Sessions, Caching, Queues ─ features ទាំងនេះ built-in រួចរាល់ ─ មិនចាំបាច់ install ពី zero ។' },
+      { label: 'Server-side Rendering', desc: 'PHP រត់នៅ server ─ Laravel generate HTML ─ browser ទទួលបាន complete HTML page ─ user ឃើញ content ភ្លាម ។' },
+      { label: 'Market Leader', desc: 'Laravel គឺ PHP framework ពេញនិយមបំផុតលើពិភពលោក ─ ប្រើដោយ startups ធំៗ រហូតដល់ enterprise companies ។' },
     ],
     variables: [
-      { label: 'Framework', desc: 'A collection of tools and libraries that provide a structured way to build web applications.' },
-      { label: 'Artisan', desc: 'A metaphor used by Laravel to describe developers who take pride in their craft and code quality.' }
+      { label: 'Framework', desc: 'ឧបករណ៍ + library ដែលបានរៀបចំស្រាប់ ─ developer ប្រើ structure របស់វា ដើម្បី build web app បានលឿន ─ ជំនួស code ពី scratch ។' },
+      { label: 'Artisan', desc: 'ពាក្យ Laravel ប្រើ ─ មានន័យថា developer ដែល "ប្រឹងធ្វើការងារ" ─ ក្នុង Laravel, Artisan ក៏ជា CLI tool ផងដែរ ។' },
     ],
-    tip: 'Laravel helps you focus on your business logic instead of boilerplate code. Speed is everything !',
-    lab: 'Explore the basic Laravel philosophy. Understand why millions of developers choose it for full-stack apps.',
-    result: 'Clear understanding of Laravel purpose and its impact on modern backend development.',
-    filename: 'introduction.php',
+    tip: 'Laravel ជួយ developer ផ្ដោតលើ business logic ─ មិនចំណាយពេលសរសេរ boilerplate code ─ speed + quality ！',
+    lab: 'ស្វែងយល់ពី Laravel philosophy ─ ហេតុអ្វី developer រាប់លាន​នាក់​ជ្រើស​វា​សម្រាប់​ full-stack web apps ។',
+    result: 'យល់ច្បាស់ពី purpose របស់ Laravel និងការប្រើប្រាស់ framework ជាទូទៅ ។',
+    filename: 'routes/web.php',
     code: `<?php
 
 use Illuminate\\Support\\Facades\\Route;
 
-// This is a typical Laravel route.
-// Elegant. Expressive. Powerful.
+// Route ធម្មតាក្នុង Laravel
+// ស្អាត · ងាយអាន · មានថាមពល
 
 Route::get('/', function () {
-    return 'Hello, Future Web Artisan!';
+    return view('welcome');
 });
 
-// Laravel turns complex logic into 
-// readable, beautiful PHP code.`,
+// Route ជាមួយ Controller
+Route::get('/posts', [PostController::class, 'index'])
+     ->name('posts.index');
+
+// Route ដែលត្រូវការ login
+Route::middleware('auth')->group(function () {
+    Route::resource('posts', PostController::class)
+         ->except(['index', 'show']);
+});`,
     terminal: 'php artisan --version',
     terminalOutput: 'Laravel Framework 11.x.x',
     icon: Globe,
   },
+
   {
     id: 'L00-S2', chapter: 'intro',
     section: 'Key Features (1/2)',
-    title: 'Why Choose Laravel?', subtitle: 'Powerful Tools for Modern Devs',
+    title: 'Why Choose Laravel?', subtitle: 'ឧបករណ៍ដ៏ប្រសើរ​សម្រាប់ Web Developer',
     accent: '#f43f5e',
     bg: 'radial-gradient(ellipse at 80% 30%, rgba(244,63,94,0.1) 0%, transparent 50%)',
     concepts: [
-      { label: 'Eloquent ORM', desc: 'The best Database mapper in the industry. Manipulate data like JavaScript objects instead of SQL.' },
-      { label: 'Blade Engine', desc: 'Powerfull HTML templating with zero overhead. Write clean frontend code mixed with PHP safely.' },
-    ],
-    tip: 'The Laravel ecosystem is its greatest strength. If you need a feature, there is likely an official package for it !',
-    lab: '', result: '', code: '', filename: '', icon: Zap,
-  },
-  {
-    id: 'L00-S2-续', chapter: 'intro',
-    section: 'Key Features (2/2)',
-    title: 'Why Choose Laravel? (Cont.)', subtitle: 'Safety and Ecosystem',
-    accent: '#f43f5e',
-    bg: 'radial-gradient(ellipse at 80% 30%, rgba(244,63,94,0.08) 0%, transparent 50%)',
-    concepts: [
-      { label: 'Vibrant Ecosystem', desc: 'Forge, Vapor, Nova, and Pulse — a complete suite of tools for deployment and monitoring.' },
-      { label: 'Secure by Default', desc: 'Built-in protection against SQL Injection, Cross-site Request Forgery (CSRF), and XSS attacks.' },
+      { label: 'Eloquent ORM', desc: 'ការ​ interact ជាមួយ database បែប Object ─ $post->title ជំនួស SQL query ─ code ស្អាត ─ safe ─ ងាយ maintain ។' },
+      { label: 'Blade Templating Engine', desc: 'HTML template ដែល mix ជាមួយ PHP logic ─ @if @foreach {{ $var }} ─ browser ទទួលបាន pure HTML ─ user ឃើញ webpage ។' },
+      { label: 'Built-in Security', desc: 'CSRF protection ─ XSS prevention ─ SQL injection prevention ─ password hashing ─ ការពារ​ web app ដោយ default ។' },
+      { label: 'Complete Ecosystem', desc: 'Laravel Forge (server) ─ Vapor (serverless) ─ Nova (admin panel) ─ Pulse (monitoring) ─ toolset គ្រប់​ phase ។' },
     ],
     variables: [
-      { label: 'ORM', desc: 'Object-Relational Mapping. A technique that lets you query and manipulate data from a database using an object-oriented paradigm.' },
-      { label: 'Blade', desc: 'The powerful, yet simple templating engine provided with Laravel.' }
+      { label: 'ORM', desc: 'Object-Relational Mapping ─ technique ដែល map database table ទៅ PHP class ─ Post class = posts table ─ $post object = row ។' },
+      { label: 'Blade', desc: 'Templating engine ផ្ដល់​ជាមួយ Laravel ─ compile PHP code ទៅ pure HTML ─ @directive syntax ─ zero overhead ។' },
     ],
-    tip: 'The Laravel ecosystem is its greatest strength. If you need a feature, there is likely an official package for it !',
-    lab: 'Review the high-level features that make Laravel a "battery-included" framework for rapid prototyping.',
-    result: 'Knowledge of core Laravel advantages over raw PHP or smaller frameworks.',
-    filename: 'features.blade.php',
-    code: `{{-- Blade allows clean template logic --}}
-@auth
-    <p>Welcome back, {{ Auth::user()->name }}!</p>
-@else
-    <p>Sign in to start your journey.</p>
-@endauth
+    tip: 'Laravel ecosystem គឺ​ជា​ strong point ដ៏ធំបំផុត ─ features ដែលអ្នកត្រូវការ ─ official package មានស្រាប់ ！',
+    lab: 'Review high-level features ─ ហេតុអ្វី Laravel ជា "battery-included" framework ─ prototype លឿន ។',
+    result: 'ដឹងពី core advantages ─ ហេតុអ្វី Laravel ប្រសើរជាង raw PHP ។',
+    filename: 'resources/views/posts/index.blade.php',
+    code: `{{-- Blade: mix HTML + PHP logic ─ ស្អាត ─ safe --}}
+@extends('layouts.app')
 
-{{-- Eloquent makes DB queries look like magic --}}
-$users = User::where('active', true)->get();`,
+@section('content')
+<div class="container">
+    <h1>Blog Posts</h1>
+
+    @auth
+        {{-- show only when logged in --}}
+        <a href="{{ route('posts.create') }}">New Post</a>
+    @endauth
+
+    @forelse($posts as $post)
+        <article>
+            <h2>{{ $post->title }}</h2>
+            <p>By {{ $post->author->name }}</p>
+        </article>
+    @empty
+        <p>No posts yet. Be the first!</p>
+    @endforelse
+
+    {{ $posts->links() }} {{-- Pagination --}}
+</div>
+@endsection`,
     icon: Zap,
   },
+
   {
     id: 'L00-S3', chapter: 'intro',
     section: 'Ecosystem (1/2)',
-    title: 'The Laravel Ecosystem', subtitle: 'A Complete Toolbox for Web Apps',
+    title: 'The Laravel Ecosystem', subtitle: 'Toolbox ពេញ​លេញ​សម្រាប់ Web Apps',
     accent: '#f43f5e',
     bg: 'radial-gradient(ellipse at 50% 50%, rgba(244,63,94,0.1) 0%, transparent 60%)',
     concepts: [
-      { label: 'Full-stack Options', desc: 'Choose between Livewire (PHP-powered SPA) or Inertia.js (React/Vue/Svelte in Laravel).' },
-      { label: 'Testing & Stability', desc: 'Laravel Pest and PHPUnit are first-class citizens. Write tests as easily as you write code.' },
-    ],
-    tip: 'Start simple with Blade & SQLite, then grow to React & MySQL as your needs expand. Laravel scales with you !',
-    lab: '', result: '', code: '', filename: '', icon: Layers,
-  },
-  {
-    id: 'L00-S3-续', chapter: 'intro',
-    section: 'Ecosystem (2/2)',
-    title: 'The Laravel Ecosystem (Cont.)', subtitle: 'A Complete Toolbox for Web Apps',
-    accent: '#f43f5e',
-    bg: 'radial-gradient(ellipse at 50% 50%, rgba(244,63,94,0.08) 0%, transparent 60%)',
-    concepts: [
-      { label: 'Dev to Prod', desc: 'Local dev with Herd/Sail → Deployment with Forge → Scaling with Vapor (Serverless).' },
-      { label: 'Real-time & APIs', desc: 'Laravel Reverb for WebSockets and Sanctum/Passport for secure API authentication.' },
+      { label: 'Local Development', desc: 'Laravel Herd (macOS/Windows native) ─ ឬ Laravel Sail (Docker) ─ setup environment រហ័ស ─ PHP + MySQL + Redis ។' },
+      { label: 'Frontend Options', desc: 'Blade + Tailwind CSS (simple) ─ Livewire (PHP-powered SPA) ─ Inertia.js + React/Vue (modern SPA) ─ ជ្រើសសមស្រប ។' },
+      { label: 'Testing', desc: 'Pest PHP + PHPUnit ─ Feature tests, Unit tests ─ ធ្វើ test ងាយ​ ─ write ង​ ─ confidence deploy ។' },
+      { label: 'Deployment Pipeline', desc: 'Local (Herd/Sail) → Staging → Production via Forge ─ CI/CD with GitHub Actions ─ professional workflow ។' },
     ],
     variables: [
-      { label: 'Livewire', desc: 'A full-stack framework for Laravel that makes building dynamic interfaces simple, without leaving PHP.' },
-      { label: 'Inertia.js', desc: 'A way to build single-page apps using classic server-side routing and controllers.' }
+      { label: 'Livewire', desc: 'Full-stack framework ─ build dynamic UI ដោយ PHP ─ មិនចាំបាច់ write JavaScript ─ real-time updates via AJAX ។' },
+      { label: 'Inertia.js', desc: 'Bridge ─ ភ្ជាប់ Laravel backend ជាមួយ React/Vue frontend ─ SPA experience ─ no separate API needed ។' },
     ],
-    tip: 'Start simple with Blade & SQLite, then grow to React & MySQL as your needs expand. Laravel scales with you !',
-    lab: 'Identify the common tools used to deploy and scale Laravel applications globally.',
-    result: 'Understanding of how Laravel fits into a professional, modern deployment pipeline.',
-    filename: 'ecosystem.txt',
-    code: `// Laravel Ecosystem Checklist:
-1. Laravel Forge (Infrastructure Management)
-2. Laravel Vapor (Serverless Platform)
-3. Laravel Nova (Administration Panel)
-4. Laravel Pulse (Performance Monitoring)
-5. Laravel Reverb (Real-time WebSockets)
-6. Laravel Herd (Next-gen Local Dev)`,
+    tip: 'ចាប់ផ្ដើម simple: Blade + SQLite ─ grow ទៅ React + MySQL ─ Laravel scale ជាមួយ app ！',
+    lab: 'Identify tools ─ ប្រើ​ deploy ─ ប្រើ scale ─ Laravel web app ─ professional pipeline ។',
+    result: 'ដឹងពី Laravel ecosystem ─ tool នីមួយៗ solve problem អ្វី ─ ជ្រើស stack ត្រឹម​ ។',
+    filename: 'ecosystem-overview.md',
+    code: `# Laravel Web App: Complete Stack
+
+## Local Development
+├── Laravel Herd (macOS/Windows) — Native, Fast
+└── Laravel Sail (Docker) — Consistent environment
+
+## Frontend
+├── Blade + Tailwind CSS — Simple, Server-rendered
+├── Livewire — PHP-powered reactive UI
+└── Inertia.js + React/Vue — Full SPA experience
+
+## Database
+├── MySQL — Production standard
+├── PostgreSQL — Advanced features
+└── SQLite — Development & Testing
+
+## Deployment & Monitoring
+├── Laravel Forge — Server management
+├── Laravel Vapor — Serverless on AWS
+└── Laravel Pulse — Performance dashboard`,
     icon: Layers,
   },
 
-  /* ── CH 02: SETTING UP LARAVEL ── */
+  /* ══════════════════════════════════════════════════════
+     CHAPTER 2: SETTING UP LARAVEL
+  ══════════════════════════════════════════════════════ */
   {
     id: 'L01-S1', chapter: 'setup',
-    section: '1. CLI & Server (1/2)',
-    title: 'Setting Up Laravel', subtitle: 'ការដំឡើងគម្រោង Web Application',
-    accent: '#f43f5e',
-    bg: 'radial-gradient(ellipse at 10% 20%, rgba(244,63,94,0.15) 0%, transparent 55%)',
+    section: 'Installation',
+    title: 'Setting Up Laravel', subtitle: 'ការដំឡើង Web Application ដំបូង',
+    accent: '#e11d48',
+    bg: 'radial-gradient(ellipse at 10% 20%, rgba(225,29,72,0.15) 0%, transparent 55%)',
     concepts: [
-      { label: 'Composer', desc: 'PHP Package Manager ─ ប្រើដំឡើង Laravel និង third-party libraries ទាំងអស់សម្រាប់ web app។' },
-      { label: 'Laravel Installer', desc: '"composer global require laravel/installer" ─ បន្ទាប់ប្រើ "laravel new" command ។' },
-    ],
-    tip: 'public/ folder ជា web root ─ browser ចូលដំបូងទីនេះ ─ index.php bootstrap ចូល Laravel ទាំងមូល ។',
-    lab: '', result: '', code: '', filename: '', icon: Rocket,
-  },
-  {
-    id: 'L01-S1-续', chapter: 'setup',
-    section: '1. CLI & Server (2/2)',
-    title: 'Setting Up Laravel (Cont.)', subtitle: 'Running the built-in server',
-    accent: '#f43f5e',
-    bg: 'radial-gradient(ellipse at 10% 20%, rgba(244,63,94,0.1) 0%, transparent 55%)',
-    concepts: [
-      { label: 'php artisan serve', desc: 'Built-in dev server ─ run web app លើ http://127.0.0.1:8000 ដោយមិនចាំបាច់ Apache/Nginx ។' },
-      { label: 'Project Folder', desc: 'app/, routes/, resources/views/, database/, public/ ─ រចនាសម្ព័ន្ធស្ដង់ដារ web project ។' },
+      { label: 'Composer', desc: 'PHP package manager ─ ដូច npm ក្នុង Node.js ─ ប្រើ install Laravel និង third-party libraries ─ "composer global require laravel/installer" ។' },
+      { label: 'laravel new', desc: 'Command បង្កើត project ថ្មី ─ "laravel new my-blog" ─ ជ្រើស options: testing framework, database, starter kit ។' },
+      { label: 'php artisan serve', desc: 'Built-in development server ─ run web app លើ http://127.0.0.1:8000 ─ ប្រើក្នុង development ─ មិនចាំបាច់ Apache/Nginx ។' },
+      { label: 'public/ Folder', desc: 'Web root ─ browser ចូល​ page ដំបូងនៅទីនេះ ─ index.php ជា entry point ─ CSS, JS, images ─ accessible ពី browser ។' },
     ],
     variables: [
-      { label: 'Composer', desc: 'The dependency manager for PHP, similar to npm for Node.js.' },
-      { label: 'php artisan', desc: 'Laravel\'s command-line interface providing helpful commands for development.' }
+      { label: 'Composer', desc: 'PHP Dependency Manager ─ manage packages ─ "composer require package/name" ─ store ក្នុង vendor/ folder ─ ប្រើ autoload ។' },
+      { label: 'php artisan', desc: 'Laravel CLI tool ─ command ជាង 100 ─ generate files, run migrations, manage cache, ─ backbone ក្នុង development ។' },
     ],
-    tip: 'public/ folder ជា web root ─ browser ចូលដំបូងទីនេះ ─ index.php bootstrap ចូល Laravel ទាំងមូល ។',
-    lab: 'ដំឡើង Laravel Installer ហើយបង្កើត web app ថ្មី "my-blog" ─ open browser http://localhost:8000 ។',
-    result: 'Welcome page Laravel បង្ហាញ ─ web application ដំណើរការបានលើ local machine ។',
+    tip: 'public/ folder ជា web root ─ browser ចូលដំបូងទីនេះ ─ index.php bootstrap ចូល Laravel ទាំងមូល ！',
+    lab: 'ដំឡើង Laravel Installer ─ បង្កើត web app "my-blog" ─ open browser http://localhost:8000 ─ ឃើញ welcome page ។',
+    result: 'Welcome page Laravel បង្ហាញ ─ web application ដំណើរការ​ correct លើ local machine ！',
     filename: 'terminal',
-    code: `# Step 1: Install Laravel Installer
+    code: `# Step 1: Install Laravel Installer globally
 composer global require laravel/installer
 
 # Step 2: Create new web application
 laravel new my-blog
-# Choose: No starter kit, Pest testing, MySQL
+# Interactive prompt:
+# → Starter Kit: None
+# → Testing: Pest
+# → Database: MySQL
 
-# Step 3: Start development server
+# Step 3: Enter project folder
 cd my-blog
+
+# Step 4: Start development server
 php artisan serve
 # → App running at http://127.0.0.1:8000
 
-# Step 4: Generate secure APP_KEY
+# Step 5: Generate secure APP_KEY
 php artisan key:generate`,
     terminal: 'php artisan serve',
     terminalOutput: '   INFO  Server running on [http://127.0.0.1:8000].\n   Press Ctrl+C to stop the server.',
     icon: Rocket,
   },
+
   {
     id: 'L01-S2', chapter: 'setup',
-    section: '2. Architecture',
-    title: 'Project Structure', subtitle: 'ការស្គាល់ Folder នីមួយៗ',
-    accent: '#f43f5e',
-    bg: 'radial-gradient(ellipse at 80% 30%, rgba(244,63,94,0.12) 0%, transparent 55%)',
+    section: 'Project Structure',
+    title: 'Project Structure', subtitle: 'Folder នីមួយៗ ─ ដំណើរការ​ដូចម្ដេច',
+    accent: '#e11d48',
+    bg: 'radial-gradient(ellipse at 80% 30%, rgba(225,29,72,0.12) 0%, transparent 55%)',
     concepts: [
-      { label: 'app/Http/Controllers/', desc: 'Web Controllers ─ handle browser requests, return HTML views ឬ JSON responses ។' },
-      { label: 'resources/views/', desc: 'Blade HTML templates ─ ទំព័រ web ដែល user ឃើញ ─ mix PHP + HTML ។' },
-      { label: 'routes/web.php', desc: 'Web routes ─ URL ទៅ Controller mapping ─ ចំណុចប្រទាក់ HTTP ទាំងអស់ ។' },
-      { label: 'public/', desc: 'Web root ─ CSS, JS, images ─ accessible ដោយ browser ─ index.php entry point ។' },
+      { label: 'app/Http/Controllers/', desc: 'Web Controllers ─ handle HTTP request ពី browser ─ logic ─ return HTML view ឬ JSON response ─ "brain" នៃ web page ។' },
+      { label: 'resources/views/', desc: 'Blade HTML templates ─ ទំព័រ web ដែល user ឃើញ ─ mix PHP logic + HTML ─ files end .*blade.php ។' },
+      { label: 'routes/web.php', desc: 'URL → Controller mapping ─ define ថា URL ណា ─ run Controller method ណា ─ "traffic director" ។' },
+      { label: 'database/migrations/', desc: 'Database schema history ─ version control ─ ប្ដូរ table structure ─ team share schema via git ។' },
     ],
     variables: [
-      { label: 'app/', desc: 'The core directory of your application, containing models and controllers.' },
-      { label: 'resources/', desc: 'Contains your views as well as your raw, un-compiled assets (CSS/JS).' }
+      { label: 'app/', desc: 'Core application folder ─ Models, Controllers, Middleware ─ business logic ទាំង​ អស់ ─ NOT accessible ពី browser ─ secure ។' },
+      { label: 'resources/', desc: 'Frontend assets ─ Blade views, CSS, JavaScript ─ Vite compile ─ output ទៅ public/ ─ browser access ។' },
     ],
-    tip: 'storage/app/public/ ─ upload files ទីនេះ ─ run "php artisan storage:link" ដើម្បី web-accessible ។',
-    lab: 'ស្វែងរក resources/views/welcome.blade.php ─ កែ title ─ refresh browser ─ ឃើញការប្ដូរ ។',
-    result: 'យល់ path flow: Browser Request → routes/web.php → Controller → resources/views/*.blade.php → Response ។',
+    tip: 'storage/app/public/ ─ upload files ទីនេះ ─ run "php artisan storage:link" ─ files accessible ពី browser ！',
+    lab: 'ស្វែងរក resources/views/welcome.blade.php ─ កែ title ─ refresh browser ─ ឃើញ change ។',
+    result: 'យល់ path flow: Browser Request → routes/web.php → Controller → Blade View → HTML Response ！',
     filename: 'project-structure.md',
     code: `my-blog/
 ├── app/
 │   ├── Http/
-│   │   ├── Controllers/   ← Web request handlers
+│   │   ├── Controllers/   ← Request handlers (logic)
 │   │   └── Middleware/    ← Request guards/filters
 │   └── Models/            ← Database models (Eloquent)
 ├── routes/
-│   ├── web.php            ← Browser routes (HTML)
-│   └── api.php            ← API routes (JSON)
+│   ├── web.php            ← Browser routes (HTML pages)
+│   └── api.php            ← API routes (JSON responses)
 ├── resources/
 │   └── views/             ← Blade HTML templates
+│       └── posts/
+│           ├── index.blade.php
+│           ├── show.blade.php
+│           └── create.blade.php
 ├── public/
 │   └── index.php          ← Web entry point
 ├── database/
-│   └── migrations/        ← Database schema history
-└── .env                   ← App configuration secrets`,
+│   └── migrations/        ← Schema version history
+└── .env                   ← Secrets (NEVER commit!)`,
     icon: HardDrive,
   },
+
   {
     id: 'L01-S3', chapter: 'setup',
-    title: 'Artisan CLI', subtitle: 'ឧបករណ៍ Generator ដ៏មានថាមពល',
-    accent: '#f43f5e',
-    bg: 'radial-gradient(ellipse at 50% 50%, rgba(244,63,94,0.1) 0%, transparent 60%)',
+    section: 'Artisan CLI',
+    title: 'Artisan CLI', subtitle: 'ឧបករណ៍ Generator ─ Developer មិន​អាច​ខ្វះ',
+    accent: '#e11d48',
+    bg: 'radial-gradient(ellipse at 50% 50%, rgba(225,29,72,0.1) 0%, transparent 60%)',
     concepts: [
-      { label: 'make:controller', desc: 'Generate web Controller class ─ app/Http/Controllers/PostController.php ។' },
-      { label: 'make:model -m', desc: 'Generate Model + Migration ─ ពីរ files ក្នុងពេលតែមួយ ─ -mc = +Controller ។' },
-      { label: 'make:view', desc: 'Generate blank Blade template ─ resources/views/posts/index.blade.php ។' },
-      { label: 'route:list', desc: 'មើល URL ទាំងអស់ក្នុង web app ─ method, path, name, controller ។' },
+      { label: 'make:controller', desc: '"php artisan make:controller PostController" ─ generate Controller class ─ app/Http/Controllers/ ─ ready ដើម្បី code ។' },
+      { label: 'make:model -m', desc: '"php artisan make:model Post -m" ─ generate Model + Migration file ─ ពីរ files ក្នុងពេលតែ​ មួយ ─ "-mc" = +Controller ។' },
+      { label: 'route:list', desc: '"php artisan route:list" ─ មើល URL ទាំងអស់ ─ method, path, name, Controller ─ debug routes ។' },
+      { label: 'migrate + db:seed', desc: '"php artisan migrate" ─ create tables ─ "php artisan db:seed" ─ insert test data ─ fresh start ។' },
     ],
-    tip: '"php artisan make:model Post -mcr" ─ Model + Migration + Controller (resource) ─ ចាប់ CRUD លឿន ！',
-    lab: 'Run "php artisan route:list" ─ ស្គាល់ default routes ─ បន្ទាប់ run "php artisan make:model Post -mc" ។',
+    tip: '"php artisan make:model Post -mcr" ─ Model + Migration + Controller (resource) ─ 3 files ─ 1 command ！',
+    lab: 'Run "php artisan route:list" ─ ស្គាល់ default routes ─ បន្ទាប់ run "php artisan make:model Post -mc" ─ verify files ។',
     result: 'Post.php Model, migration file, PostController.php ─ generated ក្នុង seconds ─ ready to code ！',
     filename: 'terminal',
     code: `# Generate full CRUD scaffold at once
 php artisan make:model Post -mcr
-# Creates:
+# Creates 3 files simultaneously:
 # → app/Models/Post.php
 # → database/migrations/..._create_posts_table.php
-# → app/Http/Controllers/PostController.php (7 methods)
+# → app/Http/Controllers/PostController.php
 
-# See all web routes
+# See all registered web + api routes
 php artisan route:list
 
-# Generate Blade view
+# Generate blank Blade view file
 php artisan make:view posts.index
+# → resources/views/posts/index.blade.php
 
-# Clear everything & fresh start
+# Reset database + re-run + seed test data
 php artisan migrate:fresh --seed`,
     terminal: 'php artisan route:list',
     terminalOutput: `  GET|HEAD  / ................................ welcome
-  GET|HEAD  api/user ........................ 
-  GET|HEAD  posts .......... posts.index › PostController@index
-  GET|HEAD  posts/create ... posts.create › PostController@create
-  POST      posts .......... posts.store  › PostController@store`,
+  GET|HEAD  posts .......... posts.index  PostController@index
+  GET|HEAD  posts/create ... posts.create PostController@create
+  POST      posts .......... posts.store  PostController@store
+  GET|HEAD  posts/{post} ... posts.show   PostController@show`,
     icon: Terminal,
   },
+
   {
     id: 'L01-S4', chapter: 'setup',
-    title: '.env Configuration', subtitle: 'Environment Variables & App Settings',
-    accent: '#f43f5e',
-    bg: 'radial-gradient(ellipse at center, rgba(244,63,94,0.08) 0%, transparent 70%)',
+    section: '.env Configuration',
+    title: '.env Configuration', subtitle: 'Environment Variables ─ Secrets of the App',
+    accent: '#e11d48',
+    bg: 'radial-gradient(ellipse at center, rgba(225,29,72,0.08) 0%, transparent 70%)',
     concepts: [
-      { label: '.env File', desc: 'Store secrets: DB password, mail credentials, API keys ─ NEVER commit to git ！' },
-      { label: 'APP_KEY', desc: '32-byte secret ─ encrypt cookies, sessions, CSRF tokens ─ run key:generate ដំបូង ។' },
-      { label: 'APP_DEBUG=true', desc: 'Development mode ─ shows detailed error pages ─ SET FALSE ក្នុង production ！' },
-      { label: 'DB_* Variables', desc: 'DB_HOST, DB_DATABASE, DB_USERNAME, DB_PASSWORD ─ connect web app ទៅ MySQL ។' },
+      { label: '.env File', desc: 'Store secrets: DB password, mail credentials, API keys ─ NEVER commit ទៅ git ─ .gitignore exclude វា ─ .env.example ជំនួស ។' },
+      { label: 'APP_KEY', desc: '32-byte secret string ─ encrypt sessions, cookies, CSRF tokens ─ run "php artisan key:generate" ─ unique per app ។' },
+      { label: 'APP_DEBUG=true', desc: 'Development mode ─ show detailed error pages ─ SET FALSE ក្នុង production ─ users មិនឃើញ stack trace ！' },
+      { label: 'DB_* Variables', desc: 'DB_HOST, DB_DATABASE, DB_USERNAME, DB_PASSWORD ─ connect web app ទៅ MySQL database ─ config once ─ use everywhere ។' },
     ],
-    tip: 'Copy .env.example → .env ─ fill in your values ─ .env.example ចូល git, .env មិនចូល git ！',
+    variables: [
+      { label: 'Environment', desc: 'Context ដែល app run ─ "local" (development), "staging" (testing), "production" (live) ─ .env ប្ដូរ values per environment ។' },
+      { label: 'APP_KEY', desc: 'Cryptographic key ─ 256-bit ─ base64 encoded ─ ប្រើ encrypt/decrypt data ─ change = invalidate all sessions ។' },
+    ],
+    tip: '.env.example ចូល git (no secrets) ─ .env មិនចូល git ─ team copy .env.example → .env ─ fill own values ！',
     lab: 'Set DB_DATABASE="my_blog" DB_USERNAME="root" ─ run "php artisan migrate" ─ verify tables created ។',
-    result: 'Web app connected to MySQL database ─ default users, sessions, cache tables auto-created ។',
+    result: 'Web app connected to MySQL ─ default users, sessions, cache tables auto-created ─ ready to develop ！',
     filename: '.env',
     code: `APP_NAME="My Blog"
 APP_ENV=local
-APP_KEY=base64:Xm8...
+APP_KEY=base64:Xm8IyHk2...generated...
 APP_DEBUG=true
 APP_URL=http://localhost
 
+# Database Connection
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
 DB_PORT=3306
@@ -350,88 +368,83 @@ DB_DATABASE=my_blog
 DB_USERNAME=root
 DB_PASSWORD=secret
 
+# Mail (use Mailpit for local testing)
 MAIL_MAILER=smtp
 MAIL_HOST=mailpit
 MAIL_PORT=1025
 
+# Session & Cache
 SESSION_DRIVER=database
 CACHE_STORE=redis`,
     icon: Key,
   },
 
-  /* ── CH 03: MVC PATTERN ── */
+  /* ══════════════════════════════════════════════════════
+     CHAPTER 3: MVC PATTERN
+  ══════════════════════════════════════════════════════ */
   {
     id: 'L02-S1', chapter: 'mvc',
-    section: 'Architecture (1/2)',
+    section: 'MVC Architecture',
     title: 'MVC Architecture', subtitle: 'Model – View – Controller Pattern',
     accent: '#f97316',
     bg: 'radial-gradient(ellipse at 30% 20%, rgba(249,115,22,0.15) 0%, transparent 55%)',
     concepts: [
-      { label: 'Model', desc: 'Data layer ─ Eloquent class ─ handles database queries, relationships, business rules ។' },
-      { label: 'View', desc: 'Presentation layer ─ Blade templates ─ HTML ដែល user ឃើញ ─ no business logic ។' },
+      { label: 'Model (Data Layer)', desc: 'Eloquent class ─ handle database queries, relationships, business rules ─ $post->title ─ Post::where(...)->get() ─ DATA ។' },
+      { label: 'View (Presentation Layer)', desc: 'Blade template ─ HTML ដែល user ឃើញ ─ display data ─ no business logic ─ resources/views/ ─ DISPLAY ។' },
+      { label: 'Controller (Logic Layer)', desc: 'Receive HTTP request ─ call Model ─ pass data to View ─ return response ─ "middleman" ─ app/Http/Controllers/ ─ LOGIC ។' },
+      { label: 'Request Flow', desc: 'Browser → Router → Middleware → Controller → Model → View → HTML Response → Browser ─ cycle ។' },
     ],
-    tip: 'Fat Models, Skinny Controllers ─ business logic ក្នុង Model ─ Controller គ្រាន់តែ coordinate ។',
-    lab: '', result: '', code: '', filename: '', icon: Layers,
-  },
-  {
-    id: 'L02-S1-续', chapter: 'mvc',
-    section: 'Architecture (2/2)',
-    title: 'MVC Architecture (Cont.)', subtitle: 'The Request Lifecycle',
-    accent: '#f97316',
-    bg: 'radial-gradient(ellipse at 30% 20%, rgba(249,115,22,0.1) 0%, transparent 55%)',
-    concepts: [
-      { label: 'Controller', desc: 'Logic layer ─ receives HTTP request, calls Model, passes data to View ─ "middleman" ។' },
-      { label: 'Request Flow', desc: 'Browser → Router → Middleware → Controller → Model → View → HTML Response ។' },
+    variables: [
+      { label: 'MVC', desc: 'Model-View-Controller ─ software design pattern ─ separate concerns ─ code ស្អាត ─ easy maintain ─ team collaborate ─ industry standard ។' },
+      { label: 'Separation of Concerns', desc: 'Principle ─ code ដែល handle data ─ code ដែល display ─ code ដែល logic ─ ដាច់ពីគ្នា ─ ងាយ test ─ ងាយ change ។' },
     ],
-    tip: 'Fat Models, Skinny Controllers ─ business logic ក្នុង Model ─ Controller គ្រាន់តែ coordinate ។',
+    tip: 'Fat Models, Skinny Controllers ─ business logic ក្នុង Model ─ Controller គ្រាន់​ coordinate ─ clean code ！',
     lab: 'Trace ទំព័រ /posts: routes/web.php → PostController@index → Post::all() → posts/index.blade.php ។',
-    result: 'យល់ច្បាស់ MVC flow ─ ដឹងថា code ណាដាក់ Model, Controller, ViewStack ។',
-    filename: 'mvc-request-flow.md',
-    code: `// 1. BROWSER requests GET /posts
-// 2. ROUTER matches route
+    result: 'យល់ MVC flow ─ ដឹងថា code ណាដាក់ Model, Controller, View ─ architecture ច្បាស់ ！',
+    filename: 'mvc-request-flow.php',
+    code: `// ── 1. BROWSER requests GET /posts ──────────
+
+// ── 2. ROUTER matches URL to Controller ──────
 Route::get('/posts', [PostController::class, 'index']);
 
-// 3. MIDDLEWARE checks auth, CSRF, etc.
+// ── 3. MIDDLEWARE checks auth, CSRF, rate limit ──
 
-// 4. CONTROLLER handles request
-class PostController extends Controller {
-    public function index() {
-        // 5. MODEL queries database
+// ── 4. CONTROLLER coordinates the response ───
+class PostController extends Controller
+{
+    public function index()
+    {
+        // ── 5. MODEL queries database ──────────
         $posts = Post::where('published', true)
-                     ->latest()->paginate(10);
-        
-        // 6. VIEW renders HTML with data
+                     ->with('author')    // Eager load
+                     ->latest()
+                     ->paginate(10);
+
+        // ── 6. VIEW renders HTML with data ─────
         return view('posts.index', compact('posts'));
     }
-}`,
+}
+
+// ── 7. BLADE VIEW renders to HTML page ───────
+// ── 8. HTML RESPONSE sent back to browser ────`,
     icon: Layers,
   },
+
   {
     id: 'L02-S2', chapter: 'mvc',
-    section: 'MVC Practice (1/2)',
-    title: 'MVC in Practice', subtitle: 'Views and Models',
+    section: 'MVC in Practice',
+    title: 'MVC in Practice', subtitle: 'Code ពិត​ ─ MVC ក្នុង Laravel Web App',
     accent: '#f97316',
     bg: 'radial-gradient(ellipse at 75% 60%, rgba(249,115,22,0.1) 0%, transparent 55%)',
     concepts: [
-      { label: 'Blade as View', desc: '@foreach, {{ $var }}, @if ─ mix PHP logic into HTML templates cleanly ។' },
-      { label: 'Eloquent as Model', desc: 'Post::latest()->get() ─ returns Collection of Post objects ─ no raw SQL needed ។' },
+      { label: 'Blade as View', desc: '@foreach, {{ $var }}, @if, @auth ─ mix PHP logic ក្នុង HTML ─ browser ទទួល pure HTML ─ ស្អាត ─ safe ។' },
+      { label: 'Eloquent as Model', desc: 'Post::latest()->paginate(10) ─ return Collection of Post objects ─ no raw SQL ─ ងាយ​ read ─ safe ។' },
+      { label: 'Controller Methods', desc: 'index() list page ─ show() detail page ─ create()/store() form ─ edit()/update() modify ─ destroy() delete ។' },
+      { label: 'view() Helper', desc: 'return view("posts.index", compact("posts")) ─ map ទៅ resources/views/posts/index.blade.php ─ dot = folder separator ។' },
     ],
-    tip: 'view("posts.index") looks for resources/views/posts/index.blade.php ─ dots = folder separators ។',
-    lab: '', result: '', code: '', filename: '', icon: Server,
-  },
-  {
-    id: 'L02-S2-续', chapter: 'mvc',
-    section: 'MVC Practice (2/2)',
-    title: 'MVC in Practice (Cont.)', subtitle: 'Controllers and Methods',
-    accent: '#f97316',
-    bg: 'radial-gradient(ellipse at 75% 60%, rgba(249,115,22,0.08) 0%, transparent 55%)',
-    concepts: [
-      { label: 'Controller Methods', desc: 'index (list page), show (detail page), create/store (form), edit/update, destroy ។' },
-      { label: 'view() helper', desc: 'return view("posts.index", $data) ─ maps to resources/views/posts/index.blade.php ។' },
-    ],
-    tip: 'view("posts.index") looks for resources/views/posts/index.blade.php ─ dots = folder separators ។',
-    lab: 'Build: Route → PostController index() returns view("posts.index") with $posts from DB ─ display list ។',
-    result: 'Full MVC cycle works: browser sees list of posts fetched from database ─ rendered as HTML ！',
+    tip: 'view("posts.index") ─ dot notation ─ "posts/index.blade.php" ─ nested folders ─ clean path ！',
+    lab: 'Build: Route → PostController::index() ─ return view("posts.index") ─ display $posts list in browser ។',
+    result: 'Browser ឃើញ list of posts ─ fetched from database ─ rendered as HTML ─ MVC cycle complete ！',
     filename: 'app/Http/Controllers/PostController.php',
     code: `<?php
 namespace App\\Http\\Controllers;
@@ -440,79 +453,112 @@ use App\\Models\\Post;
 
 class PostController extends Controller
 {
-    // GET /posts → Show list page
+    // GET /posts → List page (index)
     public function index()
     {
-        $posts = Post::published()
-                     ->with('author')
-                     ->latest()
-                     ->paginate(10);
+        $posts = Post::published()   // Scope: where published=true
+                     ->with('author') // Eager load author
+                     ->latest()       // Order by newest
+                     ->paginate(10);  // 10 per page
 
         return view('posts.index', compact('posts'));
+        // → resources/views/posts/index.blade.php
+    }
+
+    // GET /posts/{post} → Detail page (show)
+    public function show(Post $post)
+    {
+        // Route-Model Binding: auto-fetch by ID
+        $post->increment('views');
+        return view('posts.show', compact('post'));
     }
 }`,
     icon: Server,
   },
 
-  /* ── CH 04: ROUTES AND CONTROLLERS ── */
+  /* ══════════════════════════════════════════════════════
+     CHAPTER 4: ROUTES AND CONTROLLERS
+  ══════════════════════════════════════════════════════ */
   {
     id: 'L03-S1', chapter: 'routing',
-    title: 'Routes in Laravel', subtitle: 'URL Mapping for Web Applications',
+    section: 'Routes',
+    title: 'Routes in Laravel', subtitle: 'URL Mapping ─ Request ទៅ Response',
     accent: '#eab308',
     bg: 'radial-gradient(ellipse at 20% 40%, rgba(234,179,8,0.15) 0%, transparent 55%)',
     concepts: [
-      { label: 'HTTP Verbs', desc: 'Route::get() view pages, post() submit forms, put()/patch() update, delete() remove ។' },
-      { label: 'Route Parameters', desc: '/posts/{post} ─ dynamic URL segment ─ passed to controller as argument ។' },
-      { label: 'Named Routes', desc: '->name("posts.show") ─ generate URLs: route("posts.show", $post) ─ no hardcoded URLs ！' },
-      { label: 'Route Groups', desc: 'Share prefix/middleware across routes ─ Route::prefix("admin")->middleware("auth") ។' },
+      { label: 'HTTP Verbs', desc: 'Route::get() ─ view pages ─ post() ─ submit forms ─ put()/patch() ─ update data ─ delete() ─ remove data ─ match HTTP method ！' },
+      { label: 'Route Parameters', desc: '/posts/{post} ─ dynamic URL segment ─ {post} passed ទៅ Controller as argument ─ /posts/5 → $post = 5 ។' },
+      { label: 'Named Routes', desc: '->name("posts.show") ─ generate URL: route("posts.show", $post) ─ ប្ដូរ URL ─ code ផ្សេង​ not break ─ DRY principle ！' },
+      { label: 'Route Groups', desc: 'Share prefix/middleware ─ Route::prefix("admin")->middleware("auth") ─ apply ទៅ routes ច្រើន ─ clean code ។' },
     ],
-    tip: 'ប្រើ Named Routes ALWAYS ─ ប្ដូរ URL ពី /posts ទៅ /articles ─ code ផ្សេងទៀតមិនបែក ！',
-    lab: 'Add route /blog/{slug} → BlogController@show ─ name it "blog.show" ─ test in browser ។',
-    result: '/blog/my-first-post loads BlogController@show with $slug = "my-first-post" ។',
+    variables: [
+      { label: 'Named Route', desc: 'Route ដែលមានឈ្មោះ ─ reference by name ─ route("posts.show") ─ generate URL ─ URL change ─ code still work ─ flexible ។' },
+      { label: 'Route Parameter', desc: 'Dynamic segment ក្នុង URL ─ /posts/{id} ─ {slug} ─ value ─ pass ទៅ Controller ─ type-hint → auto-fetch from DB ។' },
+    ],
+    tip: 'ប្រើ Named Routes ALWAYS ─ ប្ដូរ /posts ទៅ /articles ─ update routes/web.php ─ code ផ្សេង not break ！',
+    lab: 'Add route /blog/{slug} → BlogController@show ─ name "blog.show" ─ test in browser ─ verify slug ។',
+    result: '/blog/my-first-post loads BlogController@show ─ $slug = "my-first-post" ─ routing correct ！',
     filename: 'routes/web.php',
     code: `<?php
-use App\Http\Controllers\PostController;
-use App\Http\Controllers\PageController;
+use App\\Http\\Controllers\\PostController;
+use App\\Http\\Controllers\\PageController;
 
-// Static pages
+// ─── Static Pages ────────────────────────────
 Route::get('/', [PageController::class, 'home'])->name('home');
 Route::get('/about', [PageController::class, 'about'])->name('about');
 
-// Blog posts - full CRUD
-Route::get('/posts', [PostController::class, 'index'])->name('posts.index');
-Route::get('/posts/{post}', [PostController::class, 'show'])->name('posts.show');
-Route::get('/posts/create', [PostController::class, 'create'])->name('posts.create');
-Route::post('/posts', [PostController::class, 'store'])->name('posts.store');
-Route::get('/posts/{post}/edit', [PostController::class, 'edit'])->name('posts.edit');
-Route::patch('/posts/{post}', [PostController::class, 'update'])->name('posts.update');
-Route::delete('/posts/{post}', [PostController::class, 'destroy'])->name('posts.destroy');
+// ─── Blog Posts (manual routes) ──────────────
+Route::get('/posts', [PostController::class, 'index'])
+     ->name('posts.index');
+Route::get('/posts/{post}', [PostController::class, 'show'])
+     ->name('posts.show');
+Route::get('/posts/{post}/edit', [PostController::class, 'edit'])
+     ->name('posts.edit');
+Route::patch('/posts/{post}', [PostController::class, 'update'])
+     ->name('posts.update');
 
-// Route group with prefix
-Route::prefix('admin')->name('admin.')->group(function () {
-    Route::get('/dashboard', [AdminController::class, 'index'])->name('dashboard');
-});`,
+// ─── Route Group: Auth required ───────────────
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'index'])
+         ->name('dashboard');
+    Route::get('/profile', [ProfileController::class, 'show'])
+         ->name('profile');
+});
+
+// ─── Admin Prefix Group ───────────────────────
+Route::prefix('admin')->name('admin.')->middleware(['auth','role:admin'])
+     ->group(function () {
+         Route::get('/users', [AdminUserController::class, 'index'])
+              ->name('users');
+     });`,
     icon: Globe,
   },
+
   {
     id: 'L03-S2', chapter: 'routing',
-    title: 'Controllers', subtitle: 'Web Request Handlers',
+    section: 'Controllers',
+    title: 'Controllers', subtitle: 'Web Request Handlers ─ Logic Layer',
     accent: '#eab308',
     bg: 'radial-gradient(ellipse at 75% 35%, rgba(234,179,8,0.12) 0%, transparent 55%)',
     concepts: [
-      { label: 'Single Action', desc: '__invoke() ─ Controller with one job ─ great for simple pages like Home, About ។' },
-      { label: 'Resource Controller', desc: '7 standard methods for web CRUD ─ index, create, store, show, edit, update, destroy ។' },
-      { label: 'Route-Model Binding', desc: 'Type-hint Post $post ─ Laravel auto-fetches from DB by ID ─ 404 if not found ។' },
-      { label: 'Return Types', desc: 'view() for HTML pages, redirect() after form submission, back() to previous page ។' },
+      { label: 'Route-Model Binding', desc: 'Type-hint Post $post ─ Laravel auto-fetch from DB by ID ─ 404 if not found ─ ដ​ code ─ safe ─ clean ！' },
+      { label: 'Return Types', desc: 'view() ─ HTML pages ─ redirect() ─ after form submit ─ back() ─ previous page ─ response()->json() ─ API ។' },
+      { label: 'Request Validation', desc: '$request->validate([rules]) ─ validate before process ─ auto redirect back with errors ─ security ！' },
+      { label: 'PRG Pattern', desc: 'Post-Redirect-Get ─ after store/update/destroy ALWAYS redirect ─ prevent duplicate form submission ─ browser refresh safe ！' },
     ],
-    tip: 'After POST form submission, ALWAYS redirect ─ prevents duplicate submission on browser refresh ！',
-    lab: 'Create PostController ─ index() returns view with $posts ─ show(Post $post) returns view with $post ។',
-    result: 'Controller handles browser requests ─ fetches data ─ passes to Blade template for display ។',
+    variables: [
+      { label: 'PRG Pattern', desc: 'Post-Redirect-Get ─ form submit (POST) → process → redirect (GET) → show page ─ browser refresh ─ no duplicate submit ─ UX standard ។' },
+      { label: 'Route-Model Binding', desc: 'Laravel auto-inject Model instance ─ Controller method receives $post object ─ not ID ─ no findOrFail() needed ─ magic ！' },
+    ],
+    tip: 'After POST ─ ALWAYS redirect ─ ប្រសិន​ browser refresh ─ no duplicate form submission ─ PRG pattern ！',
+    lab: 'Create PostController ─ index() return view with $posts ─ show(Post $post) return view with $post ។',
+    result: 'Controller handle browser requests ─ fetch data ─ pass to Blade template ─ display HTML ！',
     filename: 'app/Http/Controllers/PostController.php',
     code: `<?php
-namespace App\Http\Controllers;
+namespace App\\Http\\Controllers;
 
-use App\Models\Post;
-use Illuminate\Http\Request;
+use App\\Models\\Post;
+use Illuminate\\Http\\Request;
 
 class PostController extends Controller
 {
@@ -523,17 +569,23 @@ class PostController extends Controller
         return view('posts.index', compact('posts'));
     }
 
-    // POST /posts → Save new post
+    // GET /posts/{post} → Single post page
+    public function show(Post $post) // Auto-fetched by ID!
+    {
+        return view('posts.show', compact('post'));
+    }
+
+    // POST /posts → Save + redirect
     public function store(Request $request)
     {
         $validated = $request->validate([
             'title' => 'required|string|max:255',
-            'body'  => 'required|string',
+            'body'  => 'required|string|min:10',
         ]);
 
         auth()->user()->posts()->create($validated);
 
-        // Always redirect after POST (PRG pattern)
+        // PRG: always redirect after POST
         return redirect()->route('posts.index')
                          ->with('success', 'Post published!');
     }
@@ -543,40 +595,51 @@ class PostController extends Controller
     icon: Server,
   },
 
-  /* ── CH 04: RESOURCES AND CONTROLLERS ── */
+  /* ══════════════════════════════════════════════════════
+     CHAPTER 5: RESOURCES AND CONTROLLERS
+  ══════════════════════════════════════════════════════ */
   {
     id: 'L04-S1', chapter: 'resources',
-    title: 'Resource Controllers', subtitle: 'RESTful Web Routes in One Line',
+    section: 'Resource Routes',
+    title: 'Resource Controllers', subtitle: 'RESTful Web Routes ─ 1 Line = 7 Routes',
     accent: '#22c55e',
     bg: 'radial-gradient(ellipse at 15% 50%, rgba(34,197,94,0.15) 0%, transparent 55%)',
     concepts: [
-      { label: 'Route::resource()', desc: '1 line → 7 web routes: index, create, store, show, edit, update, destroy ─ full CRUD ！' },
-      { label: '7 Web Actions', desc: 'index=list page, create=new form, store=save, show=detail, edit=edit form, update=save edit, destroy=delete ។' },
-      { label: 'Shallow Resource', desc: 'Route::resource("posts.comments", ...) ─ nested URL: /posts/1/comments/5/edit ។' },
-      { label: 'Partial Resource', desc: '->only(["index","show"]) ─ read-only web pages ─ ->except(["destroy"]) ─ no delete ។' },
+      { label: 'Route::resource()', desc: '1 line → 7 web routes: index, create, store, show, edit, update, destroy ─ full CRUD web app ─ clean routes/web.php ！' },
+      { label: '7 Standard Web Actions', desc: 'index=list page ─ create=new form ─ store=save ─ show=detail ─ edit=edit form ─ update=save changes ─ destroy=delete ។' },
+      { label: 'Partial Resource', desc: '->only(["index","show"]) ─ read-only pages ─ ->except(["destroy"]) ─ no delete ─ customise actions per use case ។' },
+      { label: 'Nested Resource', desc: 'Route::resource("posts.comments") ─ /posts/1/comments ─ nested URL ─ parent-child relationship ─ ->shallow() ។' },
+    ],
+    variables: [
+      { label: 'Resource Controller', desc: 'Controller ─ follow REST conventions ─ 7 standard methods ─ "php artisan make:controller --resource" ─ boilerplate ។' },
+      { label: 'RESTful', desc: 'REST principles apply ─ web routes ─ URL structure ─ /posts (list) /posts/1 (show) /posts/1/edit (edit form) ─ standard ។' },
     ],
     tip: '"php artisan make:controller PostController --resource --model=Post" ─ generates methods with type-hints ！',
-    lab: 'Replace 7 individual routes with Route::resource("posts", PostController::class) ─ verify same result ។',
-    result: 'php artisan route:list shows 7 posts.* routes ─ same behavior ─ cleaner routes/web.php ！',
+    lab: 'Replace 7 individual routes with Route::resource("posts") ─ verify route:list ─ same result ！',
+    result: 'php artisan route:list ─ 7 posts.* routes ─ same behavior ─ cleaner code ─ standard structure ！',
     filename: 'routes/web.php',
-    code: `// BEFORE: 7 individual routes (messy)
+    code: `// BEFORE: 7 individual routes (messy, repetitive)
 Route::get('/posts', [PostController::class, 'index']);
 Route::get('/posts/create', [PostController::class, 'create']);
 Route::post('/posts', [PostController::class, 'store']);
-// ... 4 more lines
+Route::get('/posts/{post}', [PostController::class, 'show']);
+Route::get('/posts/{post}/edit', [PostController::class, 'edit']);
+Route::patch('/posts/{post}', [PostController::class, 'update']);
+Route::delete('/posts/{post}', [PostController::class, 'destroy']);
 
 // AFTER: 1 line = same 7 routes (clean!)
 Route::resource('posts', PostController::class);
 
-// Read-only pages only (no create/edit/delete)
-Route::resource('tags', TagController::class)->only(['index', 'show']);
+// Read-only pages (blog readers, no create/edit)
+Route::resource('tags', TagController::class)
+     ->only(['index', 'show']);
 
 // Nested: /posts/{post}/comments/{comment}
 Route::resource('posts.comments', CommentController::class)
-      ->shallow(); // → /comments/{comment} for show/edit/destroy`,
+     ->shallow();`,
     terminal: 'php artisan route:list --path=posts',
     terminalOutput: `  GET|HEAD  posts ................. posts.index   PostController@index
-  POST      posts ................. posts.store   PostController@store  
+  POST      posts ................. posts.store   PostController@store
   GET|HEAD  posts/create .......... posts.create  PostController@create
   GET|HEAD  posts/{post} .......... posts.show    PostController@show
   PUT|PATCH posts/{post} .......... posts.update  PostController@update
@@ -584,110 +647,141 @@ Route::resource('posts.comments', CommentController::class)
   GET|HEAD  posts/{post}/edit ..... posts.edit    PostController@edit`,
     icon: Workflow,
   },
+
   {
     id: 'L04-S2', chapter: 'resources',
-    title: 'Blade Views for Resources', subtitle: 'Standard Web View Structure',
+    section: 'Blade Views',
+    title: 'Blade Views for Resources', subtitle: 'Standard Web View Structure ─ DRY Templates',
     accent: '#22c55e',
     bg: 'radial-gradient(ellipse at 80% 40%, rgba(34,197,94,0.1) 0%, transparent 55%)',
     concepts: [
-      { label: 'View Naming Convention', desc: 'posts/index.blade.php (list), posts/show.blade.php (detail), posts/create.blade.php (form) ។' },
-      { label: '@extends Layout', desc: 'Child views extend master layout ─ DRY principle ─ nav/footer only written once ។' },
-      { label: '@section Content', desc: '@section("content") fills @yield("content") in layout ─ page-specific HTML ។' },
-      { label: 'route() helper', desc: 'route("posts.edit", $post) → /posts/5/edit ─ named route URL generation ។' },
+      { label: 'Naming Convention', desc: 'posts/index.blade.php (list) ─ posts/show.blade.php (detail) ─ posts/create.blade.php (form) ─ follow Laravel standard ។' },
+      { label: '@extends Layout', desc: 'Child views extend master layout ─ @extends("layouts.app") ─ DRY ─ nav/footer ─ write once ─ used everywhere ！' },
+      { label: '@section Content', desc: '@section("content") fill @yield("content") in layout ─ page-specific HTML ─ template inheritance ─ clean ។' },
+      { label: 'route() Helper in Blade', desc: 'route("posts.edit", $post) → /posts/5/edit ─ named route URL ─ ប្ដូរ URL ─ Blade update automatic ！' },
     ],
-    tip: 'Create layouts/app.blade.php first ─ all other views extend it ─ nav changes once = everywhere ！',
-    lab: 'Create views/posts/index.blade.php that extends layout ─ loops $posts ─ shows title + link ។',
-    result: '/posts renders HTML list of all posts ─ each linked to its show page ─ proper web app UX ！',
+    tip: 'Create layouts/app.blade.php first ─ all views extend it ─ nav change once = update everywhere ！',
+    lab: 'Create views/posts/index.blade.php ─ extend layout ─ loop $posts ─ show title + link ─ pagination ។',
+    result: '/posts renders HTML list ─ each post linked to show page ─ proper web app UX ─ DRY code ！',
     filename: 'resources/views/posts/index.blade.php',
     code: `@extends('layouts.app')
 
-@section('title', 'All Posts')
+@section('title', 'All Blog Posts')
 
 @section('content')
 <div class="container mx-auto py-8">
+
+    {{-- Flash success message --}}
+    @if(session('success'))
+        <div class="alert alert-success mb-4">
+            {{ session('success') }}
+        </div>
+    @endif
+
     <div class="flex justify-between items-center mb-6">
         <h1 class="text-3xl font-bold">Blog Posts</h1>
         @auth
-            <a href="{{ route('posts.create') }}" 
-               class="btn btn-primary">New Post</a>
+            {{-- Only show to logged-in users --}}
+            <a href="{{ route('posts.create') }}"
+               class="btn btn-primary">+ New Post</a>
         @endauth
     </div>
 
     @forelse($posts as $post)
-        <article class="card mb-4">
-            <h2>
+        <article class="card mb-4 p-6">
+            <h2 class="text-xl font-semibold">
                 <a href="{{ route('posts.show', $post) }}">
                     {{ $post->title }}
                 </a>
             </h2>
-            <p>By {{ $post->author->name }}</p>
+            <p class="text-gray-500">
+                By {{ $post->author->name }} ·
+                {{ $post->created_at->diffForHumans() }}
+            </p>
         </article>
     @empty
-        <p>No posts yet.</p>
+        <p>No posts yet. Be the first to publish!</p>
     @endforelse
 
-    {{ $posts->links() }}  {{-- Pagination --}}
+    {{-- Auto-generated pagination links --}}
+    {{ $posts->links() }}
 </div>
 @endsection`,
     icon: Layout,
   },
 
-  /* ── CH 05: MIDDLEWARE ── */
+  /* ══════════════════════════════════════════════════════
+     CHAPTER 6: MIDDLEWARE
+  ══════════════════════════════════════════════════════ */
   {
     id: 'L05-S1', chapter: 'middleware',
-    title: 'Middleware in Laravel', subtitle: 'Web Request Filters & Guards',
+    section: 'Built-in Middleware',
+    title: 'Middleware in Laravel', subtitle: 'Request Guards ─ Filter ─ Security Layer',
     accent: '#06b6d4',
     bg: 'radial-gradient(ellipse at 25% 55%, rgba(6,182,212,0.15) 0%, transparent 55%)',
     concepts: [
-      { label: 'What is Middleware?', desc: 'Code that runs BETWEEN browser request and Controller ─ inspect, modify or reject ។' },
-      { label: 'auth Middleware', desc: 'Redirects unauthenticated users to /login ─ protects dashboard, profile, admin pages ។' },
-      { label: 'verified Middleware', desc: 'Requires email verification ─ blocks access until user confirms email ។' },
-      { label: 'Custom Middleware', desc: 'Your own logic: check subscription, set locale, log activity, check user role ។' },
+      { label: 'What is Middleware?', desc: 'Code ─ run BETWEEN browser request → Controller ─ inspect ─ modify ─ reject request ─ "security checkpoint" ។' },
+      { label: 'auth Middleware', desc: 'Check ─ user logged in ─ redirect ទៅ /login ─ ប្រសិន​ not authenticated ─ protect dashboard, profile, admin pages ─ automatic ！' },
+      { label: 'verified Middleware', desc: 'Require email verification ─ block access ─ until user confirms email ─ combine: middleware(["auth","verified"]) ។' },
+      { label: 'throttle Middleware', desc: 'Rate limiting ─ throttle:60,1 = 60 requests/minute ─ protect API endpoints ─ prevent abuse/DDoS ─ auto 429 response ។' },
     ],
-    tip: 'Middleware runs for EVERY request in the pipeline ─ keep it fast ─ no heavy DB queries in global middleware ！',
-    lab: 'Add ->middleware("auth") to /dashboard route ─ visit while logged out ─ observe redirect to /login ។',
-    result: 'Unauthenticated users can\'t access dashboard ─ redirected to login page automatically ！',
+    variables: [
+      { label: 'Middleware', desc: 'Layer ─ ចន្លោះ​ HTTP request និង Controller ─ execute code ─ before/after ─ filter ─ transform ─ reject request ─ pipeline ។' },
+      { label: 'Pipeline', desc: 'Request pass through ─ multiple Middleware layers ─ one by one ─ like security checkpoints at airport ─ each check different thing ។' },
+    ],
+    tip: 'Middleware run EVERY request ─ keep fast ─ no heavy DB queries ─ global middleware affect all pages ！',
+    lab: 'Add ->middleware("auth") to /dashboard ─ visit logged out ─ observe auto-redirect to /login ។',
+    result: 'Unauthenticated users cannot access dashboard ─ redirected to login automatically ─ secure ！',
     filename: 'routes/web.php',
     code: `// Protect single web page
 Route::get('/dashboard', [DashboardController::class, 'index'])
     ->middleware('auth')
     ->name('dashboard');
 
-// Protect group of web pages
+// Protect group of web pages together
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'show']);
     Route::get('/settings', [SettingsController::class, 'edit']);
+
+    // Create/edit/delete need auth (index/show are public)
     Route::resource('posts', PostController::class)
-         ->except(['index', 'show']); // Create/edit/delete need auth
+         ->except(['index', 'show']);
 });
 
-// Admin-only pages
-Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
-    Route::get('/users', [AdminUserController::class, 'index']);
-    Route::get('/analytics', [AnalyticsController::class, 'index']);
-});`,
+// Admin-only pages with role check
+Route::middleware(['auth', 'role:admin'])
+     ->prefix('admin')
+     ->name('admin.')
+     ->group(function () {
+         Route::get('/users', [AdminUserController::class, 'index'])
+              ->name('users');
+         Route::get('/analytics', [AnalyticsController::class, 'index'])
+              ->name('analytics');
+     });`,
     icon: Lock,
   },
+
   {
     id: 'L05-S2', chapter: 'middleware',
-    title: 'Custom Middleware', subtitle: 'Building Your Own Request Guards',
+    section: 'Custom Middleware',
+    title: 'Custom Middleware', subtitle: 'Build Your Own Request Guards',
     accent: '#06b6d4',
     bg: 'radial-gradient(ellipse at 80% 30%, rgba(6,182,212,0.1) 0%, transparent 55%)',
     concepts: [
-      { label: 'handle() Method', desc: 'Core logic: check condition → abort/redirect, or call $next($request) to continue ។' },
-      { label: 'Before vs After', desc: 'Code before $next() runs BEFORE controller; after runs AFTER response generated ។' },
-      { label: 'Registration', desc: 'Register in bootstrap/app.php or assign alias ─ then use in routes or controllers ។' },
-      { label: 'Middleware Parameters', desc: '->middleware("role:admin,editor") ─ pass comma-separated values to handle() ។' },
+      { label: 'handle() Method', desc: 'Core logic: check condition → abort/redirect ─ ឬ call $next($request) ─ continue to Controller ─ "doorkeeper" ។' },
+      { label: 'Before Middleware', desc: 'Code before $next($request) ─ run BEFORE Controller ─ e.g. check permission ─ set locale ─ log request ។' },
+      { label: 'After Middleware', desc: 'Code after $next($request) ─ run AFTER response generated ─ e.g. add response headers ─ log response time ។' },
+      { label: 'Middleware Parameters', desc: '->middleware("role:admin,editor") ─ pass arguments via ":" separator ─ $next($request, $role) ─ flexible ！' },
     ],
-    tip: 'abort(403) vs redirect() ─ use abort for API/AJAX, redirect() for browser web pages ─ better UX ！',
-    lab: 'Build CheckSubscription middleware ─ if user->plan == "free" and posts > 3 ─ redirect to /upgrade ។',
-    result: 'Free users hitting post creation limit see upgrade page ─ paid users continue ─ subscription gate working ！',
+    tip: 'abort(403) ─ API/AJAX ─ redirect() ─ browser web pages ─ ជ្រើស correct response type per context ！',
+    lab: 'Build CheckSubscription middleware ─ free users + posts > 3 ─ redirect ទៅ /upgrade page ។',
+    result: 'Free users hit limit ─ see upgrade page ─ paid users continue ─ subscription gate working ！',
     filename: 'app/Http/Middleware/CheckSubscription.php',
     code: `<?php
-namespace App\Http\Middleware;
+namespace App\\Http\\Middleware;
 
 use Closure;
-use Illuminate\Http\Request;
+use Illuminate\\Http\\Request;
 
 class CheckSubscription
 {
@@ -695,174 +789,210 @@ class CheckSubscription
     {
         $user = $request->user();
 
-        // Free plan users limited to 3 posts
+        // Free plan: maximum 3 posts allowed
         if ($user && $user->plan === 'free') {
             if ($user->posts()->count() >= 3) {
+                // Redirect browser users to upgrade page
                 return redirect()->route('upgrade')
-                    ->with('warning', 
-                        'Upgrade to publish more posts!');
+                    ->with('warning',
+                        'ចំនួន post ដល់ limit ─ Upgrade ដើម្បី publish បន្ថែម!');
             }
         }
 
-        return $next($request); // Allow through
+        // All good: pass request to Controller
+        return $next($request);
     }
 }
 
-// Register in routes
+// Apply in routes/web.php:
 Route::post('/posts', [PostController::class, 'store'])
-    ->middleware(['auth', CheckSubscription::class]);`,
+     ->middleware(['auth', CheckSubscription::class]);`,
     terminal: 'php artisan make:middleware CheckSubscription',
     terminalOutput: '   INFO  Middleware [app/Http/Middleware/CheckSubscription.php] created successfully.',
     icon: Shield,
   },
 
-  /* ── CH 06: SECURITY ── */
+  /* ══════════════════════════════════════════════════════
+     CHAPTER 7: SECURITY
+  ══════════════════════════════════════════════════════ */
   {
     id: 'L06-S1', chapter: 'security',
-    title: 'Security in Laravel', subtitle: 'Built-in Web Application Protection',
+    section: 'Web Security',
+    title: 'Security in Laravel', subtitle: 'Built-in Web App Protection ─ Default Safe',
     accent: '#a855f7',
     bg: 'radial-gradient(ellipse at 10% 30%, rgba(168,85,247,0.15) 0%, transparent 55%)',
     concepts: [
-      { label: 'CSRF Protection', desc: '@csrf in every form ─ generates hidden _token ─ Laravel validates on POST/PUT/DELETE ─ blocks forged requests ។' },
-      { label: 'XSS Prevention', desc: '{{ $var }} auto-escapes HTML ─ <script> tags neutralized ─ safe output ─ use {!! !!} ONLY for trusted HTML ។' },
-      { label: 'SQL Injection', desc: 'Eloquent + Query Builder use PDO prepared statements ─ user input NEVER injected into raw SQL ។' },
-      { label: 'Mass Assignment', desc: '$fillable whitelist ─ users can\'t inject unexpected fields like "role" => "admin" via form ！' },
+      { label: 'CSRF Protection', desc: '@csrf ─ every form ─ hidden _token ─ Laravel validate ─ POST/PUT/DELETE ─ block forged requests from other websites ！' },
+      { label: 'XSS Prevention', desc: '{{ $var }} ─ auto-escape HTML ─ <script> → &lt;script&gt; ─ neutralized ─ use {!! !!} ONLY for trusted HTML ─ careful ！' },
+      { label: 'SQL Injection Prevention', desc: 'Eloquent + Query Builder ─ use PDO prepared statements ─ user input NEVER injected into raw SQL ─ safe by default ！' },
+      { label: 'Mass Assignment Protection', desc: '$fillable whitelist ─ users cannot inject "role"=>"admin" via form submission ─ protect Model attributes ！' },
     ],
-    tip: 'Security checklist: @csrf in forms, {{ }} for output, $fillable on models, validation before save ！',
-    lab: 'Remove @csrf from a form ─ try submit ─ see 419 Page Expired error ─ add back ─ works again ！',
-    result: 'CSRF protection confirmed working ─ forged cross-site requests blocked by Laravel automatically ！',
+    variables: [
+      { label: 'CSRF', desc: 'Cross-Site Request Forgery ─ attack ─ trick user browser ─ submit form ─ your website ─ without knowledge ─ @csrf token prevent ។' },
+      { label: 'XSS', desc: 'Cross-Site Scripting ─ hacker inject <script> via input ─ run in victim browser ─ steal cookies/session ─ {{ }} prevent in Blade ។' },
+    ],
+    tip: 'Security checklist: @csrf forms ─ {{ }} output ─ $fillable models ─ validate before save ─ all 4 ！',
+    lab: 'Remove @csrf from form ─ submit ─ see 419 Page Expired ─ add back ─ works ─ CSRF confirmed ！',
+    result: 'CSRF protection working ─ forged requests blocked ─ Laravel security confirmed ─ web app safe ！',
     filename: 'resources/views/posts/create.blade.php',
     code: `<form method="POST" action="{{ route('posts.store') }}"
       enctype="multipart/form-data">
-    
-    @csrf  {{-- Required! Generates hidden _token --}}
-    
-    {{-- XSS safe output with {{ }} --}}
-    <input name="title" value="{{ old('title') }}" 
+
+    {{-- Required! Laravel validates this token --}}
+    @csrf
+
+    {{-- XSS safe: {{ }} auto-escapes HTML --}}
+    <label>Title</label>
+    <input name="title"
+           value="{{ old('title') }}"
            class="@error('title') border-red-500 @enderror">
-    
+
     @error('title')
-        <p class="text-red-500">{{ $message }}</p>
+        {{-- Validation error message --}}
+        <p class="text-red-500 text-sm">{{ $message }}</p>
     @enderror
 
+    <label>Content</label>
     <textarea name="body">{{ old('body') }}</textarea>
 
-    {{-- Method spoofing for PUT/PATCH/DELETE --}}
+    {{-- For EDIT forms: spoof HTTP method --}}
     {{-- @method('PATCH') --}}
 
     <button type="submit">Publish Post</button>
 </form>
 
-{{-- NEVER do this with user input: --}}
-{{-- {!! $userContent !!} ← XSS vulnerability! --}}`,
+{{-- ⚠ DANGER: never use {!! !!} with user input --}}
+{{-- {!! $userInput !!} ← XSS vulnerability! --}}`,
     icon: Shield,
   },
+
   {
     id: 'L06-S2', chapter: 'security',
-    title: 'Authorization', subtitle: 'Gates & Policies for Web Apps',
+    section: 'Authorization',
+    title: 'Authorization: Gates & Policies', subtitle: 'Who Can Do What ─ Permission System',
     accent: '#a855f7',
     bg: 'radial-gradient(ellipse at 80% 70%, rgba(168,85,247,0.12) 0%, transparent 55%)',
     concepts: [
-      { label: 'Authentication vs Authorization', desc: 'Auth: ដឹងថាអ្នកជានរណា (login). Authorization: ដឹងថាអ្នកអាចធ្វើអ្វី (permissions) ។' },
-      { label: 'Policies', desc: 'PostPolicy class ─ methods: view, create, update, delete ─ linked to Post model ។' },
-      { label: '@can in Blade', desc: '@can("update", $post) → show Edit button ─ @cannot("delete", $post) → hide Delete ។' },
-      { label: '$this->authorize()', desc: 'In Controller: $this->authorize("update", $post) ─ throws 403 if unauthorized ។' },
+      { label: 'Authentication vs Authorization', desc: 'Authentication: "តើ​អ្នក​ជា​នរណា?" (login) ─ Authorization: "តើ​អ្នក​អាច​ធ្វើ​អ្វី?" (permissions) ─ different concepts ！' },
+      { label: 'Policy Classes', desc: 'PostPolicy class ─ methods: view, create, update, delete ─ linked to Post model ─ centralized permission logic ។' },
+      { label: '@can in Blade', desc: '@can("update", $post) → show Edit button ─ @cannot("delete", $post) → hide Delete ─ UI based on permissions ！' },
+      { label: '$this->authorize()', desc: 'Controller: $this->authorize("update", $post) ─ throw 403 if unauthorized ─ protect beyond UI ─ double security ！' },
     ],
-    tip: 'Show/hide UI with @can ─ ALSO protect Controller with authorize() ─ never rely on hidden buttons alone ！',
-    lab: 'Create PostPolicy ─ update/delete only if $user->id === $post->user_id ─ apply in view + controller ។',
-    result: 'Edit/Delete buttons only visible to post owner ─ direct URL access also blocked with 403 ！',
+    variables: [
+      { label: 'Policy', desc: 'PHP class ─ define permissions ─ per Model ─ PostPolicy: can user X ─ update post Y? ─ centralized ─ reusable ─ testable ។' },
+      { label: 'Gate', desc: 'Simple closure permission check ─ Gate::define("admin", fn($user) => $user->role === "admin") ─ use for simple checks ។' },
+    ],
+    tip: 'Show/hide UI with @can ─ ALSO protect Controller with authorize() ─ UI alone not enough security ！',
+    lab: 'Create PostPolicy ─ update/delete ─ only owner ($user->id === $post->user_id) ─ apply view + controller ។',
+    result: 'Edit/Delete buttons ─ only visible to post owner ─ direct URL access ─ also blocked 403 ！',
     filename: 'app/Policies/PostPolicy.php',
     code: `<?php
-namespace App\Policies;
+namespace App\\Policies;
 
-use App\Models\Post;
-use App\Models\User;
+use App\\Models\\Post;
+use App\\Models\\User;
 
 class PostPolicy
 {
+    // Can this user edit this post?
     public function update(User $user, Post $post): bool
     {
         return $user->id === $post->user_id;
     }
 
+    // Admin can also delete any post
     public function delete(User $user, Post $post): bool
     {
-        return $user->id === $post->user_id 
-               || $user->isAdmin();
+        return $user->id === $post->user_id
+               || $user->role === 'admin';
     }
 }
 
-{{-- In Blade view: --}}
+{{-- In Blade view: show/hide based on permission --}}
 @can('update', $post)
-    <a href="{{ route('posts.edit', $post) }}">Edit</a>
+    <a href="{{ route('posts.edit', $post) }}">✏ Edit</a>
 @endcan
 
 @can('delete', $post)
     <form method="POST" action="{{ route('posts.destroy', $post) }}">
         @csrf @method('DELETE')
-        <button>Delete</button>
+        <button onclick="return confirm('Delete?')">🗑 Delete</button>
     </form>
 @endcan`,
     icon: Fingerprint,
   },
 
-  /* ── CH 07: REST APIs ── */
+  /* ══════════════════════════════════════════════════════
+     CHAPTER 8: REST APIs
+  ══════════════════════════════════════════════════════ */
   {
     id: 'L07-S1', chapter: 'restapi',
-    title: 'Understanding REST APIs', subtitle: 'JSON APIs for Web & Mobile',
+    section: 'REST Principles',
+    title: 'Understanding REST APIs', subtitle: 'JSON APIs ─ Web ─ Mobile ─ Frontend',
     accent: '#ec4899',
     bg: 'radial-gradient(ellipse at 40% 20%, rgba(236,72,153,0.15) 0%, transparent 55%)',
     concepts: [
-      { label: 'REST Principles', desc: 'Stateless ─ every request self-contained ─ no sessions ─ Resource URLs ─ HTTP methods ។' },
-      { label: 'HTTP Methods', desc: 'GET=read, POST=create, PUT/PATCH=update, DELETE=remove ─ match verb to action ！' },
-      { label: 'JSON Response', desc: '{"data": {...}, "message": "ok"} ─ standard structure ─ status codes 200/201/404/422 ។' },
-      { label: 'API vs Web Routes', desc: 'web.php → HTML pages with sessions; api.php → JSON with token auth ─ different guards ។' },
+      { label: 'REST Principles', desc: 'Stateless ─ every request self-contained ─ no session ─ Resource-based URLs ─ HTTP methods define action ─ consistent ។' },
+      { label: 'HTTP Methods', desc: 'GET=read ─ POST=create ─ PUT/PATCH=update ─ DELETE=remove ─ match verb to action ─ /posts (noun) + GET (verb) ！' },
+      { label: 'JSON Response', desc: '{"data": {...}, "message": "ok"} ─ standard structure ─ status codes 200/201/404/422 ─ consistent API design ។' },
+      { label: 'API vs Web Routes', desc: 'web.php → HTML pages + sessions ─ api.php → JSON + token auth ─ different guards ─ different middleware ─ separate ។' },
     ],
-    tip: 'REST URLs use nouns (resources): /api/posts ✓ ─ /api/getPosts ✗ ─ method defines the action ！',
-    lab: 'Design REST API for a blog: list, get, create, update, delete posts ─ define URLs + methods + responses ។',
-    result: 'Clean REST API design: GET /api/posts, POST /api/posts, PATCH /api/posts/{id}, DELETE /api/posts/{id} ！',
+    variables: [
+      { label: 'REST', desc: 'Representational State Transfer ─ architectural style ─ stateless ─ resource-based URLs ─ HTTP methods ─ industry standard ─ scalable ។' },
+      { label: 'Stateless', desc: 'Server store nothing ─ between requests ─ each request contains all info needed ─ token sent every time ─ scalable ─ simple ។' },
+    ],
+    tip: 'REST URLs ─ nouns (resources): /api/posts ✓ ─ /api/getPosts ✗ ─ HTTP method defines the action ！',
+    lab: 'Design REST API ─ blog: list, get, create, update, delete posts ─ URLs + methods + response codes ។',
+    result: 'Clean REST API: GET /api/posts ─ POST /api/posts ─ PATCH /api/posts/{id} ─ DELETE ─ standard ！',
     filename: 'api-design.md',
     code: `# Blog REST API Design
 # Base URL: https://myblog.com/api/v1
 
-GET    /posts          → 200 { data: [...posts], links: {pagination} }
-GET    /posts/{id}     → 200 { data: {...post} } | 404 { message: "Not found" }
-POST   /posts          → 201 { data: {...newPost} } | 422 { errors: {...} }
-PATCH  /posts/{id}     → 200 { data: {...updatedPost} }
-DELETE /posts/{id}     → 204 No Content
+# ─── Read Operations ──────────────────────────
+GET  /posts        → 200 { data: [...], links: {pagination} }
+GET  /posts/{id}   → 200 { data: {...post} }
+                   → 404 { message: "Post not found" }
 
-# Request headers:
+# ─── Write Operations (auth required) ─────────
+POST   /posts      → 201 { data: {...newPost} }
+                   → 422 { errors: { title: ["required"] } }
+PATCH  /posts/{id} → 200 { data: {...updatedPost} }
+DELETE /posts/{id} → 204 No Content
+
+# ─── Required Headers ─────────────────────────
 Content-Type: application/json
 Accept: application/json
-Authorization: Bearer <token>
+Authorization: Bearer <sanctum_token>
 
-# POST /posts body:
+# ─── POST /posts Body ─────────────────────────
 {
-    "title": "My Post",
-    "body": "Content...",
+    "title": "My New Post",
+    "body": "Content here...",
     "category_id": 1
 }`,
     icon: Globe,
   },
+
   {
     id: 'L07-S2', chapter: 'restapi',
-    title: 'Building APIs in Laravel', subtitle: 'API Routes, Controllers, Resources',
+    section: 'Building APIs',
+    title: 'Building APIs in Laravel', subtitle: 'API Routes ─ Controllers ─ Resources',
     accent: '#ec4899',
     bg: 'radial-gradient(ellipse at 70% 80%, rgba(236,72,153,0.1) 0%, transparent 55%)',
     concepts: [
-      { label: 'routes/api.php', desc: 'Auto-prefixed /api ─ stateless (no session middleware) ─ returns JSON ។' },
-      { label: 'API Resource Classes', desc: 'Transform Eloquent → consistent JSON ─ hide sensitive fields ─ format dates ។' },
-      { label: 'apiResource Route', desc: 'Route::apiResource() ─ like resource() but without create/edit (no form pages needed) ។' },
-      { label: 'Accept: application/json', desc: 'Send this header ─ Laravel returns JSON errors instead of redirect HTML ។' },
+      { label: 'routes/api.php', desc: 'Auto-prefixed /api ─ stateless (no session middleware) ─ returns JSON ─ separate from web routes ─ token auth ។' },
+      { label: 'API Resource Classes', desc: 'Transform Eloquent Model → consistent JSON ─ hide sensitive fields ─ format dates ─ control output structure ！' },
+      { label: 'Route::apiResource()', desc: 'Like resource() ─ without create/edit (no form pages needed for API) ─ 5 routes instead of 7 ─ clean ។' },
+      { label: 'Accept: application/json', desc: 'Send this header ─ Laravel return JSON errors ─ instead of HTML redirect ─ proper API behavior ！' },
     ],
-    tip: 'Always return PostResource not raw $post ─ controls exactly what data leaves your web app ！',
-    lab: 'Create API PostController ─ index() returns PostResource::collection ─ test with curl/Postman ។',
-    result: 'GET /api/posts returns {"data": [...]} JSON ─ consistent, safe, ready for frontend/mobile ！',
+    tip: 'Always return PostResource ─ not raw $post ─ control exactly what data leave your web app ！',
+    lab: 'Create API PostController ─ index() return PostResource::collection ─ test with curl/Postman ។',
+    result: 'GET /api/posts → {"data": [...]} JSON ─ consistent ─ safe ─ ready for frontend/mobile ！',
     filename: 'app/Http/Resources/PostResource.php',
     code: `<?php
-namespace App\Http\Resources;
+namespace App\\Http\\Resources;
 
-use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\\Http\\Resources\\Json\\JsonResource;
 
 class PostResource extends JsonResource
 {
@@ -874,102 +1004,128 @@ class PostResource extends JsonResource
             'body'       => $this->body,
             'slug'       => $this->slug,
             'author'     => [
-                'id'   => $this->user->id,
-                'name' => $this->user->name,
+                'id'     => $this->user->id,
+                'name'   => $this->user->name,
+                'avatar' => $this->user->avatar_url,
             ],
+            'tags'       => TagResource::collection(
+                                $this->whenLoaded('tags')
+                            ),
             'created_at' => $this->created_at->toISOString(),
-            // Never expose: password, remember_token, etc.
-            'comments_count' => $this->whenCounted('comments'),
+            'updated_at' => $this->updated_at->toISOString(),
+            // ⚠ Never expose: password, remember_token!
         ];
     }
 }
 
-// In Controller:
+// ─── In routes/api.php ───────────────────────
+Route::apiResource('posts', PostController::class);
+
+// ─── In API Controller ───────────────────────
 public function index() {
-    return PostResource::collection(Post::paginate(15));
+    return PostResource::collection(
+        Post::with('author','tags')->paginate(15)
+    );
 }`,
     icon: Package,
   },
 
-  /* ── CH 08: DATABASE OVERVIEW ── */
+  /* ══════════════════════════════════════════════════════
+     CHAPTER 9: DATABASE OVERVIEW
+  ══════════════════════════════════════════════════════ */
   {
     id: 'L08-S1', chapter: 'database',
-    title: 'Database Overview', subtitle: 'Laravel Database Fundamentals',
+    section: 'Database Overview',
+    title: 'Database Overview', subtitle: 'Laravel Database ─ 3 Layers ─ ជ្រើស​ Right Tool',
     accent: '#3b82f6',
     bg: 'radial-gradient(ellipse at 20% 40%, rgba(59,130,246,0.15) 0%, transparent 55%)',
     concepts: [
-      { label: 'Supported Databases', desc: 'MySQL (production), PostgreSQL (advanced), SQLite (development/testing), SQL Server ។' },
-      { label: 'Three Layers', desc: 'Raw SQL (fastest) → Query Builder (safe, chainable) → Eloquent ORM (objects, easiest) ។' },
-      { label: 'Database Tooling', desc: 'Migrations (schema versioning), Seeders (test data), Factories (fake data generation) ។' },
-      { label: 'db:show', desc: 'php artisan db:show ─ inspect database tables, columns, indexes ─ great debugging tool ។' },
+      { label: 'Supported Databases', desc: 'MySQL (production standard) ─ PostgreSQL (advanced features) ─ SQLite (development/testing simple) ─ SQL Server ។' },
+      { label: 'Raw SQL', desc: 'DB::select("SQL") ─ fastest ─ maximum performance ─ complex JOINs ─ reports ─ use when Eloquent too slow ។' },
+      { label: 'Query Builder', desc: 'DB::table("posts")->where(...)->get() ─ safe ─ chainable ─ no ORM overhead ─ middle ground ─ fluent ។' },
+      { label: 'Eloquent ORM', desc: 'Post::published()->with("author")->paginate(10) ─ objects ─ relationships ─ cleanest ─ recommended for web apps ！' },
     ],
-    tip: 'MySQL for most web apps ─ SQLite for unit tests ─ configure in config/database.php and .env ！',
-    lab: 'Run "php artisan db:show" ─ see all tables ─ then "php artisan db:table users" ─ see columns ។',
-    result: 'Understand database layers available ─ know when to use Eloquent vs Query Builder vs Raw SQL ។',
-    filename: 'config/database.php',
-    code: `// Three ways to query data in Laravel web apps:
+    variables: [
+      { label: 'ORM', desc: 'Object-Relational Mapper ─ map database table ─ PHP class ─ row ─ object ─ interact with DB ─ using PHP syntax ─ no raw SQL ។' },
+      { label: 'Query Builder', desc: 'Fluent interface ─ build SQL queries ─ using PHP method chains ─ DB::table()->where()->get() ─ safe ─ readable ─ flexible ។' },
+    ],
+    tip: 'MySQL ─ most web apps ─ SQLite ─ unit tests ─ configure in config/database.php + .env ！',
+    lab: 'Run "php artisan db:show" ─ see tables ─ "php artisan db:table users" ─ see columns ─ explore ។',
+    result: 'Understand database layers ─ know when Eloquent vs Query Builder vs Raw SQL ─ right tool ！',
+    filename: 'app/Http/Controllers/DashboardController.php',
+    code: `use Illuminate\\Support\\Facades\\DB;
+use App\\Models\\Post;
 
-// 1. RAW SQL (use for complex reports, max performance)
-$results = DB::select(
-    'SELECT u.name, COUNT(p.id) as post_count
-     FROM users u LEFT JOIN posts p ON p.user_id = u.id
-     GROUP BY u.id ORDER BY post_count DESC LIMIT 10',
-);
+// ── 1. RAW SQL ─ Complex reports, max performance ──
+$topAuthors = DB::select('
+    SELECT u.name, COUNT(p.id) AS post_count
+    FROM users u
+    LEFT JOIN posts p ON p.user_id = u.id
+    GROUP BY u.id
+    ORDER BY post_count DESC
+    LIMIT 5
+');
 
-// 2. QUERY BUILDER (safe, no ORM overhead)
-$posts = DB::table('posts')
+// ── 2. QUERY BUILDER ─ Safe, chainable, no ORM ───
+$recentPosts = DB::table('posts')
     ->where('published', true)
+    ->whereDate('created_at', '>=', now()->subDays(7))
     ->orderByDesc('created_at')
     ->limit(10)
     ->get();
 
-// 3. ELOQUENT ORM (recommended for web apps)
+// ── 3. ELOQUENT ORM ─ Recommended for web apps ───
 $posts = Post::published()
-             ->with('author', 'tags')
+             ->with('author', 'tags', 'category')
              ->latest()
              ->paginate(10);`,
     icon: Database,
   },
+
   {
     id: 'L08-S2', chapter: 'database',
-    title: 'Seeders & Factories', subtitle: 'Populating Your Web App with Test Data',
+    section: 'Seeders & Factories',
+    title: 'Seeders & Factories', subtitle: 'Test Data ─ Development Database',
     accent: '#3b82f6',
     bg: 'radial-gradient(ellipse at 85% 60%, rgba(59,130,246,0.12) 0%, transparent 55%)',
     concepts: [
-      { label: 'Factories', desc: 'Define fake data structure ─ PostFactory creates realistic posts with Faker library ។' },
-      { label: 'Seeders', desc: 'DatabaseSeeder orchestrates all factories ─ run "php artisan db:seed" to populate ។' },
-      { label: 'Relationships in Factories', desc: 'User::factory()->hasPosts(10)->create() ─ creates user with 10 related posts ！' },
-      { label: 'Development Workflow', desc: 'migrate:fresh --seed ─ wipes DB + runs all migrations + seeds ─ clean slate ！' },
+      { label: 'Factories', desc: 'Define fake data structure ─ PostFactory ─ generate realistic posts ─ Faker library ─ name, email, text ─ randomized ។' },
+      { label: 'Seeders', desc: 'DatabaseSeeder.php ─ orchestrate factories ─ "php artisan db:seed" ─ populate database ─ test data ─ development ។' },
+      { label: 'Relationships in Factories', desc: 'User::factory()->hasPosts(10)->create() ─ user + 10 posts ─ one command ─ proper FK relationships ！' },
+      { label: 'migrate:fresh --seed', desc: 'Drop all + re-migrate + seed ─ clean slate ─ development reset ─ "php artisan migrate:fresh --seed" ！' },
     ],
-    tip: 'Always seed with realistic data ─ test pagination with 100+ records ─ UI looks different with real content ！',
-    lab: 'Create UserFactory + PostFactory ─ seed 10 users each with 5 posts ─ verify in browser/tinker ។',
-    result: '50 realistic posts in database ─ pagination works ─ web app looks like real production app ！',
+    tip: 'Seed realistic data ─ test pagination with 100+ records ─ UI looks different with real content ！',
+    lab: 'Create UserFactory + PostFactory ─ seed 10 users each 5 posts ─ verify in browser ─ verify tinker ។',
+    result: '50 realistic posts in database ─ pagination works ─ web app looks like real production ！',
     filename: 'database/seeders/DatabaseSeeder.php',
     code: `<?php
-namespace Database\Seeders;
+namespace Database\\Seeders;
 
-use App\Models\User;
-use App\Models\Post;
-use App\Models\Tag;
+use App\\Models\\User;
+use App\\Models\\Post;
+use App\\Models\\Tag;
 
 class DatabaseSeeder extends Seeder
 {
     public function run(): void
     {
-        // Create admin user for testing
+        // Create fixed admin user for testing
         User::factory()->create([
             'name'  => 'Admin User',
-            'email' => 'admin@example.com',
+            'email' => 'admin@myblog.com',
             'role'  => 'admin',
         ]);
 
         // Create 10 regular users, each with 5 posts
         User::factory(10)
-            ->hasPosts(5)
+            ->hasPosts(5)  // Relationship factory
             ->create();
 
-        // Create tags for the blog
+        // Create 15 tags for categorization
         Tag::factory(15)->create();
+
+        // Create some featured posts
+        Post::factory(5)->create(['is_featured' => true]);
     }
 }`,
     terminal: 'php artisan migrate:fresh --seed',
@@ -977,43 +1133,54 @@ class DatabaseSeeder extends Seeder
     icon: Database,
   },
 
-  /* ── CH 09: MIGRATIONS ── */
+  /* ══════════════════════════════════════════════════════
+     CHAPTER 10: MIGRATIONS
+  ══════════════════════════════════════════════════════ */
   {
     id: 'L09-S1', chapter: 'migrations',
-    title: 'Laravel Migrations', subtitle: 'Version Control for Your Database Schema',
+    section: 'Creating Migrations',
+    title: 'Laravel Migrations', subtitle: 'Version Control ─ Database Schema',
     accent: '#10b981',
     bg: 'radial-gradient(ellipse at 30% 30%, rgba(16,185,129,0.15) 0%, transparent 55%)',
     concepts: [
-      { label: 'What are Migrations?', desc: 'PHP files describing DB changes ─ team shares schema via git ─ no more manual SQL files ！' },
-      { label: 'Schema Builder', desc: '$table->string(), ->text(), ->boolean(), ->foreignId() ─ fluent, readable syntax ។' },
-      { label: 'up() & down()', desc: 'up() applies change; down() reverses it ─ enables rollback without data loss ─ safe ！' },
-      { label: 'Foreign Keys', desc: '$table->foreignId("user_id")->constrained()->cascadeOnDelete() ─ DB-level integrity ！' },
+      { label: 'What are Migrations?', desc: 'PHP files ─ describe database changes ─ team share schema via git ─ no more manual SQL files ─ version history ！' },
+      { label: 'Schema Builder API', desc: '$table->string() ─ ->text() ─ ->boolean() ─ ->foreignId() ─ fluent ─ readable ─ auto generate correct SQL ─ clean ។' },
+      { label: 'up() and down()', desc: 'up() ─ apply change (create table) ─ down() ─ reverse it (drop table) ─ enable rollback ─ safe development ！' },
+      { label: 'Foreign Keys', desc: '$table->foreignId("user_id")->constrained()->cascadeOnDelete() ─ DB-level integrity ─ auto delete child records ！' },
     ],
-    tip: 'NEVER edit old migrations ─ create new ones ─ old migrations are history ─ treat like git commits ！',
-    lab: 'Create migration for "posts" table ─ id, title, body, slug (unique), user_id (FK), timestamps ។',
-    result: 'Posts table created with proper columns and foreign key to users ─ schema version controlled ！',
+    variables: [
+      { label: 'Migration', desc: 'PHP class ─ describe ONE database change ─ "create posts table" ─ "add views column" ─ tracked ─ versioned ─ reversible ។' },
+      { label: 'Schema Builder', desc: 'Fluent PHP API ─ define table structure ─ $table->string("title") ─ compile to correct SQL ─ any database ─ readable ！' },
+    ],
+    tip: 'NEVER edit old migrations ─ create new ones ─ old = history ─ treat like git commits ─ team safe ！',
+    lab: 'Create migration "posts" table ─ id, title, body, slug (unique), user_id (FK), timestamps ─ migrate ។',
+    result: 'Posts table created ─ proper columns + foreign key ─ schema version controlled ─ team can reproduce ！',
     filename: 'database/migrations/create_posts_table.php',
     code: `<?php
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Schema;
+use Illuminate\\Database\\Migrations\\Migration;
+use Illuminate\\Database\\Schema\\Blueprint;
+use Illuminate\\Support\\Facades\\Schema;
 
 return new class extends Migration
 {
     public function up(): void
     {
         Schema::create('posts', function (Blueprint $table) {
-            $table->id();                // BIGINT unsigned auto-increment
-            $table->string('title');     // VARCHAR(255)
-            $table->string('slug')->unique();  // SEO-friendly URL
-            $table->longText('body');    // Full article content
-            $table->string('image')->nullable(); // Cover image
+            $table->id();              // BIGINT unsigned auto-increment PK
+            $table->string('title');   // VARCHAR(255) ─ required
+            $table->string('slug')->unique(); // SEO URL ─ must be unique
+            $table->longText('body'); // Full article content
+            $table->string('cover_image')->nullable(); // Optional cover
             $table->boolean('published')->default(false);
             $table->timestamp('published_at')->nullable();
+            $table->unsignedBigInteger('views')->default(0);
+
+            // Foreign key → users table
             $table->foreignId('user_id')
                   ->constrained()
-                  ->cascadeOnDelete(); // Delete posts when user deleted
-            $table->timestamps();      // created_at, updated_at
+                  ->cascadeOnDelete(); // delete posts when user deleted
+
+            $table->timestamps(); // created_at, updated_at
         });
     }
 
@@ -1023,45 +1190,49 @@ return new class extends Migration
     }
 };`,
     terminal: 'php artisan migrate',
-    terminalOutput: '   INFO  Running migrations.\n   2024_01_01_000002_create_posts_table .......... DONE',
+    terminalOutput: '   INFO  Running migrations.\n   2024_01_01_000002_create_posts_table .......... 12ms DONE',
     icon: Database,
   },
+
   {
     id: 'L09-S2', chapter: 'migrations',
-    title: 'Modifying Existing Tables', subtitle: 'Alter, Add, Rollback',
+    section: 'Modifying Tables',
+    title: 'Modifying Existing Tables', subtitle: 'Add Column ─ Rollback ─ Migration Status',
     accent: '#10b981',
     bg: 'radial-gradient(ellipse at 75% 70%, rgba(16,185,129,0.1) 0%, transparent 55%)',
     concepts: [
-      { label: 'Add Column Migration', desc: '"add_column_to_table" naming ─ Schema::table() (not create) ─ $table->string("col")->after("x") ។' },
-      { label: 'migrate:rollback', desc: 'Undo last migration batch ─ calls down() ─ safe in dev ─ NEVER in production ！' },
-      { label: 'migrate:fresh', desc: 'Drop ALL + re-migrate + seed ─ development reset ─ DESTROYS all data ！' },
-      { label: 'migrate:status', desc: 'See which migrations ran ─ which pending ─ useful for debugging schema issues ។' },
+      { label: 'Add Column Migration', desc: '"add_X_to_Y_table" naming ─ Schema::table() (not create) ─ $table->string("col")->after("x") ─ existing data safe ！' },
+      { label: 'migrate:rollback', desc: 'Undo last migration batch ─ calls down() ─ safe in development ─ NEVER use in production ─ loses data ！' },
+      { label: 'migrate:fresh', desc: 'Drop ALL tables + re-migrate + seed ─ development clean reset ─ DESTROYS all data ─ development ONLY ！' },
+      { label: 'migrate:status', desc: '"php artisan migrate:status" ─ see which migrations ran ─ which pending ─ debug schema issues ─ useful ！' },
     ],
-    tip: 'Production: use migrate (safe). Development: migrate:fresh --seed (full reset) ─ never mix them ！',
-    lab: 'Create migration "add_views_to_posts_table" ─ add unsignedBigInteger views default 0 ─ run migrate ។',
-    result: 'Posts table now has "views" column ─ existing posts have views=0 ─ no data lost ！',
-    filename: 'database/migrations/add_views_to_posts_table.php',
+    tip: 'Production: php artisan migrate (safe) ─ Development: migrate:fresh --seed (full reset) ─ NEVER mix ！',
+    lab: 'Create migration "add_meta_to_posts_table" ─ add meta_description column ─ run migrate ─ verify ។',
+    result: 'Posts table has new column ─ existing data preserved ─ schema updated safely ─ no data loss ！',
+    filename: 'database/migrations/add_meta_to_posts_table.php',
     code: `<?php
-// php artisan make:migration add_views_to_posts_table
+// php artisan make:migration add_meta_to_posts_table
 
 return new class extends Migration
 {
     public function up(): void
     {
         Schema::table('posts', function (Blueprint $table) {
-            $table->unsignedBigInteger('views')
-                  ->default(0)
-                  ->after('published');
+            // Add new column after existing one
             $table->string('meta_description', 160)
                   ->nullable()
                   ->after('body');
+
+            $table->string('meta_keywords')
+                  ->nullable()
+                  ->after('meta_description');
         });
     }
 
     public function down(): void
     {
         Schema::table('posts', function (Blueprint $table) {
-            $table->dropColumn(['views', 'meta_description']);
+            $table->dropColumn(['meta_description', 'meta_keywords']);
         });
     }
 };`,
@@ -1070,89 +1241,107 @@ return new class extends Migration
   ✓      2024_01_01_000000_create_users_table
   ✓      2024_01_01_000001_create_sessions_table
   ✓      2024_01_02_000001_create_posts_table
-  Pending  2024_01_03_000001_add_views_to_posts_table`,
+  Pending  2024_01_03_000001_add_meta_to_posts_table`,
     icon: GitBranch,
   },
 
-  /* ── CH 10: RAW SQL ── */
+  /* ══════════════════════════════════════════════════════
+     CHAPTER 11: RAW SQL
+  ══════════════════════════════════════════════════════ */
   {
     id: 'L10-S1', chapter: 'rawsql',
-    title: 'Raw SQL Queries', subtitle: 'Direct Database Communication',
+    section: 'Raw SQL Queries',
+    title: 'Raw SQL Queries', subtitle: 'Direct Database ─ Reports ─ Complex Queries',
     accent: '#fb923c',
     bg: 'radial-gradient(ellipse at 20% 60%, rgba(251,146,60,0.15) 0%, transparent 55%)',
     concepts: [
-      { label: 'DB::select()', desc: 'Execute raw SELECT ─ returns array of stdClass objects ─ always use ? bindings ！' },
-      { label: 'DB::insert() / update()', desc: 'Execute INSERT/UPDATE statements ─ returns bool ─ use for bulk operations ។' },
-      { label: 'DB::statement()', desc: 'DDL statements, stored procedures ─ CREATE INDEX, ALTER TABLE ─ any arbitrary SQL ។' },
-      { label: 'When to use', desc: 'Complex JOINs, GROUP BY reports, window functions ─ when Eloquent is too slow ។' },
+      { label: 'DB::select()', desc: 'Execute raw SELECT ─ return array of stdClass objects ─ always use ? bindings ─ NEVER concatenate user input ！' },
+      { label: 'DB::insert() / update()', desc: 'Execute INSERT/UPDATE ─ return boolean ─ use for bulk operations ─ custom SQL ─ Eloquent too slow ─ reports ។' },
+      { label: 'DB::statement()', desc: 'DDL statements ─ stored procedures ─ CREATE INDEX ─ ALTER TABLE ─ arbitrary SQL ─ flexible ─ powerful ។' },
+      { label: 'When to Use Raw SQL', desc: 'Complex JOINs ─ GROUP BY reports ─ window functions ─ analytics dashboard ─ when Eloquent generates slow queries ។' },
     ],
-    tip: 'ALWAYS use ? or :named bindings ─ NEVER concatenate user input ─ prevents SQL injection attacks ！',
-    lab: 'Write raw SQL query: COUNT posts per user ─ JOIN users + posts ─ ORDER BY count DESC ─ LIMIT 5 ។',
-    result: 'Dashboard shows "Top 5 Authors" using raw SQL ─ faster than Eloquent for aggregate reports ！',
+    variables: [
+      { label: 'Prepared Statement', desc: 'SQL query ─ placeholders (?) ─ database compile ─ then bind values ─ injection-safe ─ DB::select("SQL", [values]) ─ use always ！' },
+      { label: 'SQL Injection', desc: 'Attack ─ hacker inject SQL ─ via user input ─ "OR 1=1" ─ dump database ─ prevent: prepared statements ─ bindings ─ ALWAYS ！' },
+    ],
+    tip: 'ALWAYS use ? or :named bindings ─ NEVER concatenate user input ─ SQL injection kills web apps ！',
+    lab: 'Write raw SQL ─ COUNT posts per user ─ JOIN users + posts ─ ORDER BY count DESC ─ LIMIT 5 ។',
+    result: 'Dashboard "Top 5 Authors" ─ raw SQL ─ faster than Eloquent ─ complex aggregate report ！',
     filename: 'app/Http/Controllers/ReportController.php',
-    code: `use Illuminate\Support\Facades\DB;
+    code: `use Illuminate\\Support\\Facades\\DB;
 
-// Analytics: top authors by post count
+// ─── Analytics Dashboard ─ Top Authors ────────
 $topAuthors = DB::select('
-    SELECT 
-        u.id, 
+    SELECT
+        u.id,
         u.name,
-        u.avatar,
+        u.email,
         COUNT(p.id)        AS post_count,
         SUM(p.views)       AS total_views,
-        MAX(p.created_at)  AS last_posted
+        MAX(p.published_at) AS last_published
     FROM users u
-    LEFT JOIN posts p ON p.user_id = u.id 
+    LEFT JOIN posts p ON p.user_id = u.id
                       AND p.published = 1
     WHERE u.created_at >= :since
-    GROUP BY u.id, u.name, u.avatar
-    ORDER BY post_count DESC
+    GROUP BY u.id, u.name, u.email
+    HAVING post_count > 0
+    ORDER BY total_views DESC
     LIMIT 10
-', ['since' => now()->subYear()]);
+', ['since' => now()->subYear()->toDateString()]);
 
-// SAFE ✓ - uses prepared statement binding
-// UNSAFE ✗ - DB::select("... WHERE name = '$name'");`,
+// ─── SAFE: bindings protect against SQL injection ─
+// ─── UNSAFE: never do this! ────────────────────
+// $name = $_GET['search']; // ← user input
+// DB::select("... WHERE name = '$name'"); // ← INJECTION!`,
     icon: Database,
   },
 
-  /* ── CH 11: ELOQUENT ORM ── */
+  /* ══════════════════════════════════════════════════════
+     CHAPTER 12: ELOQUENT ORM
+  ══════════════════════════════════════════════════════ */
   {
     id: 'L11-S1', chapter: 'eloquent',
-    title: 'Eloquent ORM', subtitle: 'Object-Relational Mapping for Web Apps',
+    section: 'Eloquent ORM',
+    title: 'Eloquent ORM', subtitle: 'Object-Relational Mapping ─ Database as Objects',
     accent: '#8b5cf6',
     bg: 'radial-gradient(ellipse at 35% 25%, rgba(139,92,246,0.15) 0%, transparent 55%)',
     concepts: [
-      { label: 'Active Record Pattern', desc: 'Post class = posts table ─ $post object = one row ─ methods interact with database ។' },
-      { label: 'CRUD Methods', desc: 'Post::create(), find(), where()->get(), save(), update(), delete() ─ no SQL needed ！' },
-      { label: '$fillable', desc: 'Whitelist mass-assignable columns ─ prevents users injecting "role"="admin" via forms ！' },
-      { label: 'Scopes', desc: 'Post::published()->featured()->latest()->get() ─ reusable chainable query conditions ។' },
+      { label: 'Active Record Pattern', desc: 'Post class = posts table ─ $post object = one row ─ methods: save(), delete(), update() ─ interact database ─ elegant ！' },
+      { label: 'CRUD Methods', desc: 'Post::create() ─ find($id) ─ where()->get() ─ update() ─ delete() ─ no raw SQL ─ PHP objects ─ clean ─ safe ─ readable ！' },
+      { label: '$fillable', desc: 'Whitelist mass-assignable columns ─ protect against "role"="admin" injection via form ─ security ─ required ！' },
+      { label: 'Local Scopes', desc: 'Post::published()->featured()->latest()->get() ─ reusable chainable query conditions ─ DRY ─ readable ─ testable ！' },
     ],
-    tip: 'Add $casts to auto-convert: "published_at" => "datetime", "settings" => "array", "price" => "decimal:2" ！',
-    lab: 'Create Post model with $fillable, published() scope ─ test in Tinker: Post::published()->count() ។',
-    result: 'Post::published()->with("author")->latest()->paginate(10) ─ clean, readable, efficient web query ！',
+    variables: [
+      { label: 'Active Record', desc: 'Design pattern ─ Model class represents table ─ instance represents row ─ methods on object → DB operations ─ intuitive ─ OOP ។' },
+      { label: '$casts', desc: 'Automatic type conversion ─ "published_at" => "datetime" ─ PHP DateTime object ─ "settings" => "array" ─ JSON ─ transparent ！' },
+    ],
+    tip: 'Add $casts: "published_at" => "datetime" ─ "settings" => "array" ─ auto-convert ─ no manual parsing ！',
+    lab: 'Create Post model ─ $fillable ─ published() scope ─ test in Tinker: Post::published()->count() ─ verify ។',
+    result: 'Post::published()->with("author")->paginate(10) ─ clean ─ readable ─ efficient web query ！',
     filename: 'app/Models/Post.php',
     code: `<?php
-namespace App\Models;
+namespace App\\Models;
 
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\\Database\\Eloquent\\Model;
+use Illuminate\\Database\\Eloquent\\Builder;
+use Illuminate\\Database\\Eloquent\\SoftDeletes;
 
 class Post extends Model
 {
-    use SoftDeletes; // Soft delete support
+    use SoftDeletes; // Soft delete: sets deleted_at, not real delete
 
     protected $fillable = [
-        'title', 'slug', 'body', 'image',
+        'title', 'slug', 'body', 'cover_image',
         'published', 'published_at', 'user_id',
     ];
 
     protected $casts = [
-        'published'    => 'boolean',
-        'published_at' => 'datetime',
+        'published'    => 'boolean',    // "1" → true
+        'published_at' => 'datetime',   // string → DateTime
+        'views'        => 'integer',
     ];
 
-    // Reusable query scope
+    // ─── Local Scope: reusable query ─────────
     public function scopePublished(Builder $query): Builder
     {
         return $query->where('published', true)
@@ -1167,119 +1356,145 @@ class Post extends Model
     icon: Layers,
   },
 
-  /* ── CH 12: TINKER ── */
+  /* ══════════════════════════════════════════════════════
+     CHAPTER 13: TINKER
+  ══════════════════════════════════════════════════════ */
   {
     id: 'L12-S1', chapter: 'tinker',
-    title: 'Laravel Tinker', subtitle: 'Interactive Shell for Web App Development',
+    section: 'Laravel Tinker',
+    title: 'Laravel Tinker', subtitle: 'Interactive Shell ─ Test ─ Debug ─ Prototype',
     accent: '#f59e0b',
     bg: 'radial-gradient(ellipse at 50% 30%, rgba(245,158,11,0.15) 0%, transparent 55%)',
     concepts: [
-      { label: 'What is Tinker?', desc: 'REPL shell with full Laravel context ─ test Models, helpers, services ─ no browser needed ！' },
-      { label: 'Test Queries Live', desc: 'Post::published()->count(), User::find(1)->posts ─ see results immediately ！' },
-      { label: 'Create Test Data', desc: 'Post::factory()->create() ─ generate fake posts directly from terminal ！' },
-      { label: 'Debug Web Issues', desc: 'Test relationships, check values, verify logic ─ faster than writing temporary routes ！' },
+      { label: 'What is Tinker?', desc: 'REPL shell ─ full Laravel context ─ test Models ─ helpers ─ services ─ ប្រើ​ without browser ─ instant feedback ！' },
+      { label: 'Test Queries Live', desc: 'Post::published()->count() ─ User::find(1)->posts ─ see results immediately ─ prototype Eloquent ─ before write Controller ！' },
+      { label: 'Create Test Data', desc: 'Post::factory()->create() ─ User::factory(5)->create() ─ generate test data ─ directly from terminal ─ fast ！' },
+      { label: 'Debug Web Issues', desc: 'Test relationships ─ check values ─ verify logic ─ inspect data ─ faster than writing temporary routes ─ developer tool ！' },
     ],
-    tip: 'Tinker ជា developer\'s best friend ─ use it before writing code ─ prototype Eloquent queries first ！',
-    lab: 'Open Tinker ─ create 1 user ─ create 3 posts for that user ─ query posts via user relationship ។',
-    result: '$user->posts returns Collection of 3 posts ─ relationship confirmed working before writing views ！',
+    variables: [
+      { label: 'REPL', desc: 'Read-Eval-Print Loop ─ interactive programming ─ type command ─ execute ─ see result ─ type again ─ fast feedback loop ─ Tinker ！' },
+      { label: 'PsySH', desc: 'PHP REPL ─ powers Laravel Tinker ─ features: autocomplete ─ history ─ show docs ─ professional shell ─ "php artisan tinker" ！' },
+    ],
+    tip: 'Tinker ជា developer best friend ─ prototype Eloquent queries first ─ then write Controller code ！',
+    lab: 'Open Tinker ─ create 1 user ─ create 3 posts ─ query posts via user relationship ─ verify ។',
+    result: '$user->posts ─ return Collection of 3 posts ─ relationship confirmed ─ before writing views ！',
     filename: 'terminal',
-    code: `# Open Tinker
+    code: `# Open Laravel Tinker shell
 php artisan tinker
 
-# Create a test user
-$user = User::factory()->create(['email' => 'test@blog.com']);
+# ─── Create test data ─────────────────────────
+$user = User::factory()->create([
+    'name'  => 'Ratha Keo',
+    'email' => 'ratha@myblog.com',
+]);
 
-# Create posts for that user
+# ─── Create posts via relationship ────────────
 $user->posts()->create([
-    'title' => 'Hello Laravel',
-    'slug'  => 'hello-laravel',
-    'body'  => 'My first post content',
-    'published' => true,
+    'title'        => 'Hello Laravel World',
+    'slug'         => 'hello-laravel',
+    'body'         => 'My very first blog post content',
+    'published'    => true,
     'published_at' => now(),
 ]);
 
-# Test Eloquent queries
-Post::published()->count();          // → 1
-Post::with('author')->latest()->get();
-$user->posts->pluck('title');        // → ["Hello Laravel"]
+# ─── Test Eloquent queries ────────────────────
+Post::published()->count();           // → 1
+Post::with('author')->latest()->get(); // → Collection
+$user->posts->pluck('title');         // → ["Hello Laravel World"]
 
-# Test helpers
-Str::slug('Hello World!');           // → "hello-world"
-now()->addDays(7)->format('d/m/Y'); // → "27/01/2024"`,
+# ─── Test Helpers ─────────────────────────────
+Str::slug('Hello World!');  // → "hello-world"
+now()->format('d/m/Y');     // → "20/03/2025"`,
     terminal: 'php artisan tinker',
-    terminalOutput: 'Psy Shell v0.12.3 (PHP 8.3)\n> Post::published()->count()\n= 12\n> User::find(1)->posts->count()\n= 5',
+    terminalOutput: 'Psy Shell v0.12.3 (PHP 8.3) by Justin Hileman\n> Post::published()->count()\n= 12\n> User::find(1)->posts->count()\n= 5\n> Str::slug("Hello World!")\n= "hello-world"',
     icon: Terminal,
   },
 
-  /* ── CH 13: RELATIONSHIPS OVERVIEW ── */
+  /* ══════════════════════════════════════════════════════
+     CHAPTER 14: RELATIONSHIPS OVERVIEW
+  ══════════════════════════════════════════════════════ */
   {
     id: 'L13-S1', chapter: 'relationships',
-    title: 'Eloquent Relationships', subtitle: 'Connecting Models in Your Web App',
+    section: 'Relationships Overview',
+    title: 'Eloquent Relationships', subtitle: 'ការ​ connect Models ─ ទំនាក់​ទំនង Data',
     accent: '#ef4444',
     bg: 'radial-gradient(ellipse at 25% 45%, rgba(239,68,68,0.15) 0%, transparent 55%)',
     concepts: [
-      { label: 'One-to-One (1:1)', desc: 'User ↔ Profile ─ each user has exactly one profile ─ hasOne / belongsTo ។' },
-      { label: 'One-to-Many (1:N)', desc: 'User → Posts ─ one user has many posts ─ most common in web apps ─ hasMany / belongsTo ។' },
-      { label: 'Many-to-Many (N:N)', desc: 'Post ↔ Tags ─ post has many tags, tag has many posts ─ needs pivot table ─ belongsToMany ។' },
-      { label: 'Eager Loading', desc: 'Post::with("author", "tags") ─ solves N+1 ─ 2 queries instead of 101 queries ！' },
+      { label: 'One-to-One (1:1)', desc: 'User ↔ Profile ─ user ម្នាក់ ─ profile តែ​ ─ hasOne / belongsTo ─ exclusive pairing ─ profiles.user_id FK ។' },
+      { label: 'One-to-Many (1:N)', desc: 'User → Posts ─ user ម្នាក់ ─ posts ច្រើន ─ hasMany / belongsTo ─ most common web app relationship ！' },
+      { label: 'Many-to-Many (N:N)', desc: 'Post ↔ Tags ─ post ─ tags ច្រើន ─ tag ─ posts ច្រើន ─ needs pivot table ─ belongsToMany ─ post_tag table ។' },
+      { label: 'Eager Loading', desc: 'Post::with("author", "tags") ─ solve N+1 problem ─ 2 queries instead of 101 ─ must use in production ！' },
     ],
-    tip: 'N+1 Problem: looping $post->author in foreach without with() = 1 + N database queries ─ SLOW ！',
-    lab: 'Test N+1 vs Eager Loading ─ use DB::enableQueryLog() ─ compare query counts with/without with() ។',
-    result: 'Posts page goes from 51 queries to 2 queries ─ web app 10x faster with eager loading ！',
+    variables: [
+      { label: 'N+1 Problem', desc: '1 query fetch 50 posts ─ loop: 50 queries fetch each author ─ total: 51 queries ─ SLOW ─ Eager Loading fix: with() ─ 2 queries ！' },
+      { label: 'Eager Loading', desc: 'Load relationships upfront ─ Post::with("author") ─ 2 queries total ─ no matter how many posts ─ performance critical ！' },
+    ],
+    tip: 'N+1 Problem ─ loop $post->author without with() ─ 1 + N queries ─ ALWAYS use with() in Controller ！',
+    lab: 'Test N+1 vs Eager Loading ─ DB::enableQueryLog() ─ compare query count with/without with() ─ verify ។',
+    result: 'Posts page ─ 51 queries → 2 queries ─ web app performance ─ better with eager loading ！',
     filename: 'app/Http/Controllers/PostController.php',
-    code: `// N+1 Problem - BAD for web performance
-$posts = Post::all(); // 1 query
+    code: `// ─── N+1 Problem: BAD ─────────────────────────
+$posts = Post::all();          // Query 1: fetch all posts
 foreach ($posts as $post) {
-    echo $post->author->name; // +1 query per post!
-    // 50 posts = 51 total queries!
+    echo $post->author->name;  // Query 2,3,4... per post!
+    // 50 posts = 51 total queries! Very SLOW!
 }
 
-// Eager Loading - GOOD
+// ─── Eager Loading: GOOD ───────────────────────
 $posts = Post::with(['author', 'tags'])->get(); // 2 queries total
 
-// Check query count in development:
+// ─── Check query count (development debug) ─────
 DB::enableQueryLog();
-$posts = Post::with('author')->get();
-$queries = DB::getQueryLog();
-echo count($queries); // Should be 2, not 51!
+$posts = Post::with('author')->paginate(10);
+$count = count(DB::getQueryLog()); // Should be 2, not 11!
 
-// In Controller for web page:
-public function index() {
+// ─── In Controller: always eager load ──────────
+public function index()
+{
     $posts = Post::published()
                  ->with(['author', 'tags', 'category'])
                  ->latest()
                  ->paginate(12);
+
     return view('posts.index', compact('posts'));
 }`,
     icon: Workflow,
   },
 
-  /* ── CH 14: ONE-TO-ONE ── */
+  /* ══════════════════════════════════════════════════════
+     CHAPTER 15: ONE-TO-ONE
+  ══════════════════════════════════════════════════════ */
   {
     id: 'L14-S1', chapter: 'onetone',
-    title: 'One-to-One Relationship', subtitle: 'hasOne & belongsTo',
+    section: 'One-to-One',
+    title: 'One-to-One Relationship', subtitle: 'hasOne & belongsTo ─ Exclusive Pairing',
     accent: '#14b8a6',
     bg: 'radial-gradient(ellipse at 30% 20%, rgba(20,184,166,0.15) 0%, transparent 55%)',
     concepts: [
-      { label: 'Use Case', desc: 'User ↔ Profile (bio, avatar, social links), User ↔ Settings ─ exclusive one-to-one ។' },
-      { label: 'hasOne()', desc: 'User hasOne Profile ─ FK "user_id" lives in profiles table ─ returns single Model ។' },
-      { label: 'belongsTo()', desc: 'Profile belongsTo User ─ inverse side ─ Profile can access its User ។' },
-      { label: 'firstOrCreate()', desc: '$user->profile()->firstOrCreate([]) ─ get existing or create new profile safely ！' },
+      { label: 'Use Case', desc: 'User ↔ Profile (bio, avatar, social links) ─ User ↔ Settings ─ exclusive one-to-one ─ each user: exactly one profile ។' },
+      { label: 'hasOne()', desc: 'User model: hasOne(Profile::class) ─ FK "user_id" lives IN profiles table ─ return single Model ─ not Collection ！' },
+      { label: 'belongsTo()', desc: 'Profile model: belongsTo(User::class) ─ inverse side ─ $profile->user ─ return User object ─ navigation back ！' },
+      { label: 'firstOrCreate()', desc: '$user->profile()->firstOrCreate([]) ─ get existing OR create new ─ safe ─ no duplicate ─ convenient ！' },
+    ],
+    variables: [
+      { label: 'hasOne', desc: 'Method on "parent" Model ─ User hasOne Profile ─ FK ─ child table ─ return single Eloquent object ─ null if none ─ eager load ！' },
+      { label: 'belongsTo', desc: 'Method on "child" Model ─ Profile belongsTo User ─ FK ─ same table ─ return parent Model ─ access parent data ─ navigate ！' },
     ],
     tip: 'FK lives on "belongsTo" side ─ profiles.user_id references users.id ─ NOT users.profile_id ！',
-    lab: 'Build User Profile system: Profile model + migration (user_id FK, bio, avatar) + hasOne/belongsTo ។',
-    result: '$user->profile->bio and $profile->user->name both work ─ bidirectional navigation ！',
+    lab: 'Build Profile system ─ Profile model + migration (user_id FK, bio, avatar) + hasOne/belongsTo ─ test ។',
+    result: '$user->profile->bio ─ $profile->user->name ─ both work ─ bidirectional navigation ！',
     filename: 'app/Models/User.php',
-    code: `// User Model
+    code: `// ─── User Model ───────────────────────────────
 class User extends Model
 {
     public function profile(): HasOne
     {
         return $this->hasOne(Profile::class);
+        // FK: profiles.user_id → users.id
     }
 }
 
-// Profile Model  
+// ─── Profile Model ────────────────────────────
 class Profile extends Model
 {
     protected $fillable = ['user_id', 'bio', 'avatar', 'website'];
@@ -1290,54 +1505,57 @@ class Profile extends Model
     }
 }
 
-// In web Controller:
+// ─── In Web Controller ────────────────────────
 public function show(User $user)
 {
-    // Eager load profile with user
-    $user->load('profile');
+    $user->load('profile'); // Eager load
     return view('users.show', compact('user'));
 }
 
-// In Blade view:
-// {{ $user->profile->bio }}
-// <img src="{{ $user->profile->avatar }}">`,
+// ─── In Blade View ────────────────────────────
+// <p>{{ $user->profile->bio }}</p>
+// <img src="{{ $user->profile->avatar }}">
+// <p>{{ $user->profile->website }}</p>`,
     icon: Layers,
   },
 
-  /* ── CH 15: ONE-TO-MANY ── */
+  /* ══════════════════════════════════════════════════════
+     CHAPTER 16: ONE-TO-MANY
+  ══════════════════════════════════════════════════════ */
   {
     id: 'L15-S1', chapter: 'onetomany',
-    title: 'One-to-Many Relationship', subtitle: 'hasMany & belongsTo',
+    section: 'One-to-Many',
+    title: 'One-to-Many Relationship', subtitle: 'hasMany & belongsTo ─ Most Common',
     accent: '#6366f1',
     bg: 'radial-gradient(ellipse at 60% 30%, rgba(99,102,241,0.15) 0%, transparent 55%)',
     concepts: [
-      { label: 'Use Case', desc: 'User → Posts, Post → Comments, Category → Products ─ most common relationship in web apps ！' },
-      { label: 'hasMany()', desc: 'User hasMany Post ─ returns Eloquent Collection ─ FK "user_id" in posts table ។' },
-      { label: 'belongsTo()', desc: 'Post belongsTo User ─ $post->author returns the User object ─ FK on Post side ។' },
-      { label: 'Create via Relationship', desc: '$user->posts()->create([...]) ─ auto-sets user_id ─ no manual assignment ！' },
+      { label: 'Use Case', desc: 'User → Posts ─ Post → Comments ─ Category → Products ─ most common relationship ─ web apps ─ parent has many children ！' },
+      { label: 'hasMany()', desc: 'User model: hasMany(Post::class) ─ return Collection ─ FK "user_id" in posts table ─ $user->posts ─ all posts by user ！' },
+      { label: 'belongsTo()', desc: 'Post model: belongsTo(User::class) ─ $post->author ─ return single User object ─ FK on Post side ─ navigate to parent ！' },
+      { label: 'Create via Relationship', desc: '$user->posts()->create([...]) ─ auto-set user_id ─ no manual assignment ─ clean ─ safe ─ best practice ！' },
     ],
-    tip: '$user->posts (property) = loaded Collection; $user->posts() (method) = QueryBuilder for chaining ！',
-    lab: 'Define User hasMany Posts ─ Post belongsTo User ─ test $user->posts()->latest()->get() in Tinker ។',
-    result: '$user->posts returns all posts by that user ─ $post->author returns the post\'s User ─ navigation works ！',
+    variables: [
+      { label: 'hasMany', desc: 'Method on "one" side ─ User hasMany Posts ─ return Collection ─ dynamic property: $user->posts ─ method: $user->posts() Builder ！' },
+      { label: 'Collection', desc: 'Laravel collection ─ array of Model objects ─ powerful methods: filter(), map(), pluck(), count() ─ chainable ─ elegant ！' },
+    ],
+    tip: '$user->posts (property) = loaded Collection ─ $user->posts() (method) = QueryBuilder ─ chain where() ！',
+    lab: 'Define User hasMany Posts ─ Post belongsTo User ─ test $user->posts()->latest()->get() Tinker ─ verify ។',
+    result: '$user->posts ─ all user posts ─ $post->author ─ post owner ─ bidirectional navigation ─ works ！',
     filename: 'app/Models/Post.php',
-    code: `// User Model
+    code: `// ─── User Model ───────────────────────────────
 class User extends Model
 {
     public function posts(): HasMany
     {
         return $this->hasMany(Post::class);
-    }
-
-    public function comments(): HasMany
-    {
-        return $this->hasMany(Comment::class);
+        // FK: posts.user_id → users.id
     }
 }
 
-// Post Model
+// ─── Post Model ───────────────────────────────
 class Post extends Model
 {
-    // "author" = custom method name
+    // "author" = custom name (not "user")
     public function author(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id');
@@ -1349,36 +1567,46 @@ class Post extends Model
     }
 }
 
-// In web Controller:
+// ─── In Web Controller ────────────────────────
 public function store(Request $request)
 {
-    // Auto-sets user_id = auth()->id()
-    auth()->user()->posts()->create([
+    // Auto-sets user_id = currently logged in user
+    $post = auth()->user()->posts()->create([
         'title' => $request->title,
+        'slug'  => Str::slug($request->title),
         'body'  => $request->body,
     ]);
-    return redirect()->route('posts.index');
+
+    return redirect()->route('posts.show', $post)
+                     ->with('success', 'Post published!');
 }`,
     icon: GitBranch,
   },
 
-  /* ── CH 16: MANY-TO-MANY ── */
+  /* ══════════════════════════════════════════════════════
+     CHAPTER 17: MANY-TO-MANY
+  ══════════════════════════════════════════════════════ */
   {
     id: 'L16-S1', chapter: 'manytomany',
-    title: 'Many-to-Many Relationship', subtitle: 'belongsToMany & Pivot Tables',
+    section: 'Many-to-Many',
+    title: 'Many-to-Many Relationship', subtitle: 'belongsToMany ─ Pivot Table',
     accent: '#f43f5e',
     bg: 'radial-gradient(ellipse at 40% 60%, rgba(244,63,94,0.15) 0%, transparent 55%)',
     concepts: [
-      { label: 'Use Case', desc: 'Post ↔ Tags, User ↔ Roles, Student ↔ Courses ─ each side belongs to many of the other ！' },
-      { label: 'Pivot Table', desc: '"post_tag" table with post_id + tag_id ─ alphabetical naming ─ Laravel finds automatically ។' },
-      { label: 'belongsToMany()', desc: 'Both models use belongsToMany() ─ Post::with("tags") → loads all tags ！' },
-      { label: 'sync() / attach()', desc: '$post->tags()->sync([1,2,3]) ─ sets exact tags ─ attach adds, detach removes ！' },
+      { label: 'Use Case', desc: 'Post ↔ Tags ─ User ↔ Roles ─ Student ↔ Courses ─ each side ─ belongs to many of the other side ─ needs pivot table ！' },
+      { label: 'Pivot Table', desc: '"post_tag" table ─ post_id + tag_id columns ─ alphabetical naming ─ Laravel find automatically ─ store relationship ！' },
+      { label: 'belongsToMany()', desc: 'Both models use belongsToMany() ─ Post::with("tags") → load all tags ─ symmetric relationship ─ elegant ！' },
+      { label: 'sync() / attach() / detach()', desc: '$post->tags()->sync([1,2,3]) ─ set exact tags ─ attach() adds ─ detach() removes ─ manage relationship ！' },
     ],
-    tip: 'sync([1,2,3]) ─ removes tags not in array, adds new ones ─ perfect for tag checkbox forms ！',
-    lab: 'Build tagging system: posts, tags, post_tag tables ─ form with checkboxes ─ sync on save ！',
-    result: 'Blog posts have tags ─ tag pages list related posts ─ M:N working in web app ！',
+    variables: [
+      { label: 'Pivot Table', desc: 'Junction table ─ store Many-to-Many relationship ─ post_tag: post_id + tag_id ─ each row = one connection ─ bridging table ！' },
+      { label: 'sync()', desc: 'Sync relationships ─ pass array of IDs ─ removes old ─ adds new ─ perfect for checkbox forms ─ atomic operation ─ clean ！' },
+    ],
+    tip: 'sync([1,2,3]) ─ remove tags not in array ─ add new ones ─ perfect for tag checkbox form ！',
+    lab: 'Build tag system ─ posts, tags, post_tag tables ─ form checkboxes ─ sync on save ─ display tags ！',
+    result: 'Blog posts have tags ─ tag pages list posts ─ M:N working in web app ─ complete system ！',
     filename: 'app/Models/Post.php',
-    code: `// Post Model
+    code: `// ─── Post Model ───────────────────────────────
 class Post extends Model
 {
     public function tags(): BelongsToMany
@@ -1388,7 +1616,7 @@ class Post extends Model
     }
 }
 
-// Tag Model
+// ─── Tag Model ────────────────────────────────
 class Tag extends Model
 {
     public function posts(): BelongsToMany
@@ -1397,98 +1625,136 @@ class Tag extends Model
     }
 }
 
-// In web Controller (handle tag form):
+// ─── In Web Controller (handle tag form) ──────
 public function update(Request $request, Post $post)
 {
+    $this->authorize('update', $post);
+
     $post->update($request->validated());
 
-    // Sync tags from checkbox form: [1, 3, 7]
+    // Sync tags from checkbox form input [1, 3, 7]
     $post->tags()->sync($request->input('tags', []));
 
-    return redirect()->route('posts.show', $post);
+    return redirect()->route('posts.show', $post)
+                     ->with('success', 'Post updated!');
 }
 
-// In Blade view:
+// ─── In Blade View ────────────────────────────
 // @foreach($post->tags as $tag)
-//     <a href="/tags/{{ $tag->slug }}">{{ $tag->name }}</a>
+//     <a href="{{ route('tags.show', $tag) }}"
+//        class="badge">{{ $tag->name }}</a>
 // @endforeach`,
     icon: Workflow,
   },
 
-  /* ── CH 17: FILE UPLOADING ── */
+  /* ══════════════════════════════════════════════════════
+     CHAPTER 18: FILE UPLOADING
+  ══════════════════════════════════════════════════════ */
   {
     id: 'L17-S1', chapter: 'fileupload',
-    title: 'Uploading Files in Laravel', subtitle: 'Images, Storage & Access',
+    section: 'File Upload',
+    title: 'Uploading Files in Laravel', subtitle: 'Images ─ Storage ─ Web Access',
     accent: '#84cc16',
     bg: 'radial-gradient(ellipse at 30% 40%, rgba(132,204,22,0.15) 0%, transparent 55%)',
     concepts: [
-      { label: 'enctype Attribute', desc: 'Form needs enctype="multipart/form-data" ─ without it, file data never reaches Laravel ！' },
-      { label: 'File Validation', desc: '"required|image|mimes:jpeg,png,webp|max:2048" ─ validate before storing ─ security first ！' },
-      { label: 'Storage Disks', desc: '"public" disk = web-accessible (storage/app/public) ─ "local" = private storage ។' },
-      { label: 'storage:link', desc: 'php artisan storage:link ─ creates public/storage symlink ─ run once after install ！' },
+      { label: 'enctype="multipart/form-data"', desc: 'REQUIRED HTML form attribute ─ without it ─ $_FILES empty ─ file data never reach Laravel ─ must include ！' },
+      { label: 'File Validation Rules', desc: '"required|image|mimes:jpeg,png,webp|max:2048" ─ validate before store ─ security first ─ reject dangerous files ！' },
+      { label: 'Storage Disks', desc: '"public" disk = web-accessible (storage/app/public) ─ "local" disk = private ─ configure in config/filesystems.php ។' },
+      { label: 'php artisan storage:link', desc: 'Create symlink: public/storage → storage/app/public ─ makes files web-accessible ─ run once after install ！' },
     ],
-    tip: 'NEVER store uploads in public/ directly ─ use storage/ ─ run storage:link ─ use Storage::url() for paths ！',
-    lab: 'Build cover image upload for posts: form + validation + store("covers","public") + display in view ។',
-    result: 'Post creation form accepts image ─ saved to storage ─ displayed on post page with proper URL ！',
+    variables: [
+      { label: 'Storage Disk', desc: 'Named filesystem configuration ─ "public" = web accessible ─ "local" = private ─ "s3" = Amazon S3 ─ swap easily ─ config ！' },
+      { label: 'Symlink', desc: 'Symbolic link ─ shortcut ─ public/storage → storage/app/public ─ browser access /storage/file.jpg ─ stored securely ─ link ！' },
+    ],
+    tip: 'NEVER store uploads in public/ directly ─ use storage/ + storage:link ─ Storage::url() for web path ！',
+    lab: 'Build cover image upload ─ form + validation + store("covers","public") + display in Blade view .',
+    result: 'Post form accept image ─ saved to storage ─ displayed on post page ─ proper web URL ！',
     filename: 'app/Http/Controllers/PostController.php',
     code: `public function store(Request $request)
 {
     $validated = $request->validate([
-        'title'  => 'required|string|max:255',
-        'body'   => 'required|string',
-        'cover'  => 'nullable|image|mimes:jpeg,png,webp|max:2048',
+        'title'       => 'required|string|max:255',
+        'body'        => 'required|string|min:10',
+        'cover_image' => 'nullable|image|mimes:jpeg,png,webp|max:2048',
     ]);
 
-    // Handle file upload
-    if ($request->hasFile('cover')) {
-        // Stores to storage/app/public/covers/
-        $validated['cover'] = $request->file('cover')
+    // Handle file upload safely
+    if ($request->hasFile('cover_image')) {
+        // Store to storage/app/public/covers/
+        // Returns path: "covers/randomname.jpg"
+        $validated['cover_image'] = $request->file('cover_image')
             ->store('covers', 'public');
     }
 
-    auth()->user()->posts()->create($validated);
+    $post = auth()->user()->posts()->create($validated);
 
-    return redirect()->route('posts.index')
+    return redirect()->route('posts.show', $post)
                      ->with('success', 'Post published!');
+}
+
+// Delete old file when replacing
+public function update(Request $request, Post $post)
+{
+    if ($request->hasFile('cover_image')) {
+        // Delete old file first
+        Storage::disk('public')->delete($post->cover_image);
+        $post->cover_image = $request->file('cover_image')
+                                      ->store('covers', 'public');
+    }
 }`,
     icon: HardDrive,
   },
+
   {
     id: 'L17-S2', chapter: 'fileupload',
-    title: 'Displaying Uploaded Files', subtitle: 'Storage URLs in Blade Views',
+    section: 'Display Files',
+    title: 'Displaying Uploaded Files', subtitle: 'Storage::url() ─ Blade Templates',
     accent: '#84cc16',
     bg: 'radial-gradient(ellipse at 75% 65%, rgba(132,204,22,0.1) 0%, transparent 55%)',
     concepts: [
-      { label: 'Storage::url()', desc: 'Storage::url($post->cover) → /storage/covers/abc.jpg ─ correct web URL ！' },
-      { label: 'storage:link', desc: 'Creates symlink: public/storage → storage/app/public ─ makes files web-accessible ！' },
-      { label: 'asset() helper', desc: 'asset("storage/".$post->cover) ─ alternative to Storage::url() ─ same result ！' },
-      { label: 'File Deletion', desc: 'Storage::disk("public")->delete($post->cover) ─ delete old file before replacing ！' },
+      { label: 'Storage::url()', desc: 'Storage::url($post->cover_image) → /storage/covers/abc.jpg ─ correct web-accessible URL ─ use in Blade img src ！' },
+      { label: 'Handle Nullable Files', desc: '@if($post->cover_image) show image ─ @else show placeholder ─ graceful fallback ─ good UX ─ no broken images ！' },
+      { label: 'Storage::disk()->delete()', desc: 'Delete old file before replacing ─ Storage::disk("public")->delete($path) ─ prevent orphan files ─ cleanup ！' },
+      { label: 'File URL in JSON API', desc: 'Storage::url($this->cover_image) in Resource class ─ return full URL in JSON ─ frontend use directly ─ clean ！' },
     ],
-    tip: 'Always delete old file when replacing ─ Storage::disk("public")->delete($old) ─ prevent orphan files ！',
-    lab: 'Display cover image in posts/show.blade.php ─ handle nullable cover ─ show placeholder if none ！',
-    result: 'Post detail page shows cover image with proper path ─ missing cover shows default placeholder ！',
+    tip: 'Delete old file when replacing ─ Storage::disk("public")->delete($old) ─ prevent orphan files ！',
+    lab: 'Display cover in posts/show.blade.php ─ handle nullable ─ show placeholder if no image ─ verify ！',
+    result: 'Post page shows cover image ─ correct path ─ missing cover shows placeholder ─ good UX ！',
     filename: 'resources/views/posts/show.blade.php',
     code: `@extends('layouts.app')
 
 @section('content')
-<article class="max-w-3xl mx-auto">
+<article class="max-w-3xl mx-auto py-12">
 
-    {{-- Cover Image --}}
-    @if($post->cover)
-        <img src="{{ Storage::url($post->cover) }}"
+    {{-- Cover Image with fallback ──────────── --}}
+    @if($post->cover_image)
+        <img src="{{ Storage::url($post->cover_image) }}"
              alt="{{ $post->title }}"
-             class="w-full h-64 object-cover rounded-xl mb-8">
+             class="w-full h-72 object-cover rounded-2xl mb-8
+                    shadow-lg">
     @else
-        <div class="w-full h-64 bg-gray-200 rounded-xl mb-8 
+        <div class="w-full h-72 bg-gray-100 rounded-2xl mb-8
                     flex items-center justify-center">
-            <span class="text-gray-400">No cover image</span>
+            <span class="text-gray-400 text-lg">📷 No cover image</span>
         </div>
     @endif
 
+    {{-- Post Meta ──────────────────────────── --}}
+    <div class="flex gap-4 mb-6 text-sm text-gray-500">
+        @foreach($post->tags as $tag)
+            <a href="{{ route('tags.show', $tag) }}"
+               class="bg-gray-100 px-3 py-1 rounded-full">
+                {{ $tag->name }}
+            </a>
+        @endforeach
+    </div>
+
     <h1 class="text-4xl font-bold mb-4">{{ $post->title }}</h1>
+
     <p class="text-gray-500 mb-8">
-        By {{ $post->author->name }} • 
-        {{ $post->published_at->format('d M Y') }}
+        By <strong>{{ $post->author->name }}</strong> ·
+        {{ $post->published_at->format('d M Y') }} ·
+        {{ number_format($post->views) }} views
     </p>
 
     <div class="prose max-w-none">
@@ -1500,295 +1766,392 @@ public function update(Request $request, Post $post)
     icon: Layout,
   },
 
-  /* ── CH 18: CRUD OPERATIONS ── */
+  /* ══════════════════════════════════════════════════════
+     CHAPTER 19: CRUD OPERATIONS
+  ══════════════════════════════════════════════════════ */
   {
     id: 'L18-S1', chapter: 'crud',
-    title: 'Building CRUD Operations', subtitle: 'Create, Read, Update, Delete Web Pages',
+    section: 'Full CRUD',
+    title: 'Building CRUD Operations', subtitle: 'Create ─ Read ─ Update ─ Delete Web Pages',
     accent: '#f97316',
     bg: 'radial-gradient(ellipse at 50% 20%, rgba(249,115,22,0.15) 0%, transparent 55%)',
     concepts: [
-      { label: 'Full CRUD Flow', desc: 'index (list) → show (detail) → create+store (new) → edit+update (modify) → destroy (delete) ！' },
-      { label: 'PRG Pattern', desc: 'Post-Redirect-Get ─ after store/update/destroy always redirect ─ prevents duplicate submissions ！' },
-      { label: 'Flash Messages', desc: 'return redirect()->with("success","Saved!") ─ @if(session("success")) show banner @endif ！' },
-      { label: 'Soft Deletes', desc: 'use SoftDeletes ─ sets deleted_at ─ data preserved ─ $post->restore() if needed ！' },
+      { label: 'Full CRUD Flow', desc: 'index (list) → show (detail) → create+store (new) → edit+update (modify) → destroy (delete) ─ complete cycle ！' },
+      { label: 'PRG Pattern', desc: 'Post-Redirect-Get ─ after store/update/destroy ALWAYS redirect ─ prevent duplicate form submission ─ browser refresh safe ！' },
+      { label: 'Flash Messages', desc: 'redirect()->with("success","Saved!") ─ @if(session("success")) show banner @endif ─ user feedback ─ good UX ！' },
+      { label: 'Soft Deletes', desc: 'use SoftDeletes ─ set deleted_at ─ data preserved ─ $post->restore() if needed ─ data safety ─ "trash" feature ！' },
     ],
-    tip: 'Add SoftDeletes to every important Model ─ users accidentally delete things ─ data is precious ！',
-    lab: 'Build complete Post CRUD: 7 routes + views (index, create, show, edit) + all Controller methods ！',
-    result: 'Full-featured blog CMS: create/read/update/delete posts via browser with validation & flash messages ！',
+    variables: [
+      { label: 'Flash Message', desc: 'Session data ─ survive ONE redirect ─ then gone ─ show success/error message ─ after form submission ─ one-time notification ！' },
+      { label: 'Soft Delete', desc: 'Mark record deleted ─ set deleted_at timestamp ─ NOT actually delete ─ excluded from queries ─ restore possible ─ safe ！' },
+    ],
+    tip: 'Add SoftDeletes ─ every important Model ─ users accidentally delete ─ data is precious ─ restore easy ！',
+    lab: 'Build complete Post CRUD ─ 7 routes + views (index, create, show, edit) + all Controller methods ！',
+    result: 'Full-featured blog CMS ─ create/read/update/delete posts ─ validation ─ flash messages ─ working ！',
     filename: 'app/Http/Controllers/PostController.php',
     code: `public function store(Request $request)
 {
     $data = $request->validate([
-        'title' => 'required|string|max:255',
-        'body'  => 'required|string',
-        'cover' => 'nullable|image|max:2048',
+        'title'       => 'required|string|max:255',
+        'body'        => 'required|string|min:10',
+        'cover_image' => 'nullable|image|max:2048',
     ]);
 
-    if ($request->hasFile('cover')) {
-        $data['cover'] = $request->file('cover')
-                              ->store('covers','public');
+    if ($request->hasFile('cover_image')) {
+        $data['cover_image'] = $request->file('cover_image')
+                                        ->store('covers','public');
     }
 
-    auth()->user()->posts()->create($data);
+    $post = auth()->user()->posts()->create($data);
+
+    // PRG: redirect after POST with flash message
     return redirect()->route('posts.index')
-                     ->with('success','Post published!');
+                     ->with('success', 'Post published! 🎉');
 }
 
 public function destroy(Post $post)
 {
-    $this->authorize('delete', $post);
+    $this->authorize('delete', $post); // Policy check
 
-    if ($post->cover) {
-        Storage::disk('public')->delete($post->cover);
+    // Delete cover image from storage
+    if ($post->cover_image) {
+        Storage::disk('public')->delete($post->cover_image);
     }
-    $post->delete(); // Soft delete
+
+    $post->delete(); // Soft delete: sets deleted_at
 
     return redirect()->route('posts.index')
-                     ->with('success','Post deleted.');
+                     ->with('success', 'Post moved to trash.');
 }`,
     icon: Zap,
   },
+
   {
     id: 'L18-S2', chapter: 'crud',
-    title: 'CRUD Forms & Validation UI', subtitle: 'Create & Edit Blade Views',
+    section: 'Forms & Validation UI',
+    title: 'CRUD Forms & Validation UI', subtitle: 'Create ─ Edit Forms ─ Error Messages',
     accent: '#f97316',
     bg: 'radial-gradient(ellipse at 20% 75%, rgba(249,115,22,0.1) 0%, transparent 55%)',
     concepts: [
-      { label: '@method("PATCH")', desc: 'HTML forms only support GET/POST ─ @method("PATCH") spoofs PUT for edit forms ！' },
-      { label: '@error directive', desc: '@error("title") ─ renders error message if validation fails ─ per-field errors ！' },
-      { label: 'old() helper', desc: 'old("title", $post->title) ─ shows last input on error or existing value on edit ！' },
-      { label: 'Flash Success Banner', desc: '@if(session("success")) show green banner @endif ─ in layout, not every page ！' },
+      { label: '@method("PATCH")', desc: 'HTML forms ─ support GET/POST only ─ @method("PATCH") spoof PUT ─ edit forms ─ Laravel intercept ─ process correct ！' },
+      { label: '@error Directive', desc: '@error("title") ─ render error message if validation fails ─ per-field errors ─ red text below input ─ clear UX ！' },
+      { label: 'old() Helper', desc: 'old("title", $post->title ?? "") ─ show last submitted value on error ─ existing value on edit ─ user friendly ！' },
+      { label: 'Flash Message in Layout', desc: '@if(session("success")) green banner ─ in layouts/app.blade.php ─ works ALL pages ─ DRY ─ one place ！' },
     ],
-    tip: 'Put flash message display in layouts/app.blade.php ─ works for ALL pages without repeating code ！',
-    lab: 'Build create.blade.php + edit.blade.php ─ reuse same form partial ─ @include("posts._form") ！',
-    result: 'Post create + edit forms work ─ validation errors shown inline ─ old values preserved ─ PRG pattern ！',
+    tip: 'Put flash message display ─ layouts/app.blade.php ─ works all pages ─ write once ─ DRY principle ！',
+    lab: 'Build create.blade.php + edit.blade.php ─ reuse form partial @include("posts._form") ─ DRY ！',
+    result: 'Create + edit forms work ─ validation errors inline ─ old values preserved ─ PRG pattern ─ UX good ！',
     filename: 'resources/views/posts/_form.blade.php',
-    code: `{{-- Reusable form partial: _form.blade.php --}}
+    code: `{{-- Reusable form partial: posts/_form.blade.php --}}
 <div class="space-y-6">
+
+    {{-- Title field with validation error ──── --}}
     <div>
-        <label class="block font-medium mb-1">Title</label>
+        <label class="block font-semibold mb-2 text-gray-700">
+            Title <span class="text-red-500">*</span>
+        </label>
         <input type="text" name="title"
                value="{{ old('title', $post->title ?? '') }}"
-               class="w-full border rounded-lg px-4 py-2 
-                      @error('title') border-red-500 @enderror">
+               placeholder="Enter post title..."
+               class="w-full border rounded-xl px-4 py-3 text-gray-900
+                      focus:ring-2 focus:ring-orange-400 outline-none
+                      @error('title') border-red-500 bg-red-50 @enderror">
+
         @error('title')
-            <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+            <p class="text-red-500 text-sm mt-1 flex items-center gap-1">
+                ⚠ {{ $message }}
+            </p>
         @enderror
     </div>
 
+    {{-- Content / Body field ──────────────── --}}
     <div>
-        <label class="block font-medium mb-1">Content</label>
-        <textarea name="body" rows="10" 
-                  class="w-full border rounded-lg px-4 py-2">
-            {{ old('body', $post->body ?? '') }}
-        </textarea>
+        <label class="block font-semibold mb-2 text-gray-700">Content</label>
+        <textarea name="body" rows="12"
+                  class="w-full border rounded-xl px-4 py-3
+                         @error('body') border-red-500 @enderror"
+                  placeholder="Write your post content..."
+        >{{ old('body', $post->body ?? '') }}</textarea>
         @error('body')
-            <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+            <p class="text-red-500 text-sm mt-1">⚠ {{ $message }}</p>
         @enderror
     </div>
 
-    <button type="submit" class="btn btn-primary">Save Post</button>
+    {{-- Cover Image upload ─────────────────── --}}
+    <div>
+        <label class="block font-semibold mb-2 text-gray-700">
+            Cover Image
+        </label>
+        <input type="file" name="cover_image" accept="image/*"
+               class="block w-full text-gray-600">
+        @error('cover_image')
+            <p class="text-red-500 text-sm mt-1">⚠ {{ $message }}</p>
+        @enderror
+    </div>
+
+    <button type="submit"
+            class="w-full bg-orange-500 text-white font-bold py-3
+                   rounded-xl hover:bg-orange-600 transition">
+        {{ isset($post) ? 'Update Post' : 'Publish Post' }}
+    </button>
 </div>`,
     icon: Edit3,
   },
 
-  /* ── CH 19: POSTMAN ── */
+  /* ══════════════════════════════════════════════════════
+     CHAPTER 20: POSTMAN
+  ══════════════════════════════════════════════════════ */
   {
     id: 'L19-S1', chapter: 'postman',
-    title: 'Testing APIs with Postman', subtitle: 'Create, Send & Verify API Requests',
+    section: 'Postman Basics',
+    title: 'Testing APIs with Postman', subtitle: 'Create ─ Send ─ Verify API Requests',
     accent: '#06b6d4',
     bg: 'radial-gradient(ellipse at 60% 40%, rgba(6,182,212,0.15) 0%, transparent 55%)',
     concepts: [
-      { label: 'Collections', desc: 'Group API requests by resource (Posts, Users, Auth) ─ share with team ─ version control ！' },
-      { label: 'Headers', desc: 'Content-Type: application/json ─ Accept: application/json ─ Authorization: Bearer token ！' },
-      { label: 'Request Body', desc: 'raw → JSON tab ─ type {"title":"..."} ─ POST/PUT requests use body ！' },
-      { label: 'Environment Variables', desc: '{{BASE_URL}}, {{AUTH_TOKEN}} ─ switch dev/staging/production in one click ！' },
+      { label: 'Collections', desc: 'Group API requests by resource (Posts, Users, Auth) ─ share ជាមួយ team ─ version control ─ organized testing ！' },
+      { label: 'Headers', desc: 'Content-Type: application/json ─ Accept: application/json ─ Authorization: Bearer token ─ required for every request ！' },
+      { label: 'Request Body', desc: 'raw → JSON tab ─ type {"title":"..."} ─ POST/PUT requests use body ─ must match API validation rules ！' },
+      { label: 'Environment Variables', desc: '{{BASE_URL}}, {{AUTH_TOKEN}} ─ switch dev/staging/production ─ one click ─ reuse across requests ─ DRY ！' },
     ],
-    tip: 'Add Accept: application/json header ─ Laravel returns JSON errors instead of HTML redirect ！',
-    lab: 'Test your Blog API: GET /api/posts → POST /api/posts → PATCH /api/posts/1 → DELETE ─ verify each ！',
-    result: 'Complete Postman collection with Auth + CRUD tests ─ all 200/201/204/422 responses verified ！',
+    variables: [
+      { label: 'Collection', desc: 'Postman folder ─ group related API requests ─ Blog API: Auth, Posts, Users, Comments ─ organized ─ shareable ─ export ！' },
+      { label: 'Environment', desc: 'Postman variable set ─ {{BASE_URL}} = http://localhost/api ─ switch environments ─ one click ─ all requests update ！' },
+    ],
+    tip: 'Add Accept: application/json header ─ Laravel return JSON errors ─ not HTML redirect ─ important ！',
+    lab: 'Test Blog API ─ GET /api/posts → POST /api/posts → PATCH /api/posts/1 → DELETE ─ verify each ！',
+    result: 'Postman collection ─ Auth + CRUD tests ─ all 200/201/204/422 responses verified ─ API working ！',
     filename: 'postman-test-script.js',
     code: `// Postman Test Scripts (Tests tab)
+// ─── Run after every request ──────────────────
 
-// ─── Test: GET /api/posts ───────────────────
-pm.test("Status 200", () => {
+// Test 1: Status code correct
+pm.test("Status 200 OK", () => {
     pm.response.to.have.status(200);
 });
-pm.test("Has data array", () => {
+
+// Test 2: Response has data
+pm.test("Response has posts array", () => {
     const body = pm.response.json();
     pm.expect(body).to.have.property('data');
     pm.expect(body.data).to.be.an('array');
 });
 
-// ─── Test: POST /api/posts ──────────────────
-pm.test("Status 201 Created", () => {
+// ─── After POST /api/posts (201 Created) ──────
+pm.test("Post created with ID", () => {
     pm.response.to.have.status(201);
-});
-pm.test("Returns new post id", () => {
     const post = pm.response.json().data;
     pm.expect(post.id).to.be.a('number');
-    pm.environment.set("POST_ID", post.id); // Save for next test
+    pm.expect(post.title).to.be.a('string');
+    // Save for next request
+    pm.environment.set("POST_ID", post.id);
 });
 
-// ─── Pre-request: Set Auth Token ────────────
+// ─── Pre-request Script ─ Auto set token ──────
 pm.request.headers.add({
     key: 'Authorization',
     value: 'Bearer ' + pm.environment.get('AUTH_TOKEN')
 });`,
     icon: Send,
   },
+
   {
     id: 'L19-S2', chapter: 'postman',
-    title: 'Sanctum Token Auth in Postman', subtitle: 'Authenticating API Requests',
+    section: 'Sanctum Auth',
+    title: 'Sanctum Token in Postman', subtitle: 'Authenticate API Requests ─ Bearer Token',
     accent: '#06b6d4',
     bg: 'radial-gradient(ellipse at 30% 80%, rgba(6,182,212,0.1) 0%, transparent 55%)',
     concepts: [
-      { label: 'Login to Get Token', desc: 'POST /api/login → receives plaintext token ─ copy to Authorization: Bearer in Postman ！' },
-      { label: 'auth:sanctum Guard', desc: 'Route::middleware("auth:sanctum") ─ validates Bearer token ─ 401 if missing/expired ！' },
-      { label: 'Token Management', desc: '$user->tokens()->delete() ─ logout from all devices ─ token revocation ！' },
-      { label: '422 Validation Errors', desc: 'Accept: application/json ─ Laravel returns field errors as JSON, not redirect HTML ！' },
+      { label: 'Login to Get Token', desc: 'POST /api/login ─ receive plaintext token ─ copy to Authorization: Bearer ─ use in protected requests ！' },
+      { label: 'auth:sanctum Guard', desc: 'Route::middleware("auth:sanctum") ─ validate Bearer token ─ 401 if missing/expired ─ protect API routes ！' },
+      { label: 'Token Revocation', desc: '$user->tokens()->delete() ─ logout all devices ─ $user->currentAccessToken()->delete() ─ current session ！' },
+      { label: '422 Validation Errors', desc: 'Accept: application/json ─ Laravel return field errors as JSON ─ not HTML redirect ─ proper API behavior ！' },
     ],
-    tip: 'In Postman Collection: set Authorization = Bearer Token ─ use {{AUTH_TOKEN}} variable ─ inherit to all requests ！',
-    lab: 'POST to /api/login ─ copy token from response ─ use in Bearer header ─ access GET /api/user ！',
-    result: 'With token: 200 user data. Without token: 401 Unauthorized. Validation error: 422 with field details ！',
+    tip: 'Postman Collection Authorization ─ set Bearer Token ─ use {{AUTH_TOKEN}} ─ all requests inherit ！',
+    lab: 'POST /api/login ─ copy token ─ use Bearer header ─ access GET /api/user ─ verify 200 vs 401 ！',
+    result: 'With token: 200 user data ─ Without: 401 Unauthorized ─ Wrong: 422 Validation error ─ correct ！',
     filename: 'routes/api.php',
     code: `<?php
-use App\Http\Controllers\Api\AuthController;
-use App\Http\Controllers\Api\PostController;
+use App\\Http\\Controllers\\Api\\AuthController;
+use App\\Http\\Controllers\\Api\\PostController;
 
-// Public routes
+// ─── Public Routes (no auth needed) ──────────
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/register', [AuthController::class, 'register']);
 
-// Protected routes (require Bearer token)
+// ─── Protected Routes (Bearer token required) ─
 Route::middleware('auth:sanctum')->group(function () {
 
     Route::get('/user', fn($req) => $req->user());
     Route::post('/logout', [AuthController::class, 'logout']);
 
-    // Blog API
+    // Full Blog API
     Route::apiResource('posts', PostController::class);
-
-    // User posts
     Route::get('/my-posts', [PostController::class, 'myPosts']);
 });
 
-// In AuthController:
+// ─── In AuthController::login() ──────────────
 // public function login(Request $request) {
-//     ...validate credentials...
-//     $token = $user->createToken('web-app')->plainTextToken;
-//     return response()->json(['token' => $token]);
+//     $credentials = $request->validate([
+//         'email'    => 'required|email',
+//         'password' => 'required',
+//     ]);
+//     if (!auth()->attempt($credentials)) {
+//         return response()->json(['message' => 'Invalid credentials'], 401);
+//     }
+//     $token = auth()->user()->createToken('api')->plainTextToken;
+//     return response()->json(['token' => $token, 'user' => auth()->user()]);
 // }`,
     icon: Lock,
   },
 
   {
     id: 'L19-S3', chapter: 'postman',
-    title: 'HTTP Status Codes', subtitle: 'ស្វែងយល់ពី API Response Codes',
+    section: 'HTTP Status Codes',
+    title: 'HTTP Status Codes', subtitle: 'API Response Codes ─ ស្ដង់ដារ HTTP',
     accent: '#06b6d4',
     bg: 'radial-gradient(ellipse at 50% 50%, rgba(6,182,212,0.12) 0%, transparent 55%)',
     concepts: [
-      { label: '200 OK & 201 Created', desc: '200: សំណើជោគជ័យ។ 201: បង្កើត Resource ថ្មីបានជោគជ័យ (ជាទូទៅក្រោយ POST) ！' },
-      { label: '204 No Content', desc: 'សំណើជោគជ័យ តែមិនត្រលប់ទិន្នន័យ (ប្រើក្រោយពេល DELETE ជោគជ័យ) ！' },
-      { label: '401 & 403 Errors', desc: '401 Unauthorized (មិនទាន់ Login) vs 403 Forbidden (គ្មានសិទ្ធិចូល Resource នេះ) ！' },
-      { label: '404 & 422 Errors', desc: '404 Not Found (រកមិនឃើញ URL/ID) vs 422 Validation Error (ទិន្នន័យ Form មិនត្រឹមត្រូវ) ！' },
+      { label: '200 OK & 201 Created', desc: '200: request successful ─ data returned ─ GET/PATCH ─ 201: new resource created successfully ─ after POST ─ return new data ！' },
+      { label: '204 No Content', desc: 'Request successful ─ no data return ─ ប្រើ after DELETE successful ─ body empty ─ correct behavior ─ standard ！' },
+      { label: '401 & 403 Errors', desc: '401 Unauthorized: មិនទាន់ login ─ no token ─ 403 Forbidden: logged in ─ but no permission ─ different scenarios ！' },
+      { label: '404 & 422 Errors', desc: '404 Not Found: URL/ID not exist ─ 422 Unprocessable: validation failed ─ errors per field ─ tell client what wrong ！' },
     ],
-    tip: 'ប្រើ response()->json($data, 201) ដើម្បីកំណត់ status code ─ ឬ abort(403) សម្រាប់ឆែក permission លឿន ！',
-    lab: 'តេស្ត manual status codes: បង្កើត route ដែល return 201 សម្រាប់ POST ─ បន្ទាប់មកសាក trigger 404 និង 422 ក្នុង Postman ！',
-    result: 'យល់ច្បាស់ពីការប្រើប្រាស់ Status Code នីមួយៗ ─ ធ្វើឲ្យ API មានលក្ខណៈស្ដង់ដារ និងងាយស្រួលយល់ ！',
+    variables: [
+      { label: 'HTTP Status Code', desc: '3-digit number ─ server tell client result ─ 2xx success ─ 4xx client error ─ 5xx server error ─ standard ─ universal ！' },
+      { label: '422 Unprocessable', desc: 'Validation failed ─ correct HTTP code for form validation errors ─ body: {"errors": {"field": ["message"]}} ─ standard ！' },
+    ],
+    tip: 'Return correct status codes ─ response()->json($data, 201) ─ abort(403) ─ API clients depend on them ！',
+    lab: 'Create route return 201 for POST ─ trigger 404 ─ trigger 422 in Postman ─ verify each code ！',
+    result: 'API uses correct status codes ─ standard behavior ─ frontend/mobile can handle responses properly ！',
     filename: 'app/Http/Controllers/Api/PostController.php',
     code: `<?php
 
-// ─── 1. Successful Responses ───────────────
-return response()->json($post, 201); // 201: បង្កើតបានជោគជ័យ
-return response()->noContent();      // 204: ជោគជ័យ តែគ្មាន content
+// ─── 2xx: Successful Responses ────────────────
 
-// ─── 2. Client Errors (4xx) ────────────────
-if (!$post) {
-    return response()->json(['error' => 'Not Found'], 404);
+// 200 OK: data returned
+return response()->json(['data' => $post], 200);
+// or simply:
+return new PostResource($post); // default 200
+
+// 201 Created: new resource
+return response()->json(['data' => $post], 201);
+// or:
+return (new PostResource($post))
+           ->response()->setStatusCode(201);
+
+// 204 No Content: success, nothing to return
+return response()->noContent(); // After DELETE
+
+// ─── 4xx: Client Error Responses ──────────────
+
+// 401 Unauthorized: not logged in
+if (!auth('api')->user()) {
+    return response()->json(['message' => 'Unauthenticated.'], 401);
 }
 
-// ─── 3. Shortcut: abort() ──────────────────
-if ($user->cannot('update', $post)) {
-    abort(403, 'You do not own this post.'); // 403: គ្មានសិទ្ធិ
-}
+// 403 Forbidden: logged in but no permission
+$this->authorize('delete', $post); // throws 403 automatic
 
-// ─── 4. Automatic: Validation ────────────
-$request->validate([...]); // Laravel នឹង return 422 ដោយស្វ័យប្រវត្តបើខុស`,
+// 404 Not Found: resource not exist
+abort(404, 'Post not found.');
+
+// 422 Validation Failed: automatic via validate()
+$data = $request->validate([
+    'title' => 'required|string|max:255',
+    'body'  => 'required|string',
+]);
+// → 422 + {"errors":{"title":["The title field is required."]}}`,
     icon: Activity,
   },
 
-  /* ── CH 20: AUTH WITH PASSPORT / JWT ── */
+  /* ══════════════════════════════════════════════════════
+     CHAPTER 21: AUTH — PASSPORT / JWT
+  ══════════════════════════════════════════════════════ */
   {
     id: 'L20-S1', chapter: 'auth',
-    title: 'Authentication Overview', subtitle: 'Passport vs JWT vs Sanctum for Web Apps',
+    section: 'Auth Overview',
+    title: 'Authentication Overview', subtitle: 'Passport vs JWT vs Sanctum ─ ជ្រើស​ Right Tool',
     accent: '#a855f7',
     bg: 'radial-gradient(ellipse at 20% 20%, rgba(168,85,247,0.15) 0%, transparent 55%)',
     concepts: [
-      { label: 'Sanctum', desc: 'Session auth for web (Blade), Token auth for SPA/mobile ─ simple, lightweight, 90% of apps ！' },
-      { label: 'Passport', desc: 'Full OAuth2 server ─ issue tokens to third-party clients ─ complex but powerful ！' },
-      { label: 'JWT (tymon/jwt-auth)', desc: 'Stateless JSON Web Tokens ─ self-contained, no DB lookup ─ microservices/mobile APIs ！' },
-      { label: 'Laravel Breeze/Jetstream', desc: 'Starter kits: Breeze (simple) Jetstream (full-featured) ─ auth scaffolding in minutes ！' },
+      { label: 'Sanctum', desc: 'Session auth (web Blade pages) + Token auth (SPA/mobile) ─ simple ─ lightweight ─ 90% of web apps ─ recommended start ！' },
+      { label: 'Passport', desc: 'Full OAuth2 server ─ issue tokens to third-party clients ─ authorization code flow ─ complex ─ powerful ─ need OAuth2 ！' },
+      { label: 'JWT (tymon/jwt-auth)', desc: 'JSON Web Tokens ─ stateless ─ self-contained ─ no DB lookup ─ microservices ─ mobile APIs ─ scales horizontal ！' },
+      { label: 'Laravel Breeze/Jetstream', desc: 'Starter kits: Breeze (simple) ─ Jetstream (full-featured) ─ auth scaffolding ─ minutes ─ login/register ready ！' },
     ],
-    tip: 'Start with Sanctum + Breeze for web apps ─ upgrade to Passport only for OAuth2 provider role ！',
+    variables: [
+      { label: 'OAuth2', desc: 'Open standard ─ authorization protocol ─ "Login with Google/GitHub" ─ issue tokens to third-party apps ─ Passport implement this ！' },
+      { label: 'JWT', desc: 'JSON Web Token ─ Header.Payload.Signature ─ base64 encoded ─ self-contained ─ verify without DB ─ stateless ─ signed ─ compact ！' },
+    ],
+    tip: 'Start with Sanctum + Breeze ─ upgrade Passport only when OAuth2 provider role needed ─ YAGNI ！',
     lab: 'Install Breeze: composer require laravel/breeze ─ php artisan breeze:install ─ test register/login ！',
-    result: 'Full web auth: register, login, logout, forgot password, email verify ─ all pages generated ！',
+    result: 'Full web auth ─ register ─ login ─ logout ─ forgot password ─ email verify ─ all pages ready ！',
     filename: 'terminal',
-    code: `# Option A: Laravel Breeze (recommended for most web apps)
+    code: `# ─── Option A: Sanctum + Breeze ─────────────
+# Best for: most web apps, SPAs, mobile APIs
 composer require laravel/breeze --dev
-php artisan breeze:install blade   # Blade + Tailwind
+php artisan breeze:install blade  # Blade + Tailwind
 php artisan migrate
 npm install && npm run dev
 # → /login, /register, /dashboard all ready!
 
-# Option B: Laravel Passport (OAuth2 server)
+# ─── Option B: Passport ──────────────────────
+# Best for: OAuth2 provider, third-party token issuance
 composer require laravel/passport
 php artisan passport:install
 # → Full OAuth2: authorize, token, refresh endpoints
 
-# Option C: JWT via tymon/jwt-auth
+# ─── Option C: JWT (tymon/jwt-auth) ──────────
+# Best for: microservices, stateless APIs, mobile
 composer require tymon/jwt-auth
-php artisan vendor:publish --provider="Tymon\JWTAuth\..."
+php artisan vendor:publish \\
+    --provider="Tymon\\JWTAuth\\Providers\\LaravelServiceProvider"
 php artisan jwt:secret
-# → Stateless JWT tokens for APIs`,
+# → Stateless JWT tokens, no DB session storage`,
     terminal: 'php artisan breeze:install blade',
-    terminalOutput: '   INFO  Breeze scaffolding installed successfully.\n   Please run: php artisan migrate\n              npm install && npm run dev',
+    terminalOutput: '   INFO  Breeze scaffolding installed successfully.\n   Please run:\n          php artisan migrate\n          npm install && npm run dev',
     icon: Fingerprint,
   },
+
   {
     id: 'L20-S2', chapter: 'auth',
-    title: 'JWT Authentication', subtitle: 'Stateless Token Auth for Web APIs',
+    section: 'JWT Authentication',
+    title: 'JWT Authentication', subtitle: 'Stateless Token Auth ─ Mobile & API',
     accent: '#a855f7',
     bg: 'radial-gradient(ellipse at 80% 70%, rgba(168,85,247,0.12) 0%, transparent 55%)',
     concepts: [
-      { label: 'JWT Structure', desc: 'Header.Payload.Signature ─ Base64 encoded ─ carries user info inside ─ server verifies signature ！' },
-      { label: 'Stateless Advantage', desc: 'No session storage ─ scales horizontally ─ works across multiple servers ─ great for APIs ！' },
-      { label: 'Token Expiry (TTL)', desc: 'Tokens expire after TTL minutes ─ client sends refresh request ─ get new token ！' },
-      { label: 'auth:api Guard', desc: 'config/auth.php: api guard driver = "jwt" ─ use auth("api")->user() in controllers ！' },
+      { label: 'JWT Structure', desc: 'Header.Payload.Signature ─ Base64 encoded ─ carry user info inside token ─ server verify signature ─ no DB lookup ！' },
+      { label: 'Stateless Advantage', desc: 'Server store nothing ─ scale horizontally ─ any server verify token ─ no shared session storage ─ microservices ！' },
+      { label: 'Token Expiry (TTL)', desc: 'Tokens expire after TTL minutes ─ client refresh before expiry ─ get new token ─ security best practice ！' },
+      { label: 'auth("api") Guard', desc: 'config/auth.php: api guard driver = "jwt" ─ auth("api")->user() ─ auth("api")->attempt() ─ login ─ verify ！' },
     ],
-    tip: 'Store JWT in httpOnly cookie (not localStorage) ─ prevents XSS attacks stealing the token ！',
-    lab: 'Build JWT auth API: POST /api/login → token ─ protected GET /api/profile ─ test all in Postman ！',
-    result: 'Stateless API authentication: login → JWT token → send as Bearer → access protected web API ！',
+    variables: [
+      { label: 'TTL', desc: 'Time-To-Live ─ JWT lifetime ─ default 60 minutes ─ after expiry ─ client must refresh ─ ឬ login again ─ security measure ！' },
+      { label: 'Refresh Token', desc: 'Long-lived token ─ exchange for new access token ─ when expired ─ user stays logged in ─ without re-entering password ！' },
+    ],
+    tip: 'Store JWT in httpOnly cookie (not localStorage) ─ XSS cannot steal httpOnly cookies ─ more secure ！',
+    lab: 'Build JWT login API ─ POST /api/login → token ─ GET /api/profile protected ─ test Postman ！',
+    result: 'Stateless API auth ─ login → JWT token → Bearer header → access protected routes ─ working ！',
     filename: 'app/Http/Controllers/Api/AuthController.php',
     code: `<?php
-namespace App\Http\Controllers\Api;
+namespace App\\Http\\Controllers\\Api;
 
-use App\Http\Controllers\Controller;
-use App\Models\User;
-use Illuminate\Http\Request;
+use App\\Http\\Controllers\\Controller;
+use Illuminate\\Http\\Request;
 
 class AuthController extends Controller
 {
+    // POST /api/login → get JWT token
     public function login(Request $request)
     {
         $credentials = $request->validate([
             'email'    => 'required|email',
-            'password' => 'required|string',
+            'password' => 'required|string|min:8',
         ]);
 
         if (!$token = auth('api')->attempt($credentials)) {
             return response()->json([
-                'message' => 'Invalid credentials'
+                'message' => 'Email ឬ Password មិនត្រឹមត្រូវ'
             ], 401);
         }
 
@@ -1800,11 +2163,13 @@ class AuthController extends Controller
         ]);
     }
 
+    // GET /api/profile → current user info
     public function me()
     {
         return response()->json(auth('api')->user());
     }
 
+    // POST /api/refresh → new token before expire
     public function refresh()
     {
         return response()->json([
@@ -1813,41 +2178,61 @@ class AuthController extends Controller
         ]);
     }
 
+    // POST /api/logout → invalidate token
     public function logout()
     {
         auth('api')->logout();
-        return response()->json(['message' => 'Logged out']);
+        return response()->json(['message' => 'Logged out successfully']);
     }
 }`,
     icon: Key,
   },
+
   {
     id: 'L20-S3', chapter: 'auth',
     section: 'Conclusion',
-    title: 'To Be Continued...', subtitle: 'Next Session: Advanced Projects',
+    title: 'To Be Continued...', subtitle: 'Next: Advanced Projects ─ Real-world Apps',
     accent: '#a855f7',
     bg: 'radial-gradient(ellipse at center, rgba(168,85,247,0.15) 0%, transparent 70%)',
     concepts: [
-      { label: 'E-commerce API', desc: 'Building a full-featured shop backend with products, cart, and orders API ─ Coming soon ！' },
-      { label: 'Social Network', desc: 'Implementing follow system, real-time notifications with WebSockets (Reverb) ─ Coming soon ！' },
+      { label: 'E-commerce API', desc: 'Build full-featured shop backend ─ products, cart, orders API ─ Stripe payment integration ─ real web project ─ coming soon ！' },
+      { label: 'Social Network', desc: 'Follow system ─ real-time notifications ─ WebSockets via Reverb ─ advanced Eloquent relationships ─ coming soon ！' },
+      { label: 'What You Mastered', desc: 'Laravel setup ─ MVC ─ Routes ─ Middleware ─ Security ─ REST API ─ Database ─ Eloquent ─ CRUD ─ Auth ─ solid foundation ！' },
+      { label: 'Next Steps', desc: 'Practice daily ─ build something real ─ read Laravel docs ─ join community ─ Laracasts ─ open source contribute ─ grow ！' },
     ],
-    tip: 'Keep practicing! The best way to learn Laravel is to build something real every day ！',
-    lab: 'Review all concepts covered today ─ Practice building a small CRUD app from scratch during the break ។',
-    result: 'Solid foundation in Laravel fundamentals ─ ready for advanced topics and real-world project building ！',
+    tip: 'Best way to learn Laravel ─ build something real every day ─ theory + practice ─ consistency ！',
+    lab: 'Review all concepts ─ build small CRUD app from scratch ─ no tutorial ─ test yourself ─ grow ！',
+    result: 'Solid Laravel foundation ─ ready for advanced topics ─ real-world project building ─ confident ！',
     filename: 'next-steps.md',
-    code: `// Your Journey Continues...
-    
-$chapters = [
-    'Advanced Eloquent',
-    'Real-time Apps (WebSockets)',
-    'Task Scheduling & Queues',
-    'Automated Testing (Pest)',
-    'DevOps & Deployment'
+    code: `// Your Laravel Journey So Far...
+
+$mastered = [
+    '01 Introduction to Laravel',
+    '02 Setting Up & Project Structure',
+    '03 MVC Architecture',
+    '04 Routes and Controllers',
+    '05 Resource Controllers',
+    '06 Middleware',
+    '07 Security & Authorization',
+    '08 REST APIs',
+    '09 Database Overview',
+    '10 Migrations',
+    '11 Raw SQL Queries',
+    '12 Eloquent ORM',
+    '13 Laravel Tinker',
+    '14 Eloquent Relationships',
+    '15 One-to-One',
+    '16 One-to-Many',
+    '17 Many-to-Many',
+    '18 File Uploads',
+    '19 CRUD Operations',
+    '20 Postman & API Testing',
+    '21 Authentication (Passport/JWT)',
 ];
 
-foreach ($chapters as $topic) {
-    echo "Learning: " . $topic . PHP_EOL;
-}`,
+echo "Chapters mastered: " . count($mastered);
+// → 21 chapters complete!
+echo "\\nNext: Build your real-world project! 🚀";`,
     icon: Rocket,
   },
 ];
@@ -1889,51 +2274,48 @@ const HighlightedCode = ({ code }: { code: string }) => {
 };
 
 /* ─── THEME ANIMATIONS ───────────────────────────────────────────── */
-const ThemeAnimation = ({ accent, slideId, title, chapter }: { accent: string; slideId: string; title: string; chapter: string }) => {
-  const isEcosystem = title.toLowerCase().includes('ecosystem');
-  const isFeatures = title.toLowerCase().includes('why') || title.toLowerCase().includes('choose');
+const ThemeAnimation = ({ accent, slideId, title, chapter }: {
+  accent: string; slideId: string; title: string; chapter: string;
+}) => {
   const isWhatIs = title.toLowerCase().includes('what is');
+  const isFeatures = title.toLowerCase().includes('why') || title.toLowerCase().includes('choose');
+  const isEcosystem = title.toLowerCase().includes('ecosystem');
   const isSetup = chapter === 'setup';
 
   const containerVariants = {
     initial: { opacity: 0, scale: 0.95 },
     animate: { opacity: 1, scale: 1, transition: { duration: 0.5, staggerChildren: 0.1 } }
   };
-
   const itemVariants = {
     initial: { y: 20, opacity: 0 },
     animate: { y: 0, opacity: 1, transition: { type: 'spring' as const, damping: 12 } }
   };
 
   return (
-    <motion.div 
+    <motion.div
       variants={containerVariants} initial="initial" animate="animate"
       className="relative w-full h-full flex items-center justify-center bg-[#07090f]/50 rounded-[2rem] border border-white/8 overflow-hidden backdrop-blur-3xl"
     >
-      {/* Background Decor */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full opacity-20 blur-[120px]"
           style={{ background: accent }} />
-        <div className="absolute inset-0 opacity-[0.03]" 
+        <div className="absolute inset-0 opacity-[0.03]"
           style={{ backgroundImage: 'radial-gradient(#fff 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
       </div>
 
       <div className="relative z-10 w-full max-w-md p-8">
         {isWhatIs && (
           <div className="flex flex-col items-center gap-12">
-            <motion.div 
-              animate={{ rotate: 360 }} transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
-              className="relative w-48 h-48 flex items-center justify-center"
-            >
+            <motion.div animate={{ rotate: 360 }} transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
+              className="relative w-48 h-48 flex items-center justify-center">
               {[Globe, Lock, Database, List, Shield, Zap].map((Icon, i) => (
                 <motion.div key={i}
                   className="absolute p-4 rounded-2xl bg-white/5 border border-white/10 shadow-2xl backdrop-blur-xl"
-                  style={{ 
+                  style={{
                     top: `${50 + 40 * Math.sin((i * Math.PI * 2) / 6)}%`,
                     left: `${50 + 40 * Math.cos((i * Math.PI * 2) / 6)}%`,
                     transform: 'translate(-50%, -50%)'
-                  }}
-                >
+                  }}>
                   <Icon size={24} style={{ color: accent }} />
                 </motion.div>
               ))}
@@ -1943,21 +2325,20 @@ const ThemeAnimation = ({ accent, slideId, title, chapter }: { accent: string; s
             </motion.div>
             <div className="text-center space-y-4">
               <motion.h3 variants={itemVariants} className="text-3xl font-black text-white tracking-tight">The "Battery-Included" Core</motion.h3>
-              <motion.p variants={itemVariants} className="text-zinc-400 font-medium leading-relaxed">Everything you need and more, right out of the box.</motion.p>
+              <motion.p variants={itemVariants} className="text-zinc-400 font-medium leading-relaxed">Everything you need, right out of the box.</motion.p>
             </div>
           </div>
         )}
 
         {isFeatures && (
-          <div className="space-y-10">
+          <div className="space-y-8">
             {[
-              { label: 'Expressive Syntax', icon: Edit3, desc: 'Code that reads like English' },
-              { label: 'Infinite Scalability', icon: Rocket, desc: 'Grows with your userbase' },
+              { label: 'Expressive Syntax', icon: Edit3, desc: 'Code reads like English' },
+              { label: 'Infinite Scalability', icon: Rocket, desc: 'Grows with your app' },
               { label: 'Security First', icon: Shield, desc: 'Protected by default' },
             ].map((f, i) => (
               <motion.div key={i} variants={itemVariants}
-                className="group flex items-center gap-6 p-6 rounded-[1.5rem] bg-white/5 border border-white/5 hover:border-white/20 hover:bg-white/[0.08] transition-all"
-              >
+                className="group flex items-center gap-6 p-6 rounded-[1.5rem] bg-white/5 border border-white/5 hover:border-white/20 hover:bg-white/[0.08] transition-all">
                 <div className="w-14 h-14 rounded-2xl flex items-center justify-center bg-black/40 group-hover:scale-110 transition-transform">
                   <f.icon size={28} style={{ color: accent }} />
                 </div>
@@ -1972,10 +2353,8 @@ const ThemeAnimation = ({ accent, slideId, title, chapter }: { accent: string; s
 
         {isEcosystem && (
           <div className="relative h-[400px] w-full flex items-center justify-center mt-10">
-            <motion.div 
-               animate={{ scale: [1, 1.05, 1] }} transition={{ duration: 4, repeat: Infinity }}
-               className="w-32 h-32 rounded-full bg-white flex items-center justify-center relative z-20 shadow-[0_0_80px_rgba(255,255,255,0.3)]"
-            >
+            <motion.div animate={{ scale: [1, 1.05, 1] }} transition={{ duration: 4, repeat: Infinity }}
+              className="w-32 h-32 rounded-full bg-white flex items-center justify-center relative z-20 shadow-[0_0_80px_rgba(255,255,255,0.3)]">
               <Layers size={48} className="text-black" />
             </motion.div>
             {[
@@ -1985,37 +2364,32 @@ const ThemeAnimation = ({ accent, slideId, title, chapter }: { accent: string; s
               { label: 'Pulse', icon: Activity, x: 100, y: 120 },
             ].map((e, i) => (
               <motion.div key={i}
-                 initial={{ x: 0, y: 0, opacity: 0 }}
-                 animate={{ x: e.x, y: e.y, opacity: 1 }}
-                 transition={{ delay: 0.5 + i * 0.1, type: 'spring', stiffness: 50 }}
-                 className="absolute flex flex-col items-center gap-2 group"
-              >
+                initial={{ x: 0, y: 0, opacity: 0 }}
+                animate={{ x: e.x, y: e.y, opacity: 1 }}
+                transition={{ delay: 0.5 + i * 0.1, type: 'spring', stiffness: 50 }}
+                className="absolute flex flex-col items-center gap-2 group">
                 <div className="w-16 h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center backdrop-blur-xl group-hover:bg-white/10 transition-colors">
                   <e.icon size={24} style={{ color: accent }} />
                 </div>
                 <span className="text-[10px] font-black uppercase tracking-widest text-zinc-500">{e.label}</span>
-                <div className="absolute w-px h-20 bg-gradient-to-t from-white/20 to-transparent bottom-full -z-10 origin-bottom"
-                  style={{ transform: `rotate(${Math.atan2(-e.y, -e.x) * (180 / Math.PI) - 90}deg)` }} />
               </motion.div>
             ))}
           </div>
         )}
+
         {isSetup && (
           <div className="flex flex-col items-center gap-10">
-            <motion.div 
-               animate={{ y: [0, -10, 0] }} transition={{ duration: 3, repeat: Infinity }}
-               className="p-10 rounded-[2.5rem] bg-white/5 border border-white/10 shadow-2xl backdrop-blur-xl relative overflow-hidden"
-            >
+            <motion.div animate={{ y: [0, -10, 0] }} transition={{ duration: 3, repeat: Infinity }}
+              className="p-10 rounded-[2.5rem] bg-white/5 border border-white/10 shadow-2xl backdrop-blur-xl relative overflow-hidden">
               <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent pointer-events-none" />
               <Terminal size={80} style={{ color: accent }} />
-              <motion.div 
-                animate={{ width: ['0%', '100%'] }} transition={{ duration: 2, repeat: Infinity }}
+              <motion.div animate={{ width: ['0%', '100%'] }} transition={{ duration: 2, repeat: Infinity }}
                 className="absolute bottom-0 left-0 h-1 bg-current opacity-30" style={{ color: accent }} />
             </motion.div>
             <div className="text-center space-y-4">
               <motion.div variants={itemVariants} className="inline-block px-4 py-1 rounded-full bg-white/10 border border-white/10 text-[10px] font-black uppercase tracking-widest text-zinc-400 mb-2">Preparing Environment</motion.div>
               <h3 className="text-3xl font-black text-white tracking-tight">System Foundation</h3>
-              <p className="text-zinc-500 font-medium max-w-[280px] mx-auto leading-relaxed text-sm">Ensuring your machine is Laravel-ready before we build.</p>
+              <p className="text-zinc-500 font-medium max-w-[280px] mx-auto leading-relaxed text-sm">ត្រៀម​ machine ─ Laravel-ready ─ before we build !</p>
             </div>
           </div>
         )}
@@ -2072,7 +2446,11 @@ const CodePanel = ({
           ))}
         </div>
         <div className="flex items-center gap-2">
-          <button onClick={async () => { setTab('terminal'); setRunning(true); await new Promise(r => setTimeout(r, 800)); setRunning(false); }}
+          <button onClick={async () => {
+            setTab('terminal'); setRunning(true);
+            await new Promise(r => setTimeout(r, 800));
+            setRunning(false);
+          }}
             disabled={running}
             className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-widest transition-all ${running ? 'bg-zinc-800 text-zinc-500' : 'bg-emerald-500/10 text-emerald-400 hover:bg-emerald-500/20'}`}>
             <Play className={`w-3 h-3 ${running ? 'animate-pulse' : ''}`} />
@@ -2088,6 +2466,7 @@ const CodePanel = ({
           </button>
         </div>
       </div>
+
       <div className="flex items-center gap-3 px-4 py-2 bg-[#0d1117]/60 border-b border-white/5 flex-none">
         <div className="flex gap-1.5">
           <span className="w-2.5 h-2.5 rounded-full bg-[#ff5f57]/40" />
@@ -2099,12 +2478,13 @@ const CodePanel = ({
           <span className="text-[10px] font-mono text-zinc-400">{tab === 'code' ? filename : 'bash — terminal'}</span>
         </div>
       </div>
+
       <div className="flex-1 relative overflow-hidden">
         {tab === 'code' ? (
           <div className="flex h-full overflow-hidden">
-            <div className="flex-none w-12 bg-[#07090f] border-r border-white/5 pt-4 flex flex-col items-end pr-4 select-none overflow-hidden text-lg">
+            <div className="flex-none w-12 bg-[#07090f] border-r border-white/5 pt-4 flex flex-col items-end pr-4 select-none overflow-hidden">
               {lines.map((_, i) => (
-                <div key={i} className="text-[13px] font-mono text-zinc-700 leading-relaxed min-h-[1.8rem]">{i + 1}</div>
+                <div key={i} className="text-[13px] font-mono text-zinc-700 leading-relaxed min-h-[1.5rem]">{i + 1}</div>
               ))}
             </div>
             <div className="relative flex-1 overflow-hidden">
@@ -2112,13 +2492,13 @@ const CodePanel = ({
                 <HighlightedCode code={code} />
               </div>
               <textarea ref={taRef} value={code} onChange={e => setCode(e.target.value)} onScroll={syncScroll}
-                className="absolute inset-0 w-full h-full bg-transparent text-transparent resize-none outline-none p-4 font-mono text-lg leading-relaxed border-none overflow-auto selection:bg-purple-500/25"
+                className="absolute inset-0 w-full h-full bg-transparent text-transparent resize-none outline-none p-4 font-mono text-[13px] leading-relaxed border-none overflow-auto selection:bg-purple-500/25"
                 style={{ fontFamily: "'JetBrains Mono',monospace", whiteSpace: 'pre', overflowWrap: 'normal' }}
                 spellCheck={false} wrap="off" />
             </div>
           </div>
         ) : (
-          <div className="p-8 font-mono text-lg leading-relaxed overflow-auto h-full text-white">
+          <div className="p-8 font-mono text-[14px] leading-relaxed overflow-auto h-full text-white">
             <div className="flex gap-2 text-zinc-500 mb-4">
               <span style={{ color: accent }}>➜</span>
               <span className="text-blue-400">~/my-blog</span>
@@ -2140,30 +2520,13 @@ const CodePanel = ({
 export default function LaravelSlide() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const chapterParam = searchParams.get('chapter') || 'setup';
+  const chapterParam = searchParams.get('chapter') || 'intro';
 
   const displayPages = useMemo(() => {
     const filtered = slides.filter(s => s.chapter === chapterParam);
     const result: DisplayPage[] = [];
     filtered.forEach(s => {
-      // Chunk concepts into groups of 2 to follow slide 1, 2, 3 pattern
-      const conceptChunks = [];
-      for (let i = 0; i < s.concepts.length; i += 2) {
-        conceptChunks.push(s.concepts.slice(i, i + 2));
-      }
-
-      conceptChunks.forEach((chunk, index) => {
-        result.push({
-          ...s,
-          subType: 'concept',
-          section: conceptChunks.length > 1 ? `${s.section || ''} (${index + 1}/${conceptChunks.length})` : s.section,
-          title: index > 0 ? `${s.title} (Cont.)` : s.title,
-          concepts: chunk,
-          // Match Slide 1 vs 2: First parts typically have less/no code
-          code: index < conceptChunks.length - 1 ? '' : s.code,
-        });
-      });
-
+      result.push({ ...s, subType: 'concept' });
       if (s.variables && s.variables.length > 0) {
         result.push({ ...s, subType: 'variables' });
       }
@@ -2175,7 +2538,9 @@ export default function LaravelSlide() {
   }, [chapterParam]);
 
   const slideParam = searchParams.get('slide');
-  const initialSlide = slideParam ? Math.max(0, Math.min(parseInt(slideParam) - 1, displayPages.length - 1)) : 0;
+  const initialSlide = slideParam
+    ? Math.max(0, Math.min(parseInt(slideParam) - 1, displayPages.length - 1))
+    : 0;
 
   const [current, setCurrent] = useState(initialSlide);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -2194,17 +2559,15 @@ export default function LaravelSlide() {
   const goTo = useCallback((idx: number, d: number) => {
     if (isAnimating) return;
     setDir(d); setIsAnimating(true);
-
     const params = new URLSearchParams(searchParams.toString());
     if (idx === 0) params.delete('slide');
     else params.set('slide', String(idx + 1));
     router.push(`?${params.toString()}`, { scroll: false });
-
     setTimeout(() => { setCurrent(idx); setIsAnimating(false); }, 250);
   }, [isAnimating, router, searchParams]);
 
   useEffect(() => {
-    const saved = localStorage.getItem('laravel_notes_v3');
+    const saved = localStorage.getItem('laravel_notes_v4');
     if (saved) setNotes(JSON.parse(saved));
   }, []);
 
@@ -2216,7 +2579,7 @@ export default function LaravelSlide() {
   const saveNote = (val: string) => {
     const next = { ...notes, [slide.id]: val };
     setNotes(next);
-    localStorage.setItem('laravel_notes_v3', JSON.stringify(next));
+    localStorage.setItem('laravel_notes_v4', JSON.stringify(next));
   };
 
   const next = useCallback(() => {
@@ -2230,9 +2593,7 @@ export default function LaravelSlide() {
     const ci = CHAPTERS.findIndex(c => c.id === chapterParam);
     if (ci > 0) {
       setDir(-1);
-      const prevCh = CHAPTERS[ci - 1];
-      const prevSlidesCnt = slides.filter(s => s.chapter === prevCh.id).length * 2; // Approximate count
-      router.push(`?chapter=${prevCh.id}&slide=${prevSlidesCnt}`);
+      router.push(`?chapter=${CHAPTERS[ci - 1].id}`);
     }
   }, [current, chapterParam, goTo, router]);
 
@@ -2253,6 +2614,10 @@ export default function LaravelSlide() {
     exit: (d: number) => ({ y: d * -30, opacity: 0, scale: 0.98 }),
   };
 
+  const hasCode = !!(slide.code || slide.terminal);
+  const hasAnimation = chapterParam === 'intro' || (!hasCode && chapterParam === 'setup');
+  const isFullWidth = !hasCode && !hasAnimation;
+
   return (
     <div className="min-h-screen text-white flex flex-col overflow-hidden"
       style={{ background: '#07090f', fontFamily: "'Inter','DM Sans',system-ui,sans-serif" }}>
@@ -2261,16 +2626,17 @@ export default function LaravelSlide() {
         style={{ background: 'radial-gradient(ellipse at 50% 100%, rgba(168,85,247,0.04) 0%, transparent 60%)' }} />
 
       {/* ── HEADER ── */}
-      <div className="relative z-[60] border-b border-white/5 bg-black/60 backdrop-blur-2xl custom-header">
+      <div className="relative z-[60] border-b border-white/5 bg-black/60 backdrop-blur-2xl">
         <div className="max-w-[1800px] mx-auto w-full flex items-center justify-between px-6 lg:px-14 py-4">
           <div className="flex items-center gap-2 sm:gap-4">
             <Link href="/courses/backend"
-              className="group flex items-center gap-3 px-3 sm:px-4 h-12 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 hover:border-white/20 transition-all active:scale-95 shadow-xl">
+              className="group flex items-center gap-3 px-3 sm:px-4 h-12 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 hover:border-white/20 transition-all active:scale-95">
               <ArrowLeft className="w-4 h-4 text-zinc-500 group-hover:text-white transition-colors" />
               <span className="text-[10px] font-black uppercase tracking-[0.2em] text-zinc-500 group-hover:text-white transition-colors hidden lg:block">ចាកចេញ</span>
             </Link>
+
             <button onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="group flex items-center gap-3 sm:gap-4 px-4 sm:px-5 h-12 rounded-xl bg-white/5 border border-white/10 hover:bg-white/12 hover:border-white/30 transition-all active:scale-95 shadow-2xl overflow-hidden max-w-[200px] sm:max-w-none">
+              className="group flex items-center gap-3 sm:gap-4 px-4 sm:px-5 h-12 rounded-xl bg-white/5 border border-white/10 hover:bg-white/12 hover:border-white/30 transition-all active:scale-95 max-w-[200px] sm:max-w-none">
               <div className={`w-7 h-7 rounded-lg flex-none flex items-center justify-center transition-all duration-300 ${isMenuOpen ? 'bg-white text-black' : 'bg-black/40 text-zinc-400 group-hover:text-white'}`}>
                 <AnimatePresence mode="wait">
                   {isMenuOpen
@@ -2288,6 +2654,7 @@ export default function LaravelSlide() {
               </div>
             </button>
           </div>
+
           <div className="flex items-center gap-3 sm:gap-8">
             <div className="hidden sm:flex flex-col items-end gap-1.5 min-w-[100px] md:min-w-[140px]">
               <div className="flex items-center gap-2 text-[10px] font-mono">
@@ -2296,7 +2663,7 @@ export default function LaravelSlide() {
               </div>
               <div className="w-24 md:w-44 h-1.5 bg-white/5 rounded-full overflow-hidden border border-white/5">
                 <motion.div initial={{ width: 0 }} animate={{ width: `${progress}%` }}
-                  className="h-full rounded-full transition-all duration-1000 ease-out shadow-[0_0_10px_rgba(255,255,255,0.2)]"
+                  className="h-full rounded-full transition-all duration-1000 ease-out"
                   style={{ background: chapterInfo.color }} />
               </div>
             </div>
@@ -2305,8 +2672,7 @@ export default function LaravelSlide() {
               <button onClick={prev} className="w-10 h-10 rounded-xl bg-white/5 text-zinc-400 hover:text-white hover:bg-white/10 transition-all active:scale-90 border border-white/5 flex items-center justify-center">
                 <ChevronLeft className="w-5 h-5" />
               </button>
-              <div className="flex flex-col items-center min-w-[40px] sm:min-w-[45px]">
-                <span className="text-[9px] font-black text-zinc-600 uppercase tracking-tighter mb-0.5 hidden xs:block">ស្លាយ</span>
+              <div className="flex flex-col items-center min-w-[40px]">
                 <span className="text-sm font-mono text-zinc-500 flex items-center gap-1 leading-none">
                   <span className="text-white font-bold">{current + 1}</span>
                   <span className="text-zinc-800">/</span>
@@ -2334,8 +2700,8 @@ export default function LaravelSlide() {
               exit={{ y: 30, opacity: 0, scale: 0.98 }}
               transition={{ type: 'spring', damping: 28, stiffness: 220 }}
               className="relative w-full max-w-5xl max-h-full bg-[#0d1117] border border-white/10 rounded-[2rem] sm:rounded-[2.5rem] shadow-[0_40px_80px_-20px_rgba(0,0,0,0.8)] flex flex-col pointer-events-auto overflow-hidden">
-              <div className="flex-1 overflow-y-auto px-6 py-8 sm:p-12 scrollbar-none">
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+              <div className="flex-1 overflow-y-auto px-6 py-8 sm:p-10">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
                   {CHAPTERS.map((ch, i) => {
                     const isActive = ch.id === chapterParam;
                     return (
@@ -2347,14 +2713,14 @@ export default function LaravelSlide() {
                           setCurrent(0);
                           setIsMenuOpen(false);
                         }}
-                        className={`group relative flex items-center gap-3 p-4 rounded-2xl transition-all duration-300 border ${isActive ? 'bg-white/5 border-white/20 shadow-xl' : 'bg-transparent border-transparent hover:bg-white/5 hover:border-white/10 hover:-translate-y-1'}`}>
-                        <div className={`w-10 h-10 rounded-xl flex items-center justify-center font-black text-xs transition-all duration-500 overflow-hidden flex-none ${isActive ? 'scale-110 shadow-2xl' : 'opacity-60 group-hover:opacity-100'}`}
+                        className={`group relative flex items-center gap-3 p-4 rounded-2xl transition-all duration-300 border ${isActive ? 'bg-white/5 border-white/20' : 'bg-transparent border-transparent hover:bg-white/5 hover:border-white/10'}`}>
+                        <div className={`w-10 h-10 rounded-xl flex items-center justify-center font-black text-xs transition-all flex-none ${isActive ? 'scale-110' : 'opacity-60 group-hover:opacity-100'}`}
                           style={{ background: isActive ? ch.color : `${ch.color}25`, color: isActive ? '#000' : ch.color, border: isActive ? 'none' : `1.5px solid ${ch.color}40` }}>
                           {String(i + 1).padStart(2, '0')}
                         </div>
                         <div className="flex flex-col items-start leading-snug overflow-hidden text-left">
                           {isActive && <span className="text-[7px] font-black px-1.5 py-0.5 rounded bg-white text-black uppercase tracking-tighter mb-1">បច្ចុប្បន្ន</span>}
-                          <span className={`text-xs font-bold tracking-tight transition-all truncate w-full ${isActive ? 'text-white' : 'text-zinc-300 group-hover:text-white'}`}>
+                          <span className={`text-xs font-bold truncate w-full ${isActive ? 'text-white' : 'text-zinc-300 group-hover:text-white'}`}>
                             {ch.label.split(' · ')[1] || ch.label}
                           </span>
                         </div>
@@ -2364,9 +2730,9 @@ export default function LaravelSlide() {
                   })}
                 </div>
               </div>
-              <div className="flex-none p-6 sm:px-12 sm:py-6 bg-black/20 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-4">
-                <div className="text-[10px] font-black uppercase tracking-[0.25em] text-zinc-500">20 Chapters · Laravel Web Application Development</div>
-                <div className="text-[10px] font-mono text-zinc-600 bg-white/5 px-3 py-1 rounded-lg border border-white/5 uppercase tracking-tighter">FULLSTACK ACADEMY · LARAVEL 11</div>
+              <div className="flex-none p-6 sm:px-10 sm:py-5 bg-black/20 border-t border-white/5 flex items-center justify-between gap-4">
+                <div className="text-[10px] font-black uppercase tracking-[0.2em] text-zinc-500">21 Chapters · Laravel Web Application Development</div>
+                <div className="text-[10px] font-mono text-zinc-600 bg-white/5 px-3 py-1 rounded-lg border border-white/5">FULLSTACK ACADEMY · LARAVEL 11</div>
               </div>
             </motion.div>
           </div>
@@ -2374,28 +2740,24 @@ export default function LaravelSlide() {
       </AnimatePresence>
 
       {/* ── MAIN LAYOUT ── */}
-      {(() => {
-        const hasCode = !!(slide.code || slide.terminal);
-        const hasAnimation = chapterParam === 'intro' || (!hasCode && chapterParam === 'setup');
-        const isFullWidth = !hasCode && !hasAnimation;
+      <main className={`relative z-10 flex-1 flex flex-col ${isFullWidth ? 'items-center justify-center p-8 lg:p-20' : 'lg:flex-row'} overflow-hidden max-w-[1800px] mx-auto w-full`}>
+        <AnimatePresence mode="wait" custom={dir}>
+          <motion.div key={`left-${current}`} custom={dir} variants={variants}
+            initial="enter" animate="center" exit="exit"
+            transition={{ duration: 0.28, ease: [0.32, 0.72, 0, 1] }}
+            className={`flex flex-col gap-8 transition-all duration-500 ${isFullWidth
+              ? 'max-w-5xl w-full p-12 lg:p-24 bg-white/[0.02] rounded-[4rem] border border-white/8 shadow-2xl backdrop-blur-3xl overflow-y-auto'
+              : 'flex-none lg:w-[45%] p-8 lg:p-14 xl:p-20 lg:border-r border-white/6 overflow-y-auto'}`}>
 
-        return (
-          <main className={`relative z-10 flex-1 flex flex-col ${isFullWidth ? 'items-center justify-center p-8 lg:p-20' : 'lg:flex-row'} overflow-hidden max-w-[1800px] mx-auto w-full`}>
-            <AnimatePresence mode="wait" custom={dir}>
-              <motion.div key={`left-${current}`} custom={dir} variants={variants}
-                initial="enter" animate="center" exit="exit"
-                transition={{ duration: 0.28, ease: [0.32, 0.72, 0, 1] }}
-                className={`flex flex-col gap-8 transition-all duration-500 ${isFullWidth ? 'max-w-5xl w-full p-12 lg:p-24 bg-white/[0.02] rounded-[4rem] border border-white/8 shadow-2xl backdrop-blur-3xl overflow-y-auto' : 'flex-none lg:w-[45%] p-8 lg:p-14 xl:p-20 lg:border-r border-white/6 overflow-y-auto'}`}>
-
-            {/* Title */}
+            {/* Title Block */}
             <div className="flex items-center gap-6 mb-4">
               <div className="w-16 h-16 rounded-[1.25rem] flex items-center justify-center flex-none border border-white/10 shadow-2xl"
                 style={{ background: `${slide.accent}15` }}>
                 <Icon className="w-8 h-8" style={{ color: slide.accent }} />
               </div>
-              <div className="flex flex-col gap-1">
-                <div className="flex items-center gap-3 flex-wrap">
-                  <span className="text-[10px] font-black uppercase tracking-[0.25em] px-2.5 py-1 rounded-lg border shadow-sm"
+              <div className="flex flex-col gap-1 flex-1 min-w-0">
+                <div className="flex items-center gap-2 flex-wrap">
+                  <span className="text-[10px] font-black uppercase tracking-[0.25em] px-2.5 py-1 rounded-lg border"
                     style={{ color: chapterInfo.color, borderColor: `${chapterInfo.color}30`, background: `${chapterInfo.color}10` }}>
                     {chapterInfo.label}
                   </span>
@@ -2405,138 +2767,137 @@ export default function LaravelSlide() {
                       {slide.subType === 'concept' ? 'ទ្រឹស្តី' : slide.subType === 'variables' ? 'ពាក្យគន្លឹះ' : 'ការអនុវត្ត'}
                     </span>
                   </div>
-                  <span className="text-[10px] font-mono font-bold text-zinc-600 tracking-tighter ml-auto">{slide.id}</span>
+                  <span className="text-[9px] font-mono font-bold text-zinc-700 ml-auto">{slide.id}</span>
                 </div>
-                <h1 className="text-4xl xl:text-5xl font-black leading-none text-white tracking-tight -ml-1 border-l-4 pl-6" style={{ borderColor: slide.accent }}>{slide.title}</h1>
-                <p className="text-[18px] text-zinc-400 font-medium leading-relaxed mt-4 max-w-2xl">{slide.subtitle}</p>
+                <h1 className="text-[42px] font-black leading-[1.1] text-white tracking-[-0.02em] mb-3">{slide.title}</h1>
+                <p className="text-[18px] text-[#94a3b8] leading-relaxed font-medium">{slide.subtitle}</p>
               </div>
             </div>
 
-            {/* Content Switcher */}
+            {/* Content */}
             {slide.subType === 'concept' ? (
               <div className="grid grid-cols-1 gap-4">
                 {slide.concepts.map((c, i) => (
                   <motion.div key={i}
                     initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.1 + i * 0.08 }}
-                    className="rounded-2xl border p-6 flex flex-col gap-3 hover:bg-white/[0.05] transition-all hover:shadow-2xl bg-white/[0.03] border-white/8"
-                    style={{ borderLeftWidth: 6, borderLeftColor: slide.accent }}>
-                    <span className="text-[14px] font-black uppercase tracking-[0.1em]" style={{ color: slide.accent }}>{c.label}</span>
-                    <p className="text-[20px] text-white leading-relaxed font-medium">{c.desc}</p>
+                    className="rounded-2xl border p-7 flex flex-col gap-3 hover:bg-white/[0.02] transition-all"
+                    style={{ borderColor: `${slide.accent}20`, background: `${slide.accent}05` }}>
+                    <span className="text-[14px] font-extrabold uppercase tracking-widest mb-2.5" style={{ color: slide.accent }}>{c.label}</span>
+                    <p className="text-[20px] leading-relaxed text-white font-medium">{c.desc}</p>
                   </motion.div>
                 ))}
               </div>
             ) : slide.subType === 'variables' ? (
               <div className="grid grid-cols-1 gap-4">
-                <div className="text-[10px] font-black uppercase tracking-[0.3em] mb-4 opacity-50 px-2" style={{ color: slide.accent }}>Technical Dictionary</div>
+                <div className="text-[10px] font-black uppercase tracking-[0.3em] mb-2 opacity-50 px-1" style={{ color: slide.accent }}>Technical Dictionary</div>
                 {slide.variables?.map((v, i) => (
                   <motion.div key={i}
                     initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.1 + i * 0.08 }}
-                    className="rounded-xl border p-6 flex flex-col gap-3 group hover:bg-white/[0.05] transition-all hover:shadow-2xl bg-white/[0.03] border-white/8">
-                    <span className="text-[22px] font-black font-mono tracking-tight text-white group-hover:px-2 transition-all origin-left" style={{ color: slide.accent }}>{v.label}</span>
-                    <p className="text-[18px] text-white leading-relaxed font-medium">{v.desc}</p>
+                    className="rounded-2xl border p-7 flex flex-col gap-3 group hover:bg-white/[0.02] transition-all bg-white/[0.01] border-white/5">
+                    <span className="text-[22px] font-black font-mono tracking-tight" style={{ color: slide.accent }}>{v.label}</span>
+                    <p className="text-[18px] leading-relaxed text-white font-medium">{v.desc}</p>
                   </motion.div>
                 ))}
               </div>
             ) : (
-              <div className="flex flex-col gap-4">
+              <div className="flex flex-col gap-5">
                 <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}
-                  className="rounded-2xl border p-6 flex gap-4 bg-white/[0.03] border-white/8 shadow-sm">
+                  className="rounded-2xl border p-6 flex gap-4"
+                  style={{ background: `${slide.accent}08`, borderColor: `${slide.accent}20` }}>
                   <div className="w-10 h-10 rounded-xl flex items-center justify-center flex-none border"
-                    style={{ background: `${slide.accent}15`, borderColor: `${slide.accent}20` }}>
-                    <Play className="w-4 h-4" style={{ color: slide.accent }} />
+                    style={{ background: `${slide.accent}15`, borderColor: `${slide.accent}25` }}>
+                    <Play className="w-5 h-5" style={{ color: slide.accent }} />
                   </div>
-                  <div className="flex flex-col gap-2">
-                    <p className="text-[14px] font-black uppercase tracking-[0.1em]" style={{ color: slide.accent }}>គោលបំណង</p>
-                    <p className="text-[22px] text-white font-bold leading-tight tracking-tight">{slide.lab}</p>
+                  <div>
+                    <p className="text-[14px] font-extrabold uppercase tracking-widest mb-3 opacity-70" style={{ color: slide.accent }}>គោលបំណង</p>
+                    <p className="text-[22px] text-white font-bold leading-normal">{slide.lab}</p>
                   </div>
                 </motion.div>
 
                 <motion.div initial={{ opacity: 0, scale: 0.98 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.2 }}
-                  className="rounded-2xl border border-amber-500/15 bg-amber-500/[0.03] p-6 flex gap-4 shadow-inner">
+                  className="rounded-2xl border border-amber-500/20 bg-amber-500/5 p-6 flex gap-4">
                   <div className="w-10 h-10 rounded-xl bg-amber-500/10 flex items-center justify-center flex-none border border-amber-500/20">
-                    <Sparkles className="w-4 h-4 text-amber-500" />
+                    <Sparkles className="w-5 h-5 text-amber-400" />
                   </div>
-                  <div className="flex flex-col gap-2">
-                    <span className="text-[14px] font-black text-amber-500 uppercase tracking-widest">PRO TIP</span>
-                    <p className="text-[18px] text-amber-200/80 leading-relaxed font-medium italic">« {slide.tip} »</p>
+                  <div>
+                    <span className="text-[14px] font-extrabold text-amber-500 uppercase tracking-widest block mb-3">PRO TIP</span>
+                    <p className="text-[18px] text-amber-200/90 leading-relaxed font-medium italic">« {slide.tip} »</p>
                   </div>
                 </motion.div>
 
                 <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}
-                  className="rounded-2xl border border-emerald-500/15 bg-emerald-500/[0.03] p-6 flex gap-4 shadow-sm">
-                  <div className="w-10 h-10 rounded-xl bg-emerald-500/10 flex items-center justify-center flex-none border border-emerald-500/16">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-500" />
+                  className="rounded-2xl border border-emerald-500/20 bg-emerald-500/5 p-6 flex gap-4">
+                  <div className="w-10 h-10 rounded-xl bg-emerald-500/10 flex items-center justify-center flex-none border border-emerald-500/20">
+                    <CheckCircle2 className="w-5 h-5 text-emerald-400" />
                   </div>
-                  <div className="flex flex-col gap-2">
-                    <span className="text-[14px] font-black text-emerald-500 uppercase tracking-widest">លទ្ធផលរំពឹងទុក</span>
-                    <p className="text-[18px] text-zinc-100 font-medium leading-relaxed">{slide.result}</p>
+                  <div>
+                    <span className="text-[14px] font-extrabold text-emerald-400 uppercase tracking-widest block mb-3">លទ្ធផលរំពឹងទុក</span>
+                    <p className="text-[18px] text-white font-medium leading-relaxed">{slide.result}</p>
                   </div>
                 </motion.div>
               </div>
             )}
 
             {/* Nav */}
-            <div className="flex items-center gap-4 mt-8 pt-4 border-t border-white/5">
+            <div className="flex items-center gap-4 mt-6 pt-4 border-t border-white/5">
               <button onClick={prev}
                 className="w-14 h-14 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/10 active:scale-95 transition-all flex items-center justify-center group shadow-xl">
-                <ChevronLeft className="w-6 h-6 text-zinc-400 group-hover:text-white transition-colors" />
+                <ChevronLeft className="w-6 h-6 text-zinc-400 group-hover:text-white" />
               </button>
               <button onClick={next}
-                className="flex-1 h-14 rounded-2xl font-black text-[13px] uppercase tracking-[0.2em] active:scale-[0.98] transition-all flex items-center justify-center gap-3 shadow-[0_20px_40px_-10px_rgba(0,0,0,0.5)] group overflow-hidden relative"
+                className="flex-1 h-14 rounded-2xl font-black text-[13px] uppercase tracking-[0.2em] active:scale-[0.98] transition-all flex items-center justify-center gap-3 group overflow-hidden relative"
                 style={{ background: slide.accent, color: '#000' }}>
                 <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300 pointer-events-none" />
                 <span className="relative z-10">{current === displayPages.length - 1 ? 'បញ្ចប់មេរៀន' : 'ស្លាយបន្ទាប់'}</span>
                 <ChevronRight className="w-5 h-5 relative z-10 group-hover:translate-x-1 transition-transform" />
               </button>
               <button onClick={() => setShowNotes(!showNotes)}
-                className={`w-14 h-14 rounded-2xl border transition-all shadow-xl flex items-center justify-center ${showNotes ? 'bg-amber-500/20 border-amber-500/40 text-amber-500' : 'bg-white/5 border-white/10 text-zinc-500 hover:text-white hover:border-white/20'}`}>
+                className={`w-14 h-14 rounded-2xl border transition-all shadow-xl flex items-center justify-center ${showNotes ? 'bg-amber-500/20 border-amber-500/40 text-amber-500' : 'bg-white/5 border-white/10 text-zinc-500 hover:text-white'}`}>
                 <StickyNote className="w-6 h-6" />
               </button>
             </div>
           </motion.div>
         </AnimatePresence>
 
-            {/* RIGHT — Section */}
-            {!isFullWidth && (
-              <div className="flex-none lg:w-[55%] flex flex-col p-4 lg:p-8 xl:p-10 gap-4 overflow-hidden">
-                {hasAnimation ? (
-                  <ThemeAnimation accent={slide.accent} slideId={slide.id} title={slide.title} chapter={chapterParam} />
-                ) : (
-                  <>
-                    <div className="flex items-center gap-2 flex-none">
-                      <div className="flex items-center gap-2 px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest border border-white/8 bg-white/5"
-                        style={{ color: slide.accent }}>
-                        <Terminal className="w-3.5 h-3.5" />
-                        Interactive Code Editor
-                      </div>
-                      <div className="ml-auto text-[10px] font-mono text-zinc-700 hidden sm:block">← → Navigate</div>
-                    </div>
+        {/* RIGHT PANEL */}
+        {!isFullWidth && (
+          <div className="flex-none lg:w-[55%] flex flex-col p-4 lg:p-8 xl:p-10 gap-4 overflow-hidden">
+            {hasAnimation ? (
+              <ThemeAnimation accent={slide.accent} slideId={slide.id} title={slide.title} chapter={chapterParam} />
+            ) : (
+              <>
+                <div className="flex items-center gap-2 flex-none">
+                  <div className="flex items-center gap-2 px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest border border-white/8 bg-white/5"
+                    style={{ color: slide.accent }}>
+                    <Terminal className="w-3.5 h-3.5" />
+                    Interactive Code Editor
+                  </div>
+                  <div className="ml-auto text-[10px] font-mono text-zinc-700 hidden sm:block">← → Navigate</div>
+                </div>
 
-                    <AnimatePresence mode="wait">
-                      <motion.div key={`code-${current}`}
-                        initial={{ opacity: 0, scale: 0.99, y: 8 }}
-                        animate={{ opacity: 1, scale: 1, y: 0 }}
-                        exit={{ opacity: 0, scale: 0.99, y: -8 }}
-                        transition={{ duration: 0.28, ease: [0.32, 0.72, 0, 1] }}
-                        className="flex-1 overflow-hidden">
-                        <CodePanel
-                          code={slide.code}
-                          filename={slide.filename}
-                          accent={slide.accent}
-                          terminalOutput={slide.terminalOutput}
-                          subType={slide.subType as any}
-                        />
-                      </motion.div>
-                    </AnimatePresence>
-                  </>
-                )}
-              </div>
+                <AnimatePresence mode="wait">
+                  <motion.div key={`code-${current}`}
+                    initial={{ opacity: 0, scale: 0.99, y: 8 }}
+                    animate={{ opacity: 1, scale: 1, y: 0 }}
+                    exit={{ opacity: 0, scale: 0.99, y: -8 }}
+                    transition={{ duration: 0.28, ease: [0.32, 0.72, 0, 1] }}
+                    className="flex-1 overflow-hidden">
+                    <CodePanel
+                      code={slide.code}
+                      filename={slide.filename}
+                      accent={slide.accent}
+                      terminalOutput={slide.terminalOutput}
+                      subType={slide.subType as any}
+                    />
+                  </motion.div>
+                </AnimatePresence>
+              </>
             )}
-          </main>
-        );
-      })()}
+          </div>
+        )}
+      </main>
 
       {/* ── NOTES PANEL ── */}
       <AnimatePresence>
@@ -2560,9 +2921,7 @@ export default function LaravelSlide() {
               placeholder="កត់ត្រានៅទីនេះ... (រក្សាទុកដោយស្វ័យប្រវត្តិ)"
               className="flex-1 w-full bg-black/40 rounded-xl p-4 text-sm text-zinc-300 resize-none outline-none border border-white/5 focus:border-amber-500/30 transition-all placeholder:text-zinc-700 font-mono"
             />
-            <p className="mt-4 text-[10px] text-zinc-700 font-bold uppercase leading-relaxed">
-              Auto-saved to localStorage per slide
-            </p>
+            <p className="mt-4 text-[10px] text-zinc-700 font-bold uppercase">Auto-saved to localStorage per slide</p>
           </motion.div>
         )}
       </AnimatePresence>
