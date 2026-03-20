@@ -39,41 +39,184 @@ type DisplayPage = Slide & { subType: 'concept' | 'variables' | 'lab' };
 
 /* ─── CHAPTERS ───────────────────────────────────────────────────── */
 const CHAPTERS = [
-  { id: 'setup',         label: '01 · Setting Up Laravel',                    color: '#f43f5e' },
-  { id: 'mvc',           label: '02 · Understanding the MVC Pattern',          color: '#f97316' },
-  { id: 'routing',       label: '03 · Routes and Controllers',                 color: '#eab308' },
-  { id: 'resources',     label: '04 · Resources and Controllers',              color: '#22c55e' },
-  { id: 'middleware',    label: '05 · Middleware in Laravel',                  color: '#06b6d4' },
-  { id: 'security',      label: '06 · Security and Protection',                color: '#a855f7' },
-  { id: 'restapi',       label: '07 · Understanding REST APIs',                color: '#ec4899' },
-  { id: 'database',      label: '08 · Database Overview',                      color: '#3b82f6' },
-  { id: 'migrations',    label: '09 · Laravel Migrations',                     color: '#10b981' },
-  { id: 'rawsql',        label: '10 · Working with Raw SQL Queries',           color: '#fb923c' },
-  { id: 'eloquent',      label: '11 · Database with Eloquent ORM',             color: '#8b5cf6' },
-  { id: 'tinker',        label: '12 · Using Laravel Tinker',                   color: '#f59e0b' },
-  { id: 'relationships', label: '13 · Eloquent Relationships',                 color: '#ef4444' },
-  { id: 'onetone',       label: '14 · Eloquent One-to-One',                    color: '#14b8a6' },
-  { id: 'onetomany',     label: '15 · Eloquent One-to-Many',                   color: '#6366f1' },
-  { id: 'manytomany',    label: '16 · Eloquent Many-to-Many',                  color: '#f43f5e' },
-  { id: 'fileupload',    label: '17 · Uploading Files in Laravel',             color: '#84cc16' },
-  { id: 'crud',          label: '18 · Building CRUD Operations',               color: '#f97316' },
-  { id: 'postman',       label: '19 · API Requests with Postman',              color: '#06b6d4' },
-  { id: 'auth',          label: '20 · Authentication: Passport or JWT',        color: '#a855f7' },
+  { id: 'intro', label: '01 · Introduction to Laravel', color: '#f43f5e' },
+  { id: 'setup', label: '02 · Setting Up Laravel', color: '#e11d48' },
+  { id: 'mvc', label: '03 · Understanding the MVC Pattern', color: '#f97316' },
+  { id: 'routing', label: '04 · Routes and Controllers', color: '#eab308' },
+  { id: 'resources', label: '05 · Resources and Controllers', color: '#22c55e' },
+  { id: 'middleware', label: '06 · Middleware in Laravel', color: '#06b6d4' },
+  { id: 'security', label: '07 · Security and Protection', color: '#a855f7' },
+  { id: 'restapi', label: '08 · Understanding REST APIs', color: '#ec4899' },
+  { id: 'database', label: '09 · Database Overview', color: '#3b82f6' },
+  { id: 'migrations', label: '10 · Laravel Migrations', color: '#10b981' },
+  { id: 'rawsql', label: '11 · Working with Raw SQL Queries', color: '#fb923c' },
+  { id: 'eloquent', label: '12 · Database with Eloquent ORM', color: '#8b5cf6' },
+  { id: 'tinker', label: '13 · Using Laravel Tinker', color: '#f59e0b' },
+  { id: 'relationships', label: '14 · Eloquent Relationships', color: '#ef4444' },
+  { id: 'onetone', label: '15 · Eloquent One-to-One', color: '#14b8a6' },
+  { id: 'onetomany', label: '16 · Eloquent One-to-Many', color: '#6366f1' },
+  { id: 'manytomany', label: '17 · Eloquent Many-to-Many', color: '#f43f5e' },
+  { id: 'fileupload', label: '18 · Uploading Files in Laravel', color: '#84cc16' },
+  { id: 'crud', label: '19 · Building CRUD Operations', color: '#f97316' },
+  { id: 'postman', label: '20 · API Requests with Postman', color: '#06b6d4' },
+  { id: 'auth', label: '21 · Authentication: Passport or JWT', color: '#a855f7' },
 ];
 
 /* ─── SLIDES DATA ────────────────────────────────────────────────── */
 const slides: Slide[] = [
+  /* ── CH 01: INTRODUCTION TO LARAVEL ── */
+  {
+    id: 'L00-S1', chapter: 'intro',
+    section: 'Overview (1/2)',
+    title: 'What is Laravel?', subtitle: 'The PHP Framework for Web Artisans',
+    accent: '#f43f5e',
+    bg: 'radial-gradient(ellipse at 10% 20%, rgba(244,63,94,0.15) 0%, transparent 55%)',
+    concepts: [
+      { label: 'Modern PHP', desc: 'Laravel provides an elegant, expressive syntax that takes PHP development to the next level of productivity.' },
+      { label: 'Battery-Included', desc: 'Authentication, Routing, Sessions, and Caching are built-in features, ready to use out of the box.' },
+    ],
+    tip: 'Laravel helps you focus on your business logic instead of boilerplate code. Speed is everything !',
+    lab: '', result: '', code: '', filename: '', icon: Globe,
+  },
+  {
+    id: 'L00-S1-续', chapter: 'intro',
+    section: 'Overview (2/2)',
+    title: 'What is Laravel? (Cont.)', subtitle: 'The Industry Standard for PHP',
+    accent: '#f43f5e',
+    bg: 'radial-gradient(ellipse at 10% 20%, rgba(244,63,94,0.1) 0%, transparent 55%)',
+    concepts: [
+      { label: 'Developer Happiness', desc: 'Created by Taylor Otwell, Laravel focuses on developer experience, making web development enjoyable.' },
+      { label: 'Market Leader', desc: 'It is the most popular PHP framework globaly, used for everything from tiny sites to enterprise apps.' },
+    ],
+    variables: [
+      { label: 'Framework', desc: 'A collection of tools and libraries that provide a structured way to build web applications.' },
+      { label: 'Artisan', desc: 'A metaphor used by Laravel to describe developers who take pride in their craft and code quality.' }
+    ],
+    tip: 'Laravel helps you focus on your business logic instead of boilerplate code. Speed is everything !',
+    lab: 'Explore the basic Laravel philosophy. Understand why millions of developers choose it for full-stack apps.',
+    result: 'Clear understanding of Laravel purpose and its impact on modern backend development.',
+    filename: 'introduction.php',
+    code: `<?php
 
-  /* ── CH 01: SETTING UP LARAVEL ── */
+use Illuminate\\Support\\Facades\\Route;
+
+// This is a typical Laravel route.
+// Elegant. Expressive. Powerful.
+
+Route::get('/', function () {
+    return 'Hello, Future Web Artisan!';
+});
+
+// Laravel turns complex logic into 
+// readable, beautiful PHP code.`,
+    terminal: 'php artisan --version',
+    terminalOutput: 'Laravel Framework 11.x.x',
+    icon: Globe,
+  },
+  {
+    id: 'L00-S2', chapter: 'intro',
+    section: 'Key Features (1/2)',
+    title: 'Why Choose Laravel?', subtitle: 'Powerful Tools for Modern Devs',
+    accent: '#f43f5e',
+    bg: 'radial-gradient(ellipse at 80% 30%, rgba(244,63,94,0.1) 0%, transparent 50%)',
+    concepts: [
+      { label: 'Eloquent ORM', desc: 'The best Database mapper in the industry. Manipulate data like JavaScript objects instead of SQL.' },
+      { label: 'Blade Engine', desc: 'Powerfull HTML templating with zero overhead. Write clean frontend code mixed with PHP safely.' },
+    ],
+    tip: 'The Laravel ecosystem is its greatest strength. If you need a feature, there is likely an official package for it !',
+    lab: '', result: '', code: '', filename: '', icon: Zap,
+  },
+  {
+    id: 'L00-S2-续', chapter: 'intro',
+    section: 'Key Features (2/2)',
+    title: 'Why Choose Laravel? (Cont.)', subtitle: 'Safety and Ecosystem',
+    accent: '#f43f5e',
+    bg: 'radial-gradient(ellipse at 80% 30%, rgba(244,63,94,0.08) 0%, transparent 50%)',
+    concepts: [
+      { label: 'Vibrant Ecosystem', desc: 'Forge, Vapor, Nova, and Pulse — a complete suite of tools for deployment and monitoring.' },
+      { label: 'Secure by Default', desc: 'Built-in protection against SQL Injection, Cross-site Request Forgery (CSRF), and XSS attacks.' },
+    ],
+    variables: [
+      { label: 'ORM', desc: 'Object-Relational Mapping. A technique that lets you query and manipulate data from a database using an object-oriented paradigm.' },
+      { label: 'Blade', desc: 'The powerful, yet simple templating engine provided with Laravel.' }
+    ],
+    tip: 'The Laravel ecosystem is its greatest strength. If you need a feature, there is likely an official package for it !',
+    lab: 'Review the high-level features that make Laravel a "battery-included" framework for rapid prototyping.',
+    result: 'Knowledge of core Laravel advantages over raw PHP or smaller frameworks.',
+    filename: 'features.blade.php',
+    code: `{{-- Blade allows clean template logic --}}
+@auth
+    <p>Welcome back, {{ Auth::user()->name }}!</p>
+@else
+    <p>Sign in to start your journey.</p>
+@endauth
+
+{{-- Eloquent makes DB queries look like magic --}}
+$users = User::where('active', true)->get();`,
+    icon: Zap,
+  },
+  {
+    id: 'L00-S3', chapter: 'intro',
+    section: 'Ecosystem (1/2)',
+    title: 'The Laravel Ecosystem', subtitle: 'A Complete Toolbox for Web Apps',
+    accent: '#f43f5e',
+    bg: 'radial-gradient(ellipse at 50% 50%, rgba(244,63,94,0.1) 0%, transparent 60%)',
+    concepts: [
+      { label: 'Full-stack Options', desc: 'Choose between Livewire (PHP-powered SPA) or Inertia.js (React/Vue/Svelte in Laravel).' },
+      { label: 'Testing & Stability', desc: 'Laravel Pest and PHPUnit are first-class citizens. Write tests as easily as you write code.' },
+    ],
+    tip: 'Start simple with Blade & SQLite, then grow to React & MySQL as your needs expand. Laravel scales with you !',
+    lab: '', result: '', code: '', filename: '', icon: Layers,
+  },
+  {
+    id: 'L00-S3-续', chapter: 'intro',
+    section: 'Ecosystem (2/2)',
+    title: 'The Laravel Ecosystem (Cont.)', subtitle: 'A Complete Toolbox for Web Apps',
+    accent: '#f43f5e',
+    bg: 'radial-gradient(ellipse at 50% 50%, rgba(244,63,94,0.08) 0%, transparent 60%)',
+    concepts: [
+      { label: 'Dev to Prod', desc: 'Local dev with Herd/Sail → Deployment with Forge → Scaling with Vapor (Serverless).' },
+      { label: 'Real-time & APIs', desc: 'Laravel Reverb for WebSockets and Sanctum/Passport for secure API authentication.' },
+    ],
+    variables: [
+      { label: 'Livewire', desc: 'A full-stack framework for Laravel that makes building dynamic interfaces simple, without leaving PHP.' },
+      { label: 'Inertia.js', desc: 'A way to build single-page apps using classic server-side routing and controllers.' }
+    ],
+    tip: 'Start simple with Blade & SQLite, then grow to React & MySQL as your needs expand. Laravel scales with you !',
+    lab: 'Identify the common tools used to deploy and scale Laravel applications globally.',
+    result: 'Understanding of how Laravel fits into a professional, modern deployment pipeline.',
+    filename: 'ecosystem.txt',
+    code: `// Laravel Ecosystem Checklist:
+1. Laravel Forge (Infrastructure Management)
+2. Laravel Vapor (Serverless Platform)
+3. Laravel Nova (Administration Panel)
+4. Laravel Pulse (Performance Monitoring)
+5. Laravel Reverb (Real-time WebSockets)
+6. Laravel Herd (Next-gen Local Dev)`,
+    icon: Layers,
+  },
+
+  /* ── CH 02: SETTING UP LARAVEL ── */
   {
     id: 'L01-S1', chapter: 'setup',
-    section: '1. CLI & Server',
+    section: '1. CLI & Server (1/2)',
     title: 'Setting Up Laravel', subtitle: 'ការដំឡើងគម្រោង Web Application',
     accent: '#f43f5e',
     bg: 'radial-gradient(ellipse at 10% 20%, rgba(244,63,94,0.15) 0%, transparent 55%)',
     concepts: [
       { label: 'Composer', desc: 'PHP Package Manager ─ ប្រើដំឡើង Laravel និង third-party libraries ទាំងអស់សម្រាប់ web app។' },
       { label: 'Laravel Installer', desc: '"composer global require laravel/installer" ─ បន្ទាប់ប្រើ "laravel new" command ។' },
+    ],
+    tip: 'public/ folder ជា web root ─ browser ចូលដំបូងទីនេះ ─ index.php bootstrap ចូល Laravel ទាំងមូល ។',
+    lab: '', result: '', code: '', filename: '', icon: Rocket,
+  },
+  {
+    id: 'L01-S1-续', chapter: 'setup',
+    section: '1. CLI & Server (2/2)',
+    title: 'Setting Up Laravel (Cont.)', subtitle: 'Running the built-in server',
+    accent: '#f43f5e',
+    bg: 'radial-gradient(ellipse at 10% 20%, rgba(244,63,94,0.1) 0%, transparent 55%)',
+    concepts: [
       { label: 'php artisan serve', desc: 'Built-in dev server ─ run web app លើ http://127.0.0.1:8000 ដោយមិនចាំបាច់ Apache/Nginx ។' },
       { label: 'Project Folder', desc: 'app/, routes/, resources/views/, database/, public/ ─ រចនាសម្ព័ន្ធស្ដង់ដារ web project ។' },
     ],
@@ -216,21 +359,33 @@ CACHE_STORE=redis`,
     icon: Key,
   },
 
-  /* ── CH 02: MVC PATTERN ── */
+  /* ── CH 03: MVC PATTERN ── */
   {
     id: 'L02-S1', chapter: 'mvc',
+    section: 'Architecture (1/2)',
     title: 'MVC Architecture', subtitle: 'Model – View – Controller Pattern',
     accent: '#f97316',
     bg: 'radial-gradient(ellipse at 30% 20%, rgba(249,115,22,0.15) 0%, transparent 55%)',
     concepts: [
       { label: 'Model', desc: 'Data layer ─ Eloquent class ─ handles database queries, relationships, business rules ។' },
       { label: 'View', desc: 'Presentation layer ─ Blade templates ─ HTML ដែល user ឃើញ ─ no business logic ។' },
+    ],
+    tip: 'Fat Models, Skinny Controllers ─ business logic ក្នុង Model ─ Controller គ្រាន់តែ coordinate ។',
+    lab: '', result: '', code: '', filename: '', icon: Layers,
+  },
+  {
+    id: 'L02-S1-续', chapter: 'mvc',
+    section: 'Architecture (2/2)',
+    title: 'MVC Architecture (Cont.)', subtitle: 'The Request Lifecycle',
+    accent: '#f97316',
+    bg: 'radial-gradient(ellipse at 30% 20%, rgba(249,115,22,0.1) 0%, transparent 55%)',
+    concepts: [
       { label: 'Controller', desc: 'Logic layer ─ receives HTTP request, calls Model, passes data to View ─ "middleman" ។' },
       { label: 'Request Flow', desc: 'Browser → Router → Middleware → Controller → Model → View → HTML Response ។' },
     ],
     tip: 'Fat Models, Skinny Controllers ─ business logic ក្នុង Model ─ Controller គ្រាន់តែ coordinate ។',
     lab: 'Trace ទំព័រ /posts: routes/web.php → PostController@index → Post::all() → posts/index.blade.php ។',
-    result: 'យល់ច្បាស់ MVC flow ─ ដឹងថា code ណាដាក់ Model, Controller, View ។',
+    result: 'យល់ច្បាស់ MVC flow ─ ដឹងថា code ណាដាក់ Model, Controller, ViewStack ។',
     filename: 'mvc-request-flow.md',
     code: `// 1. BROWSER requests GET /posts
 // 2. ROUTER matches route
@@ -248,20 +403,29 @@ class PostController extends Controller {
         // 6. VIEW renders HTML with data
         return view('posts.index', compact('posts'));
     }
-}
-
-// 7. BLADE VIEW renders the HTML page
-// 8. HTML RESPONSE sent back to browser`,
+}`,
     icon: Layers,
   },
   {
     id: 'L02-S2', chapter: 'mvc',
-    title: 'MVC in Practice', subtitle: 'Web Request Lifecycle',
+    section: 'MVC Practice (1/2)',
+    title: 'MVC in Practice', subtitle: 'Views and Models',
     accent: '#f97316',
     bg: 'radial-gradient(ellipse at 75% 60%, rgba(249,115,22,0.1) 0%, transparent 55%)',
     concepts: [
       { label: 'Blade as View', desc: '@foreach, {{ $var }}, @if ─ mix PHP logic into HTML templates cleanly ។' },
       { label: 'Eloquent as Model', desc: 'Post::latest()->get() ─ returns Collection of Post objects ─ no raw SQL needed ។' },
+    ],
+    tip: 'view("posts.index") looks for resources/views/posts/index.blade.php ─ dots = folder separators ។',
+    lab: '', result: '', code: '', filename: '', icon: Server,
+  },
+  {
+    id: 'L02-S2-续', chapter: 'mvc',
+    section: 'MVC Practice (2/2)',
+    title: 'MVC in Practice (Cont.)', subtitle: 'Controllers and Methods',
+    accent: '#f97316',
+    bg: 'radial-gradient(ellipse at 75% 60%, rgba(249,115,22,0.08) 0%, transparent 55%)',
+    concepts: [
       { label: 'Controller Methods', desc: 'index (list page), show (detail page), create/store (form), edit/update, destroy ។' },
       { label: 'view() helper', desc: 'return view("posts.index", $data) ─ maps to resources/views/posts/index.blade.php ។' },
     ],
@@ -270,9 +434,9 @@ class PostController extends Controller {
     result: 'Full MVC cycle works: browser sees list of posts fetched from database ─ rendered as HTML ！',
     filename: 'app/Http/Controllers/PostController.php',
     code: `<?php
-namespace App\Http\Controllers;
+namespace App\\Http\\Controllers;
 
-use App\Models\Post;
+use App\\Models\\Post;
 
 class PostController extends Controller
 {
@@ -286,18 +450,11 @@ class PostController extends Controller
 
         return view('posts.index', compact('posts'));
     }
-
-    // GET /posts/{post} → Show detail page
-    public function show(Post $post) // Auto-fetched by ID
-    {
-        $post->increment('views'); // Track page views
-        return view('posts.show', compact('post'));
-    }
 }`,
     icon: Server,
   },
 
-  /* ── CH 03: ROUTES AND CONTROLLERS ── */
+  /* ── CH 04: ROUTES AND CONTROLLERS ── */
   {
     id: 'L03-S1', chapter: 'routing',
     title: 'Routes in Laravel', subtitle: 'URL Mapping for Web Applications',
@@ -1664,15 +1821,44 @@ class AuthController extends Controller
 }`,
     icon: Key,
   },
+  {
+    id: 'L20-S3', chapter: 'auth',
+    section: 'Conclusion',
+    title: 'To Be Continued...', subtitle: 'Next Session: Advanced Projects',
+    accent: '#a855f7',
+    bg: 'radial-gradient(ellipse at center, rgba(168,85,247,0.15) 0%, transparent 70%)',
+    concepts: [
+      { label: 'E-commerce API', desc: 'Building a full-featured shop backend with products, cart, and orders API ─ Coming soon ！' },
+      { label: 'Social Network', desc: 'Implementing follow system, real-time notifications with WebSockets (Reverb) ─ Coming soon ！' },
+    ],
+    tip: 'Keep practicing! The best way to learn Laravel is to build something real every day ！',
+    lab: 'Review all concepts covered today ─ Practice building a small CRUD app from scratch during the break ។',
+    result: 'Solid foundation in Laravel fundamentals ─ ready for advanced topics and real-world project building ！',
+    filename: 'next-steps.md',
+    code: `// Your Journey Continues...
+    
+$chapters = [
+    'Advanced Eloquent',
+    'Real-time Apps (WebSockets)',
+    'Task Scheduling & Queues',
+    'Automated Testing (Pest)',
+    'DevOps & Deployment'
+];
+
+foreach ($chapters as $topic) {
+    echo "Learning: " . $topic . PHP_EOL;
+}`,
+    icon: Rocket,
+  },
 ];
 
 /* ─── SYNTAX HIGHLIGHTER ─────────────────────────────────────────── */
 const PHP_KW = new Set([
-  'php','echo','return','if','else','elseif','foreach','for','while',
-  'class','extends','implements','namespace','use','new','public',
-  'protected','private','static','function','fn','array','string',
-  'int','float','bool','void','null','true','false','require',
-  'include','throw','try','catch','match','readonly','const',
+  'php', 'echo', 'return', 'if', 'else', 'elseif', 'foreach', 'for', 'while',
+  'class', 'extends', 'implements', 'namespace', 'use', 'new', 'public',
+  'protected', 'private', 'static', 'function', 'fn', 'array', 'string',
+  'int', 'float', 'bool', 'void', 'null', 'true', 'false', 'require',
+  'include', 'throw', 'try', 'catch', 'match', 'readonly', 'const',
 ]);
 
 const HighlightedCode = ({ code }: { code: string }) => {
@@ -1693,20 +1879,157 @@ const HighlightedCode = ({ code }: { code: string }) => {
     });
   };
   return (
-    <div className="font-mono text-sm leading-6 whitespace-pre"
+    <div className="font-mono text-lg leading-relaxed whitespace-pre"
       style={{ fontFamily: "'JetBrains Mono','Fira Code',monospace" }}>
       {code.split('\n').map((line, i) => (
-        <div key={i} className="min-h-[1.5rem]">{tokenize(line)}</div>
+        <div key={i} className="min-h-[1.8rem]">{tokenize(line)}</div>
       ))}
     </div>
   );
 };
 
+/* ─── THEME ANIMATIONS ───────────────────────────────────────────── */
+const ThemeAnimation = ({ accent, slideId, title, chapter }: { accent: string; slideId: string; title: string; chapter: string }) => {
+  const isEcosystem = title.toLowerCase().includes('ecosystem');
+  const isFeatures = title.toLowerCase().includes('why') || title.toLowerCase().includes('choose');
+  const isWhatIs = title.toLowerCase().includes('what is');
+  const isSetup = chapter === 'setup';
+
+  const containerVariants = {
+    initial: { opacity: 0, scale: 0.95 },
+    animate: { opacity: 1, scale: 1, transition: { duration: 0.5, staggerChildren: 0.1 } }
+  };
+
+  const itemVariants = {
+    initial: { y: 20, opacity: 0 },
+    animate: { y: 0, opacity: 1, transition: { type: 'spring' as const, damping: 12 } }
+  };
+
+  return (
+    <motion.div 
+      variants={containerVariants} initial="initial" animate="animate"
+      className="relative w-full h-full flex items-center justify-center bg-[#07090f]/50 rounded-[2rem] border border-white/8 overflow-hidden backdrop-blur-3xl"
+    >
+      {/* Background Decor */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full opacity-20 blur-[120px]"
+          style={{ background: accent }} />
+        <div className="absolute inset-0 opacity-[0.03]" 
+          style={{ backgroundImage: 'radial-gradient(#fff 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
+      </div>
+
+      <div className="relative z-10 w-full max-w-md p-8">
+        {isWhatIs && (
+          <div className="flex flex-col items-center gap-12">
+            <motion.div 
+              animate={{ rotate: 360 }} transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
+              className="relative w-48 h-48 flex items-center justify-center"
+            >
+              {[Globe, Lock, Database, List, Shield, Zap].map((Icon, i) => (
+                <motion.div key={i}
+                  className="absolute p-4 rounded-2xl bg-white/5 border border-white/10 shadow-2xl backdrop-blur-xl"
+                  style={{ 
+                    top: `${50 + 40 * Math.sin((i * Math.PI * 2) / 6)}%`,
+                    left: `${50 + 40 * Math.cos((i * Math.PI * 2) / 6)}%`,
+                    transform: 'translate(-50%, -50%)'
+                  }}
+                >
+                  <Icon size={24} style={{ color: accent }} />
+                </motion.div>
+              ))}
+              <div className="w-24 h-24 rounded-3xl bg-white flex items-center justify-center shadow-[0_0_50px_rgba(255,255,255,0.2)]">
+                <Box size={40} className="text-black" />
+              </div>
+            </motion.div>
+            <div className="text-center space-y-4">
+              <motion.h3 variants={itemVariants} className="text-3xl font-black text-white tracking-tight">The "Battery-Included" Core</motion.h3>
+              <motion.p variants={itemVariants} className="text-zinc-400 font-medium leading-relaxed">Everything you need and more, right out of the box.</motion.p>
+            </div>
+          </div>
+        )}
+
+        {isFeatures && (
+          <div className="space-y-10">
+            {[
+              { label: 'Expressive Syntax', icon: Edit3, desc: 'Code that reads like English' },
+              { label: 'Infinite Scalability', icon: Rocket, desc: 'Grows with your userbase' },
+              { label: 'Security First', icon: Shield, desc: 'Protected by default' },
+            ].map((f, i) => (
+              <motion.div key={i} variants={itemVariants}
+                className="group flex items-center gap-6 p-6 rounded-[1.5rem] bg-white/5 border border-white/5 hover:border-white/20 hover:bg-white/[0.08] transition-all"
+              >
+                <div className="w-14 h-14 rounded-2xl flex items-center justify-center bg-black/40 group-hover:scale-110 transition-transform">
+                  <f.icon size={28} style={{ color: accent }} />
+                </div>
+                <div>
+                  <h4 className="text-xl font-bold text-white mb-1">{f.label}</h4>
+                  <p className="text-zinc-500 font-medium">{f.desc}</p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        )}
+
+        {isEcosystem && (
+          <div className="relative h-[400px] w-full flex items-center justify-center mt-10">
+            <motion.div 
+               animate={{ scale: [1, 1.05, 1] }} transition={{ duration: 4, repeat: Infinity }}
+               className="w-32 h-32 rounded-full bg-white flex items-center justify-center relative z-20 shadow-[0_0_80px_rgba(255,255,255,0.3)]"
+            >
+              <Layers size={48} className="text-black" />
+            </motion.div>
+            {[
+              { label: 'Forge', icon: Server, x: -140, y: -60 },
+              { label: 'Vapor', icon: Rocket, x: 140, y: -60 },
+              { label: 'Nova', icon: Key, x: -100, y: 120 },
+              { label: 'Pulse', icon: Activity, x: 100, y: 120 },
+            ].map((e, i) => (
+              <motion.div key={i}
+                 initial={{ x: 0, y: 0, opacity: 0 }}
+                 animate={{ x: e.x, y: e.y, opacity: 1 }}
+                 transition={{ delay: 0.5 + i * 0.1, type: 'spring', stiffness: 50 }}
+                 className="absolute flex flex-col items-center gap-2 group"
+              >
+                <div className="w-16 h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center backdrop-blur-xl group-hover:bg-white/10 transition-colors">
+                  <e.icon size={24} style={{ color: accent }} />
+                </div>
+                <span className="text-[10px] font-black uppercase tracking-widest text-zinc-500">{e.label}</span>
+                <div className="absolute w-px h-20 bg-gradient-to-t from-white/20 to-transparent bottom-full -z-10 origin-bottom"
+                  style={{ transform: `rotate(${Math.atan2(-e.y, -e.x) * (180 / Math.PI) - 90}deg)` }} />
+              </motion.div>
+            ))}
+          </div>
+        )}
+        {isSetup && (
+          <div className="flex flex-col items-center gap-10">
+            <motion.div 
+               animate={{ y: [0, -10, 0] }} transition={{ duration: 3, repeat: Infinity }}
+               className="p-10 rounded-[2.5rem] bg-white/5 border border-white/10 shadow-2xl backdrop-blur-xl relative overflow-hidden"
+            >
+              <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent pointer-events-none" />
+              <Terminal size={80} style={{ color: accent }} />
+              <motion.div 
+                animate={{ width: ['0%', '100%'] }} transition={{ duration: 2, repeat: Infinity }}
+                className="absolute bottom-0 left-0 h-1 bg-current opacity-30" style={{ color: accent }} />
+            </motion.div>
+            <div className="text-center space-y-4">
+              <motion.div variants={itemVariants} className="inline-block px-4 py-1 rounded-full bg-white/10 border border-white/10 text-[10px] font-black uppercase tracking-widest text-zinc-400 mb-2">Preparing Environment</motion.div>
+              <h3 className="text-3xl font-black text-white tracking-tight">System Foundation</h3>
+              <p className="text-zinc-500 font-medium max-w-[280px] mx-auto leading-relaxed text-sm">Ensuring your machine is Laravel-ready before we build.</p>
+            </div>
+          </div>
+        )}
+      </div>
+    </motion.div>
+  );
+};
+
 /* ─── CODE PANEL ─────────────────────────────────────────────────── */
 const CodePanel = ({
-  code: initialCode, terminal, terminalOutput: initialOutput, accent, filename,
+  code: initialCode, terminal, terminalOutput: initialOutput, accent, filename, subType
 }: {
   code: string; terminal?: string; terminalOutput?: string; accent: string; filename: string;
+  subType: 'concept' | 'variables' | 'lab';
 }) => {
   const [tab, setTab] = useState<'code' | 'terminal'>('code');
   const [code, setCode] = useState(initialCode);
@@ -1717,7 +2040,11 @@ const CodePanel = ({
   const hlRef = useRef<HTMLDivElement>(null);
   const lines = code.split('\n');
 
-  useEffect(() => { setCode(initialCode); setOutput(initialOutput); }, [initialCode, initialOutput]);
+  useEffect(() => {
+    setCode(initialCode);
+    setOutput(initialOutput);
+    setTab(subType === 'lab' ? 'code' : 'terminal');
+  }, [initialCode, initialOutput, subType]);
 
   const copy = () => {
     navigator.clipboard.writeText(tab === 'code' ? code : (output || ''));
@@ -1775,9 +2102,9 @@ const CodePanel = ({
       <div className="flex-1 relative overflow-hidden">
         {tab === 'code' ? (
           <div className="flex h-full overflow-hidden">
-            <div className="flex-none w-10 bg-[#07090f] border-r border-white/5 pt-4 flex flex-col items-end pr-3 select-none overflow-hidden">
+            <div className="flex-none w-12 bg-[#07090f] border-r border-white/5 pt-4 flex flex-col items-end pr-4 select-none overflow-hidden text-lg">
               {lines.map((_, i) => (
-                <div key={i} className="text-[11px] font-mono text-zinc-700 leading-6 min-h-[1.5rem]">{i + 1}</div>
+                <div key={i} className="text-[13px] font-mono text-zinc-700 leading-relaxed min-h-[1.8rem]">{i + 1}</div>
               ))}
             </div>
             <div className="relative flex-1 overflow-hidden">
@@ -1785,21 +2112,21 @@ const CodePanel = ({
                 <HighlightedCode code={code} />
               </div>
               <textarea ref={taRef} value={code} onChange={e => setCode(e.target.value)} onScroll={syncScroll}
-                className="absolute inset-0 w-full h-full bg-transparent text-transparent resize-none outline-none p-4 font-mono text-sm leading-6 border-none overflow-auto selection:bg-purple-500/25"
+                className="absolute inset-0 w-full h-full bg-transparent text-transparent resize-none outline-none p-4 font-mono text-lg leading-relaxed border-none overflow-auto selection:bg-purple-500/25"
                 style={{ fontFamily: "'JetBrains Mono',monospace", whiteSpace: 'pre', overflowWrap: 'normal' }}
                 spellCheck={false} wrap="off" />
             </div>
           </div>
         ) : (
-          <div className="p-6 font-mono text-sm leading-relaxed overflow-auto h-full">
-            <div className="flex gap-2 text-zinc-500 mb-3">
+          <div className="p-8 font-mono text-lg leading-relaxed overflow-auto h-full text-white">
+            <div className="flex gap-2 text-zinc-500 mb-4">
               <span style={{ color: accent }}>➜</span>
               <span className="text-blue-400">~/my-blog</span>
-              <span className="text-zinc-600 font-bold">$</span>
-              <span className="text-zinc-200">{terminal || 'php artisan serve'}</span>
+              <span className="text-zinc-400 font-bold">$</span>
+              <span className="text-white">{terminal || 'php artisan serve'}</span>
             </div>
             {output
-              ? <pre className="text-zinc-200 whitespace-pre-wrap">{output}</pre>
+              ? <pre className="text-white whitespace-pre-wrap font-bold">{output}</pre>
               : <div className="text-zinc-600 animate-pulse">No output yet. Click ដំណើរការ to run.</div>
             }
           </div>
@@ -1819,11 +2146,30 @@ export default function LaravelSlide() {
     const filtered = slides.filter(s => s.chapter === chapterParam);
     const result: DisplayPage[] = [];
     filtered.forEach(s => {
-      result.push({ ...s, subType: 'concept' });
+      // Chunk concepts into groups of 2 to follow slide 1, 2, 3 pattern
+      const conceptChunks = [];
+      for (let i = 0; i < s.concepts.length; i += 2) {
+        conceptChunks.push(s.concepts.slice(i, i + 2));
+      }
+
+      conceptChunks.forEach((chunk, index) => {
+        result.push({
+          ...s,
+          subType: 'concept',
+          section: conceptChunks.length > 1 ? `${s.section || ''} (${index + 1}/${conceptChunks.length})` : s.section,
+          title: index > 0 ? `${s.title} (Cont.)` : s.title,
+          concepts: chunk,
+          // Match Slide 1 vs 2: First parts typically have less/no code
+          code: index < conceptChunks.length - 1 ? '' : s.code,
+        });
+      });
+
       if (s.variables && s.variables.length > 0) {
         result.push({ ...s, subType: 'variables' });
       }
-      result.push({ ...s, subType: 'lab' });
+      if (s.lab && s.lab.length > 0) {
+        result.push({ ...s, subType: 'lab' });
+      }
     });
     return result.length > 0 ? result : [{ ...slides[0], subType: 'concept' }];
   }, [chapterParam]);
@@ -1845,38 +2191,33 @@ export default function LaravelSlide() {
     }
   }, [chapterParam, slideParam, displayPages.length]);
 
-  useEffect(() => {
+  const goTo = useCallback((idx: number, d: number) => {
+    if (isAnimating) return;
+    setDir(d); setIsAnimating(true);
+
     const params = new URLSearchParams(searchParams.toString());
-    const newSlideStr = current === 0 ? null : String(current + 1);
-    
-    if (params.get('slide') !== newSlideStr) {
-      if (newSlideStr === null) params.delete('slide');
-      else params.set('slide', newSlideStr);
-      router.replace(`?${params.toString()}`, { scroll: false });
-    }
-  }, [current, router, searchParams]);
+    if (idx === 0) params.delete('slide');
+    else params.set('slide', String(idx + 1));
+    router.push(`?${params.toString()}`, { scroll: false });
+
+    setTimeout(() => { setCurrent(idx); setIsAnimating(false); }, 250);
+  }, [isAnimating, router, searchParams]);
 
   useEffect(() => {
     const saved = localStorage.getItem('laravel_notes_v3');
     if (saved) setNotes(JSON.parse(saved));
   }, []);
 
-  const slide = displayPages[current];
+  const slide = displayPages[current] || displayPages[0];
   const Icon = slide.icon;
   const progress = ((current + 1) / displayPages.length) * 100;
-  const chapterInfo = CHAPTERS.find(c => c.id === slide.chapter)!;
+  const chapterInfo = CHAPTERS.find(c => c.id === slide.chapter) || CHAPTERS[0];
 
   const saveNote = (val: string) => {
     const next = { ...notes, [slide.id]: val };
     setNotes(next);
     localStorage.setItem('laravel_notes_v3', JSON.stringify(next));
   };
-
-  const goTo = useCallback((idx: number, d: number) => {
-    if (isAnimating) return;
-    setDir(d); setIsAnimating(true);
-    setTimeout(() => { setCurrent(idx); setIsAnimating(false); }, 280);
-  }, [isAnimating]);
 
   const next = useCallback(() => {
     if (current < displayPages.length - 1) { goTo(current + 1, 1); return; }
@@ -2033,12 +2374,18 @@ export default function LaravelSlide() {
       </AnimatePresence>
 
       {/* ── MAIN LAYOUT ── */}
-      <main className="relative z-10 flex-1 flex flex-col lg:flex-row overflow-hidden max-w-[1800px] mx-auto w-full">
-        <AnimatePresence mode="wait" custom={dir}>
-          <motion.div key={`left-${current}`} custom={dir} variants={variants}
-            initial="enter" animate="center" exit="exit"
-            transition={{ duration: 0.28, ease: [0.32, 0.72, 0, 1] }}
-            className="flex-none lg:w-[45%] flex flex-col p-8 lg:p-14 xl:p-20 lg:border-r border-white/6 overflow-y-auto gap-8">
+      {(() => {
+        const hasCode = !!(slide.code || slide.terminal);
+        const hasAnimation = chapterParam === 'intro' || (!hasCode && chapterParam === 'setup');
+        const isFullWidth = !hasCode && !hasAnimation;
+
+        return (
+          <main className={`relative z-10 flex-1 flex flex-col ${isFullWidth ? 'items-center justify-center p-8 lg:p-20' : 'lg:flex-row'} overflow-hidden max-w-[1800px] mx-auto w-full`}>
+            <AnimatePresence mode="wait" custom={dir}>
+              <motion.div key={`left-${current}`} custom={dir} variants={variants}
+                initial="enter" animate="center" exit="exit"
+                transition={{ duration: 0.28, ease: [0.32, 0.72, 0, 1] }}
+                className={`flex flex-col gap-8 transition-all duration-500 ${isFullWidth ? 'max-w-5xl w-full p-12 lg:p-24 bg-white/[0.02] rounded-[4rem] border border-white/8 shadow-2xl backdrop-blur-3xl overflow-y-auto' : 'flex-none lg:w-[45%] p-8 lg:p-14 xl:p-20 lg:border-r border-white/6 overflow-y-auto'}`}>
 
             {/* Title */}
             <div className="flex items-center gap-6 mb-4">
@@ -2053,66 +2400,78 @@ export default function LaravelSlide() {
                     {chapterInfo.label}
                   </span>
                   <div className="flex items-center gap-2 px-2.5 py-1 rounded-lg bg-zinc-900 border border-white/5">
-                    <div className={`w-1.5 h-1.5 rounded-full ${slide.subType === 'concept' ? 'bg-blue-500 animate-pulse' : 'bg-emerald-500 animate-pulse'}`} />
+                    <div className={`w-1.5 h-1.5 rounded-full ${slide.subType === 'concept' ? 'bg-blue-500 animate-pulse' : slide.subType === 'variables' ? 'bg-purple-500 animate-pulse' : 'bg-emerald-500 animate-pulse'}`} />
                     <span className="text-[9px] font-black uppercase tracking-widest text-zinc-400">
-                      {slide.subType === 'concept' ? 'ទ្រឹស្តី' : 'ការអនុវត្ត'}
+                      {slide.subType === 'concept' ? 'ទ្រឹស្តី' : slide.subType === 'variables' ? 'ពាក្យគន្លឹះ' : 'ការអនុវត្ត'}
                     </span>
                   </div>
                   <span className="text-[10px] font-mono font-bold text-zinc-600 tracking-tighter ml-auto">{slide.id}</span>
                 </div>
-                <h1 className="text-4xl xl:text-5xl font-black leading-none text-white tracking-tight">{slide.title}</h1>
-                <p className="text-[12px] text-white/30 font-black uppercase tracking-[0.3em] mt-1">{slide.subtitle}</p>
+                <h1 className="text-4xl xl:text-5xl font-black leading-none text-white tracking-tight -ml-1 border-l-4 pl-6" style={{ borderColor: slide.accent }}>{slide.title}</h1>
+                <p className="text-[18px] text-zinc-400 font-medium leading-relaxed mt-4 max-w-2xl">{slide.subtitle}</p>
               </div>
             </div>
 
-            {/* Content */}
+            {/* Content Switcher */}
             {slide.subType === 'concept' ? (
               <div className="grid grid-cols-1 gap-4">
                 {slide.concepts.map((c, i) => (
                   <motion.div key={i}
                     initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.1 + i * 0.08 }}
-                    className="rounded-2xl border p-8 flex flex-col gap-4 hover:bg-white/[0.02] transition-all hover:shadow-2xl"
-                    style={{ borderColor: `${slide.accent}20`, background: `${slide.accent}05` }}>
-                    <span className="text-[12px] font-black uppercase tracking-[0.2em] opacity-80" style={{ color: slide.accent }}>{c.label}</span>
-                    <p className="text-xl text-zinc-300 leading-relaxed font-medium">{c.desc}</p>
+                    className="rounded-2xl border p-6 flex flex-col gap-3 hover:bg-white/[0.05] transition-all hover:shadow-2xl bg-white/[0.03] border-white/8"
+                    style={{ borderLeftWidth: 6, borderLeftColor: slide.accent }}>
+                    <span className="text-[14px] font-black uppercase tracking-[0.1em]" style={{ color: slide.accent }}>{c.label}</span>
+                    <p className="text-[20px] text-white leading-relaxed font-medium">{c.desc}</p>
+                  </motion.div>
+                ))}
+              </div>
+            ) : slide.subType === 'variables' ? (
+              <div className="grid grid-cols-1 gap-4">
+                <div className="text-[10px] font-black uppercase tracking-[0.3em] mb-4 opacity-50 px-2" style={{ color: slide.accent }}>Technical Dictionary</div>
+                {slide.variables?.map((v, i) => (
+                  <motion.div key={i}
+                    initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.1 + i * 0.08 }}
+                    className="rounded-xl border p-6 flex flex-col gap-3 group hover:bg-white/[0.05] transition-all hover:shadow-2xl bg-white/[0.03] border-white/8">
+                    <span className="text-[22px] font-black font-mono tracking-tight text-white group-hover:px-2 transition-all origin-left" style={{ color: slide.accent }}>{v.label}</span>
+                    <p className="text-[18px] text-white leading-relaxed font-medium">{v.desc}</p>
                   </motion.div>
                 ))}
               </div>
             ) : (
-              <div className="flex flex-col gap-6">
+              <div className="flex flex-col gap-4">
                 <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}
-                  className="rounded-2xl border p-6 flex gap-4 shadow-sm"
-                  style={{ background: `${slide.accent}08`, borderColor: `${slide.accent}20` }}>
+                  className="rounded-2xl border p-6 flex gap-4 bg-white/[0.03] border-white/8 shadow-sm">
                   <div className="w-10 h-10 rounded-xl flex items-center justify-center flex-none border"
-                    style={{ background: `${slide.accent}15`, borderColor: `${slide.accent}25` }}>
-                    <Play className="w-5 h-5" style={{ color: slide.accent }} />
+                    style={{ background: `${slide.accent}15`, borderColor: `${slide.accent}20` }}>
+                    <Play className="w-4 h-4" style={{ color: slide.accent }} />
                   </div>
-                  <div>
-                    <p className="text-[10px] font-black uppercase tracking-[0.25em] mb-2 opacity-70" style={{ color: slide.accent }}>គោលបំណង</p>
-                    <p className="text-[18px] text-white font-bold leading-relaxed">{slide.lab}</p>
+                  <div className="flex flex-col gap-2">
+                    <p className="text-[14px] font-black uppercase tracking-[0.1em]" style={{ color: slide.accent }}>គោលបំណង</p>
+                    <p className="text-[22px] text-white font-bold leading-tight tracking-tight">{slide.lab}</p>
                   </div>
                 </motion.div>
 
                 <motion.div initial={{ opacity: 0, scale: 0.98 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.2 }}
-                  className="rounded-2xl border border-amber-500/20 bg-amber-500/5 p-6 flex gap-4 shadow-inner">
+                  className="rounded-2xl border border-amber-500/15 bg-amber-500/[0.03] p-6 flex gap-4 shadow-inner">
                   <div className="w-10 h-10 rounded-xl bg-amber-500/10 flex items-center justify-center flex-none border border-amber-500/20">
-                    <Sparkles className="w-5 h-5 text-amber-400" />
+                    <Sparkles className="w-4 h-4 text-amber-500" />
                   </div>
-                  <div className="flex flex-col gap-1">
-                    <span className="text-[10px] font-black text-amber-500 uppercase tracking-widest">PRO TIP</span>
-                    <p className="text-[15px] text-amber-200/90 leading-relaxed font-medium italic">« {slide.tip} »</p>
+                  <div className="flex flex-col gap-2">
+                    <span className="text-[14px] font-black text-amber-500 uppercase tracking-widest">PRO TIP</span>
+                    <p className="text-[18px] text-amber-200/80 leading-relaxed font-medium italic">« {slide.tip} »</p>
                   </div>
                 </motion.div>
 
                 <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}
-                  className="rounded-2xl border border-emerald-500/20 bg-emerald-500/5 p-6 flex gap-4 shadow-sm">
-                  <div className="w-10 h-10 rounded-xl bg-emerald-500/10 flex items-center justify-center flex-none border border-emerald-500/20">
-                    <CheckCircle2 className="w-5 h-5 text-emerald-400" />
+                  className="rounded-2xl border border-emerald-500/15 bg-emerald-500/[0.03] p-6 flex gap-4 shadow-sm">
+                  <div className="w-10 h-10 rounded-xl bg-emerald-500/10 flex items-center justify-center flex-none border border-emerald-500/16">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-500" />
                   </div>
-                  <div>
-                    <p className="text-[10px] font-black uppercase tracking-[0.25em] mb-2 text-emerald-400 opacity-70">លទ្ធផលរំពឹងទុក</p>
-                    <p className="text-[16px] text-white font-bold leading-relaxed">{slide.result}</p>
+                  <div className="flex flex-col gap-2">
+                    <span className="text-[14px] font-black text-emerald-500 uppercase tracking-widest">លទ្ធផលរំពឹងទុក</span>
+                    <p className="text-[18px] text-zinc-100 font-medium leading-relaxed">{slide.result}</p>
                   </div>
                 </motion.div>
               </div>
@@ -2139,50 +2498,45 @@ export default function LaravelSlide() {
           </motion.div>
         </AnimatePresence>
 
-        {/* RIGHT — Code */}
-        <div className="flex-none lg:w-[55%] flex flex-col p-4 lg:p-8 xl:p-10 gap-4 overflow-hidden">
-          <div className="flex items-center gap-2 flex-none">
-            <div className="flex items-center gap-2 px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest border border-white/8 bg-white/5"
-              style={{ color: slide.accent }}>
-              <Terminal className="w-3.5 h-3.5" />
-              Interactive Code Editor
-            </div>
-            <div className="ml-auto text-[10px] font-mono text-zinc-700 hidden sm:block">← → Navigate</div>
-          </div>
+            {/* RIGHT — Section */}
+            {!isFullWidth && (
+              <div className="flex-none lg:w-[55%] flex flex-col p-4 lg:p-8 xl:p-10 gap-4 overflow-hidden">
+                {hasAnimation ? (
+                  <ThemeAnimation accent={slide.accent} slideId={slide.id} title={slide.title} chapter={chapterParam} />
+                ) : (
+                  <>
+                    <div className="flex items-center gap-2 flex-none">
+                      <div className="flex items-center gap-2 px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest border border-white/8 bg-white/5"
+                        style={{ color: slide.accent }}>
+                        <Terminal className="w-3.5 h-3.5" />
+                        Interactive Code Editor
+                      </div>
+                      <div className="ml-auto text-[10px] font-mono text-zinc-700 hidden sm:block">← → Navigate</div>
+                    </div>
 
-          <AnimatePresence mode="wait">
-            <motion.div key={`code-${current}`}
-              initial={{ opacity: 0, scale: 0.99, y: 8 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.99, y: -8 }}
-              transition={{ duration: 0.28, ease: [0.32, 0.72, 0, 1] }}
-              className="flex-1 overflow-hidden">
-              {slide.subType === 'lab' ? (
-                <CodePanel
-                  code={slide.code}
-                  terminal={slide.terminal}
-                  terminalOutput={slide.terminalOutput}
-                  accent={slide.accent}
-                  filename={slide.filename}
-                />
-              ) : (
-                <div className="h-full flex flex-col items-center justify-center text-center p-12 bg-white/[0.02] border border-white/5 rounded-3xl relative overflow-hidden group">
-                  <div className="absolute inset-0 bg-gradient-to-br from-transparent via-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
-                  <div className="w-32 h-32 rounded-full flex items-center justify-center mb-8 relative"
-                    style={{ background: `${slide.accent}10` }}>
-                    <div className="absolute inset-0 rounded-full animate-ping opacity-20" style={{ background: slide.accent }} />
-                    <Icon className="w-16 h-16 relative z-10" style={{ color: slide.accent }} />
-                  </div>
-                  <h3 className="text-2xl font-black text-white mb-4 tracking-tight">ការរៀនទ្រឹស្តី</h3>
-                  <p className="text-zinc-500 max-w-sm leading-relaxed font-medium italic">
-                    « ស្វែងយល់ concept ជាមុន ─ Code editor ពេញ​លេញ​នឹង​ស្ថិត​ក្នុង​ស្លាយ​អនុវត្ត​ »
-                  </p>
-                </div>
-              )}
-            </motion.div>
-          </AnimatePresence>
-        </div>
-      </main>
+                    <AnimatePresence mode="wait">
+                      <motion.div key={`code-${current}`}
+                        initial={{ opacity: 0, scale: 0.99, y: 8 }}
+                        animate={{ opacity: 1, scale: 1, y: 0 }}
+                        exit={{ opacity: 0, scale: 0.99, y: -8 }}
+                        transition={{ duration: 0.28, ease: [0.32, 0.72, 0, 1] }}
+                        className="flex-1 overflow-hidden">
+                        <CodePanel
+                          code={slide.code}
+                          filename={slide.filename}
+                          accent={slide.accent}
+                          terminalOutput={slide.terminalOutput}
+                          subType={slide.subType as any}
+                        />
+                      </motion.div>
+                    </AnimatePresence>
+                  </>
+                )}
+              </div>
+            )}
+          </main>
+        );
+      })()}
 
       {/* ── NOTES PANEL ── */}
       <AnimatePresence>

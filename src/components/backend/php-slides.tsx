@@ -2056,9 +2056,10 @@ const HighlightedCode = ({ code, mode = 'php' }: { code: string; mode?: 'php' | 
    CODE PANEL
 ══════════════════════════════════════════════════════════════════ */
 
-const CodePanel = ({ code: initialCode, terminalOutput, accent, filename, outputType = 'browser' }: {
+const CodePanel = ({ code: initialCode, terminalOutput, accent, filename, outputType = 'browser', subType }: {
   code: string; terminal?: string; terminalOutput?: string; accent: string; filename: string;
   outputType?: 'browser' | 'terminal';
+  subType: 'concept' | 'variables' | 'lab';
 }) => {
   const [tab, setTab] = useState<'code' | 'terminal'>('code');
   const [browserMode, setBrowserMode] = useState<'preview' | 'html' | 'headers'>('preview');
@@ -2067,7 +2068,10 @@ const CodePanel = ({ code: initialCode, terminalOutput, accent, filename, output
   const taRef = useRef<HTMLTextAreaElement>(null);
   const hlRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => { setCode(initialCode); }, [initialCode]);
+  useEffect(() => {
+    setCode(initialCode);
+    setTab(subType === 'lab' ? 'code' : 'terminal');
+  }, [initialCode, subType]);
 
   const copy = () => {
     const textToCopy = tab === 'code'
@@ -2365,7 +2369,7 @@ export default function PHPSlides() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [notes, setNotes] = useState<Record<string, string>>({});
 
-  const slide = displayPages[current];
+  const slide = displayPages[current] || displayPages[0];
   const Icon = slide.icon;
   const ch = CHAPTERS.find(c => c.id === chapterParam) || CHAPTERS[0];
 
@@ -2390,7 +2394,7 @@ export default function PHPSlides() {
   const goTo = useCallback((idx: number, d: number) => {
     if (isAnimating) return;
     setDir(d); setIsAnimating(true);
-    
+
     // Update URL manually during interaction
     const params = new URLSearchParams(searchParams.toString());
     if (idx === 0) params.delete('slide');
@@ -2593,10 +2597,10 @@ export default function PHPSlides() {
                       {slide.section}
                     </div>
                   )}
-                  <h1 style={{ fontSize: 28, fontWeight: 900, marginBottom: 8, letterSpacing: '-0.02em', color: '#fff', lineHeight: 1.2 }}>
+                  <h1 style={{ fontSize: 42, fontWeight: 900, marginBottom: 12, letterSpacing: '-0.02em', color: '#fff', lineHeight: 1.1 }}>
                     {slide.title}
                   </h1>
-                  <p style={{ fontSize: 14, color: '#64748b', lineHeight: 1.6 }}>{slide.subtitle}</p>
+                  <p style={{ fontSize: 18, color: '#94a3b8', lineHeight: 1.6, fontWeight: 500 }}>{slide.subtitle}</p>
                 </div>
               </div>
 
@@ -2605,11 +2609,11 @@ export default function PHPSlides() {
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
                   {slide.concepts.map((c, i) => (
                     <div key={i} style={{
-                      padding: '18px 20px', borderRadius: 14, background: 'rgba(255,255,255,0.02)',
-                      border: '1px solid rgba(255,255,255,0.05)',
+                      padding: '24px 28px', borderRadius: 16, background: 'rgba(255,255,255,0.03)',
+                      border: '1px solid rgba(255,255,255,0.08)',
                     }}>
-                      <div style={{ fontSize: 10, fontWeight: 800, color: slide.accent, marginBottom: 8, letterSpacing: '0.1em', textTransform: 'uppercase' }}>{c.label}</div>
-                      <div style={{ fontSize: 14, lineHeight: 1.8, color: '#cbd5e1' }}>{c.desc}</div>
+                      <div style={{ fontSize: 14, fontWeight: 800, color: slide.accent, marginBottom: 10, letterSpacing: '0.1em', textTransform: 'uppercase' }}>{c.label}</div>
+                      <div style={{ fontSize: 20, lineHeight: 1.6, color: '#fff', fontWeight: 500 }}>{c.desc}</div>
                     </div>
                   ))}
                 </div>
@@ -2623,11 +2627,11 @@ export default function PHPSlides() {
                   }}>VARIABLES DICTIONARY</div>
                   {slide.variables?.map((v, i) => (
                     <div key={i} style={{
-                      padding: '18px 20px', borderRadius: 14, background: 'rgba(255,255,255,0.02)',
-                      border: '1px solid rgba(255,255,255,0.05)', display: 'flex', flexDirection: 'column', gap: 8
+                      padding: '24px 28px', borderRadius: 16, background: 'rgba(255,255,255,0.03)',
+                      border: '1px solid rgba(255,255,255,0.08)', display: 'flex', flexDirection: 'column', gap: 10
                     }}>
-                      <div style={{ color: slide.accent, fontFamily: "'JetBrains Mono',monospace", fontSize: 15, fontWeight: 900 }}>{v.label}</div>
-                      <div style={{ fontSize: 14, lineHeight: 1.8, color: '#64748b' }}>{v.desc}</div>
+                      <div style={{ color: slide.accent, fontFamily: "'JetBrains Mono',monospace", fontSize: 22, fontWeight: 900 }}>{v.label}</div>
+                      <div style={{ fontSize: 18, lineHeight: 1.6, color: '#fff', fontWeight: 500 }}>{v.desc}</div>
                     </div>
                   ))}
                 </div>
@@ -2636,30 +2640,30 @@ export default function PHPSlides() {
               {slide.subType === 'lab' && (
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
                   {/* Pro Tip */}
-                  <div style={{ padding: '18px 20px', borderRadius: 14, background: 'rgba(251,191,36,0.04)', border: '1px solid rgba(251,191,36,0.12)' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 10 }}>
-                      <Sparkles size={13} style={{ color: '#fbbf24' }} />
-                      <span style={{ fontSize: 10, fontWeight: 800, color: '#fbbf24', letterSpacing: '0.1em' }}>PRO TIP</span>
+                  <div style={{ padding: '24px 28px', borderRadius: 16, background: 'rgba(251,191,36,0.05)', border: '1px solid rgba(251,191,36,0.15)' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 12 }}>
+                      <Sparkles size={16} style={{ color: '#fbbf24' }} />
+                      <span style={{ fontSize: 14, fontWeight: 800, color: '#fbbf24', letterSpacing: '0.1em' }}>PRO TIP</span>
                     </div>
-                    <div style={{ fontSize: 14, lineHeight: 1.8, color: '#ca8a04', fontStyle: 'italic' }}>{slide.tip}</div>
+                    <div style={{ fontSize: 18, lineHeight: 1.6, color: '#fcd34d', fontStyle: 'italic', fontWeight: 500 }}>{slide.tip}</div>
                   </div>
 
                   {/* Objective */}
-                  <div style={{ padding: '18px 20px', borderRadius: 14, background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 10 }}>
-                      <BookOpen size={13} style={{ color: slide.accent }} />
-                      <span style={{ fontSize: 10, fontWeight: 800, color: slide.accent, letterSpacing: '0.1em' }}>OBJECTIVE</span>
+                  <div style={{ padding: '24px 28px', borderRadius: 16, background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.08)' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 12 }}>
+                      <BookOpen size={16} style={{ color: slide.accent }} />
+                      <span style={{ fontSize: 14, fontWeight: 800, color: slide.accent, letterSpacing: '0.1em' }}>OBJECTIVE</span>
                     </div>
-                    <div style={{ fontSize: 14, lineHeight: 1.8, color: '#cbd5e1' }}>{slide.lab}</div>
+                    <div style={{ fontSize: 22, lineHeight: 1.5, color: '#fff', fontWeight: 700 }}>{slide.lab}</div>
                   </div>
 
                   {/* Expected Outcome */}
-                  <div style={{ padding: '18px 20px', borderRadius: 14, background: 'rgba(74,222,128,0.03)', border: '1px solid rgba(74,222,128,0.1)' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 10 }}>
-                      <CheckCircle2 size={13} style={{ color: '#4ade80' }} />
-                      <span style={{ fontSize: 10, fontWeight: 800, color: '#4ade80', letterSpacing: '0.1em' }}>EXPECTED RESULT</span>
+                  <div style={{ padding: '24px 28px', borderRadius: 16, background: 'rgba(74,222,128,0.05)', border: '1px solid rgba(74,222,128,0.15)' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 12 }}>
+                      <CheckCircle2 size={16} style={{ color: '#4ade80' }} />
+                      <span style={{ fontSize: 14, fontWeight: 800, color: '#4ade80', letterSpacing: '0.1em' }}>EXPECTED RESULT</span>
                     </div>
-                    <div style={{ fontSize: 14, lineHeight: 1.8, color: '#166534' }}>{slide.result}</div>
+                    <div style={{ fontSize: 18, lineHeight: 1.6, color: '#fff', fontWeight: 500 }}>{slide.result}</div>
                   </div>
                 </div>
               )}
@@ -2700,6 +2704,7 @@ export default function PHPSlides() {
               <CodePanel
                 code={slide.code}
                 filename={slide.filename}
+                subType={slide.subType as any}
                 accent={slide.accent}
                 terminalOutput={slide.terminalOutput}
                 outputType={slide.outputType}

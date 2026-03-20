@@ -283,17 +283,21 @@ const HighlightedCode = ({ code }: { code: string }) => (
    CODE PANEL
 ══════════════════════════════════════════════════════════════════ */
 
-const CodePanel = ({ code: initialCode, terminal, terminalOutput, accent, filename }: {
+const CodePanel = ({ code: initialCode, terminal, terminalOutput, accent, filename, subType }: {
   code: string; terminal?: string; terminalOutput?: string; accent: string; filename: string;
+  subType: 'concept' | 'variables' | 'lab';
 }) => {
-  const [tab, setTab] = useState<'code' | 'terminal'>('terminal');
+  const [tab, setTab] = useState<'code' | 'terminal'>('code');
   const [code, setCode] = useState(initialCode);
   const [copied, setCopied] = useState(false);
   const [running, setRunning] = useState(false);
   const taRef = useRef<HTMLTextAreaElement>(null);
   const hlRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => { setCode(initialCode); }, [initialCode]);
+  useEffect(() => {
+    setCode(initialCode);
+    setTab(subType === 'lab' ? 'code' : 'terminal');
+  }, [initialCode, subType]);
 
   const copy = () => {
     navigator.clipboard.writeText(tab === 'code' ? code : terminalOutput || '');
@@ -405,16 +409,18 @@ export default function GitSlides() {
     }
   }, [chapterParam, slideParam, displayPages.length]);
 
-  useEffect(() => {
-    const params = new URLSearchParams(searchParams.toString());
-    const newSlideStr = current === 0 ? null : String(current + 1);
+  const goTo = useCallback((idx: number, d: number) => {
+    if (isAnimating) return;
+    setDir(d); setIsAnimating(true);
     
-    if (params.get('slide') !== newSlideStr) {
-      if (newSlideStr === null) params.delete('slide');
-      else params.set('slide', newSlideStr);
-      router.replace(`?${params.toString()}`, { scroll: false });
-    }
-  }, [current, router, searchParams]);
+    // Update URL manually during interaction
+    const params = new URLSearchParams(searchParams.toString());
+    if (idx === 0) params.delete('slide');
+    else params.set('slide', String(idx + 1));
+    router.push(`?${params.toString()}`, { scroll: false });
+
+    setTimeout(() => { setCurrent(idx); setIsAnimating(false); }, 250);
+  }, [isAnimating, router, searchParams]);
   useEffect(() => {
     try {
       const saved = localStorage.getItem('git_notes_v3');
@@ -433,35 +439,29 @@ export default function GitSlides() {
   const Icon = slide.icon;
   const ch = CHAPTERS.find(c => c.id === chapterParam) ?? CHAPTERS[0];
 
-  useEffect(() => {
-    const params = new URLSearchParams(searchParams.toString());
-    if (current === 0) params.delete('slide');
-    else params.set('slide', String(current + 1));
-    router.replace(`?${params.toString()}`, { scroll: false });
-  }, [current]);
-
-  const goTo = useCallback((idx: number, d: number) => {
-    if (isAnimating) return;
-    setDir(d); setIsAnimating(true);
-    setTimeout(() => { setCurrent(idx); setIsAnimating(false); }, 250);
-  }, [isAnimating]);
-
   const next = useCallback(() => {
-    if (current < displayPages.length - 1) { goTo(current + 1, 1); return; }
-    const ci = CHAPTERS.findIndex(c => c.id === chapterParam);
-    if (ci < CHAPTERS.length - 1) { setDir(1); router.push(`?chapter=${CHAPTERS[ci + 1].id}`); }
-  }, [current, displayPages.length, chapterParam, goTo]);
+    if (current < displayPages.length - 1) goTo(current + 1, 1);
+    else {
+      const ci = CHAPTERS.findIndex(c => c.id === chapterParam);
+      if (ci < CHAPTERS.length - 1) {
+        setDir(1);
+        router.push(`?chapter=${CHAPTERS[ci + 1].id}`);
+      }
+    }
+  }, [current, displayPages.length, chapterParam, goTo, router]);
 
   const prev = useCallback(() => {
-    if (current > 0) { goTo(current - 1, -1); return; }
-    const ci = CHAPTERS.findIndex(c => c.id === chapterParam);
-    if (ci > 0) {
-      setDir(-1);
-      const pc = CHAPTERS[ci - 1];
-      const cnt = GIT_SLIDES.filter(s => s.chapter === pc.id).length * 2;
-      router.push(`?chapter=${pc.id}&slide=${cnt}`);
+    if (current > 0) goTo(current - 1, -1);
+    else {
+      const ci = CHAPTERS.findIndex(c => c.id === chapterParam);
+      if (ci > 0) {
+        setDir(-1);
+        const prevChId = CHAPTERS[ci - 1].id;
+        const prevSlidesCount = (GIT_SLIDES.filter(s => s.chapter === prevChId).length * 2) || 1;
+        router.push(`?chapter=${prevChId}&slide=${prevSlidesCount}`);
+      }
     }
-  }, [current, chapterParam, goTo]);
+  }, [current, chapterParam, goTo, router]);
 
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
@@ -547,10 +547,10 @@ export default function GitSlides() {
                     <div style={{ fontSize: 9, fontWeight: 900, color: slide.accent, background: `${slide.accent}14`, padding: '4px 10px', borderRadius: 6, display: 'inline-block', marginBottom: 12, letterSpacing: '0.1em', textTransform: 'uppercase', border: `1px solid ${slide.accent}20` }}>{slide.section}</div>
                   )}
                   <div style={{ display: 'flex', gap: 16, alignItems: 'flex-start' }}>
-                    <div style={{ width: 48, height: 48, borderRadius: 12, background: `${slide.accent}15`, display: 'flex', alignItems: 'center', justifyContent: 'center', color: slide.accent }}><Icon size={24}/></div>
+                    <div style={{ width: 64, height: 64, borderRadius: 16, background: `${slide.accent}15`, display: 'flex', alignItems: 'center', justifyContent: 'center', color: slide.accent, flexShrink: 0 }}><Icon size={32}/></div>
                     <div>
-                      <h1 style={{ fontSize: 36, fontWeight: 800, color: '#f8fafc', lineHeight: 1.1 }}>{slide.subType === 'lab' ? `${slide.title} (Practice)` : slide.title}</h1>
-                      <p style={{ fontSize: 15, color: '#94a3b8', marginTop: 6 }}>{slide.subType === 'lab' ? 'អនុវត្តជាក់ស្តែងជាមួយ commands' : slide.subtitle}</p>
+                      <h1 style={{ fontSize: 42, fontWeight: 800, color: '#fff', lineHeight: 1.1 }}>{slide.subType === 'lab' ? `${slide.title} (Practice)` : slide.title}</h1>
+                      <p style={{ fontSize: 18, color: '#94a3b8', marginTop: 8, fontWeight: 500 }}>{slide.subType === 'lab' ? 'អនុវត្តជាក់ស្តែងជាមួយ commands' : slide.subtitle}</p>
                     </div>
                   </div>
                 </div>
@@ -558,38 +558,38 @@ export default function GitSlides() {
                 {slide.subType === 'concept' ? (
                   <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
                     {slide.concepts.map((c, i) => (
-                      <div key={i} style={{ padding: 20, background: 'rgba(255,255,255,0.02)', borderRadius: 16, border: '1px solid rgba(255,255,255,0.05)' }}>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 6 }}>
-                          <div style={{ width: 4, height: 4, borderRadius: '50%', background: slide.accent }}/>
-                          <div style={{ fontSize: 10, fontWeight: 800, color: slide.accent, textTransform: 'uppercase' }}>{c.label}</div>
+                      <div key={i} style={{ padding: '24px 28px', background: 'rgba(255,255,255,0.03)', borderRadius: 20, border: '1px solid rgba(255,255,255,0.08)' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 8 }}>
+                          <div style={{ width: 6, height: 6, borderRadius: '50%', background: slide.accent }}/>
+                          <div style={{ fontSize: 12, fontWeight: 800, color: slide.accent, textTransform: 'uppercase', letterSpacing: '0.1em' }}>{c.label}</div>
                         </div>
-                        <p style={{ fontSize: 16, color: '#fff', lineHeight: 1.6 }}>{c.desc}</p>
+                        <p style={{ fontSize: 20, color: '#fff', lineHeight: 1.6, fontWeight: 500 }}>{c.desc}</p>
                       </div>
                     ))}
                   </div>
                 ) : slide.subType === 'variables' ? (
                   <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
-                    <div style={{ fontSize: 10, fontWeight: 900, color: '#4b5563', marginBottom: 8, letterSpacing: '0.1em' }}>REPOSITORY DICTIONARY</div>
+                    <div style={{ fontSize: 14, fontWeight: 900, color: '#94a3b8', marginBottom: 12, letterSpacing: '0.15em' }}>REPOSITORY DICTIONARY</div>
                     {slide.variables?.map((v, i) => (
-                      <div key={i} style={{ padding: 16, background: 'rgba(255,255,255,0.03)', borderRadius: 12, border: '1px solid rgba(255,255,255,0.06)' }}>
-                        <div style={{ color: slide.accent, fontWeight: 800, fontSize: 14, fontFamily: 'monospace', marginBottom: 4 }}>{v.label}</div>
-                        <div style={{ fontSize: 13, color: '#94a3b8' }}>{v.desc}</div>
+                      <div key={i} style={{ padding: '24px 28px', background: 'rgba(255,255,255,0.03)', borderRadius: 16, border: '1px solid rgba(255,255,255,0.08)' }}>
+                        <div style={{ color: slide.accent, fontWeight: 900, fontSize: 22, fontFamily: "'JetBrains Mono', monospace", marginBottom: 6 }}>{v.label}</div>
+                        <div style={{ fontSize: 18, color: '#fff', fontWeight: 500 }}>{v.desc}</div>
                       </div>
                     ))}
                   </div>
                 ) : (
                   <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-                    <div style={{ padding: 20, background: 'rgba(251,191,36,0.03)', borderRadius: 16, border: '1px solid rgba(251,191,36,0.1)', borderLeft: '4px solid #fbbf24', display: 'flex', gap: 16 }}>
-                      <Sparkles size={20} style={{ color: '#fbbf24', flexShrink: 0 }}/>
-                      <p style={{ fontSize: 15, color: '#fff', fontStyle: 'italic', lineHeight: 1.6 }}>{slide.tip}</p>
+                    <div style={{ padding: '24px 28px', background: 'rgba(251,191,36,0.05)', borderRadius: 20, border: '1px solid rgba(251,191,36,0.15)', borderLeft: '6px solid #fbbf24', display: 'flex', gap: 20 }}>
+                      <Sparkles size={24} style={{ color: '#fbbf24', flexShrink: 0 }}/>
+                      <p style={{ fontSize: 18, color: '#fcd34d', fontStyle: 'italic', lineHeight: 1.6, fontWeight: 500 }}>{slide.tip}</p>
                     </div>
-                    <div style={{ padding: 20, background: 'rgba(255,255,255,0.02)', borderRadius: 16, border: '1px solid rgba(255,255,255,0.05)', borderLeft: `4px solid ${slide.accent}` }}>
-                      <div style={{ fontSize: 10, fontWeight: 800, color: slide.accent, textTransform: 'uppercase', marginBottom: 6 }}>Objective</div>
-                      <p style={{ fontSize: 15, color: '#fff' }}>{slide.lab}</p>
+                    <div style={{ padding: '24px 28px', background: 'rgba(255,255,255,0.03)', borderRadius: 20, border: '1px solid rgba(255,255,255,0.08)', borderLeft: `6px solid ${slide.accent}` }}>
+                      <div style={{ fontSize: 14, fontWeight: 900, color: slide.accent, textTransform: 'uppercase', marginBottom: 10, letterSpacing: '0.1em' }}>Objective</div>
+                      <p style={{ fontSize: 24, color: '#fff', fontWeight: 700 }}>{slide.lab}</p>
                     </div>
-                    <div style={{ padding: 20, background: 'rgba(74,222,128,0.03)', borderRadius: 16, border: '1px solid rgba(74,222,128,0.1)', borderLeft: '4px solid #4ade80' }}>
-                      <div style={{ fontSize: 10, fontWeight: 800, color: '#4ade80', textTransform: 'uppercase', marginBottom: 6 }}>Expected Result</div>
-                      <p style={{ fontSize: 15, color: '#fff' }}>{slide.result}</p>
+                    <div style={{ padding: '24px 28px', background: 'rgba(74,222,128,0.05)', borderRadius: 20, border: '1px solid rgba(74,222,128,0.15)', borderLeft: '6px solid #4ade80' }}>
+                      <div style={{ fontSize: 14, fontWeight: 900, color: '#4ade80', textTransform: 'uppercase', marginBottom: 10, letterSpacing: '0.1em' }}>Expected Result</div>
+                      <p style={{ fontSize: 18, color: '#fff', fontWeight: 500 }}>{slide.result}</p>
                     </div>
                   </div>
                 )}
@@ -611,7 +611,14 @@ export default function GitSlides() {
             <span style={{ fontSize: 9, fontWeight: 800, color: '#4b5563', textTransform: 'uppercase' }}>Terminal & Code Area</span>
             <div style={{ flex: 1, height: 1, background: 'rgba(255,255,255,0.05)' }}/>
           </div>
-          <CodePanel code={slide.code} terminal={slide.terminal} terminalOutput={slide.terminalOutput} accent={slide.accent} filename={slide.filename}/>
+          <CodePanel
+            code={slide.code}
+            terminal={slide.terminal}
+            terminalOutput={slide.terminalOutput}
+            accent={slide.accent}
+            filename={slide.filename}
+            subType={slide.subType as 'concept' | 'variables' | 'lab'}
+          />
         </div>
       </main>
 
