@@ -35,20 +35,20 @@ interface Slide {
 
 /* ─── CHAPTERS ───────────────────────────────────────────────────── */
 const CHAPTERS = [
-  { id: 'setup',        label: '01 · Intro & Setup',  color: '#f43f5e' },
-  { id: 'routing',      label: '02 · Routing & Ctrl',  color: '#f97316' },
+  { id: 'setup',        label: '01 · សេចក្តីផ្តើម និងការដំឡើង',  color: '#f43f5e' },
+  { id: 'routing',      label: '02 · Routing និង Controller',  color: '#f97316' },
   { id: 'blade',        label: '03 · Blade Engine',   color: '#22c55e' },
-  { id: 'database',     label: '04 · DB & Eloquent',  color: '#06b6d4' },
-  { id: 'forms',        label: '05 · Forms & Vali',   color: '#eab308' },
-  { id: 'auth',         label: '06 · Auth & Security', color: '#a855f7' },
-  { id: 'crud',         label: '07 · CRUD Ops',       color: '#ec4899' },
-  { id: 'queues',       label: '08 · Queues & Jobs',  color: '#fb923c' },
-  { id: 'advanced',     label: '09 · Advanced',       color: '#3b82f6' },
-  { id: 'api',          label: '10 · API & Sanctum',  color: '#10b981' },
-  { id: 'frontend',     label: '11 · Frontend',       color: '#fbbf24' },
-  { id: 'deploy',       label: '12 · Deployment',     color: '#8b5cf6' },
-  { id: 'todo',         label: '13 · Todo App Demo',  color: '#0ea5e9' },
-  { id: 'assignment',   label: '14 · E-comm Project',  color: '#f472b6' },
+  { id: 'database',     label: '04 · Database និង Eloquent',  color: '#06b6d4' },
+  { id: 'forms',        label: '05 · Form និង Validation',   color: '#eab308' },
+  { id: 'auth',         label: '06 · Auth និង Security', color: '#a855f7' },
+  { id: 'crud',         label: '07 · ប្រតិបត្តិការ CRUD',       color: '#ec4899' },
+  { id: 'queues',       label: '08 · Queues និង Jobs',  color: '#fb923c' },
+  { id: 'advanced',     label: '09 · មុខងារកម្រិតខ្ពស់',       color: '#3b82f6' },
+  { id: 'api',          label: '10 · API និង Sanctum',  color: '#10b981' },
+  { id: 'frontend',     label: '11 · Frontend Integration',  color: '#fbbf24' },
+  { id: 'deploy',       label: '12 · ការដាក់ឱ្យដំណើរការ',     color: '#8b5cf6' },
+  { id: 'todo',         label: '13 · កម្មវិធី Todo App',  color: '#0ea5e9' },
+  { id: 'assignment',   label: '14 · គម្រោង E-commerce',  color: '#f472b6' },
 ];
 
 /* ─── SLIDE DATA ─────────────────────────────────────────────────── */
@@ -56,18 +56,18 @@ const slides: Slide[] = [
   /* ── CHAPTER 1: SETUP ── */
   {
     id: 'L01-S1', chapter: 'setup',
-    title: 'Laravel Ecosystem', subtitle: 'Herd, Sail & Composer',
+    title: 'ប្រព័ន្ធ Ecosystem របស់ Laravel', subtitle: 'Herd, Sail និង Composer',
     accent: '#f43f5e',
     bg: 'radial-gradient(ellipse at 10% 20%, rgba(244,63,94,0.15) 0%, transparent 55%)',
     concepts: [
-      { label: 'Laravel Herd', desc: 'The fastest path to Laravel: Zero-config PHP, Nginx, and DNS for macOS.' },
-      { label: 'Laravel Sail', desc: 'Docker-based development for Windows/Linux/Mac consistency.' },
-      { label: 'Composer', desc: 'PHP Package Manager: The heavy lifter for Laravel dependencies.' },
-      { label: 'env Config', desc: 'Centralized settings for database, mail, and app keys.' },
+      { label: 'Laravel Herd', desc: 'ផ្លូវដែលលឿនបំផុតទៅកាន់ Laravel: Zero-config PHP, Nginx និង DNS សម្រាប់ macOS។' },
+      { label: 'Laravel Sail', desc: 'ការអភិវឌ្ឍន៍ផ្អែកលើ Docker ដើម្បីភាពស៊ីសង្វាក់គ្នារវាង Windows/Linux/Mac។' },
+      { label: 'Composer', desc: 'PHP Package Manager: អ្នកគ្រប់គ្រងកញ្ចប់ដ៏សំខាន់សម្រាប់ Laravel dependencies។' },
+      { label: 'env Config', desc: 'ការកំណត់កណ្តាលសម្រាប់ Database, mail និង app keys។' },
     ],
-    tip: 'On Mac? Use Herd. It is 5x faster than Docker for local PHP execution.',
-    lab: 'Install Herd or Sail and create your first Laravel project: laravel new my-app.',
-    result: 'Fresh Laravel application running on localhost or a .test domain.',
+    tip: 'ប្រសិនបើប្រើ Mac? ប្រើ Herd។ វាលឿនជាង Docker ៥ដងសម្រាប់ការដំណើរការ PHP នៅលើ local។',
+    lab: 'ដំឡើង Herd ឬ Sail ហើយបង្កើតគម្រោង Laravel ដំបូងរបស់អ្នក: laravel new my-app។',
+    result: 'កម្មវិធី Laravel ថ្មីដែលដំណើរការនៅលើ localhost ឬ domain .test។',
     filename: 'terminal',
     code: `# 1. Install Laravel globally
 composer global require laravel/installer
@@ -83,18 +83,18 @@ laravel new nebula-project
   },
   {
     id: 'L01-S2', chapter: 'setup',
-    title: 'Directory Structure', subtitle: 'Where everything lives',
+    title: 'រចនាសម្ព័ន្ធ Folder', subtitle: 'កន្លែងផ្ទុកឯកសារនីមួយៗ',
     accent: '#f43f5e',
     bg: 'radial-gradient(ellipse at 80% 30%, rgba(244,63,94,0.12) 0%, transparent 55%)',
     concepts: [
-      { label: 'app/', desc: 'Your Models, Controllers, and Middleware logic.' },
-      { label: 'routes/', desc: 'The URL map: web.php for views, api.php for endpoints.' },
-      { label: 'resources/', desc: 'Frontend assets: Blade, CSS (Tailwind), and JS (Vite).' },
-      { label: 'database/', desc: 'Your schema history: Migrations and Seeders.' },
+      { label: 'app/', desc: 'ផ្ទុក Models, Controllers និង Middleware logic។' },
+      { label: 'routes/', desc: 'ផែនទី URL: web.php សម្រាប់ views, api.php សម្រាប់ endpoints។' },
+      { label: 'resources/', desc: 'ផ្ទុក Assets: Blade, CSS (Tailwind) និង JS (Vite)។' },
+      { label: 'database/', desc: 'ប្រវត្តិ Schema: Migrations និង Seeders។' },
     ],
-    tip: 'Focus on app/ and routes/ first. They are the brains of your operations.',
-    lab: 'Navigate through the app/ directory and locate where Controllers are stored.',
-    result: 'Clear understanding of standard Laravel folder hierarchy.',
+    tip: 'ផ្តោតលើ app/ និង routes/ ជាមុនសិន។ ពួកវាគឺជាខួរក្បាលនៃប្រតិបត្តិការរបស់អ្នក។',
+    lab: 'ចូលទៅក្នុង app/ directory ហើយស្វែងរកកន្លែងដែល Controllers ត្រូវបានរក្សាទុក។',
+    result: 'យល់ច្បាស់ពីរចនាសម្ព័ន្ធ Folder ស្តង់ដាររបស់ Laravel។',
     filename: 'folders.md',
     code: `project/
 ├── app/          ← Business Logic
@@ -106,18 +106,18 @@ laravel new nebula-project
   },
   {
     id: 'L01-S3', chapter: 'setup',
-    title: 'Artisan CLI', subtitle: 'The Developer Workflow',
+    title: 'Artisan CLI', subtitle: 'កម្មវិធីការងាររបស់អ្នកអភិវឌ្ឍន៍',
     accent: '#f43f5e',
     bg: 'radial-gradient(ellipse at 50% 50%, rgba(244,63,94,0.1) 0%, transparent 60%)',
     concepts: [
-      { label: 'php artisan', desc: 'The command-line interface included with Laravel.' },
-      { label: 'Scaffolding', desc: 'Generate models, controllers, and migrations in seconds.' },
-      { label: 'Maintenance', desc: 'Commands for clearing cache, running tasks, and migrations.' },
-      { label: 'Tinker', desc: 'A REPL for interacting with your DB and models in real-time.' },
+      { label: 'php artisan', desc: 'ចំណុចប្រទាក់បញ្ជា (CLI) ដែលមកជាមួយ Laravel។' },
+      { label: 'Scaffolding', desc: 'បង្កើត Models, Controllers និង Migrations ក្នុងរយៈពេលប៉ុន្មានវិនាទី។' },
+      { label: 'Maintenance', desc: 'ពាក្យបញ្ជាសម្រាប់សម្អាត Cache, ដំណើរការ Tasks និង Migrations។' },
+      { label: 'Tinker', desc: 'REPL សម្រាប់ធ្វើអន្តរកម្មជាមួយ DB និង Models ក្នុងពេលវេលាជាក់ស្តែង។' },
     ],
-    tip: 'Run "php artisan list" to see the hundreds of powerful tools available.',
-    lab: 'Open your terminal and run "php artisan tinker", then type "1 + 1".',
-    result: 'The REPL returns "2", confirming Artisan is live.',
+    tip: 'វាយ "php artisan list" ដើម្បីមើលឧបករណ៍ដ៏មានឥទ្ធិពលរាប់រយដែលមាន។',
+    lab: 'បើក Terminal ហើយវាយ "php artisan tinker" បន្ទាប់មកវាយ "1 + 1"។',
+    result: 'REPL បង្ហាញលទ្ធផល "2" ដែលបញ្ជាក់ថា Artisan កំពុងដំណើរការ។',
     filename: 'artisan.sh',
     code: `# Create a new model + migration + controller
 php artisan make:model Task -mc
@@ -133,18 +133,18 @@ php artisan tinker`,
   },
   {
     id: 'L01-S4', chapter: 'setup',
-    title: 'Configuration', subtitle: 'Dotenv & App Keys',
+    title: 'ការកំណត់ Configuration', subtitle: 'Dotenv និង App Keys',
     accent: '#f43f5e',
     bg: 'radial-gradient(ellipse at center, rgba(244,63,94,0.08) 0%, transparent 70%)',
     concepts: [
-      { label: '.env File', desc: 'Stores sensitive data like DB passwords and API keys (never git push it!).' },
-      { label: '.env.example', desc: 'A template for teammates to fill in their own local settings.' },
-      { label: 'App Key', desc: 'A unique 32-char string used for cryptographically secure data.' },
-      { label: 'config/', desc: 'PHP files that read from .env for app-wide settings.' },
+      { label: '.env File', desc: 'រក្សាទុកទិន្នន័យសំខាន់ៗដូចជា DB Passwords និង API Keys (កុំ push ទៅ git!)។' },
+      { label: '.env.example', desc: 'គំរូសម្រាប់សហការីក្នុងការបំពេញការកំណត់ local ផ្ទាល់ខ្លួនរបស់ពួកគេ។' },
+      { label: 'App Key', desc: 'ខ្សែអក្សរ ៣២ តួអង្គដែលមានសុវត្ថិភាពសម្រាប់ការអ៊ីនគ្រីបទិន្នន័យ។' },
+      { label: 'config/', desc: 'ឯកសារ PHP ដែលអានពី .env សម្រាប់ការកំណត់ទូទាំងកម្មវិធី។' },
     ],
-    tip: 'If your site shows a decrypted error, run php artisan key:generate.',
-    lab: 'Open your .env file and change DB_DATABASE to "academy_db".',
-    result: 'The application is now configured to look for the "academy_db" database.',
+    tip: 'ប្រសិនបើគេហទំព័របង្ហាញកំហុស decryption សូមដំណើរការ php artisan key:generate។',
+    lab: 'បើកឯកសារ .env ហើយប្តូរ DB_DATABASE ទៅជា "academy_db"។',
+    result: 'កម្មវិធីត្រូវបានកំណត់ឱ្យស្វែងរក Database ឈ្មោះ "academy_db"។',
     filename: '.env',
     code: `APP_NAME=Laravel
 APP_ENV=local
@@ -161,18 +161,18 @@ DB_PORT=3306`,
   /* ── CHAPTER 2: ROUTING & CONTROLLERS ── */
   {
     id: 'L02-S1', chapter: 'routing',
-    title: 'Route Engine', subtitle: 'Binding URLs to Logic',
+    title: 'Route Engine', subtitle: 'ការភ្ជាប់ URL ទៅកាន់ Logic',
     accent: '#f97316',
     bg: 'radial-gradient(ellipse at 30% 50%, rgba(249,115,22,0.15) 0%, transparent 60%)',
     concepts: [
-      { label: 'Static Routes', desc: 'Direct URL to view or callback (e.g. /about).' },
-      { label: 'Route Params', desc: 'Dynamic segments like /user/{id} for fetching data.' },
-      { label: 'Named Routes', desc: 'Use route("home") in code to prevent broken links.' },
-      { label: 'Grouping', desc: 'Apply common prefixes or auth middleware to many routes.' },
+      { label: 'Static Routes', desc: 'ភ្ជាប់ URL ផ្ទាល់ទៅកាន់ View ឬ Callback (ឧទាហរណ៍: /about)។' },
+      { label: 'Route Params', desc: 'ផ្នែកឌីណាមិកដូចជា /user/{id} សម្រាប់ទាញយកទិន្នន័យ។' },
+      { label: 'Named Routes', desc: 'ប្រើ route("home") ក្នុងកូដដើម្បីការពារបញ្ហាដាច់ Link។' },
+      { label: 'Grouping', desc: 'អនុវត្ត Prefix ឬ Middleware រួមគ្នាទៅលើ Routes ជាច្រើន។' },
     ],
-    tip: 'Always name your routes using ->name("..."). It makes your URLs portable.',
-    lab: 'Create a route /hello/{name} that returns a friendly greeting back.',
-    result: 'Visiting /hello/ari returns "Hello, ari" in the browser.',
+    tip: 'តែងតែដាក់ឈ្មោះឱ្យ Routes របស់អ្នកដោយប្រើ ->name("...")។ វាធ្វើឱ្យ URL របស់អ្នកងាយស្រួលប្តូរ។',
+    lab: 'បង្កើត Route /hello/{name} ដែលបង្ហាញការសួរសុខទុក្ខត្រឡប់មកវិញ។',
+    result: 'ចូលទៅកាន់ /hello/ari នឹងឃើញ "Hello, ari" នៅក្នុង Browser។',
     filename: 'routes/web.php',
     code: `<?php
     
@@ -188,18 +188,18 @@ Route::get('/user/{id}', function ($id) {
   },
   {
     id: 'L02-S2', chapter: 'routing',
-    title: 'Controllers', subtitle: 'The Brain of the Ops',
+    title: 'Controllers', subtitle: 'ខួរក្បាលនៃប្រតិបត្តិការ',
     accent: '#f97316',
     bg: 'radial-gradient(ellipse at 70% 40%, rgba(249,115,22,0.12) 0%, transparent 55%)',
     concepts: [
-      { label: 'make:controller', desc: 'Scaffold a new class in app/Http/Controllers.' },
-      { label: 'Methods', desc: 'Think of methods as "Actions" (e.g., list, save, delete).' },
-      { label: 'Namespacing', desc: 'Keeps your logic organized and prevents name clashes.' },
-      { label: 'Return types', desc: 'Controllers should return a view(), redirect(), or json().' },
+      { label: 'make:controller', desc: 'បង្កើត Class ថ្មីនៅក្នុង app/Http/Controllers។' },
+      { label: 'Methods', desc: 'គិតថា Methods គឺជា "សកម្មភាព" (Actions) ដូចជា list, save, delete។' },
+      { label: 'Namespacing', desc: 'រក្សាកូដរបស់អ្នកឱ្យមានរបៀបរៀបរយ និងការពារការជាន់ឈ្មោះគ្នា។' },
+      { label: 'Return types', desc: 'Controllers គួរតែផ្តល់ត្រឡប់មកវិញនូវ view(), redirect() ឬ json()។' },
     ],
-    tip: 'Keep your web.php clean. 100% of your logic belongs in Controllers.',
-    lab: 'Generate a ProjectController and write an "index" method that returns a view.',
-    result: 'A new controller is created and wired to a route successfully.',
+    tip: 'រក្សា web.php ឱ្យស្អាត។ កូដ Logic ទាំងអស់គួរតែស្ថិតនៅក្នុង Controllers។',
+    lab: 'បង្កើត ProjectController និងសរសេរ Method "index" ដែលផ្តល់ត្រឡប់មកវិញនូវ View។',
+    result: 'Controller ថ្មីត្រូវបានបង្កើត និងភ្ជាប់ទៅកាន់ Route ដោយជោគជ័យ។',
     filename: 'app/Http/Controllers/ProjectController.php',
     code: `<?php
 
@@ -216,18 +216,18 @@ class ProjectController extends Controller {
   },
   {
     id: 'L02-S3', chapter: 'routing',
-    title: 'Route-Model Binding', subtitle: 'The Ultimate Shortcut',
+    title: 'Route-Model Binding', subtitle: 'ផ្លូវកាត់ដ៏អស្ចារ្យ',
     accent: '#f97316',
     bg: 'radial-gradient(ellipse at center, rgba(249,115,22,0.08) 0%, transparent 70%)',
     concepts: [
-      { label: 'Implicit Binding', desc: 'Laravel automatically fetches the DB record if the param matches the model name.' },
-      { label: 'IDs', desc: 'By default, Laravel looks for the "id" column.' },
-      { label: 'Keys', desc: 'You can change the binding key to "slug" for SEO friendly URLs.' },
-      { label: '404 Handling', desc: 'Laravel automatically shows a 404 page if the record is missing.' },
+      { label: 'Implicit Binding', desc: 'Laravel ទាញយកទិន្នន័យពី DB ដោយស្វ័យប្រវត្តិនូវរាល់ពេលដែល Parameter ដូចឈ្មោះ Model។' },
+      { label: 'IDs', desc: 'តាមលំនាំដើម Laravel ស្វែងរកតាមរយៈ Column "id"។' },
+      { label: 'Keys', desc: 'អ្នកអាចប្តូរការស្វែងរកទៅ "slug" សម្រាប់ SEO friendly URLs។' },
+      { label: '404 Handling', desc: 'Laravel បង្ហាញទំព័រ 404 ដោយស្វ័យប្រវត្តិប្រសិនបើមិនឃើញទិន្នន័យ។' },
     ],
-    tip: 'Using (User $user) as a type-hint replaces "User::findOrFail($id)".',
-    lab: 'Modify a route to use implicit model binding for a "Task" model.',
-    result: 'Code is shorter, cleaner, and handles missing data automatically.',
+    tip: 'ការប្រើ (Task $task) ជា type-hint ជំនួសឱ្យការសរសេរ "Task::findOrFail($id)"។',
+    lab: 'កែសម្រួល Route ឱ្យប្រើ Implicit Model Binding សម្រាប់ Model "Task"។',
+    result: 'កូដខ្លីជាងមុន ស្អាតជាងមុន និងរៀបចំទិន្នន័យដែលបាត់ដោយស្វ័យប្រវត្តិ។',
     filename: 'routes/web.php',
     code: `use App\\Models\\Task;
 
@@ -239,18 +239,18 @@ Route::get('/tasks/{task}', function (Task $task) {
   },
   {
     id: 'L02-S4', chapter: 'routing',
-    title: 'Middleware Intro', subtitle: 'The Gatekeeper',
+    title: 'សេចក្តីផ្តើមអំពី Middleware', subtitle: 'អ្នកយាមច្រកទ្វារ',
     accent: '#f97316',
     bg: 'radial-gradient(ellipse at 10% 80%, rgba(249,115,22,0.06) 0%, transparent 60%)',
     concepts: [
-      { label: 'Filters', desc: 'Middleware layers that code passes through before reaching the controller.' },
-      { label: 'Verification', desc: 'Used for Auth, CSRF, and verifying if a user is an Admin.' },
-      { label: 'Global vs Route', desc: 'Run on every request, or only on specific sensitive URLs.' },
-      { label: 'Chaining', desc: 'Apply multiple guards using ->middleware(["auth", "verified"]).' },
+      { label: 'Filters', desc: 'ស្រទាប់ Middleware ដែលកូដត្រូវឆ្លងកាត់មុនពេលទៅដល់ Controller។' },
+      { label: 'Verification', desc: 'ប្រើសម្រាប់ Auth, CSRF និងការផ្ទៀងផ្ទាត់ប្រសិនបើអ្នកប្រើប្រាស់ជា Admin។' },
+      { label: 'Global vs Route', desc: 'ដំណើរការលើរាល់ការស្នើសុំ ឬសម្រាប់តែ URL ជាក់លាក់។' },
+      { label: 'Chaining', desc: 'អនុវត្ត Guards ច្រើនដោយប្រើ ->middleware(["auth", "verified"])។' },
     ],
-    tip: 'Think of middleware as a security airport scanner: keep the bad out, let the good in.',
-    lab: 'Lock a route so that only logged-in users can reach it.',
-    result: 'Unauthorized users are kicked back to the login page.',
+    tip: 'គិតថា Middleware ដូចជាម៉ាស៊ីនស្កែនសុវត្ថិភាពនៅព្រលានយន្តហោះ៖ ទប់ស្កាត់អ្វីដែលមិនល្អ និងអនុញ្ញាតអ្វីដែលល្អ។',
+    lab: 'ចាក់សោ Route ដើម្បីឱ្យតែអ្នកប្រើប្រាស់ដែលបាន Log in ប៉ុណ្ណោះដែលអាចចូលបាន។',
+    result: 'អ្នកប្រើប្រាស់ដែលមិនទាន់ Log in នឹងត្រូវបញ្ជូនត្រឡប់ទៅទំព័រ Login។',
     filename: 'routes/web.php',
     code: `Route::get('/dashboard', function () {
     return view('dashboard');
@@ -265,14 +265,14 @@ Route::get('/tasks/{task}', function (Task $task) {
     accent: '#22c55e',
     bg: 'radial-gradient(ellipse at 20% 60%, rgba(34,197,94,0.15) 0%, transparent 55%)',
     concepts: [
-      { label: 'Echoing', desc: 'Use {{ $variable }} to print escaped data safely.' },
-      { label: 'Logic', desc: '@if, @foreach, @empty - simplified control structures.' },
-      { label: 'Shortcuts', desc: '@isset and @auth for quick conditional checks.' },
-      { label: 'Security', desc: '@csrf generates hidden keys for form protection automatically.' },
+      { label: 'Echoing', desc: 'ប្រើ {{ $variable }} ដើម្បីបង្ហាញទិន្នន័យដោយសុវត្ថិភាព។' },
+      { label: 'Logic', desc: '@if, @foreach, @empty - រចនាសម្ព័ន្ធគ្រប់គ្រងសាមញ្ញ។' },
+      { label: 'Shortcuts', desc: '@isset និង @auth សម្រាប់ពិនិត្យលក្ខខណ្ឌរហ័ស។' },
+      { label: 'Security', desc: '@csrf បង្កើត keys សម្ងាត់សម្រាប់ការការពារ Form ដោយស្វ័យប្រវត្តិ។' },
     ],
-    tip: 'Laravel escapes all {{ }} content by default. Use {!! !!} only for trusted HTML strings.',
-    lab: 'Create a page that displays "Welcome" only if the user is authenticated.',
-    result: 'User sees dynamic content based on their status.',
+    tip: 'Laravel ការពាររាល់ខ្លឹមសារក្នុង {{ }} តាមលំនាំដើម។ ប្រើ {!! !!} សម្រាប់តែខ្សែអក្សរ HTML ដែលទុកចិត្តប៉ុណ្ណោះ។',
+    lab: 'បង្កើតទំព័រដែលបង្ហាញ "Welcome" លុះត្រាតែអ្នកប្រើប្រាស់បានបញ្ជាក់អត្តសញ្ញាណ។',
+    result: 'អ្នកប្រើប្រាស់ឃើញខ្លឹមសារឌីណាមិកផ្អែកលើស្ថានភាពរបស់ពួកគេ។',
     filename: 'home.blade.php',
     code: `@auth
     <h1>Welcome, {{ Auth::user()->name }}</h1>
@@ -287,14 +287,14 @@ Route::get('/tasks/{task}', function (Task $task) {
     accent: '#22c55e',
     bg: 'radial-gradient(ellipse at 80% 20%, rgba(34,197,94,0.12) 0%, transparent 55%)',
     concepts: [
-      { label: '@extends', desc: 'A child page inherits the skeleton of a master parent view.' },
-      { label: '@yield', desc: 'The parent defines a "hole" where child content will go.' },
-      { label: '@section', desc: 'The child fills that "hole" with its specific HTML.' },
-      { label: '@include', desc: 'Pull in small snippets like navigation or footers into any page.' },
+      { label: '@extends', desc: 'ទំព័រស្ដង់ដារដែលទទួលមរតកពីរចនាសម្ព័ន្ធពី Master Parent View។' },
+      { label: '@yield', desc: 'Parent កំណត់ "ចន្លោះ" ដែលមាតិកាកូននឹងចូលទៅដាក់។' },
+      { label: '@section', desc: 'កូនបំពេញចន្លោះនោះជាមួយនឹង HTML ជាក់លាក់របស់វា។' },
+      { label: '@include', desc: 'បញ្ជូលផ្នែកតូចៗដូចជា Navigation ឬ Footers ចូលទៅក្នុងទំព័រណាមួយ។' },
     ],
-    tip: 'Layouts make maintenance easy. Change your navbar once, and it updates everywhere!',
-    lab: 'Create a "layout.blade.php" and extend it in a "contact.blade.php" page.',
-    result: 'Contact page shows the site header and footer from the layout.',
+    tip: 'Layouts ធ្វើឱ្យការថែទាំមានភាពងាយស្រួល។ ប្តូរ Navbar តែម្តង វានឹងប្តូរនៅគ្រប់ទីកន្លែង!',
+    lab: 'បង្កើត "layout.blade.php" ហើយហៅវាមកប្រើនៅក្នុងទំព័រ "contact.blade.php"។',
+    result: 'ទំព័រទំនាក់ទំនងបង្ហាញ Header និង Footer ពី Layout។',
     filename: 'resources/views/contact.blade.php',
     code: `@extends('layouts.app')
 
@@ -309,14 +309,14 @@ Route::get('/tasks/{task}', function (Task $task) {
     accent: '#22c55e',
     bg: 'radial-gradient(ellipse at center, rgba(34,197,94,0.08) 0%, transparent 70%)',
     concepts: [
-      { label: 'Tags', desc: 'Use <x-name /> syntax for clean, reusable UI elements.' },
-      { label: 'Slots', desc: 'Define where extra HTML goes inside your component.' },
-      { label: 'Attributes', desc: 'Pass data or CSS classes down as standard HTML attributes.' },
-      { label: 'Reusability', desc: 'Build once: Button, Input, Modal, Alert — use everywhere.' },
+      { label: 'Tags', desc: 'ប្រើ <x-name /> សម្រាប់ UI elements ដែលអាចប្រើឡើងវិញបានយ៉ាងស្អាត។' },
+      { label: 'Slots', desc: 'កំណត់កន្លែងដែល HTML បន្ថែមនឹងត្រូវដាក់នៅក្នុង Component។' },
+      { label: 'Attributes', desc: 'បញ្ជូនទិន្នន័យ ឬ CSS classes ទៅកាន់ Component ដូចជា Standard HTML Attributes។' },
+      { label: 'Reusability', desc: 'បង្កើតតែម្តងសម្រាប់៖ Button, Input, Modal, Alert — ហើយប្រើបានគ្រប់ទីកន្លែង។' },
     ],
-    tip: 'Components are modern. Use them for your design system elements.',
-    lab: 'Build a reusable "Alert" component that accepts a "type" (success/error).',
-    result: 'Clean, beautiful alert banners rendered from one file.',
+    tip: 'Components គឺជាស្ទីលទំនើប។ ប្រើពួកវាសម្រាប់រចនាប្រព័ន្ធ (Design System) របស់អ្នក។',
+    lab: 'បង្កើត "Alert" component ដែលអាចប្រើឡើងវិញបាន និងទទួលយក "type" (success/error)។',
+    result: 'បដាព្រមាន (Alert banners) ដែលស្អាត និងមានរបៀបរៀបរយចេញពីឯកសារតែមួយ។',
     filename: 'views/components/alert.blade.php',
     code: `<div class="p-4 rounded {{ $type == 'error' ? 'bg-red-500' : 'bg-green-500' }}">
     {{ $slot }}
@@ -332,14 +332,14 @@ Route::get('/tasks/{task}', function (Task $task) {
     accent: '#22c55e',
     bg: 'radial-gradient(ellipse at 10% 80%, rgba(34,197,94,0.06) 0%, transparent 60%)',
     concepts: [
-      { label: '@stack', desc: 'Place a placeholder in your layout for scripts/styles.' },
-      { label: '@push', desc: 'Send code from a specific page into that layout stack.' },
-      { label: 'Conditional Loading', desc: 'Only load map scripts on the "Location" page.' },
-      { label: 'Efficiency', desc: 'Keeps your JS bundle small by only loading what is needed.' },
+      { label: '@stack', desc: 'ដាក់កន្លែងសម្រាប់ Scripts/Styles នៅក្នុង Layout របស់អ្នក។' },
+      { label: '@push', desc: 'បញ្ជូនកូដពីទំព័រជាក់លាក់ណាមួយទៅក្នុង Layout Stack នោះ។' },
+      { label: 'Conditional Loading', desc: 'ផ្ទុក Script សម្រាប់តែទំព័រ "Location" ប៉ុណ្ណោះ។' },
+      { label: 'Efficiency', desc: 'រក្សា JS bundle ឱ្យតូចដោយផ្ទុកតែអ្វីដែលត្រូវការ។' },
     ],
-    tip: 'Use Stacks to keep your footer tidy. No more messy <script> tags everywhere!',
-    lab: 'Push a specific JS "alert" only into the Contact page footer.',
-    result: 'Script executes only on the intended page.',
+    tip: 'ប្រើ Stacks ដើម្បីរក្សា Footer របស់អ្នកឱ្យស្អាត។ មិនមានកូដ <script> រាយប៉ាយទៀតទេ!',
+    lab: 'បញ្ជូន JS "alert" ជាក់លាក់មួយទៅក្នុង Footer នៃទំព័រទំនាក់ទំនង។',
+    result: 'កូដដំណើរការតែលើទំព័រដែលបានកំណត់ប៉ុណ្ណោះ។',
     filename: 'resources/views/master.blade.php',
     code: `<!DOCTYPE html>
 <html>
@@ -363,14 +363,14 @@ Route::get('/tasks/{task}', function (Task $task) {
     accent: '#06b6d4',
     bg: 'radial-gradient(ellipse at 15% 45%, rgba(6,182,212,0.15) 0%, transparent 55%)',
     concepts: [
-      { label: 'Migrations', desc: 'Blueprint files that create or modify database tables over time.' },
-      { label: 'Schema Builder', desc: 'Fluent API: $table->string("name") to define columns easily.' },
-      { label: 'Rollbacks', desc: 'Mistake? Undo the last migration with one command.' },
-      { label: 'Team Sync', desc: 'Never send SQL dumps; teammates just run "migrate" to stay updated.' },
+      { label: 'Migrations', desc: 'ឯកសារប្លង់ (Blueprint) សម្រាប់បង្កើត ឬកែសម្រួល Database Tables។' },
+      { label: 'Schema Builder', desc: 'Fluent API: $table->string("name") ដើម្បីកំណត់ Column យ៉ាងងាយស្រួល។' },
+      { label: 'Rollbacks', desc: 'មានកំហុសមែនទេ? ត្រឡប់ការ Migration ចុងក្រោយវិញដោយប្រើពាក្យបញ្ជាតែមួយ។' },
+      { label: 'Team Sync', desc: 'មិនចាំបាច់ផ្ញើ SQL dumps; គ្រាន់តែដំណើរការ "migrate" ដើម្បីឱ្យទិន្នន័យសហការីទាន់សម័យ។' },
     ],
-    tip: 'Treat migrations like Git for your database. Never change tables manually.',
-    lab: 'Create a migration for a "posts" table with title and body fields.',
-    result: 'Successful table creation confirmed in terminal.',
+    tip: 'ចាត់ទុក Migrations ដូចជា Git សម្រាប់ Database របស់អ្នក។ កុំប្តូរ Tables ដោយផ្ទាល់។',
+    lab: 'បង្កើត Migration សម្រាប់ "posts" table ដែលមាន Field title និង body។',
+    result: 'បង្កើត Table បានជោគជ័យ ដែលត្រូវបានបញ្ជាក់នៅក្នុង Terminal។',
     filename: 'create_posts_table.php',
     code: `Schema::create('posts', function (Blueprint $table) {
     $table->id();
@@ -388,14 +388,14 @@ Route::get('/tasks/{task}', function (Task $task) {
     accent: '#06b6d4',
     bg: 'radial-gradient(ellipse at 85% 55%, rgba(6,182,212,0.12) 0%, transparent 55%)',
     concepts: [
-      { label: 'Active Record', desc: 'Each model class represents a table; each object represents a row.' },
-      { label: 'Fluent Queries', desc: 'Post::where("active", true)->get() is pure English.' },
-      { label: 'Fillables', desc: 'A security whitelist for fields that can be updated in bulk.' },
-      { label: 'Casting', desc: 'Automatically convert JSON strings to arrays (or dates) for you.' },
+      { label: 'Active Record', desc: 'រាល់ Model class តំណាងឱ្យ Table មួយ; រាល់ Object តំណាងឱ្យ Row មួយ។' },
+      { label: 'Fluent Queries', desc: 'Post::where("active", true)->get() គឺងាយស្រួលយល់ដូចភាសាអង់គ្លេស។' },
+      { label: 'Fillables', desc: 'បញ្ជីសុវត្ថិភាពសម្រាប់ Field ដែលអាចត្រូវបានប្តូរក្នុងពេលតែមួយ (Bulk Update)។' },
+      { label: 'Casting', desc: 'បម្លែង JSON strings ទៅជា Arrays (ឬ Dates) ដោយស្វ័យប្រវត្តិ។' },
     ],
-    tip: 'Eloquent models are the heart of your data logic. Keep them thin and expressive.',
-    lab: 'Instantiate a new User model, set its name, and save it to the database.',
-    result: 'New record appears in your users table.',
+    tip: 'Eloquent models គឺជាបេះដូងនៃ Data logic របស់អ្នក។ រក្សាពួកវាឱ្យខ្លី និងងាយយល់។',
+    lab: 'បង្កើត User model ថ្មី កំណត់ឈ្មោះរបស់វា ហើយរក្សាទុកវាទៅក្នុង Database។',
+    result: 'ទិន្នន័យថ្មីបង្ហាញនៅក្នុង users table របស់អ្នក។',
     filename: 'app/Models/Post.php',
     code: `<?php
 
@@ -413,18 +413,18 @@ class Post extends Model {
   },
   {
     id: 'L04-S3', chapter: 'database',
-    title: 'Relationships', subtitle: 'Connecting the Dots',
+    title: 'ទំនាក់ទំនងរវាង Tables (Relationships)', subtitle: 'ការភ្ជាប់ទំនាក់ទំនងទិន្នន័យ',
     accent: '#06b6d4',
     bg: 'radial-gradient(ellipse at center, rgba(6,182,212,0.08) 0%, transparent 70%)',
     concepts: [
-      { label: 'One-to-One', desc: 'A User has exactly one Profile.' },
-      { label: 'One-to-Many', desc: 'A Post has many Comments; the most common link.' },
-      { label: 'Many-to-Many', desc: 'Students and Courses: many students take many courses.' },
-      { label: 'Eager Loading', desc: 'Use User::with("posts") to prevent the "N+1" performance bug.' },
+      { label: 'One-to-One', desc: 'អ្នកប្រើប្រាស់ម្នាក់មាន Profile តែមួយគត់។' },
+      { label: 'One-to-Many', desc: 'Post មួយមាន Comments ច្រើន; នេះគឺជាការតភ្ជាប់ទូទៅបំផុត។' },
+      { label: 'Many-to-Many', desc: 'សិស្ស និងមេរៀន៖ សិស្សច្រើននាក់រៀនមេរៀនច្រើន។' },
+      { label: 'Eager Loading', desc: 'ប្រើ User::with("posts") ដើម្បីការពារបញ្ហាល្បឿន "N+1"។' },
     ],
-    tip: 'Always use Eager Loading when looping to keep your database fast!',
-    lab: 'Define a "hasMany" relationship on a User model for their blog posts.',
-    result: 'You can now access $user->posts and get a clean collection of data.',
+    tip: 'តែងតែប្រើ Eager Loading នៅពេលប្រើ Loop ដើម្បីរក្សា Database ឱ្យដំណើរការលឿន!',
+    lab: 'កំណត់ទំនាក់ទំនង "hasMany" នៅក្នុង User model សម្រាប់ blog posts របស់ពួកគេ។',
+    result: 'អ្នកអាចប្រើ $user->posts ហើយទទួលបានបណ្តុំទិន្នន័យយ៉ាងស្អាត។',
     filename: 'app/Models/User.php',
     code: `public function posts() {
     return $this->hasMany(Post::class);
@@ -436,18 +436,18 @@ $users = User::with('posts')->get();`,
   },
   {
     id: 'L04-S4', chapter: 'database',
-    title: 'Factories & Seeders', subtitle: 'Mass Production',
+    title: 'Factories & Seeders', subtitle: 'ការផលិតទិន្នន័យយ៉ាងច្រើន',
     accent: '#06b6d4',
     bg: 'radial-gradient(ellipse at 10% 20%, rgba(6,182,212,0.06) 0%, transparent 60%)',
     concepts: [
-      { label: 'Seeders', desc: 'Fill your database with "Real" static data for production.' },
-      { label: 'Factories', desc: 'Producers of "Fake" random data for testing (using Faker).' },
-      { label: 'Mass Creation', desc: 'Generate 1,000 users in 1 second for performance testing.' },
-      { label: 'Refresh', desc: 'Wipe and re-seed your DB anytime with a single command.' },
+      { label: 'Seeders', desc: 'បំពេញទិន្នន័យស្តង់ដារទៅក្នុង Database។' },
+      { label: 'Factories', desc: 'អ្នកបង្កើតទិន្នន័យ "ក្លែងក្លាយ" (Fake data) សម្រាប់សាកល្បង (ដោយប្រើ Faker)។' },
+      { label: 'Mass Creation', desc: 'បង្កើត Users ចំនួន ១,០០០ នាក់ក្នុងរយៈពេល ១ វិនាទីដើម្បីតេស្តល្បឿន។' },
+      { label: 'Refresh', desc: 'លុប និងបំពេញទិន្នន័យក្នុង DB ឡើងវិញគ្រប់ពេលដោយប្រើពាក្យបញ្ជាតែមួយ។' },
     ],
-    tip: 'Use Factories during development to see how your UI looks with "real-ish" content.',
-    lab: 'Run a seeder to populate your project with 50 fake blog posts.',
-    result: 'A lively, populated application UI without manual typing.',
+    tip: 'ប្រើ Factories ក្នុងកំឡុងពេលអភិវឌ្ឍន៍ ដើម្បីមើលថា UI របស់អ្នកមើលទៅដូចម្តេចជាមួយនឹងខ្លឹមសារពិតៗ។',
+    lab: 'ដំណើរការ Seeder ដើម្បីបំពេញគម្រោងរបស់អ្នកជាមួយនឹង blog posts ក្លែងក្លាយចំនួន ៥០។',
+    result: 'UI របស់កម្មវិធីមានទិន្នន័យពេញលេញដោយមិនចាំបាច់វាយបញ្ចូលដោយដៃ។',
     filename: 'database/seeders/DatabaseSeeder.php',
     code: `public function run(): void {
     // Generate 10 random users
@@ -466,18 +466,18 @@ $users = User::with('posts')->get();`,
   /* ── CHAPTER 5: FORMS & VALIDATION ── */
   {
     id: 'L05-S1', chapter: 'forms',
-    title: 'Forms & CSRF', subtitle: 'Secure Submissions',
+    title: 'Form និង CSRF', subtitle: 'ការបញ្ជូនទិន្នន័យដោយសុវត្ថិភាព',
     accent: '#eab308',
     bg: 'radial-gradient(ellipse at 50% 10%, rgba(234,179,8,0.15) 0%, transparent 55%)',
     concepts: [
-      { label: 'CSRF Shield', desc: 'Unique secret tokens that prevent Cross-Site Request Forgery attacks.' },
-      { label: 'POST Action', desc: 'All data changing routes must be POST (or PUT/DELETE via spoofing).' },
-      { label: 'Method Spoofing', desc: 'HTML forms only support GET/POST; use @method("PATCH") for updates.' },
-      { label: 'Persistence', desc: 'Use the old() helper to keep input values after a validation fail.' },
+      { label: 'CSRF Shield', desc: 'Token សម្ងាត់ដែលការពារការវាយប្រហារ Cross-Site Request Forgery។' },
+      { label: 'POST Action', desc: 'រាល់ផ្ទាំងដែលប្តូរទិន្នន័យត្រូវតែជា POST (ឬ PUT/DELETE តាមរយៈ spoofing)។' },
+      { label: 'Method Spoofing', desc: 'HTML forms អនុញ្ញាតតែ GET/POST; ប្រើ @method("PATCH") សម្រាប់ការ Update។' },
+      { label: 'Persistence', desc: 'ប្រើ helper old() ដើម្បីរក្សាតម្លៃដែលបានបញ្ចូលបន្ទាប់ពី Validation បរាជ័យ។' },
     ],
-    tip: 'Always include @csrf. Without it, Laravel will block your request with a 419 error.',
-    lab: 'Build a form that sends a title and body to an "update" route using the PATCH method.',
-    result: 'Submission works perfectly with full security and persistence.',
+    tip: 'តែងតែដាក់ @csrf។ បើគ្មានវាទេ Laravel នឹងទប់ស្កាត់ការស្នើសុំរបស់អ្នកជាមួយនឹងកំហុស 419។',
+    lab: 'បង្កើត Form ដែលផ្ញើ title និង body ទៅកាន់ "update" route ដោយប្រើ PATCH method។',
+    result: 'ការបញ្ជូនទិន្នន័យដំណើរការយ៉ាងល្អឥតខ្ចោះជាមួយនឹងសុវត្ថិភាពពេញលេញ។',
     filename: 'edit_post.blade.php',
     code: `<form action="/posts/{{ $id }}" method="POST">
     @csrf
@@ -490,18 +490,18 @@ $users = User::with('posts')->get();`,
   },
   {
     id: 'L05-S2', chapter: 'forms',
-    title: 'Validation Logic', subtitle: 'The Sanitizer',
+    title: 'Validation Logic', subtitle: 'ការត្រួតពិនិត្យទិន្នន័យ',
     accent: '#eab308',
     bg: 'radial-gradient(ellipse at 50% 90%, rgba(234,179,8,0.12) 0%, transparent 55%)',
     concepts: [
-      { label: 'Declarative Rules', desc: 'Use "required|email|unique:users" to specify exactly what you expect.' },
-      { label: 'Automatic Redirects', desc: 'Laravel automatically sends users back to the form if validation fails.' },
-      { label: 'Inline Errors', desc: 'Use the @error directive to show specific red messages below each input.' },
-      { label: 'Security', desc: 'Validation is your first line of defense against malicious database entries.' },
+      { label: 'Declarative Rules', desc: 'ប្រើ "required|email|unique:users" ដើម្បីបញ្ជាក់ពីអ្វីដែលអ្នករំពឹងទុក។' },
+      { label: 'Automatic Redirects', desc: 'Laravel បញ្ជូនអ្នកប្រើប្រាស់ត្រឡប់ទៅ Form វិញដោយស្វ័យប្រវត្តិប្រសិនបើ Validation បរាជ័យ។' },
+      { label: 'Inline Errors', desc: 'ប្រើ @error directive ដើម្បីបង្ហាញសារកំហុសពណ៌ក្រហមនៅក្រោមប្រអប់បញ្ចូលនីមួយៗ។' },
+      { label: 'Security', desc: 'Validation គឺជាខ្សែការពារទីមួយរបស់អ្នកប្រឆាំងនឹងការបញ្ចូលទិន្នន័យមិនល្អទៅក្នុង Database។' },
     ],
-    tip: 'Never trust user data. If a field is not in your $validated array, do not save it!',
-    lab: 'Write a validation rule for a "slug" that must be unique in the posts table.',
-    result: 'System rejects duplicate slugs and shows a friendly error message.',
+    tip: 'កុំទុកចិត្តទិន្នន័យរបស់អ្នកប្រើប្រាស់។ ប្រសិនបើ Field មិនមាននៅក្នុង $validated array របស់អ្នកទេ កុំរក្សាទុកវា!',
+    lab: 'សរសេរ Validation rule សម្រាប់ "slug" ដែលត្រូវតែមានតែមួយគត់ (Unique) នៅក្នុង posts table។',
+    result: 'ប្រព័ន្ធបដិសេធ slug ដែលស្ទួនគ្នា និងបង្ហាញសារកំហុសយ៉ាងសមរម្យ។',
     filename: 'UserController.php',
     code: `public function store(Request $request) {
     $data = $request->validate([
@@ -515,18 +515,18 @@ $users = User::with('posts')->get();`,
   },
   {
     id: 'L05-S3', chapter: 'forms',
-    title: 'Form Requests', subtitle: 'Clean Controllers',
+    title: 'Form Requests', subtitle: 'ការសំអាត Controller ឱ្យស្អាត',
     accent: '#eab308',
     bg: 'radial-gradient(ellipse at center, rgba(234,179,8,0.08) 0%, transparent 70%)',
     concepts: [
-      { label: 'Separation', desc: 'Move complex validation away from your controller into its own dedicated class.' },
-      { label: 'Authorization', desc: 'The authorize() method lets you check if a user is ALLOWED to submit this form.' },
-      { label: 'Rules Method', desc: 'A clean, centralized place for all your verification logic.' },
-      { label: 'Reusability', desc: 'Share the same validation rules across multiple controllers.' },
+      { label: 'Separation', desc: 'ផ្លាស់ប្តូរ Validation ដែលស្មុគស្មាញចេញពី Controller ទៅក្នុង Class ផ្ទាល់ខ្លួនរបស់វា។' },
+      { label: 'Authorization', desc: 'Method authorize() អនុញ្ញាតឱ្យអ្នកត្រួតពិនិត្យថា តើអ្នកប្រើប្រាស់ត្រូវបានអនុញ្ញាតឱ្យបញ្ជូន Form នេះដែរឬទេ។' },
+      { label: 'Rules Method', desc: 'កន្លែងរួមមួយយ៉ាងស្អាតសម្រាប់ការផ្ទៀងផ្ទាត់ Logic ទាំងអស់របស់អ្នក។' },
+      { label: 'Reusability', desc: 'ចែករំលែក Validation rules ដូចគ្នាទៅកាន់ Controllers ជាច្រើន។' },
     ],
-    tip: 'If your controller method has more than 5 lines of validation, create a Form Request.',
-    lab: 'Generate a StorePostRequest and move your validation rules into it.',
-    result: 'Controller is now a single, beautiful line of logic.',
+    tip: 'ប្រសិនបើ Method ក្នុង Controller របស់អ្នកមានការ Validation លើសពី ៥ បន្ទាត់ សូមបង្កើត Form Request។',
+    lab: 'បង្កើត StorePostRequest ហើយផ្លាស់ប្តូរ Validation rules របស់អ្នកទៅក្នុងនោះ។',
+    result: 'Controller ឥឡូវនេះមានកូដយ៉ាងខ្លី និងស្អាត។',
     filename: 'app/Http/Requests/StorePostRequest.php',
     code: `public function rules(): array {
     return [
@@ -543,18 +543,18 @@ public function store(StorePostRequest $request) { ... }`,
   },
   {
     id: 'L05-S4', chapter: 'forms',
-    title: 'Flash Messaging', subtitle: 'Feedback Loop',
+    title: 'Flash Messaging', subtitle: 'ការផ្តល់ដំណឹងត្រឡប់មកវិញ',
     accent: '#eab308',
     bg: 'radial-gradient(ellipse at 90% 10%, rgba(234,179,8,0.06) 0%, transparent 60%)',
     concepts: [
-      { label: 'Flash Session', desc: 'Data that lasts for exactly one more page load (perfect for "Success!").' },
-      { label: 'with() Helper', desc: 'Chain ->with("status", "Saved") onto your redirects for easy messaging.' },
-      { label: 'UI Feedback', desc: 'Check if(session("success")) in your Blade header to show banners.' },
-      { label: 'Persistence', desc: 'Errors are also flashed automatically by the validator.' },
+      { label: 'Flash Session', desc: 'ទិន្នន័យដែលមានក្នុងរយៈពេលតែមួយទំព័រប៉ុណ្ណោះ (ល្អឥតខ្ចោះសម្រាប់សារ "ជោគជ័យ!")។' },
+      { label: 'with() Helper', desc: 'ប្រើ ->with("status", "Saved") ទៅលើការ Redirect របស់អ្នកសម្រាប់សារងាយៗ។' },
+      { label: 'UI Feedback', desc: 'ពិនិត្យ if(session("success")) នៅក្នុង Blade header ដើម្បីបង្ហាញបដាព័ត៌មាន។' },
+      { label: 'Persistence', desc: 'កំហុសផ្សេងៗក៏ត្រូវបានបញ្ជូនដោយស្វ័យប្រវត្តិតាមរយៈ validator ផងដែរ។' },
     ],
-    tip: 'Users love feedback. Always tell them when their "Save" was successful!',
-    lab: 'Redirect to the home page with a "Post Created" status message.',
-    result: 'Successful user UX with a green banner confirming the action.',
+    tip: 'អ្នកប្រើប្រាស់ចូលចិត្តការឆ្លើយតប។ តែងតែប្រាប់ពួកគេនៅពេលដែលពួកគេ "រក្សាទុក" បានជោគជ័យ!',
+    lab: 'បញ្ជូនទៅកាន់ទំព័រដើមវិញជាមួយនឹងសារស្ថានភាព "Post Created"។',
+    result: 'បទពិសោធន៍អ្នកប្រើប្រាស់ (UX) ល្អជាមួយនឹងបដាពណ៌បៃតងដែលបញ្ជាក់ពីសកម្មភាពបានសម្រេច។',
     filename: 'PostController.php',
     code: `return redirect('/posts')
     ->with('success', 'New post is live!');
@@ -571,18 +571,18 @@ public function store(StorePostRequest $request) { ... }`,
   /* ── CHAPTER 6: AUTHENTICATION & SECURITY ── */
   {
     id: 'L06-S1', chapter: 'auth',
-    title: 'Authentication Strategy', subtitle: 'Breeze, Jetstream & Fortify',
+    title: 'យុទ្ធសាស្ត្រ Authentication', subtitle: 'Breeze, Jetstream និង Fortify',
     accent: '#a855f7',
     bg: 'radial-gradient(ellipse at 0% 0%, rgba(168,85,247,0.15) 0%, transparent 55%)',
     concepts: [
-      { label: 'Starter Kits', desc: 'Breeze (Minimal/Blade/Inertia) and Jetstream (Pro/Livewire) jumpstart your app.' },
-      { label: 'Automation', desc: 'Laravel handles Login, Registration, Password Resets, and Verification out of the box.' },
-      { label: 'Secure Storage', desc: 'Passwords are automatically hashed using Argon2 or Bcrypt — the industry gold standard.' },
-      { label: 'Guard System', desc: 'Define how users are authenticated (Session for web, Token for API).' },
+      { label: 'Starter Kits', desc: 'Breeze (Minimal/Blade/Inertia) និង Jetstream (Pro/Livewire) ជួយចាប់ផ្តើមកម្មវិធីរបស់អ្នកយ៉ាងរហ័ស។' },
+      { label: 'Automation', desc: 'Laravel រៀបចំ Login, Registration, Password Resets និង Verification មកស្រាប់តែម្តង។' },
+      { label: 'Secure Storage', desc: 'Password ត្រូវបាន Hash ដោយស្វ័យប្រវត្តិតាមរយៈ Argon2 ឬ Bcrypt — ដែលជាស្តង់ដារខ្ពស់ក្នុងឧស្សាហកម្ម។' },
+      { label: 'Guard System', desc: 'កំណត់ពីរបៀបដែលអ្នកប្រើប្រាស់ត្រូវបានផ្ទៀងផ្ទាត់ (Session សម្រាប់ web, Token សម្រាប់ API)។' },
     ],
-    tip: 'Don’t reinvent the wheel. Laravel’s auth system is battle-tested and secure for millions of users.',
-    lab: 'Install Laravel Breeze and run migrations to enable the user dashboard.',
-    result: 'A complete auth system running on your local machine instantly.',
+    tip: 'កុំព្យាយាមបង្កើតប្រព័ន្ធ Auth ខ្លួនឯងឡើងវិញ។ ប្រព័ន្ធ Auth របស់ Laravel ត្រូវបានតេស្តយ៉ាងហ្មត់ចត់ និងមានសុវត្ថិភាពសម្រាប់អ្នកប្រើប្រាស់រាប់លាននាក់។',
+    lab: 'ដំឡើង Laravel Breeze ហើយដំណើរការ migrations ដើម្បីបើកដំណើរការ Dashboard។',
+    result: 'ប្រព័ន្ធ Auth ពេញលេញដែលដំណើរការលើ Local machine របស់អ្នកភ្លាមៗ។',
     filename: 'terminal',
     code: `# 1. Install Breeze
 composer require laravel/breeze --dev
@@ -596,18 +596,18 @@ php artisan migrate`,
   },
   {
     id: 'L06-S2', chapter: 'auth',
-    title: 'Authorization Gates', subtitle: 'The Permissions Layer',
+    title: 'Authorization Gates', subtitle: 'ស្រទាប់កំណត់សិទ្ធិ (Permissions)',
     accent: '#a855f7',
     bg: 'radial-gradient(ellipse at 100% 100%, rgba(168,85,247,0.12) 0%, transparent 55%)',
     concepts: [
-      { label: 'Gates', desc: 'Quick true/false checks for generic actions (e.g., "is-admin").' },
-      { label: 'Policies', desc: 'Organized classes that group authorization logic for a specific model (e.g., PostPolicy).' },
-      { label: 'Middleware Gate', desc: 'Restrict access to routes based on user roles or specific criteria.' },
-      { label: 'Guest Access', desc: 'Easily handle visitors vs registered users in your templates.' },
+      { label: 'Gates', desc: 'ការត្រួតពិនិត្យ true/false រហ័សសម្រាប់សកម្មភាពទូទៅ (ឧទាហរណ៍: "is-admin")។' },
+      { label: 'Policies', desc: 'Class ដែលប្រមូលផ្តុំ Logic កំណត់សិទ្ធិសម្រាប់ Model ជាក់លាក់ (ឧទាហរណ៍: PostPolicy)។' },
+      { label: 'Middleware Gate', desc: 'កំណត់ការចូលប្រើប្រាស់ Routes ផ្អែកលើតួនាទី (Roles) របស់អ្នកប្រើប្រាស់។' },
+      { label: 'Guest Access', desc: 'រៀបចំខ្លឹមសារសម្រាប់អ្នកចូលមើលធម្មតា ធៀបនឹងអ្នកប្រើប្រាស់ដែលបានចុះឈ្មោះក្នុង Templates របស់អ្នក។' },
     ],
-    tip: 'Authentication checks WHO you are. Authorization checks WHAT you are allowed to do.',
-    lab: 'Create a policy that only allows a User to delete their own created posts.',
-    result: 'Unauthenticated or unauthorized users are blocked from destructive actions.',
+    tip: 'Authentication ពិនិត្យថា តើអ្នកជា "នរណា"។ Authorization ពិនិត្យថា តើអ្នកត្រូវបាន "អនុញ្ញាតឱ្យធ្វើអ្វី"។',
+    lab: 'បង្កើត Policy ដែលអនុញ្ញាតឱ្យតែអ្នកប្រើប្រាស់ប្តូរ ឬលុប Post របស់ខ្លួនឯងប៉ុណ្ណោះ។',
+    result: 'អ្នកប្រើប្រាស់ដែលមិនមានសិទ្ធិ នឹងត្រូវបានទប់ស្កាត់ពីសកម្មភាពលុប ឬកែប្រែ។',
     filename: 'app/Policies/PostPolicy.php',
     code: `public function delete(User $user, Post $post) {
     return $user->id === $post->user_id;
@@ -621,18 +621,18 @@ php artisan migrate`,
   },
   {
     id: 'L06-S3', chapter: 'auth',
-    title: 'Sanctum & API Tokens', subtitle: 'Mobile & SPA Security',
+    title: 'Sanctum & API Tokens', subtitle: 'សុវត្ថិភាពសម្រាប់ Mobile និង SPA',
     accent: '#a855f7',
     bg: 'radial-gradient(ellipse at center, rgba(168,85,247,0.08) 0%, transparent 70%)',
     concepts: [
-      { label: 'Token Issuance', desc: 'Generate long-lived strings for mobile apps to access your API.' },
-      { label: 'Abilities', desc: 'Give tokens specific permissions (e.g. "read-only" vs "delete-posts").' },
-      { label: 'SPA Auth', desc: 'Use stateful cookies for React/Vue frontends instead of manual tokens.' },
-      { label: 'revocation', desc: 'Easily "Log Out" of all devices by deleting all tokens for a user.' },
+      { label: 'Token Issuance', desc: 'បង្កើត Token សម្រាប់ Mobile apps ដើម្បីចូលប្រើ API របស់អ្នក។' },
+      { label: 'Abilities', desc: 'កំណត់សិទ្ធិជាក់លាក់ឱ្យ tokens (ឧទាហរណ៍ "read-only" ធៀបនឹង "delete-posts")។' },
+      { label: 'SPA Auth', desc: 'ប្រើ stateful cookies សម្រាប់ React/Vue frontends ជំនួសឱ្យ manual tokens។' },
+      { label: 'Revocation', desc: 'ងាយស្រួល "Log Out" ពីគ្រប់ឧបករណ៍ដោយលុប tokens ទាំងអស់របស់ User នោះ។' },
     ],
-    tip: 'Use Sanctum for simple API auth. It is much easier than OAuth2/Passport for most projects.',
-    lab: 'Issue a new personal access token via Tinker and use it to access a protected route.',
-    result: 'Confirmed API access using Bearer token authentication.',
+    tip: 'ប្រើ Sanctum សម្រាប់ API auth សាមញ្ញ។ វាស្រួលជាង OAuth2/Passport សម្រាប់គម្រោងភាគច្រើន។',
+    lab: 'បង្កើត Personal Access Token ថ្មីតាមរយៈ Tinker ហើយប្រើវាដើម្បីចូលប្រើ Protected Route។',
+    result: 'បញ្ជាក់ពីការចូលប្រើ API ដោយប្រើ Bearer Token authentication។',
     filename: 'api.php',
     code: `$token = $user->createToken('mobile-app')->plainTextToken;
 
@@ -642,18 +642,18 @@ Route::middleware('auth:sanctum')->get('/user', ...);`,
   },
   {
     id: 'L06-S4', chapter: 'auth',
-    title: 'Socialite', subtitle: 'Login with GitHub/Google',
+    title: 'Socialite', subtitle: 'Login ជាមួយ GitHub/Google',
     accent: '#a855f7',
     bg: 'radial-gradient(ellipse at 10% 80%, rgba(168,85,247,0.06) 0%, transparent 60%)',
     concepts: [
-      { label: 'OAuth Made Easy', desc: 'Standardized way to connect to hundreds of social providers.' },
-      { label: 'Redirect Flow', desc: 'Send users to Google -> They Approve -> They come back to your app with data.' },
-      { label: 'User Sync', desc: 'Automatically create records in your DB for social-logged-in users.' },
-      { label: 'Security', desc: 'No more managing passwords; rely on the security of major providers.' },
+      { label: 'OAuth Made Easy', desc: 'វិធីសាស្ត្រស្តង់ដារដើម្បីភ្ជាប់ជាមួយ Social Providers រាប់រយ។' },
+      { label: 'Redirect Flow', desc: 'បញ្ជូន User ទៅកាន់ Google -> ពួកគេយល់ព្រម -> ពួកគេត្រឡប់មកកម្មវិធីវិញជាមួយទិន្នន័យ។' },
+      { label: 'User Sync', desc: 'បង្កើតទិន្នន័យ User ក្នុង DB ដោយស្វ័យប្រវត្តិនូវរាល់ពេលដែលពួកគេ Login តាម Social។' },
+      { label: 'Security', desc: 'មិនចាំបាច់គ្រប់គ្រង Passwords ទៀតទេ; ទុកចិត្តលើសុវត្ថិភាពរបស់ Providers ធំៗ។' },
     ],
-    tip: 'Social login increases conversion rates by making "Sign Up" a single click.',
-    lab: 'Configure the Google driver in your config/services.php file.',
-    result: 'Social login flow is wired and ready for testing.',
+    tip: 'Social login បង្កើនអត្រាចុះឈ្មោះប្រើប្រាស់ ដោយធ្វើឱ្យ "Sign Up" ក្លាយជាការ Click តែម្តង។',
+    lab: 'កំណត់រចនាសម្ព័ន្ធ Google driver នៅក្នុង config/services.php។',
+    result: 'លំហូរនៃ Social login ត្រូវបានរៀបរយ និងរួចរាល់សម្រាប់ការសាកល្បង។',
     filename: 'AuthController.php',
     code: `return Socialite::driver('github')->redirect();
 
@@ -666,18 +666,18 @@ Auth::login($user);`,
   /* ── CHAPTER 7: CRUD OPERATIONS ── */
   {
     id: 'L07-S1', chapter: 'crud',
-    title: 'Resourceful CRUD', subtitle: 'The Standard Cycle',
+    title: 'Resourceful CRUD', subtitle: 'វដ្តការងារស្តង់ដារ',
     accent: '#ec4899',
     bg: 'radial-gradient(ellipse at 50% 50%, rgba(236,72,153,0.15) 0%, transparent 55%)',
     concepts: [
-      { label: 'Index', desc: 'List all resources (e.g. List all Blog Posts).' },
-      { label: 'Show', desc: 'Display a single item (e.g. View Post #5).' },
-      { label: 'Create/Store', desc: 'Handle the "New Item" form and DB storage.' },
-      { label: 'Update/Delete', desc: 'Managing changes and removal of data safely.' },
+      { label: 'Index', desc: 'បង្ហាញបញ្ជីទិន្នន័យទាំងអស់ (ឧទាហរណ៍: បញ្ជី Blog Posts ទាំងអស់)។' },
+      { label: 'Show', desc: 'បង្ហាញទិន្នន័យតែមួយ (ឧទាហរណ៍: មើល Post លេខ ៥)។' },
+      { label: 'Create/Store', desc: 'រៀបចំ Form "បង្កើតថ្មី" និងរក្សាទុកទៅក្នុង DB។' },
+      { label: 'Update/Delete', desc: 'ការគ្រប់គ្រងការកែប្រែ និងការលុបទិន្នន័យដោយសុវត្ថិភាព។' },
     ],
-    tip: 'Use resource controllers. "php artisan make:controller PostController --resource" generates everything.',
-    lab: 'Build a full Post CRUD: Create, Page, List, and Delete functionality.',
-    result: 'Application can manage data effectively from the UI.',
+    tip: 'ប្រើ Resource controllers។ "php artisan make:controller PostController --resource" នឹងបង្កើតរាល់ methods ឱ្យអ្នក។',
+    lab: 'បង្កើត Post CRUD ពេញលេញ៖ មុខងារ Create, Page, List និង Delete។',
+    result: 'កម្មវិធីអាចគ្រប់គ្រងទិន្នន័យយ៉ាងមានប្រសិទ្ធភាពពី UI។',
     filename: 'routes/web.php',
     code: `// One line for 7 routes!
 Route::resource('posts', PostController::class);`,
@@ -685,18 +685,18 @@ Route::resource('posts', PostController::class);`,
   },
   {
     id: 'L07-S2', chapter: 'crud',
-    title: 'Mass Assignment', subtitle: 'Security & Whitelisting',
+    title: 'Mass Assignment', subtitle: 'សុវត្ថិភាព និងការ Whitelisting',
     accent: '#ec4899',
     bg: 'radial-gradient(ellipse at 10% 30%, rgba(236,72,153,0.12) 0%, transparent 55%)',
     concepts: [
-      { label: '$fillable', desc: 'Defining which fields can be updated in bulk via create() or update().' },
-      { label: '$guarded', desc: 'The opposite of fillable: prevent these fields from bulk modification.' },
-      { label: 'Mass-Assignment Vuln', desc: 'Prevent hackers from changing their role to "admin" via form hacking.' },
-      { label: 'Validation First', desc: 'Always validate input before passing it to create($request->all()).' },
+      { label: '$fillable', desc: 'កំណត់ Field ណាខ្លះដែលអាចត្រូវបានប្តូរជា Bulk តាមរយៈ create() ឬ update()។' },
+      { label: '$guarded', desc: 'ផ្ទុយពី fillable: ការពារ Field ទាំងនេះពីការកែប្រែជា Bulk។' },
+      { label: 'Mass-Assignment Vuln', desc: 'ការពារ Hacker ពីការប្តូរតួនាទីរបស់ពួកគេទៅជា "admin" តាមរយៈការ hack form។' },
+      { label: 'Validation First', desc: 'តែងតែផ្ទៀងផ្ទាត់ទិន្នន័យមុនពេលបញ្ជូនវាទៅ create($request->all())។' },
     ],
-    tip: 'NEVER use $guarded = []. It makes your entire database vulnerable to injection.',
-    lab: 'Create a Model and restrict its input to "title" and "body" only.',
-    result: 'Unauthorized fields are ignored during database operations.',
+    tip: 'កុំប្រើ $guarded = []។ វាធ្វើឱ្យ Database របស់អ្នកទាំងមូលងាយរងគ្រោះដោយសារការចាក់បញ្ចូលទិន្នន័យមិនល្អ។',
+    lab: 'បង្កើត Model ហើយកំណត់ឱ្យបញ្ជូនតែ Field "title" និង "body" ប៉ុណ្ណោះ។',
+    result: 'Field ដែលមិនមានការអនុញ្ញាត នឹងត្រូវបានរំលងចោលក្នុងពេលប្រតិបត្តិការ Database។',
     filename: 'app/Models/Post.php',
     code: `class Post extends Model {
     protected $fillable = ['title', 'body'];
@@ -708,18 +708,18 @@ Route::resource('posts', PostController::class);`,
   },
   {
     id: 'L07-S3', chapter: 'crud',
-    title: 'Route-Model Binding', subtitle: 'Automatic Fetching',
+    title: 'Route-Model Binding', subtitle: 'ការទាញយកទិន្នន័យដោយស្វ័យប្រវត្តិ',
     accent: '#ec4899',
     bg: 'radial-gradient(ellipse at 90% 70%, rgba(236,72,153,0.08) 0%, transparent 55%)',
     concepts: [
-      { label: 'Implicit Binding', desc: 'Laravel injects the model instance directly into your controller method.' },
-      { label: 'Type-Hinting', desc: 'Controller: index(Post $post) automatically fetches the post by ID.' },
-      { label: 'Query Scoping', desc: 'Filter your resourceful routes automatically using scope methods.' },
-      { label: 'Key Mapping', desc: 'Use "slug" or "uuid" instead of "id" for cleaner, SEO friendly URLs.' },
+      { label: 'Implicit Binding', desc: 'Laravel បញ្ជូន Model instance ដោយផ្ទាល់ទៅក្នុង Controller method របស់អ្នក។' },
+      { label: 'Type-Hinting', desc: 'Controller: index(Post $post) ទាញយក post តាមរយៈ ID ដោយស្វ័យប្រវត្តិ។' },
+      { label: 'Query Scoping', desc: 'ចម្រោះ Resourceful routes របស់អ្នកដោយស្វ័យវត្តិតាមរយៈ scope methods។' },
+      { label: 'Key Mapping', desc: 'ប្រើ "slug" ឬ "uuid" ជំនួសឱ្យ "id" សម្រាប់ URL ដែលស្អាត និងល្អសម្រាប់ SEO។' },
     ],
-    tip: 'Using (Post $post) eliminates the need for manual Post::findOrFail($id) calls.',
-    lab: 'Refactor your "edit" method to use implicit Model Binding.',
-    result: 'Controller code is reduced by 50% while maintaining clarity.',
+    tip: 'ការប្រើ (Post $post) ជួយឱ្យអ្នកមិនចាំបាច់សរសេរ Post::findOrFail($id) ដោយដៃឡើយ។',
+    lab: 'កែសម្រួល Method "edit" ឱ្យប្រើ Implicit Model Binding។',
+    result: 'កូដក្នុង Controller ត្រូវបានកាត់បន្ថយ ៥០% ខណៈដែលរក្សាភាពច្បាស់លាស់។',
     filename: 'PostController.php',
     code: `public function show(Post $post) {
     return view('posts.show', ['post' => $post]);
@@ -730,18 +730,18 @@ Route::resource('posts', PostController::class);`,
   },
   {
     id: 'L07-S4', chapter: 'crud',
-    title: 'Soft Deletes', subtitle: 'Safeguarding Data',
+    title: 'Soft Deletes', subtitle: 'ការរក្សាទុកទិន្នន័យឱ្យមានសុវត្ថិភាព',
     accent: '#ec4899',
     bg: 'radial-gradient(ellipse at center, rgba(236,72,153,0.05) 0%, transparent 55%)',
     concepts: [
-      { label: 'Trash System', desc: 'Instead of removing rows, marks them with "deleted_at" timestamp.' },
-      { label: 'Restoration', desc: 'Allows users to undo accidental deletions easily.' },
-      { label: 'Trash Cleanup', desc: 'Permanently remove items using forceDelete().' },
-      { label: 'Database Integrity', desc: 'Maintain foreign key relationships even after item "removal".' },
+      { label: 'Trash System', desc: 'ជំនួសឱ្យការលុបទិន្នន័យចេញពី DB វានឹងដាក់ចំណាំ "deleted_at" វិញ។' },
+      { label: 'Restoration', desc: 'អនុញ្ញាតឱ្យអ្នកប្រើប្រាស់ទាញយកទិន្នន័យដែលបានលុបដោយអចេតនាត្រឡប់មកវិញ។' },
+      { label: 'Trash Cleanup', desc: 'លុបទិន្នន័យចេញជាស្ថាពរដោយប្រើ forceDelete()។' },
+      { label: 'Database Integrity', desc: 'រក្សាទំនាក់ទំនង Foreign key ទោះបីជា Item ត្រូវបាន "លុប" ក៏ដោយ។' },
     ],
-    tip: 'Use SoftDeletes for nearly every important business entity. Data is valuable!',
-    lab: 'Add the SoftDeletes trait to your Post model and run a migration.',
-    result: 'Deleted records stay in the DB but disappear from the UI.',
+    tip: 'ប្រើ SoftDeletes សម្រាប់ស្ទើរតែគ្រប់ទិន្នន័យអាជីវកម្មសំខាន់ៗ។ ទិន្នន័យគឺជាទ្រព្យសម្បត្តិដ៏មានតម្លៃ!',
+    lab: 'បន្ថែម SoftDeletes trait ទៅក្នុង Post model និងដំណើរការ migration។',
+    result: 'ទិន្នន័យដែលបានលុបនៅតែមានក្នុង DB ប៉ុន្តែបាត់ពី UI។',
     filename: 'app/Models/Post.php',
     code: `use Illuminate\\Database\\Eloquent\\SoftDeletes;
 
@@ -757,17 +757,17 @@ $post->restore();`,
   /* ── CHAPTER 8: QUEUES & JOBS ── */
   {
     id: 'L08-S1', chapter: 'queues',
-    title: 'Offloading Tasks', subtitle: 'The Async Powerhouse',
+    title: 'ការផ្ទេរភារកិច្ច (Offloading Tasks)', subtitle: 'ថាមពលរបស់ Async',
     accent: '#fb923c',
     bg: 'radial-gradient(ellipse at 10% 80%, rgba(251,146,60,0.15) 0%, transparent 55%)',
     concepts: [
-      { label: 'Latency Problem', desc: 'Slow tasks (Emails, API calls, Image processing) shouldn\'t block the user response.' },
-      { label: 'The Solution', desc: 'Move those tasks to a "Queue" to be processed in the background by a separate worker.' },
-      { label: 'User Experience', desc: 'Users get an instant "Success" message while the server handles the heavy lifting.' },
+      { label: 'Latency Problem', desc: 'ភារកិច្ចយឺតៗ (ការផ្ញើ Email, ការត្រួតពិនិត្យ API, ការកែសម្រួលរូបភាព) មិនគួររំខានដល់ការឆ្លើយតបទៅអ្នកប្រើប្រាស់ឡើយ។' },
+      { label: 'The Solution', desc: 'ផ្លាស់ប្តូរភារកិច្ចទាំងនោះទៅកាន់ "Queue" ដើម្បីដំណើរការនៅ background ដោយឡែកពីគ្នា។' },
+      { label: 'User Experience', desc: 'អ្នកប្រើប្រាស់ទទួលបានសារ "ជោគជ័យ" ភ្លាមៗ ខណៈដែល server កំពុងរៀបចំកិច្ចការធំៗនៅពីក្រោយ។' },
     ],
-    tip: 'If a task takes >100ms and isn’t needed for the UI, queue it.',
-    lab: 'Identify a slow process in your app (like sending a receipt) and plan its move to a queue.',
-    result: 'Optimized response times and happier users.',
+    tip: 'ប្រសិនបើកិច្ចការចំណាយពេល >100ms ហើយមិនចាំបាច់សម្រាប់ UI ភ្លាមៗទេ សូមដាក់វាចូលក្នុង Queue។',
+    lab: 'ស្វែងរកដំណើរការយឺតៗក្នុងកម្មវិធីរបស់អ្នក (ដូចជាការផ្ញើវិក្កយបត្រ) ហើយរៀបចំវាទៅកាន់ Queue។',
+    result: 'បង្កើនល្បឿននៃការឆ្លើយតប និងធ្វើឱ្យអ្នកប្រើប្រាស់កាន់តែសប្បាយចិត្ត។',
     filename: 'terminal',
     code: `# See available queue drivers in .env
 # sync (default/local), database, redis, sqs
@@ -776,17 +776,17 @@ QUEUE_CONNECTION=database`,
   },
   {
     id: 'L08-S2', chapter: 'queues',
-    title: 'Creating Jobs', subtitle: 'make:job & Dispatches',
+    title: 'ការបង្កើត Jobs', subtitle: 'make:job និងការ Dispatches',
     accent: '#fb923c',
     bg: 'radial-gradient(ellipse at 90% 20%, rgba(251,146,60,0.12) 0%, transparent 55%)',
     concepts: [
-      { label: 'Job Classes', desc: 'Self-contained units of work stored in app/Jobs. They must implement ShouldQueue.' },
-      { label: 'Dispatching', desc: 'The act of pushing a Job onto the queue from your Controller or Service.' },
-      { label: 'Dependencies', desc: 'Laravel automatically injects dependencies into the handle() method via the Service Container.' },
+      { label: 'Job Classes', desc: 'កញ្ចប់ការងារដែលរក្សាទុកក្នុង app/Jobs។ ពួកវាត្រូវអនុវត្ត (implement) ShouldQueue។' },
+      { label: 'Dispatching', desc: 'សកម្មភាពបញ្ជូន Job ទៅក្នុង Queue ពី Controller ឬ Service របស់អ្នក។' },
+      { label: 'Dependencies', desc: 'Laravel ចាក់បញ្ចូល dependencies ទៅក្នុង handle() method ដោយស្វ័យប្រវត្តិតាមរយៈ Service Container។' },
     ],
-    tip: 'Keep your Job handle() methods "lean". Use Service classes for heavy logic.',
-    lab: 'Generate a new Job and dispatch it from a test route.',
-    result: 'A new record appears in your jobs database table.',
+    tip: 'រក្សា handle() method ក្នុង Job របស់អ្នកឱ្យ "ខ្លី"។ ប្រើ Service classes សម្រាប់ Logic ស្មុគស្មាញ។',
+    lab: 'បង្កើត Job ថ្មីមួយ និង Dispatch វាចេញពី Test route។',
+    result: 'ទិន្នន័យថ្មីនឹងបង្ហាញនៅក្នុង jobs database table របស់អ្នក។',
     filename: 'SendInvoice.php',
     code: `// Generate Job
 // php artisan make:job SendInvoice
@@ -805,17 +805,17 @@ SendInvoice::dispatch($order);`,
   },
   {
     id: 'L08-S3', chapter: 'queues',
-    title: 'Queue Workers', subtitle: 'Processing the Backlog',
+    title: 'Queue Workers', subtitle: 'ការដោះស្រាយបញ្ជីការងារ',
     accent: '#fb923c',
     bg: 'radial-gradient(ellipse at center, rgba(251,146,60,0.1) 0%, transparent 55%)',
     concepts: [
-      { label: 'Artisan Worker', desc: 'A long-running process that listens for new jobs and executes them.' },
-      { label: 'Priority Queues', desc: 'Process important tasks (Reset Password) before low-priority ones (Newsletter).' },
-      { label: 'Failures & Retries', desc: 'Automatically re-run jobs if they fail due to external API timeouts.' },
+      { label: 'Artisan Worker', desc: 'ដំណើរការដែលរង់ចាំស្តាប់ Jobs ថ្មីៗ និងចាត់ចែងអនុវត្តពួកវា។' },
+      { label: 'Priority Queues', desc: 'ចាត់ចែងភារកិច្ចសំខាន់ៗ (Reset Password) មុនភារកិច្ចដែលមានអាទិភាពទាប (Newsletter)។' },
+      { label: 'Failures & Retries', desc: 'ព្យាយាមដំណើរការ Job ឡើងវិញដោយស្វ័យប្រវត្តិប្រសិនបើវាបរាជ័យដោយសារបញ្ហា API ឬ timeouts។' },
     ],
-    tip: 'In production, use a tool like "Supervisor" to ensure your queue worker stays running 24/7.',
-    lab: 'Start a worker and watch it process your queued jobs.',
-    result: 'Interactive terminal output showing "Processing" and "Done" states.',
+    tip: 'នៅក្នុង production សូមប្រើឧបករណ៍ដូចជា "Supervisor" ដើម្បីធានាថា queue worker របស់អ្នកដំណើរការ ២៤/៧។',
+    lab: 'ចាប់ផ្តើមដំណើរការ worker ហើយសង្កេតមើលសកម្មភាពចាត់ចែង jobs របស់អ្នក។',
+    result: 'terminal បង្ហាញស្ថានភាព "Processing" និង "Done" នៃកិច្ចការនីមួយៗ។',
     terminal: 'php artisan queue:work --queue=high,default',
     terminalOutput: '   Processing Job: SendInvoice...\n   DONE: Processed Job.',
     icon: Terminal,
@@ -828,17 +828,17 @@ php artisan queue:listen`,
   },
   {
     id: 'L08-S4', chapter: 'queues',
-    title: 'Laravel Horizon', subtitle: 'Redis-Powered Monitoring',
+    title: 'Laravel Horizon', subtitle: 'ការត្រួតពិនិត្យដំណើរការតាមរយៈ Redis',
     accent: '#fb923c',
     bg: 'radial-gradient(ellipse at 80% 80%, rgba(251,146,60,0.08) 0%, transparent 55%)',
     concepts: [
-      { label: 'Real-time Stats', desc: 'Monitor throughput, wait times, and failure rates via a beautiful dashboard.' },
-      { label: 'Supervisor Config', desc: 'Define your worker pool directly in code (PHP) instead of server configs.' },
-      { label: 'Failed Job Retry', desc: 'Review and retry failed jobs with a single click in the UI.' },
+      { label: 'Real-time Stats', desc: 'តាមដានល្បឿនដំណើរការ រយៈពេលរង់ចាំ និងអត្រាបរាជ័យតាមរយៈ dashboard ដ៏ស្រស់ស្អាត។' },
+      { label: 'Supervisor Config', desc: 'កំណត់ចំនួន worker pool ដោយផ្ទាល់ក្នុងកូដ (PHP) ជំនួសឱ្យការកំណត់ក្នុង server configs។' },
+      { label: 'Failed Job Retry', desc: 'ពិនិត្យ និងព្យាយាមដំណើរការ job ដែលបានបរាជ័យឡើងវិញដោយគ្រាន់តែចុច click តែម្តងក្នុង UI។' },
     ],
-    tip: 'If you use Redis for queues, Horizon is a strictly mandatory tool for your sanity.',
-    lab: 'Install Horizon and view the dashboard in your browser.',
-    result: 'Full visibility into your application’s asynchronous background traffic.',
+    tip: 'ប្រសិនបើអ្នកប្រើ Redis សម្រាប់ queues នោះ Horizon គឺជាឧបករណ៍ដែលមិនអាចខ្វះបានសម្រាប់គ្រប់គ្រងវា។',
+    lab: 'ដំឡើង Horizon ហើយចូលមើល dashboard នៅក្នុង browser របស់អ្នក។',
+    result: 'មើលឃើញយ៉ាងច្បាស់នូវរាល់សកម្មភាពការងារនៅ background នៃកម្មវិធីរបស់អ្នក។',
     terminal: 'php artisan horizon',
     terminalOutput: '   Horizon started successfully.',
     icon: Activity,
@@ -856,17 +856,17 @@ php artisan queue:listen`,
   /* ── CHAPTER 9: ADVANCED ── */
   {
     id: 'L09-S1', chapter: 'advanced',
-    title: 'Smart Caching', subtitle: 'Speed of Light Data Retrieval',
+    title: 'Smart Caching', subtitle: 'ការទាញយកទិន្នន័យក្នុងល្បឿនលឿនបំផុត',
     accent: '#3b82f6',
     bg: 'radial-gradient(ellipse at 10% 20%, rgba(59,130,246,0.15) 0%, transparent 55%)',
     concepts: [
-      { label: 'Query Caching', desc: 'Store expensive DB results in Redis/Memcached for instant access next time.' },
-      { label: 'Atomic Locks', desc: 'Prevent "race conditions" where two users update the same data at once.' },
-      { label: 'TTL Logic', desc: 'Time-To-Live: Automatically expire old cache entries after a set duration.' },
+      { label: 'Query Caching', desc: 'រក្សាទុកលទ្ធផល query ដែលប្រើប្រាស់ធនធានច្រើនទៅក្នុង Redis/Memcached សម្រាប់ការចូលប្រើភ្លាមៗនៅពេលក្រោយ។' },
+      { label: 'Atomic Locks', desc: 'ការពារ "race conditions" នៅពេលដែលមានអ្នកប្រើប្រាស់ពីរនាក់ព្យាយាម update ទិន្នន័យតែមួយក្នុងពេលតែមួយ។' },
+      { label: 'TTL Logic', desc: 'Time-To-Live: កំណត់ឱ្យ cache ចាស់ៗផុតកំណត់ដោយស្វ័យប្រវត្តិតាមរយៈពេលដែលបានកំណត់។' },
     ],
-    tip: 'Don’t cache everything. Hard-to-invalidate cache is a common source of bugs.',
-    lab: 'Cache a complex user statistics query for 24 hours.',
-    result: 'Query time drops from 500ms to 2ms.',
+    tip: 'កុំធ្វើ caching គ្រប់យ៉ាង។ cache ដែលពិបាកក្នុងការសម្អាត (Invalidate) គឺជាមូលហេតុទូទៅនៃកំហុស (bugs)។',
+    lab: 'កំណត់ cache សម្រាប់ query ស្ថិតិអ្នកប្រើប្រាស់ដែលស្មុគស្មាញក្នុងរយៈពេល ២៤ ម៉ោង។',
+    result: 'រយៈពេល query ធ្លាក់ចុះពី 500ms មកត្រឹមតែ 2ms ប៉ុណ្ណោះ។',
     filename: 'DashboardController.php',
     code: `$stats = Cache::remember('user.stats', now()->addDay(), function () {
     return User::calculateComplexStats();
@@ -875,18 +875,18 @@ php artisan queue:listen`,
   },
   {
     id: 'L09-S2', chapter: 'advanced',
-    title: 'Task Scheduling', subtitle: 'The PHP Cron Replacement',
+    title: 'Task Scheduling', subtitle: 'ការជំនួស PHP Cron',
     accent: '#3b82f6',
     bg: 'radial-gradient(ellipse at 10% 90%, rgba(59,130,246,0.08) 0%, transparent 55%)',
     concepts: [
-      { label: 'Eloquent Schedule', desc: 'Define your recurring tasks in pure PHP instead of messy server crontab files.' },
-      { label: 'Daily/Weekly', desc: 'Fluent syntax: $schedule->command("backup")->dailyAt("01:00").' },
-      { label: 'Overlap Prevention', desc: 'Ensure a task doesn’t start twice if the first one is still running.' },
-      { label: 'Maintenance', desc: 'Automatically clear expired logs, backup DB, or prune old files.' },
+      { label: 'Eloquent Schedule', desc: 'កំណត់ភារកិច្ចដែលត្រូវធ្វើដដែលៗរបស់អ្នកក្នុងកូដ PHP ជំនួសឱ្យការប្រើ server crontab ដែលស្មុគស្មាញ។' },
+      { label: 'Daily/Weekly', desc: 'ប្រើ syntax ងាយៗ៖ $schedule->command("backup")->dailyAt("01:00")។' },
+      { label: 'Overlap Prevention', desc: 'ធានាថាភារកិច្ចមួយមិនចាប់ផ្តើមដំណើរការស្ទួនគ្នា ប្រសិនបើភារកិច្ចមុនមិនទាន់បញ្ចប់។' },
+      { label: 'Maintenance', desc: 'សម្អាត logs ដែលហួសកំណត់ដោយស្វ័យប្រវត្តិ រក្សាទុកទិន្នន័យ (backup) ឬលុបឯកសារចាស់ៗ។' },
     ],
-    tip: 'Schedule everything. From database backups to daily activity summaries.',
-    lab: 'Set up a command that runs every minute to check for expiring subscriptions.',
-    result: 'Automation engine heartbeat is active.',
+    tip: 'រៀបចំ schedule សម្រាប់អ្វីៗគ្រប់យ៉ាង ចាប់ពីការ backup database រហូតដល់ការសង្ខេបសកម្មភាពប្រចាំថ្ងៃ។',
+    lab: 'រៀបចំ command ឱ្យដំណើរការរៀងរាល់នាទីដើម្បីពិនិត្យ subscription ដែលជិតផុតកំណត់។',
+    result: 'ម៉ាស៊ីនស្វ័យប្រវត្តិកម្មចាប់ផ្តើមដំណើរការតាមកាលកំណត់។',
     filename: 'app/Console/Kernel.php',
     code: `$schedule->command('prune:logs')->daily();
 
@@ -899,18 +899,18 @@ $schedule->call(function () {
   },
   {
     id: 'L09-S3', chapter: 'advanced',
-    title: 'Storage & Files', subtitle: 'Managing User Uploads',
+    title: 'Storage & Files', subtitle: 'ការគ្រប់គ្រងការ upload របស់ user',
     accent: '#3b82f6',
     bg: 'radial-gradient(ellipse at 30% 20%, rgba(59,130,246,0.15) 0%, transparent 55%)',
     concepts: [
-      { label: 'FileSystem', desc: 'Manage uploads with Local, S3, or R2 drivers effortlessly.' },
-      { label: 'Asset URLs', desc: 'Generate correct paths using Storage::url($path) for CDN support.' },
-      { label: 'Public Disk', desc: 'Store files that should be publicly accessible (e.g., avatars, images).' },
-      { label: 'Private Disk', desc: 'Store sensitive files that require authentication to access.' },
+      { label: 'FileSystem', desc: 'គ្រប់គ្រងការ upload ជាមួយ local, S3 ឬ R2 drivers យ៉ាងងាយស្រួល។' },
+      { label: 'Asset URLs', desc: 'បង្កើត path ដែលត្រឹមត្រូវដោយប្រើ Storage::url($path) សម្រាប់ការគាំទ្រ CDN។' },
+      { label: 'Public Disk', desc: 'រក្សាទុកឯកសារដែលអាចចូលមើលជាសាធារណៈបាន (ឧទាហរណ៍៖ រូបភាពតំណាង profile)។' },
+      { label: 'Private Disk', desc: 'រក្សាទុកឯកសារសំខាន់ៗដែលត្រូវការការផ្ទៀងផ្ទាត់សិទ្ធិមុននឹងចូលមើលបាន។' },
     ],
-    tip: 'Never store images directly in the public/ folder. Upload them to storage/ and link them.',
-    lab: 'Store an uploaded avatar in the "public" disk and display it.',
-    result: 'File successfully persisted and publicly accessible.',
+    tip: 'កុំរក្សាទុករូបភាពដោយផ្ទាល់ក្នុង public/ folder។ upload ពួកវាទៅកាន់ storage/ ហើយធ្វើការភ្ជាប់ link វិញ។',
+    lab: 'រក្សាទុករូបភាព avatar ដែលបាន upload ទៅក្នុង "public" disk ហើយបង្ហាញវា។',
+    result: 'ឯកសារត្រូវបានរក្សាទុកដោយជោគជ័យ និងអាចចូលមើលជាសាធារណៈបាន។',
     filename: 'UploadController.php',
     code: `$path = $request->file('avatar')->store('avatars', 'public');
 $user->update(['avatar' => $path]);`,
@@ -918,18 +918,18 @@ $user->update(['avatar' => $path]);`,
   },
   {
     id: 'L09-S4', chapter: 'advanced',
-    title: 'Monitoring & Logs', subtitle: 'Laravel Pulse & Horizon',
+    title: 'Monitoring & Logs', subtitle: 'Laravel Pulse និង Horizon',
     accent: '#3b82f6',
     bg: 'radial-gradient(ellipse at center, rgba(59,130,246,0.05) 0%, transparent 55%)',
     concepts: [
-      { label: 'Laravel Pulse', desc: 'Real-time health dashboard for CPU, Cache, and Slow Queries.' },
-      { label: 'Laravel Horizon', desc: 'Beautiful UI for monitoring your Redis-powered Queues.' },
-      { label: 'Log Channels', desc: 'Send errors to Slack, Email, or Sentry automatically.' },
-      { label: 'Performance', desc: 'Identify which users are experiencing the slowest requests.' },
+      { label: 'Laravel Pulse', desc: 'dashboard តាមដានសុខភាព server ក្នុងពេលជាក់ស្តែងសម្រាប់ CPU, cache និង query យឺតៗ។' },
+      { label: 'Laravel Horizon', desc: 'UI ដ៏ស្អាតសម្រាប់តាមដាន Redis-powered queues របស់អ្នក។' },
+      { label: 'Log Channels', desc: 'បញ្ជូនសារកំហុសទៅកាន់ Slack, email ឬ Sentry ដោយស្វ័យប្រវត្តិ។' },
+      { label: 'Performance', desc: 'កំណត់អត្តសញ្ញាណអ្នកប្រើប្រាស់ណាខ្លះដែលជួបប្រទះការឆ្លើយតបយឺតបំផុត។' },
     ],
-    tip: 'Install Pulse on every production app. It’s like having an X-ray for your server.',
-    lab: 'View your slow queries dashboard and identify the heaviest DB logic.',
-    result: 'Visibility into application performance bottlenecks.',
+    tip: 'ដំឡើង Pulse លើគ្រប់កម្មវិធី production។ វាដូចជាការឆ្លុះអ៊ិចស្វាយលើ server របស់អ្នកអញ្ចឹង។',
+    lab: 'មើល dashboard នៃ query ដែលយឺតបំផុតដើម្បីកំណត់រកចំណុចដែលត្រូវកែលម្អ។',
+    result: 'មើលឃើញពីចំណុចស្ទះនៃល្បឿនដំណើរការកម្មវិធី។',
     filename: 'terminal',
     code: `# Install the vitals dashboard
 composer require laravel/pulse
@@ -940,18 +940,18 @@ php artisan migrate`,
   /* ── CHAPTER 10: API DEVELOPMENT ── */
   {
     id: 'L10-S1', chapter: 'api',
-    title: 'JSON & Sanctum', subtitle: 'Laravel for Mobile/JS Apps',
+    title: 'JSON និង Sanctum', subtitle: 'Laravel សម្រាប់ Mobile/JS Apps',
     accent: '#10b981',
     bg: 'radial-gradient(ellipse at 70% 80%, rgba(16,185,129,0.12) 0%, transparent 55%)',
     concepts: [
-      { label: 'API Routes', desc: 'Defining endpoints in routes/api.php with /api prefix by default.' },
-      { label: 'Sanctum Tokens', desc: 'Lightweight authentication for SPAs and mobile apps.' },
-      { label: 'Bearer Auth', desc: 'Securely passing tokens in the Authorization header.' },
-      { label: 'Statelessness', desc: 'APIs don’t use sessions; every request must carry its own identity.' },
+      { label: 'API Routes', desc: 'កំណត់ endpoints នៅក្នុង routes/api.php ដែលមាន /api prefix តាមលំនាំដើម។' },
+      { label: 'Sanctum Tokens', desc: 'ការផ្ទៀងផ្ទាត់សិទ្ធិដ៏ស្រាលសម្រាប់ SPAs និង mobile apps។' },
+      { label: 'Bearer Auth', desc: 'បញ្ជូន tokens ដោយសុវត្ថិភាពតាមរយៈ Authorization header។' },
+      { label: 'Statelessness', desc: 'APIs មិនប្រើ sessions ទេ; រាល់ការស្នើសុំត្រូវតែមានអត្តសញ្ញាណផ្ទាល់ខ្លួន។' },
     ],
-    tip: 'Use Sanctum for most projects. It is simpler than Passport and works perfectly for SPAs.',
-    lab: 'Protect a route using the "auth:sanctum" middleware and hit it with a token.',
-    result: 'Authorized access to sensitive JSON data streams.',
+    tip: 'ប្រើ Sanctum សម្រាប់គម្រោងភាគច្រើន។ វាសាមញ្ញជាង Passport និងដំណើរការយ៉ាងល្អសម្រាប់ SPAs។',
+    lab: 'ការពារ route មួយដោយប្រើ "auth:sanctum" middleware និងចូលប្រើវាដោយប្រើ token។',
+    result: 'ការចូលប្រើប្រាស់ទិន្នន័យ JSON សំខាន់ៗត្រូវបានអនុញ្ញាតដោយជោគជ័យ។',
     filename: 'routes/api.php',
     code: `Route::middleware('auth:sanctum')
     ->get('/user', function (Request $request) {
@@ -961,18 +961,18 @@ php artisan migrate`,
   },
   {
     id: 'L10-S2', chapter: 'api',
-    title: 'API Resources', subtitle: 'Pragmatic Data Shaping',
+    title: 'API Resources', subtitle: 'ការរៀបចំទិន្នន័យឱ្យមានរបៀប',
     accent: '#10b981',
     bg: 'radial-gradient(ellipse at 30% 20%, rgba(16,185,129,0.15) 0%, transparent 55%)',
     concepts: [
-      { label: 'Data Wrapping', desc: 'Encapsulate your JSON response in a standardized "data" key.' },
-      { label: 'Conditional Stats', desc: 'Only include fields if a relationship is loaded or user is admin.' },
-      { label: 'Pagination', desc: 'Laravel handles "next_page_url" and totals automatically in resources.' },
-      { label: 'Collections', desc: 'Format lists of items consistently across your entire API.' },
+      { label: 'Data Wrapping', desc: 'រៀបចំ JSON response របស់អ្នកឱ្យស្ថិតក្នុង "data" key ជាស្តង់ដារតែមួយ។' },
+      { label: 'Conditional Stats', desc: 'បង្ហាញ field ជាក់លាក់លុះត្រាតែមានទំនាក់ទំនងទិន្នន័យ ឬអ្នកប្រើប្រាស់ជា admin។' },
+      { label: 'Pagination', desc: 'Laravel រៀបចំ "next_page_url" និងចំនួនសរុបដោយស្វ័យប្រវត្តិនូវរាល់ពេលប្រើ resources។' },
+      { label: 'Collections', desc: 'កំណត់ទម្រង់បញ្ជីទិន្នន័យឱ្យមានភាពស៊ីសង្វាក់គ្នាពេញមួយ API របស់អ្នក។' },
     ],
-    tip: 'Always use Resources. They act as a security layer between your DB and the web.',
-    lab: 'Create a UserResource that hides the user email from public API view.',
-    result: 'Clean, secure, and formatted JSON output for frontend consumption.',
+    tip: 'តែងតែប្រើ Resources។ ពួកវាដើរតួជាស្រទាប់សុវត្ថិភាពរវាង DB និង web។',
+    lab: 'បង្កើត UserResource ដែលលាក់ email របស់អ្នកប្រើប្រាស់ពីការបង្ហាញមុខជាសាធារណៈ។',
+    result: 'ទិន្នន័យ JSON ស្អាត មានសុវត្ថិភាព និងងាយស្រួលសម្រាប់ frontend យកទៅប្រើ។',
     filename: 'app/Http/Resources/UserResource.php',
     code: `public function toArray($request) {
     return [
@@ -985,18 +985,18 @@ php artisan migrate`,
   },
   {
     id: 'L09-S3', chapter: 'api',
-    title: 'Rate Limiting', subtitle: 'Protecting Your Resources',
+    title: 'Rate Limiting', subtitle: 'ការការពារធនធានរបស់អ្នក',
     accent: '#10b981',
     bg: 'radial-gradient(ellipse at 90% 90%, rgba(16,185,129,0.08) 0%, transparent 55%)',
     concepts: [
-      { label: 'Throttle', desc: 'Limit the number of requests a user can make per minute (e.g. 60/min).' },
-      { label: 'Dynamic Limits', desc: 'Give Premium users 1,000 requests while Free users get 10.' },
-      { label: 'Backoff', desc: 'Force agents to wait longer if they keep hitting your limits.' },
-      { label: 'DDoS Defense', desc: 'Prevent bots from overwhelming your server with fake traffic.' },
+      { label: 'Throttle', desc: 'កំណត់ចំនួននៃការស្នើសុំដែលអ្នកប្រើប្រាស់អាចធ្វើបានក្នុងមួយនាទី (ឧទាហរណ៍ ៦០ ដង/នាទី)។' },
+      { label: 'Dynamic Limits', desc: 'ផ្តល់ឱ្យអ្នកប្រើប្រាស់ Premium នូវការស្នើសុំ ១,០០០ ដង ខណៈអ្នកប្រើ Free បានតែ ១០ ដង។' },
+      { label: 'Backoff', desc: 'បង្ខំឱ្យរង់ចាំយូរជាងមុន ប្រសិនបើពួកគេនៅតែបន្តបំពានដែនកំណត់។' },
+      { label: 'DDoS Defense', desc: 'ការពារ bots ពីការវាយលុក server របស់អ្នកដោយការស្នើសុំក្លែងក្លាយជាច្រើន។' },
     ],
-    tip: 'Laravel’s RateLimiter uses Redis for high-performance tracking.',
-    lab: 'Configure a limiter that allows 10 requests per minute for guests.',
-    result: 'HTTP 429 "Too Many Requests" correctly returned for abusers.',
+    tip: 'RateLimiter របស់ Laravel ប្រើ Redis សម្រាប់តាមដានសកម្មភាពក្នុងល្បឿនលឿន។',
+    lab: 'កំណត់រចនាសម្ព័ន្ធ limiter ដែលអនុញ្ញាតការស្នើសុំតែ ១០ ដងក្នុងមួយនាទីសម្រាប់ភ្ញៀវ។',
+    result: 'HTTP 429 "Too Many Requests" ត្រូវបានបង្ហាញត្រឡប់ទៅវិញសម្រាប់អ្នកដែលបំពាន។',
     filename: 'RouteServiceProvider.php',
     code: `RateLimiter::for('api', function (Request $request) {
     return Limit::perMinute(60)->by($request->user()?->id ?: $request->ip());
@@ -1005,18 +1005,18 @@ php artisan migrate`,
   },
   {
     id: 'L09-S4', chapter: 'api',
-    title: 'API Versioning', subtitle: 'Evolution without Breaking',
+    title: 'API Versioning', subtitle: 'ការវិវឌ្ឍដោយមិនបង្កឱ្យមានការខូចខាត',
     accent: '#10b981',
     bg: 'radial-gradient(ellipse at center, rgba(16,185,129,0.05) 0%, transparent 55%)',
     concepts: [
-      { label: 'v1 / v2 Routes', desc: 'House different versions of your API in separate folders/files.' },
-      { label: 'Deprecation', desc: 'Inform developers that an endpoint will be removed in the future.' },
-      { label: 'Compatibility', desc: 'Ensure old mobile apps keep working while you upgrade the backend.' },
-      { label: 'Documentation', desc: 'Use tools like Scribe to auto-generate API docs from your code.' },
+      { label: 'v1 / v2 Routes', desc: 'រក្សាទុក API ជំនាន់ផ្សេងៗគ្នានៅក្នុង folder/files ដាច់ដោយឡែកពីគ្នា។' },
+      { label: 'Deprecation', desc: 'ផ្តល់ដំណឹងដល់អ្នកអភិវឌ្ឍន៍ថា endpoint ណាមួយនឹងត្រូវលុបចោលនាពេលអនាគត។' },
+      { label: 'Compatibility', desc: 'ធានាថា app ចាស់ៗនៅតែដើរ ខណៈពេលដែលអ្នកកំពុង upgrade backend។' },
+      { label: 'Documentation', desc: 'ប្រើឧបករណ៍ដូចជា Scribe ដើម្បីបង្កើត API docs ចេញពីកូដរបស់អ្នកដោយស្វ័យប្រវត្តិ។' },
     ],
-    tip: 'Start with v1 in your URL. You will thank yourself in 6 months.',
-    lab: 'Set up a route group with the prefix "v1" for all your core endpoints.',
-    result: 'Professional API structure ready for long-term growth.',
+    tip: 'ចាប់ផ្តើមជាមួយ v1 នៅក្នុង URL របស់អ្នក។ អ្នកនឹងអរគុណខ្លួនឯងនៅ ៦ ខែក្រោយ។',
+    lab: 'រៀបចំ route group ដែលមាន prefix "v1" សម្រាប់រាល់ endpoints សំខាន់ៗរបស់អ្នក។',
+    result: 'រចនាសម្ព័ន្ធ API ប្រកបដោយវិជ្ជាជីវៈ និងរួចរាល់សម្រាប់ការរីកចម្រើនយូរអង្វែង។',
     filename: 'routes/api.php',
     code: `Route::prefix('v1')->group(function () {
     Route::apiResource('posts', PostController::class);
@@ -1027,18 +1027,18 @@ php artisan migrate`,
   /* ── CHAPTER 10: FRONTEND INTEGRATION ── */
   {
     id: 'L10-S1', chapter: 'frontend',
-    title: 'Vite & Tailwind', subtitle: 'The Modern Frontend Stack',
+    title: 'Vite & Tailwind', subtitle: 'Modern Frontend Stack',
     accent: '#fbbf24',
     bg: 'radial-gradient(ellipse at 10% 90%, rgba(251,191,36,0.15) 0%, transparent 55%)',
     concepts: [
-      { label: 'Vite', desc: 'The lightning-fast frontend build tool for Laravel.' },
-      { label: 'Tailwind CSS', desc: 'Utility-first CSS: Style your app without leaving HTML.' },
-      { label: 'Asset Bundling', desc: 'Compiling SCSS/JS/React into production-ready files.' },
-      { label: 'HMR', desc: 'Hot Module Replacement: Instant updates as you save files.' },
+      { label: 'Vite', desc: 'ឧបករណ៍ build frontend ដែលលឿនដូចផ្លេកបន្ទោរសម្រាប់ Laravel។' },
+      { label: 'Tailwind CSS', desc: 'Utility-first CSS: រចនាកម្មវិធីរបស់អ្នកដោយមិនចាំបាច់ចាកចេញពី HTML។' },
+      { label: 'Asset Bundling', desc: 'ការចងក្រង SCSS/JS/React ទៅជាឯកសារដែលរួចរាល់សម្រាប់ផលិតកម្ម។' },
+      { label: 'HMR', desc: 'Hot Module Replacement: ការធ្វើបច្ចុប្បន្នភាពភ្លាមៗនៅពេលអ្នករក្សាទុកឯកសារ។' },
     ],
-    tip: 'Use @vite(["resources/css/app.css"]) in your master layout to boot up your styles.',
-    lab: 'Install Tailwind and change the background color of your app.',
-    result: 'Modern styles applied and auto-refreshed via Vite.',
+    tip: 'ប្រើ @vite(["resources/css/app.css"]) នៅក្នុង master layout របស់អ្នកដើម្បីដំណើរការស្ទីល។',
+    lab: 'ដំឡើង Tailwind និងប្តូរពណ៌ផ្ទៃខាងក្រោយនៃកម្មវិធីរបស់អ្នក។',
+    result: 'ស្ទីលទំនើបត្រូវបានអនុវត្ត និងធ្វើបច្ចុប្បន្នភាពដោយស្វ័យប្រវត្តិតាមរយៈ Vite។',
     filename: 'vite.config.js',
     code: `export default defineConfig({
     plugins: [
@@ -1056,14 +1056,14 @@ php artisan migrate`,
     accent: '#fbbf24',
     bg: 'radial-gradient(ellipse at 80% 10%, rgba(251,191,36,0.12) 0%, transparent 55%)',
     concepts: [
-      { label: 'TALL Stack', desc: 'Tailwind, Alpine, Laravel, Livewire — build SPAs with PHP logic.' },
-      { label: 'Reactivity', desc: 'Input fields and buttons update the UI instantly without page refreshes.' },
-      { label: 'Properties', desc: 'Sync public PHP variables directly with search inputs or form fields.' },
-      { label: 'Actions', desc: 'Call PHP methods directly from your HTML: wire:click="save".' },
+      { label: 'TALL Stack', desc: 'Tailwind, Alpine, Laravel, Livewire — បង្កើត SPAs ជាមួយ logic PHP។' },
+      { label: 'Reactivity', desc: 'ប្រអប់បញ្ចូល និងប៊ូតុងធ្វើបច្ចុប្បន្នភាព UI ភ្លាមៗដោយមិនចាំបាច់ reload ទំព័រ។' },
+      { label: 'Properties', desc: 'បញ្ជូនទិន្នន័យពីអថេរ PHP ទៅកាន់ search inputs ឬ form fields ដោយផ្ទាល់។' },
+      { label: 'Actions', desc: 'ហៅ methods PHP ដោយផ្ទាល់ពី HTML របស់អ្នក: wire:click="save"។' },
     ],
-    tip: 'Use Livewire if you love PHP but want a modern, reactive user experience.',
-    lab: 'Build a real-time search component that filters users as you type.',
-    result: 'Dynamic, "JavaScript-like" behavior using only PHP code.',
+    tip: 'ប្រើ Livewire ប្រសិនបើអ្នកស្រឡាញ់ PHP ប៉ុន្តែចង់បានបទពិសោធន៍អ្នកប្រើប្រាស់ដែលទាន់សម័យ និងមានប្រតិកម្មរហ័ស។',
+    lab: 'បង្កើត component ស្វែងរកក្នុងពេលជាក់ស្តែងដែលចម្រោះអ្នកប្រើប្រាស់នៅពេលអ្នកវាយបញ្ចូល។',
+    result: 'ឥរិយាបទឌីណាមិកដូចជា "JavaScript" ដោយប្រើតែកូដ PHP ប៉ុណ្ណោះ។',
     filename: 'SearchUsers.php',
     code: `class SearchUsers extends Component {
     public $search = '';
@@ -1078,18 +1078,18 @@ php artisan migrate`,
   },
   {
     id: 'L10-S3', chapter: 'frontend',
-    title: 'Inertia.js', subtitle: 'The Modern Monolith',
+    title: 'Inertia.js', subtitle: 'Modern Monolith',
     accent: '#fbbf24',
     bg: 'radial-gradient(ellipse at 50% 50%, rgba(251,191,36,0.08) 0%, transparent 55%)',
     concepts: [
-      { label: 'Protocol', desc: 'Glue that connects Laravel backends to React/Vue frontends perfectly.' },
-      { label: 'No API Needed', desc: 'Build an SPA without writing a single API endpoint or using Axios.' },
-      { label: 'Server Routing', desc: 'Keeps routing in Laravel while rendering components in React.' },
-      { label: 'Shared State', desc: 'Easily pass Auth user or Flash messages to your React props.' },
+      { label: 'Protocol', desc: 'ស្ពានដែលភ្ជាប់ Laravel backends ទៅកាន់ React/Vue frontends យ៉ាងល្អឥតខ្ចោះ។' },
+      { label: 'No API Needed', desc: 'បង្កើត SPA ដោយមិនចាំបាច់សរសេរ API endpoint តែមួយ ឬប្រើ Axios។' },
+      { label: 'Server Routing', desc: 'រក្សាការរៀបចំ routing ក្នុង Laravel ខណៈពេលបង្ហាញ components ក្នុង React។' },
+      { label: 'Shared State', desc: 'ងាយស្រួលបញ្ជូន Auth user ឬ Flash messages ទៅកាន់ React props របស់អ្នក។' },
     ],
-    tip: 'Inertia gives you the power of React with the simplicity of traditional Laravel.',
-    lab: 'Create a "Dashboard" React component and render it from a Laravel route.',
-    result: 'High-performance SPA experience with zero boilerplate.',
+    tip: 'Inertia ផ្តល់ឱ្យអ្នកនូវថាមពលរបស់ React ជាមួយនឹងភាពសាមញ្ញនៃ Laravel បែបប្រពៃណី។',
+    lab: 'បង្កើត "Dashboard" React component និងបង្ហាញវាចេញពី route របស់ Laravel។',
+    result: 'បទពិសោធន៍ SPA ដែលមានប្រសិទ្ធភាពខ្ពស់ដោយមិនមានភាពស្មុគស្មាញ។',
     filename: 'DashboardController.php',
     code: `public function index() {
     return Inertia::render('Dashboard', [
@@ -1104,14 +1104,14 @@ php artisan migrate`,
     accent: '#fbbf24',
     bg: 'radial-gradient(ellipse at center, rgba(251,191,36,0.05) 0%, transparent 55%)',
     concepts: [
-      { label: 'Micro-Interactions', desc: 'Handle dropdowns, modals, and toggles with tiny inline JS.' },
-      { label: 'x-data', desc: 'Define your component state directly on the HTML tag.' },
-      { label: 'x-on:click', desc: 'Intuitive event listeners that keep logic close to the UI.' },
-      { label: 'Small Footprint', desc: 'Massive power in a tiny (~15kb) package compared to React.' },
+      { label: 'Micro-Interactions', desc: 'គ្រប់គ្រង dropdowns, modals និង toggles ជាមួយកូដ JS តូចៗ។' },
+      { label: 'x-data', desc: 'កំណត់ស្ថានភាព (state) របស់ component ដោយផ្ទាល់នៅលើ tag HTML។' },
+      { label: 'x-on:click', desc: 'ការរង់ចាំព្រឹត្តិការណ៍ដែលងាយយល់ និងរក្សា logic ឱ្យនៅជិត UI។' },
+      { label: 'Small Footprint', desc: 'ថាមពលខ្លាំងក្នុងកញ្ចប់តូច (~15kb) បើធៀបនឹង React។' },
     ],
-    tip: 'Alpine is the "Tailwind of JavaScript". Perfect for sprinkles of reactivity.',
-    lab: 'Create a mobile navigation menu that toggles open/closed using Alpine.',
-    result: 'Functional, interactive UI elements with zero custom JS files.',
+    tip: 'Alpine គឺជា "Tailwind នៃ JavaScript"។ ល្អឥតខ្ចោះសម្រាប់ការបន្ថែមប្រតិកម្មរហ័សបន្តិចបន្តួច។',
+    lab: 'បង្កើត mobile navigation menu ដែលអាចបិទ/បើកបានដោយប្រើ Alpine។',
+    result: 'ធាតុ UI អន្តរកម្មដែលដំណើរការបានដោយមិនមានឯកសារ JS ផ្ទាល់ខ្លួនច្រើន។',
     filename: 'nav.blade.php',
     code: `<div x-data="{ open: false }">
     <button @click="open = !open">Menu</button>
@@ -1123,18 +1123,18 @@ php artisan migrate`,
   /* ── CHAPTER 11: DEPLOYMENT ── */
   {
     id: 'L11-S1', chapter: 'deploy',
-    title: 'Go Live', subtitle: 'Cloud & Forge',
+    title: 'បើកដំណើរការ (Go Live)', subtitle: 'Cloud & Forge',
     accent: '#8b5cf6',
     bg: 'radial-gradient(ellipse at 50% 50%, rgba(139,92,246,0.15) 0%, transparent 55%)',
     concepts: [
-      { label: 'Laravel Forge', desc: 'Easiest way to provision servers on AWS/Digital Ocean.' },
-      { label: 'Laravel Cloud', desc: 'Serverless deployment directly from GitHub commits.' },
-      { label: 'Optimization', desc: 'php artisan config:cache, route:cache for production speed.' },
-      { label: 'CI/CD', desc: 'Automatically run tests before every production push.' },
+      { label: 'Laravel Forge', desc: 'វិធីដែលងាយស្រួលបំផុតក្នុងការរៀបចំ server នៅលើ AWS/Digital Ocean។' },
+      { label: 'Laravel Cloud', desc: 'ការដាក់ឱ្យប្រើប្រាស់ serverless ដោយផ្ទាល់ពី GitHub commits។' },
+      { label: 'Optimization', desc: 'ប្រើ php artisan config:cache, route:cache សម្រាប់ល្បឿនផលិតកម្ម។' },
+      { label: 'CI/CD', desc: 'ដំណើរការតេស្តដោយស្វ័យប្រវត្តិកែប្រែមុនពេលរាល់ការ push ទៅកាន់ផលិតកម្ម។' },
     ],
-    tip: 'NEVER run migrate:fresh in production. It deletes ALL your live data!',
-    lab: 'Run the production optimization commands and check the performance gain.',
-    result: 'Site optimized and safe for global traffic.',
+    tip: 'កុំដំណើរការ migrate:fresh ក្នុងផលិតកម្មឱ្យសោះ។ វានឹងលុបទិន្នន័យពិតប្រាកដរបស់អ្នកទាំងអស់!',
+    lab: 'ដំណើរការបញ្ជា optimization ក្នុងផលិតកម្ម និងពិនិត្យមើលល្បឿនដែលកើនឡើង។',
+    result: 'គេហទំព័រត្រូវបានដំណើរការល្អបំផុត និងសុវត្ថិភាពសម្រាប់ចរាចរណ៍សកល។',
     terminal: 'php artisan optimize',
     terminalOutput: '   INFO  Caching configuration.\n   INFO  Caching routes.\n   DONE  Optimization complete.',
     icon: Rocket,
@@ -1150,18 +1150,18 @@ php artisan view:cache`,
   },
   {
     id: 'L11-S2', chapter: 'deploy',
-    title: 'CI/CD Pipelines', subtitle: 'Automated Shipments',
+    title: 'CI/CD Pipelines', subtitle: 'ការបញ្ជូនដោយស្វ័យប្រវត្តិ',
     accent: '#8b5cf6',
     bg: 'radial-gradient(ellipse at 10% 20%, rgba(139,92,246,0.12) 0%, transparent 55%)',
     concepts: [
-      { label: 'GitHub Actions', desc: 'Run your test suite automatically on every git push.' },
-      { label: 'Linting', desc: 'Check for coding style violations before code is merged.' },
-      { label: 'Staging Env', desc: 'Deploy to a test server first to verify features "in the wild".' },
-      { label: 'Automated Deploy', desc: 'If tests pass, the pipeline pushes code to production for you.' },
+      { label: 'GitHub Actions', desc: 'ដំណើរការការតេស្តរបស់អ្នកដោយស្វ័យប្រវត្តិនូវរាល់ពេល push ទៅកាន់ git។' },
+      { label: 'Linting', desc: 'ពិនិត្យមើលរចនាបថនៃការសរសេរកូដមុនពេលកូដត្រូវបានបញ្ចូលគ្នា (merged)។' },
+      { label: 'Staging Env', desc: 'ដាក់ឱ្យប្រើប្រាស់លើ server សាកល្បងជាមុនសិន ដើម្បីផ្ទៀងផ្ទាត់មុខងារនានា។' },
+      { label: 'Automated Deploy', desc: 'ប្រសិនបើការតេស្តជាប់ នោះ pipeline នឹងបញ្ជូនកូដទៅកាន់ផលិតកម្មសម្រាប់អ្នក។' },
     ],
-    tip: 'Automation is security. It prevents human error during the "Push to Live" moment.',
-    lab: 'Create a .github/workflows/tests.yml file and trigger a run.',
-    result: 'Visual confirmation that your code is stable and production-ready.',
+    tip: 'ស្វ័យប្រវត្តិកម្មគឺជាសុវត្ថិភាព។ វាការពារកំហុសរបស់មនុស្សក្នុងអំឡុងពេល "Push to Live"។',
+    lab: 'បង្កើតឯកសារ .github/workflows/tests.yml និងសាកល្បងដំណើរការវា។',
+    result: 'ការបញ្ជាក់ដោយចក្ខុវិស័យថាកូដរបស់អ្នកមានស្ថេរភាព និងរួចរាល់សម្រាប់ផលិតកម្ម។',
     filename: 'tests.yml',
     code: `name: Run Tests
 on: [push]
@@ -1174,18 +1174,18 @@ jobs:
   },
   {
     id: 'L11-S3', chapter: 'deploy',
-    title: 'Error Tracking', subtitle: 'Sentry & Bugsnag',
+    title: 'ការតាមដានកំហុស (Error Tracking)', subtitle: 'Sentry & Bugsnag',
     accent: '#8b5cf6',
     bg: 'radial-gradient(ellipse at 90% 80%, rgba(139,92,246,0.08) 0%, transparent 55%)',
     concepts: [
-      { label: 'Real-time Alerts', desc: 'Get notified via Slack or Email immediately when an error happens.' },
-      { label: 'Contextual Data', desc: 'See the exact line of code, user ID, and browser that failed.' },
-      { label: 'Stack Traces', desc: 'Deep dive into what led to the crash — even in production.' },
-      { label: 'Resolve/Ignore', desc: 'Manage your technical debt by prioritizing critical bugs.' },
+      { label: 'Real-time Alerts', desc: 'ទទួលបានការជូនដំណឹងតាម Slack ឬ Email ភ្លាមៗនៅពេលមានកំហុសកើតឡើង។' },
+      { label: 'Contextual Data', desc: 'មើលឃើញបន្ទាត់កូដជាក់លាក់ User ID និង browser ដែលបានបរាជ័យ។' },
+      { label: 'Stack Traces', desc: 'ពិនិត្យឱ្យបានស៊ីជម្រៅអំពីអ្វីដែលនាំឱ្យមានការគាំង — ទោះបីជានៅក្នុងផលិតកម្មក៏ដោយ។' },
+      { label: 'Resolve/Ignore', desc: 'គ្រប់គ្រងបំណុលបច្ចេកទេស (technical debt) ដោយកំណត់អាទិភាពលើកំហុសសំខាន់ៗ។' },
     ],
-    tip: 'Don’t wait for users to report bugs. Know about them before they do!',
-    lab: 'Install the Sentry SDK and trigger a test exception.',
-    result: 'Detailed error report appears in your monitoring dashboard.',
+    tip: 'កុំរង់ចាំអ្នកប្រើប្រាស់រាយការណ៍ពីកំហុស។ អ្នកគួរតែដឹងពីពួកវាមុនពួកគេ!',
+    lab: 'ដំឡើង Sentry SDK និងសាកល្បងបង្កើត error មួយ។',
+    result: 'របាយការណ៍កំហុសលម្អិតបង្ហាញនៅក្នុង dashboard តាមដានរបស់អ្នក។',
     filename: 'logging.php',
     code: `'channels' => [
     'sentry' => [
@@ -1196,18 +1196,18 @@ jobs:
   },
   {
     id: 'L11-S4', chapter: 'deploy',
-    title: 'Scaling & Growth', subtitle: 'Beyond the Single Server',
+    title: 'ការពង្រីក និងការរីកចម្រើន (Scaling & Growth)', subtitle: 'លើសពី Server តែមួយ',
     accent: '#8b5cf6',
     bg: 'radial-gradient(ellipse at center, rgba(139,92,246,0.05) 0%, transparent 55%)',
     concepts: [
-      { label: 'Load Balancing', desc: 'Distribute traffic across multiple servers (AWS/DigitalOcean).' },
-      { label: 'Redis Sentinel', desc: 'High-availability caching and queue management.' },
-      { label: 'Read Replicas', desc: 'Offload database read queries to separate "follower" nodes.' },
-      { label: 'Horizontal Scaling', desc: 'Adding more servers as your user base grows to millions.' },
+      { label: 'Load Balancing', desc: 'បែងចែកចរាចរណ៍ទិន្នន័យទៅកាន់ server ជាច្រើន (AWS/DigitalOcean)។' },
+      { label: 'Redis Sentinel', desc: 'ការគ្រប់គ្រង cache និង queue ដែលមានលទ្ធភាពប្រើប្រាស់ខ្ពស់។' },
+      { label: 'Read Replicas', desc: 'កាត់បន្ថយបន្ទុក database read query ទៅកាន់ follower nodes ដាច់ដោយឡែក។' },
+      { label: 'Horizontal Scaling', desc: 'បន្ថែម server បន្ថែមទៀតនៅពេលដែលចំនួនអ្នកប្រើប្រាស់កើនឡើងដល់រាប់លាននាក់។' },
     ],
-    tip: 'Laravel is designed to scale. It powers some of the largest sites on the internet.',
-    lab: 'Configure your DB connection to use a separate "read" host.',
-    result: 'Higher database performance and reliability under heavy load.',
+    tip: 'Laravel ត្រូវបានរចនាឡើងដើម្បីពង្រីកទំហំ។ វាផ្តល់ថាមពលដល់គេហទំព័រធំៗមួយចំនួននៅលើអ៊ីនធឺណិត។',
+    lab: 'កំណត់រចនាសម្ព័ន្ធការភ្ជាប់ DB របស់អ្នកឱ្យប្រើ "read" host ដាច់ដោយឡែក។',
+    result: 'ដំណើរការ database ខ្ពស់ជាងមុន និងភាពជឿជាក់ក្រោមបន្ទុកធ្ងន់។',
     filename: 'database.php',
     code: `'mysql' => [
     'read' => [
@@ -1223,17 +1223,17 @@ jobs:
   /* ── CHAPTER 13: TODO APP DEMO (START-TO-FINISH) ── */
   {
     id: 'L13-S1', chapter: 'todo',
-    title: 'The Foundation', subtitle: 'Step 1: Application Setup',
+    title: 'មូលដ្ឋានគ្រឹះ', subtitle: 'ជំហានទី ១៖ ការរៀបចំកម្មវិធី',
     accent: '#0ea5e9',
     bg: 'radial-gradient(ellipse at 10% 20%, rgba(14,165,233,0.15) 0%, transparent 55%)',
     concepts: [
-      { label: 'Laravel Installer', desc: 'Bootstrap a fresh galaxy with "laravel new todo-app".' },
-      { label: 'Environment', desc: 'Configure your .env to use a local SQLite or MySQL database.' },
-      { label: 'Initial Server', desc: 'Boot up the dev server to see the welcome page.' },
+      { label: 'Laravel Installer', desc: 'ចាប់ផ្តើមគម្រោងថ្មីជាមួយ "laravel new todo-app"។' },
+      { label: 'Environment', desc: 'កំណត់ .env របស់អ្នកឱ្យប្រើ SQLite ឬ MySQL database ក្នុងស្រុក។' },
+      { label: 'Initial Server', desc: 'បើកដំណើរការ dev server ដើម្បីមើលទំព័រស្វាគមន៍។' },
     ],
-    tip: 'Choose the "SQLite" option during installation for the fastest local setup without needing a DB server.',
-    lab: 'Create a new Laravel project and verify the .env database credentials.',
-    result: 'Fresh Laravel installation ready for development.',
+    tip: 'ជ្រើសរើសជម្រើស "SQLite" ក្នុងអំឡុងពេលដំឡើងសម្រាប់ការរៀបចំក្នុងស្រុកដែលលឿនបំផុតដោយមិនចាំបាច់មាន DB server។',
+    lab: 'បង្កើតគម្រោង Laravel ថ្មី និងផ្ទៀងផ្ទាត់ព័ត៌មានសម្ងាត់ database ក្នុង .env។',
+    result: 'ការដំឡើង Laravel ថ្មីរួចរាល់សម្រាប់ការអភិវឌ្ឍន៍។',
     filename: 'terminal',
     code: `# Create the project
 laravel new todo-app
@@ -1248,17 +1248,17 @@ laravel new todo-app
   },
   {
     id: 'L13-S2', chapter: 'todo',
-    title: 'Visual Architecture', subtitle: 'Step 2: Base Layout',
+    title: 'ស្ថាបត្យកម្មរូបរាង', subtitle: 'ជំហានទី ២៖ ប្លង់មូលដ្ឋាន (Base Layout)',
     accent: '#0ea5e9',
     bg: 'radial-gradient(ellipse at 80% 30%, rgba(14,165,233,0.12) 0%, transparent 55%)',
     concepts: [
-      { label: 'App Layout', desc: 'Create a master layout.blade.php to host your navigation and styles.' },
-      { label: 'Tailwind CDN', desc: 'Quickly add Tailwind CSS for rapid prototyping.' },
-      { label: 'Content Yield', desc: 'Define a @yield("content") area for individual pages.' },
+      { label: 'App Layout', desc: 'បង្កើត layout.blade.php ដើម្បីគ្រប់គ្រងការរុករក និងស្ទីលរបស់អ្នក។' },
+      { label: 'Tailwind CDN', desc: 'បន្ថែម Tailwind CSS យ៉ាងរហ័សសម្រាប់ការសាកល្បងដំបូង។' },
+      { label: 'Content Yield', desc: 'កំណត់តំបន់ @yield("content") សម្រាប់ទំព័រនីមួយៗ។' },
     ],
-    tip: 'Keep your layout clean. Separate your navigation into an @include partial later.',
-    lab: 'Create a basic HTML layout with a centered container for your todo list.',
-    result: 'A professional-looking container skeleton for your app.',
+    tip: 'រក្សាប្លង់របស់អ្នកឱ្យស្អាត។ បំបែកការរុករក (navigation) របស់អ្នកទៅជា @include partial នៅពេលក្រោយ។',
+    lab: 'បង្កើតប្លង់ HTML មូលដ្ឋានដែលមាន container នៅចំកណ្តាលសម្រាប់បញ្ជី todo របស់អ្នក។',
+    result: 'គ្រោងឆ្អឹង container ដែលមានលក្ខណៈវិជ្ជាជីវៈសម្រាប់កម្មវិធីរបស់អ្នក។',
     filename: 'views/layout.blade.php',
     code: `<!DOCTYPE html>
 <html>
@@ -1276,17 +1276,17 @@ laravel new todo-app
   },
   {
     id: 'L13-S3', chapter: 'todo',
-    title: 'Defining the Data', subtitle: 'Step 3: Migration & Model',
+    title: 'ការកំណត់ទិន្នន័យ', subtitle: 'ជំហានទី ៣៖ Migration & Model',
     accent: '#0ea5e9',
     bg: 'radial-gradient(ellipse at 30% 50%, rgba(14,165,233,0.1) 0%, transparent 60%)',
     concepts: [
-      { label: 'The Task Model', desc: 'The PHP object representing your database record.' },
-      { label: 'The Schema', desc: 'A migration that defines the "title" and "is_completed" columns.' },
-      { label: 'Fillables', desc: 'Whitelist the columns to allow mass-assignment.' },
+      { label: 'The Task Model', desc: 'PHP object ដែលតំណាងឱ្យ record ក្នុង database របស់អ្នក។' },
+      { label: 'The Schema', desc: 'migration ដែលកំណត់សសរស្ដម្ភ (columns) "title" និង "is_completed"។' },
+      { label: 'Fillables', desc: 'បញ្ជាក់សសរស្ដម្ភដែលអនុញ្ញាតឱ្យបញ្ចូលទិន្នន័យជាបណ្តុំ (mass-assignment)។' },
     ],
-    tip: 'Always include a default(false) for your boolean status columns.',
-    lab: 'Generate a model with a migration and define the schema.',
-    result: 'Data structure finalized and table migrated.',
+    tip: 'តែងតែដាក់ default(false) សម្រាប់សសរស្ដម្ភស្ថានភាពប្រភេទ boolean របស់អ្នក។',
+    lab: 'បង្កើត model ជាមួយ migration និងកំណត់ schema។',
+    result: 'រចនាសម្ព័ន្ធទិន្នន័យត្រូវបានបញ្ចប់ និង table ត្រូវបាន migrated។',
     filename: 'database/migrations/xxx_tasks.php',
     code: `public function up() {
     Schema::create('tasks', function (Blueprint $table) {
@@ -1300,17 +1300,17 @@ laravel new todo-app
   },
   {
     id: 'L13-S4', chapter: 'todo',
-    title: 'The URL Map', subtitle: 'Step 4: Defining Routes',
+    title: 'ផែនទី URL', subtitle: 'ជំហានទី ៤៖ ការកំណត់ Routes',
     accent: '#0ea5e9',
     bg: 'radial-gradient(ellipse at center, rgba(14,165,233,0.08) 0%, transparent 70%)',
     concepts: [
-      { label: 'GET Route', desc: 'Defines where to view the todo list (/) .' },
-      { label: 'POST Route', desc: 'Handles the submission of a new task.' },
-      { label: 'PATCH Route', desc: 'Updates the status of an existing task.' },
+      { label: 'GET Route', desc: 'កំណត់កន្លែងសម្រាប់មើលបញ្ជី todo (/) ។' },
+      { label: 'POST Route', desc: 'គ្រប់គ្រងការបញ្ជូនភារកិច្ច (task) ថ្មី។' },
+      { label: 'PATCH Route', desc: 'ធ្វើបច្ចុប្បន្នភាពស្ថានភាពនៃភារកិច្ចដែលមានស្រាប់។' },
     ],
-    tip: 'Group your routes for cleaner organization as your app grows.',
-    lab: 'Add routes for listing and storing tasks in routes/web.php.',
-    result: 'Endpoints established for the TaskController.',
+    tip: 'រៀបចំ route របស់អ្នកជាក្រុមដើម្បីឱ្យមានសណ្តាប់ធ្នាប់នៅពេលកម្មវិធីរបស់អ្នករីកធំ។',
+    lab: 'បន្ថែម route សម្រាប់ការបង្ហាញបញ្ជី និងការរក្សាទុកភារកិច្ចក្នុង routes/web.php។',
+    result: 'Endpoints ត្រូវបានបង្កើតឡើងសម្រាប់ TaskController។',
     filename: 'routes/web.php',
     code: `use App\\Http\\Controllers\\TaskController;
 
@@ -1321,17 +1321,17 @@ Route::patch('/tasks/{task}', [TaskController::class, 'update']);`,
   },
   {
     id: 'L13-S5', chapter: 'todo',
-    title: 'The Brain', subtitle: 'Step 5: Controller Logic',
+    title: 'ខួរក្បាលនៃកម្មវិធី', subtitle: 'ជំហានទី ៥៖ Controller Logic',
     accent: '#0ea5e9',
     bg: 'radial-gradient(ellipse at 10% 80%, rgba(14,165,233,0.06) 0%, transparent 60%)',
     concepts: [
-      { label: 'Index Logic', desc: 'Fetch Task::latest()->get() and pass it to a view.' },
-      { label: 'Store Logic', desc: 'Validate the request and save the task to the DB.' },
-      { label: 'Redirects', desc: 'Use return back() to keep the user on the same page.' },
+      { label: 'Index Logic', desc: 'ទាញយក Task::latest()->get() និងបញ្ជូនវាទៅកាន់ view។' },
+      { label: 'Store Logic', desc: 'ផ្ទៀងផ្ទាត់ការស្នើសុំ (request) និងរក្សាទុកភារកិច្ចទៅក្នុង DB។' },
+      { label: 'Redirects', desc: 'ប្រើ return back() ដើម្បីរក្សាអ្នកប្រើប្រាស់នៅលើទំព័រដដែល។' },
     ],
-    tip: 'Validation protects your database from empty or malicious strings.',
-    lab: 'Write the index and store methods in your TaskController.',
-    result: 'Application logic can now receive and store real user tasks.',
+    tip: 'ការផ្ទៀងផ្ទាត់ (Validation) ការពារ database របស់អ្នកពីទិន្នន័យទទេ ឬខ្សែអក្សរដែលមានបំណងអាក្រក់។',
+    lab: 'សរសេរ index និង store methods នៅក្នុង TaskController របស់អ្នក។',
+    result: 'Logic កម្មវិធីឥឡូវនេះអាចទទួល និងរក្សាទុកភារកិច្ចអ្នកប្រើប្រាស់ពិតប្រាកដ។',
     filename: 'app/Http/Controllers/TaskController.php',
     code: `public function index() {
     return view('tasks', ['tasks' => Task::latest()->get()]);
@@ -1345,17 +1345,17 @@ public function store(Request $request) {
   },
   {
     id: 'L13-S6', chapter: 'todo',
-    title: 'Dynamic Rendering', subtitle: 'Step 6: Iterating Tasks',
+    title: 'ការបង្ហាញឌីណាមិក', subtitle: 'ជំហានទី ៦៖ ការបង្ហាញភារកិច្ចម្តងមួយៗ',
     accent: '#0ea5e9',
     bg: 'radial-gradient(ellipse at 50% 50%, rgba(14,165,233,0.1) 0%, transparent 55%)',
     concepts: [
-      { label: '@forelse', desc: 'A powerful loop that handles empty lists gracefully.' },
-      { label: 'Input Binding', desc: 'Binding the $task->id to the update forms.' },
-      { label: 'UI Feedback', desc: 'Display a strike-through if is_completed is true.' },
+      { label: '@forelse', desc: 'loop ដ៏មានថាមពលដែលគ្រប់គ្រងបញ្ជីទទេបានយ៉ាងល្អ។' },
+      { label: 'Input Binding', desc: 'ភ្ជាប់ $task->id ទៅកាន់ទម្រង់ (forms) ធ្វើបច្ចុប្បន្នភាព។' },
+      { label: 'UI Feedback', desc: 'បង្ហាញបន្ទាត់ឆូតពីលើប្រសិនបើ is_completed ពិត (true)។' },
     ],
-    tip: 'Use Tailwind-colors (text-gray-400) for completed items to lower their visual priority.',
-    lab: 'Implement a @forelse loop in your tasks.blade.php file.',
-    result: 'List dynamically updates based on your database content.',
+    tip: 'ប្រើ Tailwind-colors (text-gray-400) សម្រាប់ធាតុដែលបានបញ្ចប់ដើម្បីបន្ថយអាទិភាពរូបភាពរបស់ពួកវា។',
+    lab: 'អនុវត្ត @forelse loop នៅក្នុងឯកសារ tasks.blade.php របស់អ្នក។',
+    result: 'បញ្ជីធ្វើបច្ចុប្បន្នភាពឌីណាមិកផ្អែកលើមាតិកា database របស់អ្នក។',
     filename: 'views/tasks.blade.php',
     code: `@forelse($tasks as $task)
     <li class="{{ $task->is_completed ? 'line-through text-gray-400' : '' }}">
@@ -1368,17 +1368,17 @@ public function store(Request $request) {
   },
   {
     id: 'L13-S7', chapter: 'todo',
-    title: 'Interactivity', subtitle: 'Step 7: Toggling Status',
+    title: 'អន្តរកម្ម', subtitle: 'ជំហានទី ៧៖ ការបិទ/បើកស្ថានភាព',
     accent: '#0ea5e9',
     bg: 'radial-gradient(ellipse at 80% 20%, rgba(14,165,233,0.12) 0%, transparent 55%)',
     concepts: [
-      { label: 'Toggle Logic', desc: '$task->update(["is_completed" => !$task->is_completed]).' },
-      { label: 'Method Spoofing', desc: 'Use @method("PATCH") in your small forms.' },
-      { label: 'UX', desc: 'The user clicks a button, the page refreshes, and the task is crossed out.' },
+      { label: 'Toggle Logic', desc: '$task->update(["is_completed" => !$task->is_completed])។' },
+      { label: 'Method Spoofing', desc: 'ប្រើ @method("PATCH") នៅក្នុង forms តូចៗរបស់អ្នក។' },
+      { label: 'UX', desc: 'អ្នកប្រើប្រាស់ចុចប៊ូតុង ទំព័រ reload ហើយភារកិច្ចត្រូវបានឆូតចេញ។' },
     ],
-    tip: 'A small form around a button is the standard way to trigger status changes in Blade.',
-    lab: 'Add a toggle button inside your task list item.',
-    result: 'Users can now mark tasks as completed in real-time.',
+    tip: 'form តូចមួយនៅជុំវិញប៊ូតុងគឺជាវិធីស្តង់ដារដើម្បីជម្រុញការផ្លាស់ប្តូរស្ថានភាពនៅក្នុង Blade។',
+    lab: 'បន្ថែមប៊ូតុង toggle នៅខាងក្នុងធាតុបញ្ជីភារកិច្ចរបស់អ្នក។',
+    result: 'ឥឡូវនេះអ្នកប្រើប្រាស់អាចកត់សម្គាល់ភារកិច្ចថាបានបញ្ចប់ក្នុងពេលជាក់ស្តែង។',
     filename: 'views/tasks.blade.php',
     code: `<form action="/tasks/{{ $task->id }}" method="POST">
     @csrf
@@ -1391,17 +1391,17 @@ public function store(Request $request) {
   },
   {
     id: 'L13-S8', chapter: 'todo',
-    title: 'Finish Line', subtitle: 'Step 8: Polish & Validation',
+    title: 'ទីបញ្ចប់', subtitle: 'ជំហានទី ៨៖ ការតុបតែង និងការផ្ទៀងផ្ទាត់',
     accent: '#0ea5e9',
     bg: 'radial-gradient(ellipse at center, rgba(14,165,233,0.08) 0%, transparent 70%)',
     concepts: [
-      { label: 'Error Messages', desc: 'Use @error("title") to show a red message if input is blank.' },
-      { label: 'Flash Success', desc: 'Tell the user "Task Added!" using session()->flash().' },
-      { label: 'Optimization', desc: 'Review your code for any N+1 query issues (though not likely here).' },
+      { label: 'Error Messages', desc: 'ប្រើ @error("title") ដើម្បីបង្ហាញសារពណ៌ក្រហមប្រសិនបើការបញ្ចូលទិន្នន័យនៅទំនេរ។' },
+      { label: 'Flash Success', desc: 'ប្រាប់អ្នកប្រើប្រាស់ថា "បានបន្ថែមភារកិច្ច!" ដោយប្រើ session()->flash()។' },
+      { label: 'Optimization', desc: 'ពិនិត្យមើលកូដរបស់អ្នកសម្រាប់បញ្ហា N+1 query (ទោះបីជាមិនសូវមាននៅទីនេះក៏ដោយ)។' },
     ],
-    tip: 'Users appreciate feedback. A simple success message makes the app feel "alive".',
-    lab: 'Implement a validation alert and a success banner.',
-    result: 'A complete, professional-grade Todo Application.',
+    tip: 'អ្នកប្រើប្រាស់ចូលចិត្តមតិកែលម្អ-សារជោគជ័យសាមញ្ញៗធ្វើឱ្យកម្មវិធីមានអារម្មណ៍ថា "រស់រវើក"។',
+    lab: 'អនុវត្តការជូនដំណឹងអំពីការផ្ទៀងផ្ទាត់ និងផ្ទាំងជោគជ័យ។',
+    result: 'កម្មវិធី Todo ដែលពេញលេញ និងមានលក្ខណៈវិជ្ជាជីវៈ។',
     filename: 'app/Http/Controllers/TaskController.php',
     code: `// Success flash message
 return back()->with('success', 'Hooray! Task added.');
@@ -1416,17 +1416,17 @@ return back()->with('success', 'Hooray! Task added.');
   /* ── CHAPTER 14: E-COMMERCE CAPSTONE PROJECT ── */
   {
     id: 'L14-S1', chapter: 'assignment',
-    title: 'Assignment Scope', subtitle: 'The Grand Mission',
+    title: 'វិសាលភាពកិច្ចការ', subtitle: 'បេសកកម្មដ៏អស្ចារ្យ',
     accent: '#f472b6',
     bg: 'radial-gradient(ellipse at 10% 20%, rgba(244,114,182,0.15) 0%, transparent 55%)',
     concepts: [
-      { label: 'Product Catalog', desc: 'Display categories, searches, and item detail pages.' },
-      { label: 'Shopping Cart', desc: 'Use Laravel sessions to maintain state for guest users.' },
-      { label: 'Order Logic', desc: 'Complex relationships between Users, Addresses, and Orders.' },
+      { label: 'Product Catalog', desc: 'បង្ហាញប្រភេទ (categories) ការស្វែងរក និងទំព័រលម្អិតទំនិញ។' },
+      { label: 'Shopping Cart', desc: 'ប្រើ Laravel sessions ដើម្បីរក្សាស្ថានភាពសម្រាប់អ្នកប្រើប្រាស់ជាភ្ញៀវ។' },
+      { label: 'Order Logic', desc: 'ទំនាក់ទំនងស្មុគស្មាញរវាង Users, Addresses និង Orders។' },
     ],
-    tip: 'Start with the schema. If your database is solid, the rest is just plumbing!',
-    lab: 'Prepare a list of at least 5 major database tables you will need.',
-    result: 'Clear roadmap for your capstone project development.',
+    tip: 'ចាប់ផ្តើមជាមួយ schema។ ប្រសិនបើ database របស់អ្នករឹងមាំ អ្វីៗដែលនៅសល់គឺគ្រាន់តែជាការតភ្ជាប់ប៉ុណ្ណោះ!',
+    lab: 'រៀបចំបញ្ជី table database ធំៗយ៉ាងហោចណាស់ ៥ ដែលអ្នកនឹងត្រូវការ។',
+    result: 'ផែនទីបង្ហាញផ្លូវច្បាស់លាស់សម្រាប់ការអភិវឌ្ឍន៍គម្រោង capstone របស់អ្នក។',
     filename: 'requirements.md',
     code: `Architecture Goals:
 1. Custom Auth (Breeze/Jetstream)
@@ -1438,17 +1438,17 @@ return back()->with('success', 'Hooray! Task added.');
   },
   {
     id: 'L14-S2', chapter: 'assignment',
-    title: 'Core Schema Design', subtitle: 'Phase 1: Database Architecture',
+    title: 'ការរចនា Schema ស្នូល', subtitle: 'ដំណាក់កាលទី ១៖ ស្ថាបត្យកម្ម Database',
     accent: '#f472b6',
     bg: 'radial-gradient(ellipse at 80% 30%, rgba(244,114,182,0.12) 0%, transparent 55%)',
     concepts: [
-      { label: 'Categories', desc: 'Nested relationships for navigation (e.g. Electronics > Laptops).' },
-      { label: 'Orders', desc: 'Link users to multiple "order_items" for history tracking.' },
-      { label: 'Stock Tracking', desc: 'Implement logic to prevent over-selling popular items.' },
+      { label: 'Categories', desc: 'ទំនាក់ទំនងជាន់គ្នាសម្រាប់រុករក (ឧទាហរណ៍៖ គ្រឿងអេឡិចត្រូនិក > កុំព្យូទ័រយួរដៃ)។' },
+      { label: 'Orders', desc: 'ភ្ជាប់អ្នកប្រើប្រាស់ទៅកាន់ "order_items" ជាច្រើនសម្រាប់តាមដានប្រវត្តិ។' },
+      { label: 'Stock Tracking', desc: 'អនុវត្ត logic ដើម្បីការពារការលក់លើសចំនួនសម្រាប់ទំនិញដែលពេញនិយម។' },
     ],
-    tip: 'Use polymorphic relations if you want users to be able to "Comment" on both Products and Reviews.',
-    lab: 'Design a "One-to-Many" relationship between Categories and Products.',
-    result: 'A scalable data structure capable of handling thousands of SKUs.',
+    tip: 'ប្រើ polymorphic relations ប្រសិនបើអ្នកចង់ឱ្យអ្នកប្រើប្រាស់អាច "បញ្ចេញមតិ" លើទាំង Products និង Reviews។',
+    lab: 'រចនាទំនាក់ទំនង "One-to-Many" រវាង Categories និង Products។',
+    result: 'រចនាសម្ព័ន្ធទិន្នន័យដែលអាចពង្រីកបាន និងមានសមត្ថភាពគ្រប់គ្រងទំនិញរាប់ពាន់។',
     filename: 'database/migrations/order_items.php',
     code: `Schema::create('order_items', function (Blueprint $table) {
     $table->id();
@@ -1462,17 +1462,17 @@ return back()->with('success', 'Hooray! Task added.');
   },
   {
     id: 'L14-S3', chapter: 'assignment',
-    title: 'Final Submission', subtitle: 'Phase 2: Deployment & Polish',
+    title: 'ការបញ្ជូនចុងក្រោយ', subtitle: 'ដំណាក់កាលទី ២៖ ការដាក់ឱ្យប្រើប្រាស់ និងការតុបតែង',
     accent: '#f472b6',
     bg: 'radial-gradient(ellipse at center, rgba(244,114,182,0.1) 0%, transparent 70%)',
     concepts: [
-      { label: 'Optimization', desc: 'Use eager loading (with()) to prevent N+1 queries when listing products.' },
-      { label: 'Gate Security', desc: 'Protect your /admin routes using a custom Middleware or Gate.' },
-      { label: 'Deployment', desc: 'Push your code to Forge, Vapor, or Heroku for the world to see.' },
+      { label: 'Optimization', desc: 'ប្រើ eager loading (with()) ដើម្បីការពារ N+1 queries នៅពេលបង្ហាញបញ្ជីផលិតផល។' },
+      { label: 'Gate Security', desc: 'ការពារ /admin routes របស់អ្នកដោយប្រើ Middleware ឬ Gate ផ្ទាល់ខ្លួន។' },
+      { label: 'Deployment', desc: 'បញ្ជូនកូដរបស់អ្នកទៅកាន់ Forge, Vapor ឬ Heroku ដើម្បីឱ្យពិភពលោកបានឃើញ។' },
     ],
-    tip: 'Build a "Seed Profile" that populates 100 products and 10 categories for your demo.',
-    lab: 'Finalize your README.md and push your repository to GitHub.',
-    result: 'Professional portfolio piece ready for potential employers.',
+    tip: 'បង្កើត "Seed Profile" ដែលមានផលិតផល ១០០ និងប្រភេទ ១០ សម្រាប់ការសាកល្បងរបស់អ្នក។',
+    lab: 'បញ្ចប់ឯកសារ README.md របស់អ្នក និង push repository របស់អ្នកទៅកាន់ GitHub។',
+    result: 'បំណែក portfolio វិជ្ជាជីវៈដែលត្រៀមរួចជាស្រេចសម្រាប់និយោជកសក្តានុពល។',
     filename: 'README.md',
     code: `# Project Nebula E-commerce
 ## Tech Stack
@@ -1568,7 +1568,7 @@ const CodePanel = ({
                 tab === t ? 'bg-white/10 text-white' : 'text-zinc-500 hover:text-zinc-300'
               }`}>
               {t === 'code' ? <Code2 className="w-3 h-3" /> : <Terminal className="w-3 h-3" />}
-              {t}
+              {t === 'code' ? 'Code' : 'Terminal'}
             </button>
           ))}
         </div>
@@ -1584,7 +1584,7 @@ const CodePanel = ({
               running ? 'bg-zinc-800 text-zinc-500' : 'bg-emerald-500/10 text-emerald-400 hover:bg-emerald-500/20'
             }`}>
             <Play className={`w-3 h-3 ${running ? 'animate-pulse' : ''}`} />
-            {running ? 'Running...' : 'Run'}
+            {running ? 'កំពុងដំណើរការ...' : 'ដំណើរការ'}
           </button>
           <button onClick={() => { setCode(initialCode); setOutput(initialOutput); }}
             className="p-1.5 rounded-lg text-zinc-600 hover:text-zinc-300 hover:bg-white/5 transition-all">
@@ -1594,7 +1594,7 @@ const CodePanel = ({
             className={`flex items-center gap-1.5 px-3 py-1 rounded-lg text-[10px] font-black uppercase tracking-widest border transition-all ${
               copied ? 'bg-emerald-500/10 border-emerald-500/20 text-emerald-400' : 'bg-white/5 border-white/10 text-zinc-400 hover:text-white'
             }`}>
-            {copied ? <><Check className="w-3 h-3" />Copied</> : <><Copy className="w-3 h-3" />Copy</>}
+            {copied ? <><Check className="w-3 h-3" />បានចម្លង</> : <><Copy className="w-3 h-3" />ចម្លង</>}
           </button>
         </div>
       </div>
@@ -1757,7 +1757,7 @@ export default function LaravelSlide() {
           <Link href="/courses/backend" 
             className="group flex items-center gap-3 px-3 sm:px-4 h-12 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 hover:border-white/20 transition-all active:scale-95 shadow-xl">
             <ArrowLeft className="w-4 h-4 text-zinc-500 group-hover:text-white transition-colors" />
-            <span className="text-[10px] font-black uppercase tracking-[0.2em] text-zinc-500 group-hover:text-white transition-colors hidden lg:block">Exit</span>
+            <span className="text-[10px] font-black uppercase tracking-[0.2em] text-zinc-500 group-hover:text-white transition-colors hidden lg:block">ចាកចេញ</span>
           </Link>
 
           <button onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -1776,7 +1776,7 @@ export default function LaravelSlide() {
               </AnimatePresence>
             </div>
             <div className="flex flex-col items-start leading-tight overflow-hidden">
-              <span className="text-[9px] font-black uppercase tracking-[0.2em] text-zinc-500 hidden sm:block">Curriculum Map</span>
+              <span className="text-[9px] font-black uppercase tracking-[0.2em] text-zinc-500 hidden sm:block">ផែនទីមេរៀន</span>
               <div className="flex items-center gap-2 overflow-hidden">
                 <span className="text-sm font-bold text-white tracking-tight truncate">{chapterInfo.label}</span>
                 <ChevronDown className={`w-3.5 h-3.5 text-zinc-600 flex-none transition-transform duration-500 ${isMenuOpen ? 'rotate-180 text-white' : ''}`} />
@@ -1788,7 +1788,7 @@ export default function LaravelSlide() {
         <div className="flex items-center gap-3 sm:gap-8 transition-all">
           <div className="hidden sm:flex flex-col items-end gap-1.5 min-w-[100px] md:min-w-[140px]">
             <div className="flex items-center gap-2 text-[10px] font-mono">
-              <span className="text-zinc-500 uppercase tracking-widest font-black hidden lg:block">Chapter Mastery</span>
+              <span className="text-zinc-500 uppercase tracking-widest font-black hidden lg:block">ភាពស្ទាត់ជំនាញនៃជំពូក</span>
               <span className="text-white font-black bg-white/10 px-1.5 py-0.5 rounded-md">{Math.round(progress)}%</span>
             </div>
             <div className="w-24 md:w-44 h-1.5 bg-white/5 rounded-full overflow-hidden border border-white/5">
@@ -1803,7 +1803,7 @@ export default function LaravelSlide() {
               <ChevronLeft className="w-5 h-5" />
             </button>
             <div className="flex flex-col items-center min-w-[40px] sm:min-w-[45px]">
-               <span className="text-[9px] font-black text-zinc-600 uppercase tracking-tighter mb-0.5 hidden xs:block">Slide</span>
+               <span className="text-[9px] font-black text-zinc-600 uppercase tracking-tighter mb-0.5 hidden xs:block">ស្លាយ</span>
                <span className="text-sm font-mono text-zinc-500 flex items-center gap-1 leading-none">
                  <span className="text-white font-bold">{current + 1}</span>
                  <span className="text-zinc-800">/</span>
@@ -1866,10 +1866,10 @@ export default function LaravelSlide() {
                           <div className="flex items-center gap-2 mb-1">
                             <span className={`text-[9px] sm:text-[10px] font-black uppercase tracking-[0.2em] transition-colors ${isActive ? 'opacity-100' : 'opacity-60 group-hover:opacity-100'}`}
                               style={{ color: ch.color }}>
-                              Part {i + 1}
+                              ផ្នែកទី {i + 1}
                             </span>
                             {isActive && (
-                              <span className="text-[7px] sm:text-[8px] font-black px-1.5 py-0.5 rounded bg-white text-black uppercase tracking-tighter">Current</span>
+                              <span className="text-[7px] sm:text-[8px] font-black px-1.5 py-0.5 rounded bg-white text-black uppercase tracking-tighter">បច្ចុប្បន្ន</span>
                             )}
                           </div>
                           <span className={`text-sm sm:text-[15px] font-bold tracking-tight transition-all truncate w-full ${isActive ? 'text-white' : 'text-zinc-200 group-hover:text-white'}`}>
@@ -1889,11 +1889,11 @@ export default function LaravelSlide() {
               <div className="flex-none p-6 sm:px-12 sm:py-8 bg-black/20 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-4">
                 <div className="flex items-center gap-5">
                    <div className="px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-[10px] font-black uppercase tracking-[0.25em] text-zinc-400">
-                      Module Navigation
+                      ការរុករកម៉ូឌុល
                    </div>
                    <div className="hidden lg:flex items-center gap-2 text-zinc-600 text-[10px] font-bold">
                       <span className="w-1 h-1 rounded-full bg-zinc-700" />
-                      Select a chapter to jump directly to those slides
+                      ជ្រើសរើសជំពូកដើម្បីទៅកាន់ស្លាយទាំងនោះដោយផ្ទាល់
                    </div>
                 </div>
                 <div className="text-[9px] sm:text-[10px] font-mono text-zinc-500 bg-white/5 px-3 py-1 rounded-lg border border-white/5 uppercase tracking-tighter">
@@ -1956,7 +1956,7 @@ export default function LaravelSlide() {
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.35 }}
               className="rounded-xl border border-amber-500/15 bg-amber-500/5 p-4 flex gap-3">
               <Sparkles className="w-4 h-4 text-amber-400 flex-none mt-0.5" />
-              <p className="text-sm text-amber-200/80 leading-relaxed"><span className="font-black text-amber-400">Pro tip: </span>{slide.tip}</p>
+              <p className="text-sm text-amber-200/80 leading-relaxed"><span className="font-black text-amber-400">គន្លឹះពិសេស: </span>{slide.tip}</p>
             </motion.div>
 
             {/* Lab + Result */}
@@ -1966,7 +1966,7 @@ export default function LaravelSlide() {
                 style={{ background: `${slide.accent}08`, borderColor: `${slide.accent}25` }}>
                 <Play className="w-4 h-4 flex-none mt-0.5" style={{ color: slide.accent }} />
                 <div>
-                  <p className="text-[10px] font-black uppercase tracking-[0.2em] mb-1.5" style={{ color: slide.accent }}>Lab Exercise</p>
+                  <p className="text-[10px] font-black uppercase tracking-[0.2em] mb-1.5" style={{ color: slide.accent }}>ការអនុវត្តជាក់ស្តែង (Lab Exercise)</p>
                   <p className="text-sm text-white font-semibold leading-relaxed">{slide.lab}</p>
                 </div>
               </motion.div>
@@ -1974,7 +1974,7 @@ export default function LaravelSlide() {
                 className="rounded-xl border border-emerald-500/15 bg-emerald-500/5 p-4 flex gap-3">
                 <Check className="w-4 h-4 flex-none mt-0.5 text-emerald-400" />
                 <div>
-                  <p className="text-[10px] font-black uppercase tracking-[0.2em] mb-1.5 text-emerald-400">Expected Result</p>
+                  <p className="text-[10px] font-black uppercase tracking-[0.2em] mb-1.5 text-emerald-400">លទ្ធផលរំពឹងទុក (Expected Result)</p>
                   <p className="text-sm text-white font-semibold leading-relaxed">{slide.result}</p>
                 </div>
               </motion.div>
@@ -1985,12 +1985,12 @@ export default function LaravelSlide() {
               <button onClick={prev}
                 className="p-3 rounded-xl bg-white/5 border border-white/8 hover:bg-white/10 active:scale-95 transition-all flex items-center gap-2 group">
                 <ChevronLeft className="w-4 h-4 group-hover:-translate-x-0.5 transition-transform" />
-                <span className="text-xs font-bold hidden sm:inline text-zinc-400">Prev</span>
+                <span className="text-xs font-bold hidden sm:inline text-zinc-400">ថយក្រោយ</span>
               </button>
               <button onClick={next}
                 className="flex-1 py-3 px-5 rounded-xl font-black text-xs active:scale-95 transition-all flex items-center justify-center gap-2 shadow-lg"
                 style={{ background: slide.accent, color: '#000' }}>
-                {current === displaySlides.length - 1 ? 'Restart' : 'Next'}
+                {current === displaySlides.length - 1 ? 'ចាប់ផ្តើមឡើងវិញ' : 'បន្ទាប់'}
                 <ChevronRight className="w-4 h-4" />
               </button>
               <button onClick={() => setShowNotes(!showNotes)}
@@ -2009,10 +2009,10 @@ export default function LaravelSlide() {
             <div className="flex items-center gap-2 px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest border border-white/8 bg-white/5"
               style={{ color: slide.accent }}>
               <Terminal className="w-3.5 h-3.5" />
-              Interactive Editor
+              កម្មវិធីកែសម្រួលអន្តរកម្ម
             </div>
             <div className="ml-auto text-[10px] font-mono text-zinc-700 hidden sm:block">
-              ← → arrow keys to navigate
+              ប្រើគ្រាប់ចុចព្រួញ ← → ដើម្បីរុករក
             </div>
           </div>
 
@@ -2044,7 +2044,7 @@ export default function LaravelSlide() {
             className="fixed inset-y-0 right-0 w-80 bg-[#12151e] border-l border-white/8 z-[100] shadow-2xl p-6 flex flex-col pt-24">
             <div className="flex items-center justify-between mb-5">
               <div>
-                <h3 className="text-sm font-black uppercase tracking-widest text-amber-400">Notes</h3>
+                <h3 className="text-sm font-black uppercase tracking-widest text-amber-400">កំណត់ចំណាំ</h3>
                 <p className="text-[10px] text-zinc-600 font-bold uppercase mt-0.5">{slide.id} · {slide.title}</p>
               </div>
               <button onClick={() => setShowNotes(false)} className="text-zinc-600 hover:text-white transition-colors">
@@ -2054,11 +2054,11 @@ export default function LaravelSlide() {
             <textarea autoFocus
               value={notes[slide.id] || ''}
               onChange={e => saveNote(e.target.value)}
-              placeholder="Your notes here... (auto-saves)"
+              placeholder="កត់ត្រានៅទីនេះ... (រក្សាទុកដោយស្វ័យប្រវត្តិ)"
               className="flex-1 w-full bg-black/40 rounded-xl p-4 text-sm text-zinc-300 resize-none outline-none border border-white/5 focus:border-amber-500/30 transition-all placeholder:text-zinc-700 font-mono"
             />
             <p className="mt-4 text-[10px] text-zinc-700 font-bold uppercase leading-relaxed">
-              Saved per slide in localStorage
+              រក្សាទុកតាមស្លាយក្នុង localStorage
             </p>
           </motion.div>
         )}

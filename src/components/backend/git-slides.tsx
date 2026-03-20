@@ -36,11 +36,11 @@ interface Slide {
 }
 
 const CHAPTERS = [
-  { id: 'foundations', label: '1. Git Foundations', color: '#10b981' },
-  { id: 'branching', label: '2. Branch Management', color: '#3b82f6' },
-  { id: 'merging', label: '3. Merging & Conflict Resolution', color: '#f59e0b' },
-  { id: 'remotes', label: '4. Remotes & PR Workflows', color: '#a855f7' },
-  { id: 'mastery', label: '5. Advanced Git Mastery', color: '#f43f5e' }
+  { id: 'foundations', label: '1. គ្រឹះនៃ Git', color: '#10b981' },
+  { id: 'branching', label: '2. ការគ្រប់គ្រង Branch', color: '#3b82f6' },
+  { id: 'merging', label: '3. ការបញ្ចូលគ្នា និងការដោះស្រាយវិវាទកូដ', color: '#f59e0b' },
+  { id: 'remotes', label: '4. ទិន្នន័យពីចម្ងាយ និងលំហូរការងារ PR', color: '#a855f7' },
+  { id: 'mastery', label: '5. បច្ចេកទេស Git កម្រិតខ្ពស់', color: '#f43f5e' }
 ];
 
 /* ─── SLIDE DATA ─────────────────────────────────────────────────── */
@@ -49,15 +49,15 @@ const GIT_SLIDES: Slide[] = [
   // FOUNDATIONS
   {
     id: 'intro', chapter: 'foundations',
-    title: 'The Modern VCS', subtitle: 'Understanding Version Control',
+    title: 'VCS ទំនើប', subtitle: 'ការស្វែងយល់ពី Version Control',
     icon: GitBranch, accent: '#10b981', bg: 'radial-gradient(circle at 10% 10%, rgba(16,185,129,0.15) 0%, transparent 50%)',
     concepts: [
-      { label: 'Version Control', desc: 'A system that records changes to a file or set of files over time so that you can recall specific versions later.' },
-      { label: 'Snapshot Model', desc: 'Unlike other systems, Git thinks of its data more like a series of snapshots of a miniature filesystem.' }
+      { label: 'Version Control', desc: 'ប្រព័ន្ធដែលកត់ត្រារាល់ការផ្លាស់ប្តូរចំពោះឯកសារ ឬសំណុំឯកសារតាមពេលវេលា ដើម្បីឱ្យអ្នកអាចទាញយកជំនាន់ជាក់លាក់ណាមួយមកវិញនៅពេលក្រោយ។' },
+      { label: 'Snapshot Model', desc: 'ខុសពីប្រព័ន្ធផ្សេងទៀត Git ចាត់ទុកទិន្នន័យរបស់វាដូចជាស៊េរីនៃរូបភាព (Snapshots) នៃប្រព័ន្ធឯកសារតូចមួយ។' }
     ],
-    tip: 'Git was created by Linus Torvalds, the creator of Linux, to manage its massive codebase.',
-    lab: 'Initialize a new repository and check its status.',
-    result: 'You should see "Initialized empty Git repository" and "No commits yet".',
+    tip: 'Git ត្រូវបានបង្កើតឡើងដោយ Linus Torvalds ដែលជាអ្នកបង្កើត Linux ដើម្បីគ្រប់គ្រងកូដដ៏មហិមារបស់វា។',
+    lab: 'ចាប់ផ្តើម repository ថ្មី និងពិនិត្យមើលស្ថានភាពរបស់វា។',
+    result: 'អ្នកគួរតែឃើញសារ "Initialized empty Git repository" និង "No commits yet"។',
     code: '# Step 1: Initialize Git\ngit init\n\n# Step 2: Check current status\ngit status',
     filename: 'terminal.sh',
     terminal: 'git init\ngit status',
@@ -65,15 +65,15 @@ const GIT_SLIDES: Slide[] = [
   },
   {
     id: 'config', chapter: 'foundations',
-    title: 'Identity & Config', subtitle: 'Setting Up Your Environment',
+    title: 'អត្តសញ្ញាណ និងការកំណត់', subtitle: 'ការរៀបចំបរិយាកាសការងាររបស់អ្នក',
     icon: Lock, accent: '#10b981', bg: 'radial-gradient(circle at 90% 10%, rgba(16,185,129,0.1) 0%, transparent 60%)',
     concepts: [
-      { label: 'Identity', desc: 'Git needs to know who you are so it can attribute commits to the right author.' },
-      { label: 'Configuration', desc: 'Settings are stored in ~/.gitconfig (global) or project/.git/config (local).' }
+      { label: 'Identity', desc: 'Git ត្រូវដឹងថាអ្នកជានរណា ដើម្បីឱ្យវាអាចបញ្ជាក់ថា commit នោះជានរណាជាអ្នកសរសេរ។' },
+      { label: 'Configuration', desc: 'ការកំណត់ត្រូវបានរក្សាទុកក្នុង ~/.gitconfig (global) ឬ project/.git/config (local)។' }
     ],
-    tip: 'Make sure the email matches your GitHub/GitLab account to get credit for your contributions.',
-    lab: 'Configure your global username and email.',
-    result: 'Use git config --list to verify the settings.',
+    tip: 'ប្រាកដថា Email ត្រូវគ្នាជាមួយគណនី GitHub/GitLab របស់អ្នក ដើម្បីទទួលបានការទទួលស្គាល់លើការរួមចំណែករបស់អ្នក។',
+    lab: 'កំណត់ឈ្មោះអ្នកប្រើប្រាស់ និង Email ជាលក្ខណៈ global។',
+    result: 'ប្រើ git config --list ដើម្បីផ្ទៀងផ្ទាត់ការកំណត់។',
     code: '# Set global username\ngit config --global user.name "John Doe"\n\n# Set global email\ngit config --global user.email "john@example.com"',
     filename: 'setup.sh',
     terminal: 'git config --global user.name "John Doe"\ngit config --list',
@@ -81,16 +81,16 @@ const GIT_SLIDES: Slide[] = [
   },
   {
     id: 'staging', chapter: 'foundations',
-    title: 'The Three States', subtitle: 'Working, Staging, and Committed',
+    title: 'ស្ថានភាពទាំង ៣ របស់ឯកសារ', subtitle: 'Working, Staging, និង Committed',
     icon: Layers, accent: '#10b981', bg: 'radial-gradient(circle at 50% 50%, rgba(16,185,129,0.08) 0%, transparent 70%)',
     concepts: [
-      { label: 'Working Directory', desc: 'Where you edit files. These are "untracked" or "modified" until staged.' },
-      { label: 'Staging Area', desc: 'The Index. A middle-ground where changes are prepared for the next commit.' },
-      { label: 'Commit History', desc: 'The permanent record of snapshots in the .git directory.' }
+      { label: 'Working Directory', desc: 'កន្លែងដែលអ្នកកែសម្រួលឯកសារ។ ឯកសារទាំងនេះគឺ "untracked" ឬ "modified" រហូតដល់វាត្រូវបាន staged។' },
+      { label: 'Staging Area', desc: 'The Index. កន្លែងកណ្តាលដែលការផ្លាស់ប្តូរត្រូវបានត្រៀមសម្រាប់ commit បន្ទាប់។' },
+      { label: 'Commit History', desc: 'កំណត់ត្រាអចិន្ត្រៃយ៍នៃ snapshots នៅក្នុង folder .git។' }
     ],
-    tip: 'Think of the staging area as a "checkout lane" where you confirm what goes into your purchase.',
-    lab: 'Add files to the staging area and create your first commit.',
-    result: 'Checking git log should show your commit hash, author info, and message.',
+    tip: 'ចាត់ទុក staging area ដូចជា "បញ្ជរទូទាត់ប្រាក់" ដែលអ្នកបញ្ជាក់ពីអ្វីដែលត្រូវបញ្ចូលក្នុងការទិញរបស់អ្នក។',
+    lab: 'បន្ថែមឯកសារទៅក្នុង staging area និងបង្កើត commit ដំបូងរបស់អ្នក។',
+    result: 'ការពិនិត្យមើល git log គួរតែបង្ហាញ commit hash, ព័ត៌មានអ្នកនិពន្ធ និងសារ (Message)។',
     code: '# 1. Track files\ngit add .\n\n# 2. Commit with message\ngit commit -m "feat: Initial project structure"\n\n# 3. View history\ngit log --oneline',
     filename: 'workflow.sh',
     terminal: 'git add index.php\ngit commit -m "Initial commit"\ngit log',
@@ -100,15 +100,15 @@ const GIT_SLIDES: Slide[] = [
   // BRANCHING
   {
     id: 'branch-intro', chapter: 'branching',
-    title: 'Lightweight Branching', subtitle: 'Parallel Feature Development',
+    title: 'ការប្រើប្រាស់ Branch', subtitle: 'ការអភិវឌ្ឍន៍មុខងារស្របគ្នា',
     icon: Share2, accent: '#3b82f6', bg: 'radial-gradient(circle at 10% 10%, rgba(59,130,246,0.15) 0%, transparent 50%)',
     concepts: [
-      { label: 'Pointer Logic', desc: 'A branch in Git is simply a lightweight movable pointer to a specific commit.' },
-      { label: 'Parallel Work', desc: 'Branches allow you to work on new features without breaking the main production code.' }
+      { label: 'Pointer Logic', desc: 'Branch នៅក្នុង Git គ្រាន់តែជាទ្រនិច (Pointer) ដ៏ស្រាលដែលអាចផ្លាស់ទីបានទៅកាន់ commit ជាក់លាក់ណាមួយ។' },
+      { label: 'Parallel Work', desc: 'Branches អនុញ្ញាតឱ្យអ្នកធ្វើការលើមុខងារថ្មីៗដោយមិនធ្វើឱ្យខូចកូដផលិតកម្ម (Production code) ស្នូល។' }
     ],
-    tip: 'A branch costs almost nothing in Git. Create them often for every new task.',
-    lab: 'Create a new feature branch and switch to it.',
-    result: 'Verify your current branch with git branch.',
+    tip: 'Branch ស្ទើរតែមិនចំណាយធនធានអ្វីទាំងអស់នៅក្នុង Git។ បង្កើតពួកវាឱ្យបានរហ័សសម្រាប់រាល់ភារកិច្ចថ្មីនីមួយៗ។',
+    lab: 'បង្កើត feature branch ថ្មី និងប្តូរទៅកាន់ branch នោះ។',
+    result: 'ផ្ទៀងផ្ទាត់ branch បច្ចុប្បន្នរបស់អ្នកជាមួយ git branch។',
     code: '# Create a branch\ngit branch feature/auth\n\n# Switch to it\ngit switch feature/auth\n\n# OR do both in one command\ngit checkout -b feature/auth',
     filename: 'branches.sh',
     terminal: 'git checkout -b feature/login\ngit branch',
@@ -116,15 +116,15 @@ const GIT_SLIDES: Slide[] = [
   },
   {
     id: 'moving-changes', chapter: 'branching',
-    title: 'Switch & Restore', subtitle: 'Managing Workspace Content',
+    title: 'Switch និង Restore', subtitle: 'ការគ្រប់គ្រងមាតិកាក្នុងកន្លែងធ្វើការ',
     icon: RefreshCw, accent: '#3b82f6', bg: 'radial-gradient(circle at 90% 90%, rgba(59,130,246,0.1) 0%, transparent 60%)',
     concepts: [
-      { label: 'git switch', desc: 'The modern way to change branches. Focused solely on HEAD movement.' },
-      { label: 'git restore', desc: 'Used for taking files out of staging or resetting working directory changes.' }
+      { label: 'git switch', desc: 'វិធីទំនើបដើម្បីផ្លាស់ប្តូរ branches។ ផ្តោតតែលើការផ្លាស់ទី HEAD ប៉ុណ្ណោះ។' },
+      { label: 'git restore', desc: 'ប្រើសម្រាប់ដកឯកសារចេញពី staging ឬកំណត់ការផ្លាស់ប្តូរក្នុង working directory ឡើងវិញ។' }
     ],
-    tip: 'Avoid git checkout for everything; "switch" and "restore" are clearer and harder to mess up.',
-    lab: 'Undo a mistake in your working directory and switch back to main.',
-    result: 'The file should revert to its last committed state.',
+    tip: 'ជៀសវាងការប្រើ git checkout សម្រាប់គ្រប់យ៉ាង; "switch" និង "restore" ច្បាស់លាស់ជាង និងពិបាកក្នុងការធ្វើឱ្យខុស។',
+    lab: 'ត្រឡប់ការកែប្រែដែលខុសក្នុង working directory របស់អ្នក និងប្តូរត្រឡប់ទៅ main វិញ។',
+    result: 'ឯកសារគួរតែត្រឡប់ទៅស្ថានភាព commit ចុងក្រោយរបស់វាវិញ។',
     code: '# Un-stage a file\ngit restore --staged README.md\n\n# Discard local changes\ngit restore README.md\n\n# Switch branches\ngit switch main',
     filename: 'ops.sh',
     terminal: 'git restore profile.php\ngit switch main',
@@ -134,15 +134,15 @@ const GIT_SLIDES: Slide[] = [
   // MERGING
   {
     id: 'merge-basics', chapter: 'merging',
-    title: 'Merging Streams', subtitle: 'Integrating Feature Changes',
+    title: 'ការបញ្ចូលកូដ (Merging)', subtitle: 'ការបញ្ចូលការផ្លាស់ប្តូរពី Feature',
     icon: GitMerge, accent: '#f59e0b', bg: 'radial-gradient(circle at 0% 90%, rgba(245,158,11,0.1) 0%, transparent 50%)',
     concepts: [
-      { label: 'Fast-Forward', desc: 'Occurs when the current branch has no unique commits. Git just moves the pointer forward.' },
-      { label: '3-Way Merge', desc: 'Occurs when branches have diverged. Git creates a new "Merge Commit" via a recursive strategy.' }
+      { label: 'Fast-Forward', desc: 'កើតឡើងនៅពេលដែល branch បច្ចុប្បន្នមិនមាន commit ថ្មីប្លែក។ Git គ្រាន់តែរំកិលទ្រនិចទៅមុខ។' },
+      { label: '3-Way Merge', desc: 'កើតឡើងនៅពេលដែល branches មានការបែកចេញពីគ្នា។ Git បង្កើត "Merge Commit" ថ្មីមួយតាមរយៈយុទ្ធសាស្ត្រ recursive។' }
     ],
-    tip: 'Always merge main INTO your feature branch before merging your feature INTO main to catch errors early.',
-    lab: 'Merge your "feature/auth" branch back into main.',
-    result: 'You should see "Fast-forward" or a merge commit in the logs.',
+    tip: 'តែងតែ merge branch main ចូលទៅក្នុង feature branch របស់អ្នក មុននឹង merge feature របស់អ្នកចូលទៅក្នុង main ដើម្បីដោះស្រាយកំហុសឱ្យបានទាន់ពេល។',
+    lab: 'Merge branch "feature/auth" របស់អ្នកត្រឡប់ចូលទៅក្នុង main វិញ។',
+    result: 'អ្នកគួរតែឃើញសារ "Fast-forward" ឬ merge commit នៅក្នុង logs។',
     code: '# Switch to main first\ngit switch main\n\n# Merge the feature\ngit merge feature/auth',
     filename: 'merge.sh',
     terminal: 'git merge feature/auth',
@@ -150,15 +150,15 @@ const GIT_SLIDES: Slide[] = [
   },
   {
     id: 'conflict', chapter: 'merging',
-    title: 'Conflict Resolution', subtitle: 'The Battle of Code Changes',
+    title: 'Conflict Resolution', subtitle: 'ការដោះស្រាយវិវាទកូដ',
     icon: Shield, accent: '#f59e0b', bg: 'radial-gradient(circle at 100% 100%, rgba(245,158,11,0.1) 0%, transparent 60%)',
     concepts: [
-      { label: 'Conflict Markers', desc: 'Git inserts <<<<<<<, =======, and >>>>>>> to show where changes clash.' },
-      { label: 'Manual Fix', desc: 'You must edit the file, choose the correct lines, remove markers, and commit.' }
+      { label: 'Conflict Markers', desc: 'Git បញ្ចូលសញ្ញា <<<<<<<, =======, និង >>>>>>> ដើម្បីបង្ហាញកន្លែងដែលមានការជាន់គ្នានៃការផ្លាស់ប្តូរ។' },
+      { label: 'Manual Fix', desc: 'អ្នកត្រូវតែកែសម្រួលឯកសារ ជ្រើសរើសបន្ទាត់ដែលត្រឹមត្រូវ លុបសញ្ញាសម្គាល់ចេញ និងធ្វើការ commit។' }
     ],
-    tip: 'Conflicts are not errors! They are Git being polite and asking you which version is correct.',
-    lab: 'Simulate and resolve a merge conflict.',
-    result: 'The final file should contain the merged logic, and the repo status should be "clean".',
+    tip: 'Conflicts មិនមែនជាកំហុសទេ! វាគ្រាន់តែជាការដែល Git សួរអ្នកដោយគួរសមថា តើកំណែ (Version) មួយណាដែលត្រឹមត្រូវ។',
+    lab: 'សាកល្បងបង្កើត និងដោះស្រាយ merge conflict។',
+    result: 'ឯកសារចុងក្រោយគួរតែមាន logic ដែលបានបញ្ចូលគ្នាត្រឹមត្រូវ ហើយស្ថានភាព repo គួរតែ "clean"។',
     code: '# If merge fails, check status\ngit status\n\n# Look for "Unmerged paths"\n# Edit file, then:\ngit add <conflicted-file>\ngit merge --continue',
     filename: 'conflict.txt',
     terminal: 'git merge feature/ui',
@@ -168,15 +168,15 @@ const GIT_SLIDES: Slide[] = [
   // REMOTES
   {
     id: 'remote-intro', chapter: 'remotes',
-    title: 'Remotes & Cloud', subtitle: 'Syncing with the World',
+    title: 'Remote និង Cloud', subtitle: 'ការធ្វើសមកាលកម្មជាមួយពិភពលោក',
     icon: Globe, accent: '#a855f7', bg: 'radial-gradient(circle at 50% 0%, rgba(168,85,247,0.1) 0%, transparent 60%)',
     concepts: [
-      { label: 'origin', desc: 'The default name given to the remote repository you cloned from.' },
-      { label: 'git remote', desc: 'Command to manage connections to external repositories (GitHub, GitLab).' }
+      { label: 'origin', desc: 'ឈ្មោះលំនាំដើមដែលត្រូវបានផ្តល់ឱ្យ remote repository ដែលអ្នកបាន clone មក។' },
+      { label: 'git remote', desc: 'បញ្ជាសម្រាប់គ្រប់គ្រងការភ្ជាប់ទៅកាន់ repository ខាងក្រៅ (GitHub, GitLab)។' }
     ],
-    tip: 'Always run "git fetch" to see remote changes without actually merging them into your current work.',
-    lab: 'Add a new remote and push your code.',
-    result: 'Verify remotes with git remote -v.',
+    tip: 'តែងតែដំណើរការ "git fetch" ដើម្បីមើលការផ្លាស់ប្តូរពី remote ដោយមិនចាំបាច់បញ្ចូល (Merge) វាភ្លាមៗទៅក្នុងកិច្ចការបច្ចុប្បន្នរបស់អ្នក។',
+    lab: 'បន្ថែម remote ថ្មី និង push កូដរបស់អ្នក។',
+    result: 'ផ្ទៀងផ្ទាត់ remote ជាមួយ git remote -v។',
     code: '# Add remote\ngit remote add origin https://github.com/user/repo.git\n\n# Push main branch\ngit push -u origin main',
     filename: 'remote.sh',
     terminal: 'git remote -v',
@@ -184,15 +184,15 @@ const GIT_SLIDES: Slide[] = [
   },
   {
     id: 'prs', chapter: 'remotes',
-    title: 'The PR Workflow', subtitle: 'Professional Team Collaboration',
+    title: 'លំហូរការងារ PR', subtitle: 'កិច្ចសហការក្រុមអាជីព',
     icon: GitPullRequest, accent: '#a855f7', bg: 'radial-gradient(circle at 50% 100%, rgba(168,85,247,0.08) 0%, transparent 70%)',
     concepts: [
-      { label: 'Pull Request', desc: 'A formal way to ask a team to review your code before it merges into main.' },
-      { label: 'Code Review', desc: 'Feedback from peers to ensure quality, catch bugs, and share knowledge.' }
+      { label: 'Pull Request', desc: 'វិធីផ្លូវការដើម្បីសុំឱ្យក្រុមការងារពិនិត្យមើលកូដរបស់អ្នក មុនពេលវាត្រូវបានបញ្ចូលទៅក្នុង main។' },
+      { label: 'Code Review', desc: 'មតិកែលម្អពីមិត្តរួមអាជីព ដើម្បីធានាគុណភាព ស្វែងរក bugs និងចែករំលែកចំណេះដឹង។' }
     ],
-    tip: 'Small, focused PRs are reviewed much faster and contain fewer bugs than massive changes.',
-    lab: 'Pull the latest changes and push a New Feature PR.',
-    result: 'Current branch updated with remote changes.',
+    tip: 'PR តូចៗ និងផ្តោតលើចំណុចជាក់លាក់ ត្រូវបានពិនិត្យលឿនជាង និងមានកំហុសតិចជាងការផ្លាស់ប្តូរដ៏ធំធេង។',
+    lab: 'ទាញយកការផ្លាស់ប្តូរចុងក្រោយ និង push New Feature PR ថ្មីមួយ។',
+    result: 'Branch បច្ចុប្បន្នត្រូវបានធ្វើបច្ចុប្បន្នភាពជាមួយការផ្លាស់ប្តូរពី remote។',
     code: '# Get latest main\ngit checkout main\ngit pull origin main\n\n# Go back to feature\ngit checkout feature/new\ngit merge main\ngit push origin feature/new',
     filename: 'pr.sh',
     terminal: 'git pull origin main',
@@ -202,15 +202,15 @@ const GIT_SLIDES: Slide[] = [
   // MASTERY
   {
     id: 'stash', chapter: 'mastery',
-    title: 'The Git Stash', subtitle: 'Quick Context Switching',
+    title: 'ការប្រើប្រាស់ Git Stash', subtitle: 'ការផ្លាស់ប្តូរបរិបទការងាររហ័ស',
     icon: Box, accent: '#f43f5e', bg: 'radial-gradient(circle at 10% 10%, rgba(244,63,94,0.15) 0%, transparent 50%)',
     concepts: [
-      { label: 'Stashing', desc: 'Temporarily shelves (or stashes) changes you\'ve made to your working directory.' },
-      { label: 'Context Switch', desc: 'Allows you to revert to a clean state to work on something else without committing partial work.' }
+      { label: 'Stashing', desc: 'រក្សាទុកកិច្ចការដែលអ្នកកំពុងធ្វើក្នុង working directory ជាបណ្តោះអាសន្ន។' },
+      { label: 'Context Switch', desc: 'អនុញ្ញាតឱ្យអ្នកត្រឡប់ទៅស្ថានភាព "ស្អាត" ដើម្បីធ្វើការលើអ្វីផ្សេងទៀត ដោយមិនចាំបាច់ commit កិច្ចការដែលមិនទាន់រួចរាល់។' }
     ],
-    tip: 'Use "git stash pop" to apply the latest stashed changes and remove them from the list.',
-    lab: 'Stash your current changes to pull an urgent fix.',
-    result: 'git status should show "nothing to commit" after stashing.',
+    tip: 'ប្រើ "git stash pop" ដើម្បីយកការផ្លាស់ប្តូរដែលបានរក្សាទុកចុងក្រោយមកវិញ និងលុបវាចេញពីបញ្ជី។',
+    lab: 'Stash ការផ្លាស់ប្តូរបច្ចុប្បន្នរបស់អ្នក ដើម្បីទាញយកការជួសជុលបន្ទាន់មួយ។',
+    result: 'git status គួរតែបង្ហាញ "nothing to commit" បន្ទាប់ពី stashing។',
     code: '# Stash current work\ngit stash\n\n# ... pull fix ...\n\n# Retrieve work\ngit stash pop',
     filename: 'stash.sh',
     terminal: 'git stash',
@@ -218,15 +218,15 @@ const GIT_SLIDES: Slide[] = [
   },
   {
     id: 'rebase', chapter: 'mastery',
-    title: 'Rebase Mastery', subtitle: 'Rewriting Local History',
+    title: 'Rebase Mastery', subtitle: 'ការសរសេរប្រវត្តិក្នុងស្រុកឡើងវិញ',
     icon: RotateCcw, accent: '#f43f5e', bg: 'radial-gradient(circle at 90% 10%, rgba(244,63,94,0.1) 0%, transparent 60%)',
     concepts: [
-      { label: 'Rebasing', desc: 'Re-applying commits on top of another base tip. Creates a clean, linear history.' },
-      { label: 'Interactive', desc: 'Allows you to "squash" multiple small commits into one clean feature commit.' }
+      { label: 'Rebasing', desc: 'ការអនុវត្ត commits ឡើងវិញនៅលើកំពូលនៃ base tip ផ្សេងទៀត។ បង្កើតប្រវត្តិ (History) ដែលស្អាត និងមានលក្ខណៈបន្តបន្ទាប់គ្នា (Linear)។' },
+      { label: 'Interactive', desc: 'អនុញ្ញាតឱ្យអ្នក "Squash" commits តូចៗជាច្រើនឱ្យទៅជា feature commit ដ៏ស្អាតតែមួយ។' }
     ],
-    tip: 'NEVER rebase commits that have already been pushed to a public repository.',
-    lab: 'Rebase your feature branch on top of main.',
-    result: 'Linear history with no "merge commit" pollution.',
+    tip: 'កុំធ្វើ Rebase លើ commits ដែលត្រូវបាន push ទៅកាន់ public repository រួចហើយឱ្យសោះ។',
+    lab: 'Rebase feature branch របស់អ្នកនៅលើកំពូលនៃ main។',
+    result: 'ប្រវត្តិ (History) មានលក្ខណៈត្រង់រលូន ដោយមិនមាន "merge commit" រញ៉េរញ៉ៃ។',
     code: '# From your feature branch\ngit rebase main\n\n# Interactive (last 3 commits)\ngit rebase -i HEAD~3',
     filename: 'rebase.sh',
     terminal: 'git rebase main',
@@ -312,7 +312,7 @@ const CodePanel = ({
                 tab === t ? 'bg-white/10 text-white' : 'text-zinc-500 hover:text-zinc-300'
               }`}>
               {t === 'code' ? <Code2 className="w-3 h-3" /> : <Terminal className="w-3 h-3" />}
-              {t === 'code' ? 'Commands' : 'Shell'}
+              {t === 'code' ? 'ពាក្យបញ្ជា (Commands)' : 'ផ្ទាំងបញ្ជា (Shell)'}
             </button>
           ))}
         </div>
@@ -328,7 +328,7 @@ const CodePanel = ({
                running ? 'bg-zinc-800 text-zinc-500' : 'bg-emerald-500/10 text-emerald-400 hover:bg-emerald-500/20'
              }`}>
              <Play className={`w-3 h-3 ${running ? 'animate-pulse' : ''}`} />
-             {running ? 'Executing...' : 'Run'}
+             {running ? 'កំពុងដំណើរការ...' : 'ដំណើរការ'}
            </button>
            <button onClick={copy} className="p-2 hover:bg-white/5 rounded-lg transition-colors group">
              {copied ? <CheckCircle2 className="w-4 h-4 text-emerald-400" /> : <Copy className="w-4 h-4 text-zinc-600 group-hover:text-white" />}
@@ -342,7 +342,7 @@ const CodePanel = ({
           <span className="w-2.5 h-2.5 rounded-full bg-[#febc2e]/80" />
           <span className="w-2.5 h-2.5 rounded-full bg-[#28c840]/80" />
         </div>
-        <span className="text-zinc-500 uppercase tracking-widest font-black">{tab === 'code' ? filename : 'zsh'}</span>
+        <span className="text-zinc-500 uppercase tracking-widest font-black">{tab === 'code' ? filename : 'zsh (terminal)'}</span>
       </div>
 
       <div className="flex-1 relative overflow-hidden">
@@ -503,7 +503,7 @@ export default function GitSlides() {
           <Link href="/courses/backend" 
             className="group flex items-center gap-3 px-3 sm:px-4 h-12 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 hover:border-white/20 transition-all active:scale-95 shadow-xl">
             <ArrowLeft className="w-4 h-4 text-zinc-500 group-hover:text-white transition-colors" />
-            <span className="text-[10px] font-black uppercase tracking-[0.2em] text-zinc-500 group-hover:text-white transition-colors hidden lg:block">Exit</span>
+            <span className="text-[10px] font-black uppercase tracking-[0.2em] text-zinc-500 group-hover:text-white transition-colors hidden lg:block">ចាកចេញ</span>
           </Link>
 
           <button onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -522,7 +522,7 @@ export default function GitSlides() {
               </AnimatePresence>
             </div>
             <div className="flex flex-col items-start leading-tight overflow-hidden text-left">
-              <span className="text-[9px] font-black uppercase tracking-[0.2em] text-zinc-500 hidden sm:block">Curriculum Map</span>
+              <span className="text-[9px] font-black uppercase tracking-[0.2em] text-zinc-500 hidden sm:block">ផែនទីមេរៀន</span>
               <div className="flex items-center gap-2 overflow-hidden">
                 <span className="text-sm font-bold text-white tracking-tight truncate">{chapterInfo.label}</span>
                 <ChevronDown className={`w-3.5 h-3.5 text-zinc-600 flex-none transition-transform duration-500 ${isMenuOpen ? 'rotate-180 text-white' : ''}`} />
@@ -534,7 +534,7 @@ export default function GitSlides() {
         <div className="flex items-center gap-3 sm:gap-8">
           <div className="hidden sm:flex flex-col items-end gap-1.5 min-w-[100px] md:min-w-[140px]">
             <div className="flex items-center gap-2 text-[10px] font-mono">
-              <span className="text-zinc-500 uppercase tracking-widest font-black hidden lg:block">Chapter Progress</span>
+              <span className="text-zinc-500 uppercase tracking-widest font-black hidden lg:block">វឌ្ឍនភាពជំពូក</span>
               <span className="text-white font-black bg-white/10 px-1.5 py-0.5 rounded-md">{Math.round(progress)}%</span>
             </div>
             <div className="w-24 md:w-44 h-1.5 bg-white/5 rounded-full overflow-hidden border border-white/5">
@@ -584,7 +584,7 @@ export default function GitSlides() {
                         <div className={`w-12 h-12 rounded-xl flex items-center justify-center font-black text-sm transition-all flex-none ${isActive ? 'scale-110' : 'opacity-60'}`}
                           style={{ background: isActive ? ch.color : `${ch.color}25`, color: isActive ? '#000' : ch.color }}>{String(i + 1).padStart(2, '0')}</div>
                         <div className="flex flex-col items-start leading-tight text-left truncate">
-                           <span className="text-[10px] font-black uppercase tracking-widest mb-1" style={{ color: ch.color }}>Phase {i + 1}</span>
+                           <span className="text-[10px] font-black uppercase tracking-widest mb-1" style={{ color: ch.color }}>វគ្គទី {i + 1}</span>
                            <span className="text-sm sm:text-[15px] font-bold text-white truncate w-full">{ch.label.split('. ')[1]}</span>
                         </div>
                         {isActive && <div className="ml-auto w-2 h-2 rounded-full" style={{ background: ch.color, boxShadow: `0 0 10px ${ch.color}` }} />}

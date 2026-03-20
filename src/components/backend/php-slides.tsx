@@ -11,7 +11,7 @@ import {
   Key, Link as LinkIcon, FileCode, Package, Box, ArrowRight, ArrowLeft,
   Terminal, Rocket, HardDrive, Layout, Workflow,
   Fingerprint, GitBranch, Edit3, Star, Trophy, ShoppingCart, StickyNote, CheckCircle2,
-  Menu, X, ChevronDown,
+  Menu, X, ChevronDown, User,
 } from 'lucide-react';
 
 /* ─── TYPES ──────────────────────────────────────────────────────── */
@@ -37,231 +37,287 @@ interface Slide {
 
 /* ─── CHAPTERS ───────────────────────────────────────────────────── */
 const CHAPTERS = [
-  { id: 'intro',      label: '01 · Intro & Syntax', color: '#10b981' },
-  { id: 'logic',      label: '02 · Control Struct', color: '#6366f1' },
-  { id: 'functions',  label: '03 · Func & Arrays',  color: '#06b6d4' },
-  { id: 'forms',      label: '04 · Form Handling',  color: '#f59e0b' },
-  { id: 'files',      label: '05 · File Handling',  color: '#f97316' },
-  { id: 'state',      label: '06 · State Mgmt',     color: '#f43f5e' },
-  { id: 'mysql',      label: '07 · MySQL & CRUD',   color: '#3b82f6' },
-  { id: 'oop',        label: '08 · OOP Foundations', color: '#a855f7' },
-  { id: 'security',   label: '09 · Security Ops',   color: '#ec4899' },
-  { id: 'advanced',   label: '10 · Advanced PHP',   color: '#14b8a6' },
-  { id: 'mvc',        label: '11 · MVC Intro',     color: '#f97316' },
-  { id: 'project',    label: '12 · Project Lab',    color: '#10b981' },
+  { id: 'intro',      label: 'មេរៀនទី ១ · មូលដ្ឋានគ្រឹះ PHP', color: '#10b981' },
+  { id: 'logic',      label: 'មេរៀនទី ២ · លក្ខខណ្ឌ និងការប្រើ Loop',   color: '#6366f1' },
+  { id: 'data',       label: 'មេរៀនទី ៣ · ការគ្រប់គ្រង Array',  color: '#06b6d4' },
+  { id: 'forms',      label: 'មេរៀនទី ៤ · ការចាប់ទិន្នន័យពី Form',    color: '#f59e0b' },
+  { id: 'db',         label: 'មេរៀនទី ៥ · PHP ជាមួយ Database',   color: '#3b82f6' },
+  { id: 'auth',       label: 'មេរៀនទី ៦ · ប្រព័ន្ធ Login និង Session',    color: '#f43f5e' },
+  { id: 'files',      label: 'មេរៀនទី ៧ · ការ Upload ឯកសារ',    color: '#f97316' },
+  { id: 'oop',        label: 'មេរៀនទី ៨ · ការសរសេរកូដបែប OOP',       color: '#a855f7' },
+  { id: 'security',   label: 'មេរៀនទី ៩ · សុវត្ថិភាពកូដ (Security)',  color: '#ec4899' },
+  { id: 'project',    label: 'មេរៀនទី ១០ · បង្កើត Project ចុងក្រោយ',   color: '#14b8a6' },
 ];
 
 /* ─── SLIDE DATA ─────────────────────────────────────────────────── */
 const slides: Slide[] = [
-  /* ── CHAPTER 1: INTRO ── */
+  /* ── PHASE 1: PHP FUNDAMENTALS (Week 1–2) ── */
   {
-    chapter: 'intro', id: 'P01-S1', tag: 'Week 1', tagColor: '#10b981',
-    title: 'PHP Foundations', subtitle: 'Setup & Syntax', accent: '#10b981',
+    chapter: 'intro', id: 'PH1-S1', tag: 'Week 1', tagColor: '#10b981',
+    title: 'តើអ្វីទៅជា PHP?', subtitle: 'ស្វែងយល់ពី Server-Side', accent: '#10b981',
     bg: 'radial-gradient(ellipse at 10% 20%, rgba(16,185,129,0.15) 0%, transparent 55%)',
     content: [
-      'Environment Setup: Install Laravel Herd (Mac) or XAMPP (Windows) to get a local PHP server running.',
-      'Execution: PHP code is executed on the server, and the result is returned to the browser as plain HTML.',
-      'Variable Rules: All variables must start with the "$" sign and are case-sensitive ($age != $Age).',
-      'Data Types: PHP is loosely typed; variables can hold Strings, Integers, Floats, Booleans, and Arrays.'
+      'PHP មកពីពាក្យពេញថា "Hypertext Preprocessor"។',
+      'វាជាភាសា Server-side scripting language ដែលដំណើរការនៅលើ Server (មិនមែនលើ Browser ទេ)។',
+      'របៀបដែលវាដើរ៖ Client បញ្ជា -> Server ដំណើរការ PHP -> បញ្ជូនលទ្ធផលជា HTML ឱ្យ Browser បង្ហាញ។',
+      'សំណុំឧបករណ៍ (Stacks)៖ LAMP (Linux, Apache, MySQL, PHP) ឬ WAMP (សម្រាប់ Windows)។'
     ],
-    syntax: '<?php \n$name = "Ari"; // Variable definition\necho $name; // Outputting data\n?>',
-    lab: 'Create a variable $greeting with the value "Hello World" and echo it inside an <h2> tag.',
-    result: 'The browser displays a large heading saying "Hello World".',
-    filename: 'index.php',
-    code: `<?php
-$greeting = "Hello PHP World";
-echo "<h2>$greeting</h2>";
-echo "Current PHP Version: " . phpversion();`,
-    icon: Code2,
-    terminalOutput: "<h2>Hello PHP World</h2>\nCurrent PHP Version: 8.3.0",
+    syntax: '<?php\n  // PHP code goes here\n?>',
+    lab: 'តើការដំណើរការកូដលើ Client-side និង Server-side ខុសគ្នាត្រង់ណាខ្លះ?',
+    result: 'យល់ថាកូដ PHP ពិតប្រាកដ គឺសិស្ស ឬអ្នកប្រើ Browser មើលមិនឃើញឡើយ។',
+    filename: 'intro.txt',
+    code: `Step 1: User requests "index.php"
+Step 2: Apache server finds the file
+Step 3: PHP engine processes the code
+Step 4: Result sent as HTML to Chrome/Safari`,
+    icon: Globe,
+    terminalOutput: "PHP Status: Working on Server",
   },
   {
-    chapter: 'intro', id: 'P01-S2', tag: 'Week 1', tagColor: '#10b981',
-    title: 'Data Types & Strings', subtitle: 'Manipulating Text', accent: '#10b981',
+    chapter: 'intro', id: 'PH1-S2', tag: 'Week 1', tagColor: '#10b981',
+    title: 'ការរៀបចំកម្មវិធី', subtitle: 'XAMPP & Laragon', accent: '#10b981',
     bg: 'radial-gradient(ellipse at 80% 30%, rgba(16,185,129,0.12) 0%, transparent 55%)',
     content: [
-      'String Concatenation: PHP uses the dot (".") operator to join two strings together.',
-      'Interpolation: Double quotes (") allow variables to be evaluated inside the string, single quotes (\') do not.',
-      'String Length: Use strlen() to get the character count of any string.',
-      'Modification: Use str_replace() to swap specific words or chars within a string.'
+      'XAMPP៖ ជាកម្មវិធីដំឡើងម្តងបានទាំង Apache, MySQL និង PHP (ប្រើបានគ្រប់ OS)។',
+      'Laragon៖ ជាជម្រើសមួយទៀតដែលសាមញ្ញ និងលឿនសម្រាប់អ្នកប្រើ Windows។',
+      'Htdocs៖ ជា Folder សម្រាប់ដាក់រាល់ File PHP ទាំងអស់ដើម្បីឱ្យ Server ដំណើរការបាន។',
+      'Localhost៖ របៀបចូលមើល Project របស់អ្នកតាមរយៈ Browser (http://localhost/project-name)។'
     ],
-    syntax: '$full = $first . " " . $last;\necho "Hello $name";',
-    lab: 'Write a script that takes a sentence, prints its length, and then replaces a specific word.',
-    result: 'The output shows the number of characters and the modified sentence.',
-    filename: 'strings.php',
-    code: `<?php
-$text = "PHP is hard";
-$clean = str_replace("hard", "fun", $text);
-echo "Length: " . strlen($text) . "\\n";
-echo "Updated: " . $clean;`,
-    icon: Sparkles,
-    terminalOutput: "Length: 11\nUpdated: PHP is fun",
+    syntax: 'Project Root: C:/xampp/htdocs/my-app/index.php',
+    lab: 'ដំឡើង XAMPP រួចបង្កើត File "index.php" មួយក្នុង Folder htdocs។',
+    result: 'សេវាកម្ម Apache ចាប់ផ្ដើមដំណើរការ (រូបតំណាងពណ៌បៃតង)។',
+    filename: 'setup.md',
+    code: `1. Download XAMPP from apachefriends.org
+2. Install & Open Control Panel
+3. Start Apache and MySQL
+4. Browse to: http://localhost/dashboard`,
+    icon: Server,
+    terminalOutput: "Apache Server: Running on port 80\nMySQL Server: Running on port 3306",
   },
   {
-    chapter: 'intro', id: 'P01-S3', tag: 'Week 1', tagColor: '#10b981',
-    title: 'Operators & Constants', subtitle: 'Immutable Values', accent: '#10b981',
-    bg: 'radial-gradient(ellipse at 50% 50%, rgba(16,185,129,0.1) 0%, transparent 60%)',
+    chapter: 'intro', id: 'PH1-S3', tag: 'Week 1', tagColor: '#10b981',
+    title: 'Syntax មូលដ្ឋាន', subtitle: 'ចាប់ផ្ដើមជាមួយ PHP', accent: '#10b981',
+    bg: 'radial-gradient(ellipse at center, rgba(16,185,129,0.1) 0%, transparent 60%)',
     content: [
-      'Arithmetic: Standard math ops (+, -, *, /) plus Modulus (%) for finding remainders.',
-      'Comparison: Use "==" for value check and "===" for strict value and type check.',
-      'Defining Constants: Constants are global and cannot be changed once defined.',
-      'Usage: Best used for configuration like API keys, DB names, or app-wide settings.'
+      'Tag បើក៖ រាល់ Script របស់ PHP ត្រូវតែស្ថិតក្នុង Tag <?php',
+      'Tag បិទ៖ បិទដោយ ?> (មិនចាំបាច់បិទទេ បើក្នុង File មានតែកូដ PHP សុទ្ធ)។',
+      'ពាក្យបញ្ជា "echo"៖ សម្រាប់បង្ហាញអត្ថបទ ឬ HTML ទៅកាន់អេក្រង់។',
+      'សញ្ញា Semicolon៖ រាល់ការបញ្ចប់កូដមួយជួរ ត្រូវតែមានសញ្ញា (;) ជាដាច់ខាត។'
     ],
-    syntax: 'define("SITE_URL", "https://api.com");\nconst VERSION = 1.0;',
-    lab: 'Define a constant for a sales tax rate and calculate a subtotal of multiple items.',
-    result: 'Terminal displays a clean total including the calculation.',
-    filename: 'math.php',
+    syntax: '<?php\n  echo "Hello";\n?>',
+    lab: 'សរសេរកូដបង្ហាញឈ្មោះរបស់អ្នក ដោយប្រើ echo ក្នុង Tag <strong>។',
+    result: 'ឈ្មោះរបស់អ្នកបង្ហាញជាអក្សរក្រាស់នៅលើ Browser។',
+    filename: 'hello.php',
     code: `<?php
-define("TAX_RATE", 0.08); // 8% sales tax
-$items = [25.00, 15.50, 4.25];
-$subtotal = array_sum($items);
-$total = $subtotal * (1 + TAX_RATE);
-echo "Final Price: $" . number_format($total, 2);`,
-    icon: Database,
-    terminalOutput: "Final Price: $48.33",
+echo "Hello World!";
+echo "<strong>Welcome to PHP Learning</strong>";`,
+    icon: Code2,
+    terminalOutput: "Hello World! Welcome to PHP Learning",
+  },
+  {
+    chapter: 'intro', id: 'PH1-S4', tag: 'Week 2', tagColor: '#10b981',
+    title: 'Variable និង Data Types', subtitle: 'ការរក្សាទុកទិន្នន័យ', accent: '#10b981',
+    bg: 'radial-gradient(ellipse at 30% 70%, rgba(16,185,129,0.1) 0%, transparent 60%)',
+    content: [
+      'ការបង្កើត Variable៖ ត្រូវចាប់ផ្ដើមដោយសញ្ញា $ ($name, $age)។',
+      'Loose Typing៖ PHP មិនបង្ខំឱ្យយើងកំណត់ប្រភេទទិន្នន័យ (ដូចជា String ឬ Int) ជាមុនទេ។',
+      'ប្រភេទដែលប្រើច្រើន៖ String (អក្សរ), Integer (លេខ), Float (ទសភាគ), Boolean (ពិត/មិនពិត)។',
+      'Case Sensitive៖ $name និង $Name គឺខុសគ្នា (ជា Variable ពីរផ្សេងគ្នា)។'
+    ],
+    syntax: '$variable_name = value;',
+    lab: 'បង្កើត Variable សម្រាប់ឈ្មោះ និងអាយុ រួចប្រើ echo បង្ហាញជាប្រយោគមួយ។',
+    result: 'ព័ត៌មានរបស់អ្នកនឹងបង្ហាញមកតាមអ្វីដែលបានកំណត់ក្នុង Variable។',
+    filename: 'vars.php',
+    code: `<?php
+$name = "Ratha";
+$age = 21;
+$isStudent = true;
+
+echo "Name: $name\\n";
+echo "Age: $age\\n";
+echo "Student: " . ($isStudent ? 'Yes' : 'No');`,
+    icon: FileCode,
+    terminalOutput: "Name: Ratha\nAge: 21\nStudent: Yes",
+  },
+  {
+    chapter: 'intro', id: 'PH1-S5', tag: 'Week 2', tagColor: '#10b981',
+    title: 'Operators', subtitle: 'ការគណនា និង Logic', accent: '#10b981',
+    bg: 'radial-gradient(ellipse at center, rgba(16,185,129,0.08) 0%, transparent 70%)',
+    content: [
+      'Arithmetic៖ ការគណនាគណិតវិទ្យា (+, -, *, /) និងសំណល់ (%)។',
+      'Comparison៖ ការប្រៀបធៀប == (ស្មើ), != (មិនស្មើ), > (ធំជាង), < (តូចជាង)។',
+      'Logical៖ បន្សំលក្ខខណ្ឌ && (AND), || (OR), ! (NOT)។',
+      'ការភ្ជាប់អក្សរ៖ ប្រើសញ្ញាចុច (.) ដើម្បីយកអក្សរមកបន្តគ្នា ($first . $last)។'
+    ],
+    syntax: '$total = $a + $b;\nif($a == $b) { ... }',
+    lab: 'សាកគណនាតម្លៃទំនិញ 3 មុខបញ្ចូលគ្នា រួចបង្ហាញលទ្ធផលដែលបូករួច។',
+    result: 'តម្លៃសរុបត្រូវបានគណនា និងបង្ហាញចេញមកក្រៅយ៉ាងត្រឹមត្រូវ។',
+    filename: 'ops.php',
+    code: `<?php
+$item1 = 10;
+$item2 = 20;
+$item3 = 5;
+$total = $item1 + $item2 + $item3;
+
+echo "Total: $" . $total;`,
+    icon: Zap,
+    terminalOutput: "Total: $35",
   },
 
-  /* ── CHAPTER 2: CONTROL STRUCTURES ── */
+  /* ── PHASE 2: LOGIC & CONTROL (Week 2–3) ── */
   {
-    chapter: 'logic', id: 'P02-S1', tag: 'Week 2', tagColor: '#6366f1',
-    title: 'Conditionals', subtitle: 'Making Decisions', accent: '#6366f1',
+    chapter: 'logic', id: 'PH2-S1', tag: 'Week 2', tagColor: '#6366f1',
+    title: 'Conditional Statements', subtitle: 'ការសម្រេចចិត្ត', accent: '#6366f1',
     bg: 'linear-gradient(135deg, rgba(99,102,241,0.06) 0%, transparent 100%)',
     content: [
-      'If / Else: The cornerstone of logic. Executes code block if condition is true.',
-      'Elseif: Allows checking multiple conditions in sequence.',
-      'Shorthand: Use the Ternary operator ($age > 18 ? "Adult" : "Minor") for quick checks.',
-      'Logical Operators: && (And), || (Or), and ! (Not) join conditions.'
+      'ពាក្យបញ្ជា "if"៖ ដំណើរការកូដលុះត្រាតែលក្ខខណ្ឌមួយពិត (true)។',
+      'Else / Elseif៖ ផ្តល់ជម្រើសផ្សេងទៀតប្រសិនបើលក្ខខណ្ឌដំបូងមិនពិត (false)។',
+      'ទម្រង់ខ្លី៖ Ternary operator ($age > 18 ? "Adult" : "Minor")។',
+      'Logic Flow៖ ចាំបាច់សម្រាប់ការត្រួតពិនិត្យការ Login និងការអនុញ្ញាតចូលប្រើទំព័រ។'
     ],
-    syntax: 'if ($score >= 50) { echo "Pass"; }',
-    lab: 'Check a boolean variable $isLoggedIn. If true, echo "Welcome back!", else echo "Please sign up."',
-    result: 'Appropriate message is printed based on the variable state.',
-    filename: 'if.php',
+    syntax: 'if ($age > 18) { echo "Adult"; } else { echo "Minor"; }',
+    lab: 'ត្រួតពិនិត្យអ្នកប្រើប្រាស់ថាជា "admin" ឬ "guest" រួចបង្ហាញសារស្វាគមន៍ទៅតាមនោះ។',
+    result: 'សារដែលសមស្របនឹងត្រូវបានបង្ហាញផ្អែកលើ variable role។',
+    filename: 'logic.php',
     code: `<?php
-$isLoggedIn = true;
-$name = "Ari";
+$role = "admin";
 
-if ($isLoggedIn && !empty($name)) {
-    echo "Welcome back, $name!";
+if ($role == "admin") {
+    echo "Welcome, Administrator!";
 } else {
-    echo "Access Denied.";
+    echo "Welcome, Guest User.";
 }`,
     icon: ShieldCheck,
-    terminalOutput: "Welcome back, Ari!",
+    terminalOutput: "Welcome, Administrator!",
   },
   {
-    chapter: 'logic', id: 'P02-S2', tag: 'Week 2', tagColor: '#6366f1',
-    title: 'Switch & Match', subtitle: 'Advanced Branching', accent: '#6366f1',
-    bg: 'radial-gradient(ellipse at center, rgba(99,102,241,0.04) 0%, transparent 70%)',
-    content: [
-      'Switch: A cleaner way to compare the same variable against many values.',
-      'Break Keyword: Crucial to prevent "falling through" to the next case.',
-      'Match Expression: PHP 8.0+ modern alternative that returns a value.',
-      'Default Case: Always include a default to handle unexpected inputs.'
-    ],
-    syntax: '$status = match($code) { 200 => "OK", 404 => "Not Found" };',
-    lab: 'Convert an old Switch statement for user roles into a modern PHP Match expression.',
-    result: 'Code is more concise and easier to read.',
-    filename: 'branch.php',
-    code: `<?php
-$role = 'editor';
-
-$access = match ($role) {
-    'admin'  => 'Full Access',
-    'editor' => 'Edit content only',
-    'guest'  => 'Read only',
-    default  => 'No Access',
-};
-
-echo "Permission Level: " . $access;`,
-    icon: Terminal,
-    terminalOutput: "Permission Level: Edit content only",
-  },
-  {
-    chapter: 'logic', id: 'P02-S3', tag: 'Week 2', tagColor: '#6366f1',
-    title: 'Loops & Iteration', subtitle: 'Automating Tasks', accent: '#6366f1',
+    chapter: 'logic', id: 'PH2-S2', tag: 'Week 3', tagColor: '#6366f1',
+    title: 'ការប្រើ Loop (ការងារដដែលៗ)', subtitle: 'កិច្ចការស្វ័យប្រវត្តិ', accent: '#6366f1',
     bg: 'radial-gradient(ellipse at 10% 80%, rgba(99,102,241,0.08) 0%, transparent 55%)',
     content: [
-      'While Loop: Continues as long as a condition is true. Be careful of infinite loops!',
-      'For Loop: Used when you know exactly how many times the loop should run.',
-      'Foreach: THE way to iterate over arrays in PHP. Simple and effective.',
-      'Continue/Break: "Continue" skips the current iteration, "Break" stops the loop entirely.'
+      'For Loop៖ ប្រើនៅពេលយើងដឹងច្បាស់ថា ចង់ឱ្យវាដើរប៉ុន្មានជុំ (Counter-based)។',
+      'While Loop៖ ឱ្យវាដើរចុះឡើង ដរាបណាលក្ខខណ្ឌនៅតែ "ពិត" (True)។',
+      'Do-While៖ ប្លែកគេបន្តិច គឺវាដំណើរការមុន ១ដង សិន ទើបឆែកលក្ខខណ្ឌតាមក្រោយ។',
+      'Counter Variable៖ ជាតួលេខសម្រាប់គ្រប់គ្រងកុំឱ្យ Loop ដើរមិនឈប់ (Infinite Loop)។'
     ],
-    syntax: 'foreach ($items as $index => $value) { ... }',
-    lab: 'Use a for loop to print numbers from 10 down to 1.',
-    result: 'Terminal shows a countdown sequence.',
+    syntax: 'for ($i = 1; $i <= 5; $i++) { echo $i; }',
+    lab: 'ប្រើ For Loop ដើម្បីបង្ហាញលេខរៀងពី ១ ដល់ ១០ ជាជួរដេក។',
+    result: 'អ្នកនឹងឃើញលេខរៀង (1 2 3 ... 10) បង្ហាញនៅលើអេក្រង់។',
     filename: 'loops.php',
     code: `<?php
-echo "Countdown: ";
-for ($i = 10; $i >= 1; $i--) {
-    echo $i . ($i == 1 ? "!" : ", ");
+for ($i = 1; $i <= 10; $i++) {
+    echo $i . " ";
 }`,
-    icon: RotateCcw,
-    terminalOutput: "Countdown: 10, 9, 8, 7, 6, 5, 4, 3, 2, 1!",
+    icon: RefreshCw,
+    terminalOutput: "1 2 3 4 5 6 7 8 9 10",
   },
-
-  /* ── CHAPTER 3: FUNCTIONS & ARRAYS ── */
   {
-    chapter: 'functions', id: 'P03-S1', tag: 'Week 3', tagColor: '#06b6d4',
-    title: 'Custom Functions', subtitle: 'Reusable Logic', accent: '#06b6d4',
-    bg: 'radial-gradient(ellipse at center, rgba(6,182,212,0.08) 0%, transparent 70%)',
+    chapter: 'logic', id: 'PH2-S3', tag: 'Week 3', tagColor: '#6366f1',
+    title: 'ការប្រើ Function', subtitle: 'កូដដែលប្រើឡើងវិញបាន', accent: '#6366f1',
+    bg: 'radial-gradient(ellipse at center, rgba(99,102,241,0.04) 0%, transparent 70%)',
     content: [
-      'Declaration: Functions group code into named blocks to keep your project DRY (Don\'t Repeat Yourself).',
-      'Parameters: You can pass data into functions. Always use type hinting (e.g., int $x) for safer code.',
-      'Returns: Functions should return a value instead of echoing, allowing the result to be used elsewhere.',
-      'Scope: Variables defined inside a function are local and cannot be accessed from the outside.'
+      'ការបង្កើត (Declaration)៖ ចងក្រងកូដចូលគ្នាជាបណ្តុំ ដើម្បីយកមកប្រើបានច្រើនដង។',
+      'Arguments៖ ជាទិន្នន័យដែលយើងបោះចូលទៅក្នុង Function ដើម្បីឱ្យវាធ្វើការ។',
+      'Return Statement៖ ប្រើ "return" ដើម្បីបញ្ជូនលទ្ធផលចេញពី Function ត្រឡប់មកវិញ។',
+      'ការហៅប្រើ (Calling)៖ គ្រាន់តែហៅឈ្មោះ Function រួចដាក់សញ្ញា () ជាការស្រេច។'
     ],
-    syntax: 'function name(string $param): string { return "Hi $param"; }',
-    lab: 'Write a function "totalPrice" that takes a price and a quantity and returns the total.',
-    result: 'The function returns a calculated numeric value.',
-    filename: 'funcs.php',
+    syntax: 'function greet($name) { return "Hello " . $name; }',
+    lab: 'សរសេរ Function ឈ្មោះ "addNums" ដែលទទួលលេខ ២ រួចបូកបញ្ជូនលទ្ធផលមកវិញ។',
+    result: 'Function នឹងគណនាលទ្ធផល រួចបោះតម្លៃដែលបូករួចមកឱ្យយើងបង្ហាញ។',
+    filename: 'functions.php',
     code: `<?php
-function calculateTotal(float $price, int $qty): float {
-    return $price * $qty;
+function greet($name) {
+    return "Hello " . $name . "!";
 }
 
-$bill = calculateTotal(19.99, 3);
-echo "Final Bill: $" . $bill;`,
+echo greet("Ratha");`,
     icon: Code2,
-    terminalOutput: "Final Bill: $59.97",
+    terminalOutput: "Hello Ratha!",
   },
+
+  /* ── PHASE 3: DATA STRUCTURES (Week 3–4) ── */
   {
-    chapter: 'functions', id: 'P03-S2', tag: 'Week 3', tagColor: '#06b6d4',
-    title: 'Array Foundations', subtitle: 'Data Structures', accent: '#06b6d4',
+    chapter: 'data', id: 'PH3-S1', tag: 'Week 3', tagColor: '#06b6d4',
+    title: 'Indexed Array', subtitle: 'បញ្ជីរាយនាមតាមលេខរៀង', accent: '#06b6d4',
     bg: 'radial-gradient(ellipse at center, rgba(6,182,212,0.08) 0%, transparent 70%)',
     content: [
-      'Indexed Arrays: Lists of items identified by a numeric index starting at 0.',
-      'Associative Arrays: Use named keys instead of numbers, like a dictionary or object ($user["id"]).',
-      'Multidimensional: Arrays containing more arrays, useful for tables or complex data.',
-      'Count: Use count() to find out how many elements are in an array.'
+      'និយមន័យ៖ ជាការរក្សាទុកទិន្នន័យច្រើនក្នុង Variable តែមួយ ដោយប្រើលេខរៀង (Index)។',
+      'Square Brackets []៖ ជារបៀបសរសេរ Array ដែលសាមញ្ញ និងពេញនិយមបំផុតក្នុង PHP។',
+      'ការទាញយកទិន្នន័យ៖ ហៅឈ្មោះ Array រួចដាក់លេខរៀងក្នុង [] (ចាប់ផ្ដើមពីលេខ ០)។',
+      'Counting៖ ប្រើ Function count($array) ដើម្បីដឹងថាមានទិន្នន័យប៉ុន្មានក្នុង Array។'
     ],
-    syntax: '$list = ["Apple", "Orange"];\n$user = ["name" => "Ari"];',
-    lab: 'Create an associative array for a product including name, price, and stock status.',
-    result: 'Array data is printed using print_r() for inspection.',
+    syntax: '$colors = ["red", "blue", "green"];',
+    lab: 'បង្កើត Array តំណាងឱ្យផ្លែឈើ ៣ មុខ រួចបង្ហាញឈ្មោះផ្លែឈើទី ២ មីន។',
+    result: 'ឈ្មោះផ្លែឈើដែលស្ថិតក្នុង Index ទី ១ នឹងបង្ហាញលើ Terminal។',
     filename: 'arrays.php',
     code: `<?php
-$product = [
-    "name" => "Coffee Bean",
-    "price" => 14.50,
-    "inStock" => true
-];
-
-echo "Product: " . $product["name"] . " costs $" . $product["price"];`,
-    icon: Layers,
-    terminalOutput: "Product: Coffee Bean costs $14.5",
+$colors = ["red", "blue", "green"];
+echo "First color: " . $colors[0] . "\\n";
+echo "Total colors: " . count($colors);`,
+    icon: List,
+    terminalOutput: "First color: red\nTotal colors: 3",
   },
   {
-    chapter: 'functions', id: 'P03-S3', tag: 'Week 3', tagColor: '#06b6d4',
-    title: 'Array Masterclass', subtitle: 'Processing Data', accent: '#06b6d4',
-    bg: 'radial-gradient(ellipse at 90% 10%, rgba(6,182,212,0.1) 0%, transparent 55%)',
+    chapter: 'data', id: 'PH3-S2', tag: 'Week 4', tagColor: '#06b6d4',
+    title: 'Associative Array', subtitle: 'កំណត់ Key តាមចិត្ត', accent: '#06b6d4',
+    bg: 'radial-gradient(ellipse at center, rgba(6,182,212,0.08) 0%, transparent 70%)',
     content: [
-      'Sorting: Use sort() for values, ksort() for keys, and asort() to keep associations.',
-      'Filtering: array_filter() removes unwanted items based on a callback rule.',
-      'Mapping: array_map() applies a function to every item in the array.',
-      'Existence: use in_array() or array_key_exists() to check for data without looping.'
+      'និយមន័យ៖ ប្រើឈ្មោះ (Key) ជំនួសឱ្យលេខរៀង ដើម្បីកំណត់ចំណាំទិន្នន័យ។',
+      'Arrow Syntax៖ ប្រើសញ្ញា => ដើម្បីភ្ជាប់ឈ្មោះ Key ទៅកាន់តម្លៃ (Value) របស់វា។',
+      'ការប្រើប្រាស់៖ ល្អបំផុតសម្រាប់តំណាងឱ្យព័ត៌មានលម្អិត (User, ផលិតផល, ...)។',
+      'Dynamic Access៖ $user["email"] សម្រាប់ទាញយក Email ចេញមកបង្ហាញ។'
     ],
-    syntax: '$clean = array_filter($data, fn($n) => $n > 0);',
-    lab: 'Take a list of prices and apply a 20% discount to all of them using array_map.',
-    result: 'A new array with discounted prices is displayed.',
+    syntax: '$user = ["name" => "Ratha", "age" => 21];',
+    lab: 'បង្កើត Associative Array សម្រាប់ឡានមួយ (Model, Year, Color) រួចបង្ហាញពណ៌ឡាន។',
+    result: 'ទិន្នន័យត្រូវបានរក្សាទុកយ៉ាងមានរបៀប ហើយងាយស្រួលទាញយកតាម Key។',
+    filename: 'assoc.php',
+    code: `<?php
+$user = [
+  "name" => "Ratha",
+  "email" => "ratha@gmail.com",
+  "age" => 21
+];
+
+echo "User Email: " . $user["email"];`,
+    icon: Layers,
+    terminalOutput: "User Email: ratha@gmail.com",
+  },
+  {
+    chapter: 'data', id: 'PH3-S3', tag: 'Week 4', tagColor: '#06b6d4',
+    title: 'Foreach Loop', subtitle: 'ការរុករកក្នុង Array', accent: '#06b6d4',
+    bg: 'radial-gradient(ellipse at center, rgba(6,182,212,0.08) 0%, transparent 70%)',
+    content: [
+      'Loop ពិសេស៖ ជា loop ដែលបង្កើតឡើងសម្រាប់ទាញទិន្នន័យពី Array មកបង្ហាញ។',
+      'ស្វ័យប្រវត្តិ៖ វានឹងដើររហូតទាល់តែអស់ទិន្នន័យក្នុង Array ដោយមិនចាំបាច់រាប់លេខរៀង។',
+      'Key/Value៖ យើងអាចទាញយកបានទាំង "ឈ្មោះ Key" និង "តម្លៃ Value" ក្នុងពេលតែមួយ។',
+      'ភាពងាយស្រួល៖ ជាវិធីដែលស្អាត និងពេញនិយមបំផុតសម្រាប់បង្ហាញបញ្ជី (List)។'
+    ],
+    syntax: 'foreach ($array as $item) { ... }',
+    lab: 'សាកប្រើ Foreach ដើម្បីបង្ហាញបញ្ជីពណ៌ទាំងអស់ដែលមានក្នុង Array។',
+    result: 'ឈ្មោះពណ៌នីមួយៗនឹងបង្ហាញចេញមកក្រៅម្តងមួយៗតាមលំដាប់លំដោយ។',
+    filename: 'foreach.php',
+    code: `<?php
+$colors = ["red", "blue", "green"];
+
+foreach ($colors as $color) {
+    echo "Color: $color\\n";
+}`,
+    icon: RotateCcw,
+    terminalOutput: "Color: red\nColor: blue\nColor: green",
+  },
+  {
+    chapter: 'data', id: 'PH3-S4', tag: 'Week 4', tagColor: '#06b6d4',
+    title: 'Array Mapping', subtitle: 'ការបំប្លែងទិន្នន័យសរុប', accent: '#06b6d4',
+    bg: 'radial-gradient(ellipse at center, rgba(6,182,212,0.08) 0%, transparent 70%)',
+    content: [
+      'ការបំប្លែង (Transformation)៖ បង្កើត Array ថ្មីមួយ ចេញពីការកែប្រែរាល់ធាតុក្នុង Array ចាស់។',
+      'Closures (fn)៖ ប្រើវិធីសរសេរខ្លីៗដើម្បីធ្វើការងារលើធាតុនីមួយៗក្នុង Array។',
+      'Original Array៖ Array ដើម គឺមិនមានការផ្លាស់ប្តូរតម្លៃ ឬខូចខាតអ្វីឡើយ។',
+      'អត្ថប្រយោជន៍៖ ប្រើច្រើនសម្រាប់គណនាបញ្ចុះតម្លៃ, រៀបចំ Font អក្សរ ឬដូរទម្រង់ទិន្នន័យ។'
+    ],
+    syntax: 'array_map(fn($x) => $x * 2, $arr);',
+    lab: 'ផ្តល់ Array តម្លៃទំនិញ [100, 200, 300] រួចប្រើ array_map ដើម្បីបញ្ចុះតម្លៃ ២០% ទាំងអស់។',
+    result: 'អ្នកនឹងទទួលបាន Array ថ្មីដែលមានតម្លៃបញ្ចុះរួចរាល់។',
     filename: 'array_ops.php',
     code: `<?php
 $prices = [100, 200, 300];
@@ -271,661 +327,283 @@ echo "New Prices: " . implode(", ", $discounted);`,
     icon: List,
     terminalOutput: "New Prices: 80, 160, 240",
   },
-
-  /* ── CHAPTER 4: FORM HANDLING ── */
+  /* ── PHASE 4: WORKING WITH FORMS (Week 4–5) ── */
   {
-    chapter: 'forms', id: 'P04-S1', tag: 'Week 4', tagColor: '#f59e0b',
-    title: 'GET vs POST', subtitle: 'The Transfer Logic', accent: '#f59e0b',
+    chapter: 'forms', id: 'PH4-S1', tag: 'Week 4', tagColor: '#f59e0b',
+    title: 'GET vs POST (តើគួរប្រើមួយណា?)', subtitle: 'វិធីសាស្ត្រផ្ញើទិន្នន័យ', accent: '#f59e0b',
+    bg: 'radial-gradient(ellipse at 10% 20%, rgba(245,158,11,0.15) 0%, transparent 55%)',
+    content: [
+      'GET៖ ទិន្នន័យបង្ហាញលើ URL (?id=1)។ ប្រើសម្រាប់តែការស្វែងរក (Search) ឬមើលទិន្នន័យធម្មតា។',
+      'POST៖ ទិន្នន័យត្រូវបានលាក់ (មិនបង្ហាញលើ URL)។ ប្រើសម្រាប់ផ្ញើទិន្នន័យសំខាន់ៗដូចជា លេខសម្ងាត់ ជាដើម។',
+      '$_POST៖ ជាអថេរពិសេស (Superglobal) សម្រាប់ចាប់យកទិន្នន័យដែលផ្ញើមកពី Form។',
+      'សុវត្ថិភាព៖ កុំផ្ញើព័ត៌មានសម្ងាត់តាមរយៈ GET ឱ្យសោះ ព្រោះវានឹងបង្ហាញឱ្យគេឃើញទាំងអស់។'
+    ],
+    syntax: '$name = $_POST["name"];',
+    lab: 'សាកល្បងទទួលឈ្មោះពីការបញ្ជូនតាមរយៈ POST រួចបង្ហាញសារស្វាគមន៍។',
+    result: 'ទិន្នន័យត្រូវបានចាប់យកយ៉ាងត្រឹមត្រូវ និងបង្ហាញលើអេក្រង់។',
+    filename: 'forms.php',
+    code: `<?php
+// Mocking a POST request
+$_POST["username"] = "Ratha";
+
+$name = $_POST["username"] ?? "Guest";
+echo "Submitted Name: " . $name;
+?>`,
+    icon: Layout,
+    terminalOutput: "Submitted Name: Ratha",
+  },
+  {
+    chapter: 'forms', id: 'PH4-S2', tag: 'Week 5', tagColor: '#f59e0b',
+    title: 'ការធ្វើ Validation', subtitle: 'ការសម្អាតទិន្នន័យ', accent: '#f59e0b',
     bg: 'radial-gradient(ellipse at center, rgba(245,158,11,0.08) 0%, transparent 70%)',
     content: [
-      'GET: Data is appended to the URL. Use for searches, bookmarks, and non-sensitive data.',
-      'POST: Data is sent in the request body. Required for passwords, file uploads, and data creation.',
-      'Superglobals: PHP collects form data into $_GET and $_POST associative arrays.',
-      'Check Submission: Always wrap processing logic in an if(isset($_POST["submit"])) block.'
+      'ច្បាប់មាស៖ កុំទុកចិត្តរាល់ទិន្នន័យដែលបញ្ចូលមកពីអ្នកប្រើប្រាស់ឱ្យសោះ (Never trust input)។',
+      'Sanitization៖ ការលុបចោលតួអក្សរដែលគ្រោះថ្នាក់ (ដូចជាការកាត់ HTML Tags ចេញ)។',
+      'Validation៖ ការឆែកមើលថាទិន្នន័យត្រឹមត្រូវតាមទម្រង់ដែលយើងចង់បាន (ឧទាហរណ៍៖ Email)។',
+      'XSS Protection៖ ប្រើ htmlspecialchars() ដើម្បីការពារការ Hack ចូលក្នុងវេបសាយ។'
     ],
-    syntax: '$name = $_POST["username"]; // Captures form input',
-    lab: 'Create a mini-form with an input field and check if it was submitted via POST.',
-    result: 'The script correctly identifies and echoes the submitted name.',
-    filename: 'submit.php',
+    syntax: 'htmlspecialchars($input);',
+    lab: 'សរសេរកូដសម្អាតអត្ថបទ (String) ដែលមានផ្ទុក HTML Tags ដ៏គ្រោះថ្នាក់។',
+    result: 'Tags ទាំងនោះនឹងត្រូវបានបំប្លែងឱ្យទៅជាអត្ថបទធម្មតាវិញដោយសុវត្ថិភាព។',
+    filename: 'validation.php',
     code: `<?php
-if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    $user = $_POST["username"] ?? "Guest";
-    echo "Processing for user: " . $user;
-} else {
-    echo "Wait for form submission...";
-}`,
-    icon: Send,
-    terminalOutput: "Processing for user: Guest",
-  },
-  {
-    chapter: 'forms', id: 'P04-S2', tag: 'Week 4', tagColor: '#f59e0b',
-    title: 'Validation & Hygiene', subtitle: 'Secure Input', accent: '#f59e0b',
-    bg: 'radial-gradient(ellipse at center, rgba(245,158,11,0.08) 0%, transparent 70%)',
-    content: [
-      'Sanitization: Removing illegal characters (e.g., stripping tags from a comment).',
-      'Validation: Checking if data meets rules (e.g., is the email valid? Is the age a number?).',
-      'Filter Var: Use filter_var() with built-in constants for robust validation.',
-      'XSS Protection: Always use htmlspecialchars() before echoing user data back to the page.'
-    ],
-    syntax: '$email = filter_var($_POST["email"], FILTER_VALIDATE_EMAIL);',
-    lab: 'Write a script that validates an email and sanitizes an age input to be an integer.',
-    result: 'Confirmation messages for whether the data is valid or has been cleaned.',
-    filename: 'sanitize.php',
-    code: `<?php
-$dirty_email = "ari@example.com";
-$clean_email = filter_var($dirty_email, FILTER_SANITIZE_EMAIL);
+$userInput = "<script>alert('hacked')</script> Hello!";
+$safeInput = htmlspecialchars($userInput);
 
-if (filter_var($clean_email, FILTER_VALIDATE_EMAIL)) {
-    echo "Email is VALID: " . $clean_email;
-} else {
-    echo "Invalid Email.";
-}`,
-    icon: Shield,
-    terminalOutput: "Email is VALID: ari@example.com",
-  },
-  {
-    chapter: 'forms', id: 'P04-S3', tag: 'Week 4', tagColor: '#f59e0b',
-    title: 'Handling JSON Input', subtitle: 'Modern API Intake', accent: '#f59e0b',
-    bg: 'radial-gradient(ellipse at 80% 80%, rgba(245,158,11,0.06) 0%, transparent 60%)',
-    content: [
-      'Application/JSON: Modern JS frameworks (React/Vue) send data as JSON, not form-data.',
-      'php://input: Use this stream to read the raw request body.',
-      'Json Decode: Convert the JSON string into an associative PHP array for processing.',
-      'Error Handling: Check json_last_error() to ensure the data was formatted correctly.'
-    ],
-    syntax: '$data = json_decode(file_get_contents("php://input"), true);',
-    lab: 'Simulate receiving a JSON payload and echo back a specific property.',
-    result: 'The script successfully parses the pseudo-JSON and accesses the key.',
-    filename: 'api_form.php',
-    code: `<?php
-$json = '{"user": "Ari", "course": "Backend"}';
-$data = json_decode($json, true);
-
-echo "API Received: User " . $data["user"];`,
-    icon: Package,
-    terminalOutput: "API Received: User Ari",
+echo $safeInput;
+?>`,
+    icon: ShieldCheck,
+    terminalOutput: "&lt;script&gt;alert('hacked')&lt;/script&gt; Hello!",
   },
 
-  /* ── CHAPTER 5: FILE HANDLING ── */
+  /* ── PHASE 5: PHP + DATABASE (Week 5–6) ── */
   {
-    chapter: 'files', id: 'P05-S1', tag: 'Week 5', tagColor: '#f97316',
-    title: 'File IO Foundations', subtitle: 'Read & Write', accent: '#f97316',
-    bg: 'radial-gradient(ellipse at center, rgba(249,115,22,0.08) 0%, transparent 70%)',
+    chapter: 'db', id: 'PH5-S1', tag: 'Week 5', tagColor: '#3b82f6',
+    title: 'ការភ្ជាប់ទៅកាន់ MySQL (PDO)', subtitle: 'ស្ពានចម្លងទិន្នន័យ', accent: '#3b82f6',
+    bg: 'radial-gradient(ellipse at 10% 20%, rgba(59,130,246,0.15) 0%, transparent 55%)',
     content: [
-      'Simple Reading: file_get_contents() reads an entire file into a string — fast but memory heavy.',
-      'Simple Writing: file_put_contents() writes data to a file. Use FILE_APPEND to add rather than overwrite.',
-      'Streaming: fopen() and fgets() are better for large files as they read line-by-line.',
-      'Closing: Always close your file handles with fclose() to free system resources.'
+      'PDO៖ ជាវិធីសាស្ត្រទំនើប និងមានសុវត្ថិភាពបំផុតសម្រាប់ភ្ជាប់ទៅកាន់ Database ច្រើនប្រភេទ។',
+      'Connection Parameters៖ ការកំណត់ Host, ឈ្មោះ Database, Username និង Password។',
+      'Try/Catch៖ ប្រើសម្រាប់ឆែកមើលថា តើការភ្ជាប់ទៅកាន់ Database ជោគជ័យ ឬមានបញ្ហាកូដត្រង់ណា។',
+      'Persistence៖ ការភ្ជាប់នេះនឹងបន្តរហូតទាល់តែ Script របស់ PHP ដំណើរការចប់។'
     ],
-    syntax: 'file_put_contents("test.txt", "Data", FILE_APPEND);',
-    lab: 'Create a script that writes "Log Entry" followed by the current timestamp to a log.txt file.',
-    result: 'The log.txt file is created or updated with a new entry each run.',
-    filename: 'logger.php',
+    syntax: '$pdo = new PDO("mysql:host=$h;dbname=$d", $u, $p);',
+    lab: 'រៀបចំ Parameters ដែលចាំបាច់សម្រាប់ការភ្ជាប់ Database នៅក្នុង Local Server។',
+    result: 'យល់ដឹងពីរបៀបភ្ជាប់ និងការចាប់យក Error ក្នុងករណីភ្ជាប់មិនបាន។',
+    icon: Database,
     code: `<?php
-$entry = "User Login at " . date("H:i:s") . "\\n";
-file_put_contents("logs.txt", $entry, FILE_APPEND);
-echo "Log saved summary: " . file_get_contents("logs.txt");`,
-    icon: HardDrive,
-    terminalOutput: "Log saved summary: User Login at 19:15:02",
-  },
-  {
-    chapter: 'files', id: 'P05-S2', tag: 'Week 5', tagColor: '#f97316',
-    title: 'Directory Ops', subtitle: 'Organizing Assets', accent: '#f97316',
-    bg: 'radial-gradient(ellipse at 10% 20%, rgba(249,115,22,0.06) 0%, transparent 60%)',
-    content: [
-      'Scanning: Use scandir() to list all files and folders within a specific directory.',
-      'Checking: file_exists() and is_dir() are vital before attempting any operations.',
-      'Management: mkdir() creates folders, and unlink() deletes files. Use with caution.',
-      'Path Hygiene: Use realpath() to prevent directory traversal security vulnerabilities.'
-    ],
-    syntax: 'if (file_exists("data/")) { ... }',
-    lab: 'Check if a directory "uploads" exists. If not, create it with correct permissions.',
-    result: 'The folder is created and ready for file storage.',
-    filename: 'dirs.php',
-    code: `<?php
-$dir = "media";
-if (!is_dir($dir)) {
-    mkdir($dir, 0777, true);
-    echo "Directory '$dir' created.";
-} else {
-    echo "Directory already exists.";
-}`,
-    icon: Box,
-    terminalOutput: "Directory 'media' created.",
-  },
-  {
-    chapter: 'files', id: 'P05-S3', tag: 'Week 5', tagColor: '#f97316',
-    title: 'Safe File Uploads', subtitle: 'Handling User Content', accent: '#f97316',
-    bg: 'radial-gradient(ellipse at center, rgba(249,115,22,0.08) 0%, transparent 70%)',
-    content: [
-      '$_FILES Superglobal: Contains metadata like name, type, size, and temporary path.',
-      'Temporary Storage: Uploaded files are first stored in a temp folder and must be moved.',
-      'Move Function: move_uploaded_file() validates that the file was actually an upload.',
-      'Security: ALWAYS validate the extension and file size. Never trust the mime-type sent by the user.'
-    ],
-    syntax: 'move_uploaded_file($temp, "uploads/" . $filename);',
-    lab: 'Write a validation check that only allows .php, .jpg, or .png files under 2MB.',
-    result: 'Unauthorized files are rejected with a clear error message.',
-    filename: 'upload_logic.php',
-    code: `<?php
-$allowed = ["jpg", "png"];
-$ext = "png";
-$size = 1500000; // 1.5MB
+$host = "localhost";
+$db = "my_database";
+$user = "root";
+$pass = "";
 
-if (in_array($ext, $allowed) && $size < 2000000) {
-    echo "File is safe to upload.";
-} else {
-    echo "Security block: Invalid file.";
-}`,
-    icon: Rocket,
-    terminalOutput: "File is safe to upload.",
+try {
+    $pdo = new PDO("mysql:host=$host;dbname=$db", $user, $pass);
+    echo "Connection Successful!";
+} catch (PDOException $e) {
+    die("Error: " . $e->getMessage());
+}
+?>`,
+    terminalOutput: "Connection Successful!",
+  },
+  {
+    chapter: 'db', id: 'PH5-S2', tag: 'Week 6', tagColor: '#3b82f6',
+    title: 'ប្រតិបត្តិការ CRUD', subtitle: 'ការគ្រប់គ្រងទិន្នន័យ', accent: '#3b82f6',
+    bg: 'radial-gradient(ellipse at center, rgba(59,130,246,0.08) 0%, transparent 70%)',
+    content: [
+      'Read (SELECT)៖ ការទាញយកទិន្នន័យមកបង្ហាញលើគេហទំព័រ។',
+      'Create (INSERT)៖ ការរក្សាទុកទិន្នន័យថ្មីចូលទៅក្នុងតារាង (Table)។',
+      'Update/Delete៖ ការកែប្រែ ឬលុបទិន្នន័យ (ត្រូវប្រើ WHERE ជានិច្ចដើម្បីកុំឱ្យខូចទិន្នន័យផ្សេង)។',
+      'Prepared Statements៖ ចាំបាច់បំផុតដើម្បីការពារកុំឱ្យគេ Hack ចូល Database (SQL Injection)។'
+    ],
+    syntax: '$stmt = $pdo->prepare("SELECT * FROM users WHERE id = ?");',
+    lab: 'ពន្យល់ពីមូលហេតុដែលយើងប្រើ Prepared Statements ជំនួសឱ្យការសរសេរសំណួរផ្ទាល់។',
+    result: 'យល់ដឹងពីរបៀបការពារទិន្នន័យឱ្យមានសុវត្ថិភាពខ្ពស់បំផុត។',
+    icon: Database,
+    code: `<?php
+$stmt = $pdo->prepare("SELECT * FROM users WHERE id = ?");
+$stmt->execute([$_GET["id"]]);
+$user = $stmt->fetch();
+echo "Welcome, " . htmlspecialchars($user["name"]);
+?>`,
+    terminalOutput: "Welcome, Ratha",
   },
 
-  /* ── CHAPTER 6: STATE MANAGEMENT ── */
+  /* ── PHASE 6: AUTHENTICATION (Week 6–7) ── */
   {
-    chapter: 'state', id: 'P06-S1', tag: 'Week 6', tagColor: '#f43f5e',
-    title: 'Session Management', subtitle: 'User Context', accent: '#f43f5e',
-    bg: 'radial-gradient(ellipse at center, rgba(244,63,94,0.08) 0%, transparent 70%)',
+    chapter: 'auth', id: 'PH6-S1', tag: 'Week 6', tagColor: '#f43f5e',
+    title: 'ការប្រើ Session', subtitle: 'ការចងចាំអ្នកប្រើប្រាស់', accent: '#f43f5e',
+    bg: 'radial-gradient(ellipse at 10% 20%, rgba(244,63,94,0.15) 0%, transparent 55%)',
     content: [
-      'Session Start: You must call session_start() at the very top of your script before any HTML is sent.',
-      'Superglobal: $_SESSION is an associative array that persists data across different pages.',
-      'Storage: Unlike cookies, session data is stored on the server, making it much more secure for sensitive info.',
-      'Destruction: Use session_destroy() and unset() to log users out and clear their data.'
+      'HTTP Stateless： មានន័យថា Browser មិនដែលចងចាំយើងទេ។ Sessions ជួយដោះស្រាយបញ្ហានេះ។',
+      'session_start()៖ ជាពាក្យបញ្ជាដែលត្រូវហៅនៅផ្នែកខាងលើបង្អស់នៃគ្រប់ទំព័រ។',
+      '$_SESSION៖ ជាអថេរពិសេសសម្រាប់រក្សាទុកទិន្នន័យឱ្យនៅជាប់ ទោះយើងប្តូរទៅទំព័រផ្សេងក៏ដោយ។',
+      'ការបិទ Session៖ ជាទូទៅវាបាត់បង់ទៅវិញ នៅពេលយើងបិទ Browser ឬធ្វើការ Logout។'
     ],
-    syntax: 'session_start();\n$_SESSION["user_id"] = 42;',
-    lab: 'Create a "Visit Counter" that increments every time the user refreshes any page on the site.',
-    result: 'The browser displays a persistent count that increases on each reload.',
+    syntax: 'session_start(); $_SESSION["user"] = "id_123";',
+    lab: 'សាកល្បងចាប់ផ្ដើម Session រួចរក្សាទុកឈ្មោះក្នុង "user_name" ដើម្បីបង្ហាញនៅទំព័រផ្សេង។',
+    result: 'ឈ្មោះដែលបានរក្សាទុក នឹងបង្ហាញមកវិញទោះបីជាយើង Logout រួចចូលមកវិញក៏ដោយ (បើមិនទាន់បិទ Browser)។',
     filename: 'session.php',
     code: `<?php
 session_start();
-$_SESSION['visits'] = ($_SESSION['visits'] ?? 0) + 1;
-echo "<h1>Welcome! You have visited this site " . $_SESSION['visits'] . " times.</h1>";`,
-    icon: Lock,
-    terminalOutput: "<h1>Welcome! You have visited this site 1 times.</h1>",
+$_SESSION["user_name"] = "Ratha";
+
+echo "Session started for: " . $_SESSION["user_name"];
+?>`,
+    icon: User,
+    terminalOutput: "Session started for: Ratha",
   },
   {
-    chapter: 'state', id: 'P06-S2', tag: 'Week 6', tagColor: '#f43f5e',
-    title: 'Mastering Cookies', subtitle: 'Client-Side Storage', accent: '#f43f5e',
-    bg: 'radial-gradient(ellipse at 70% 20%, rgba(244,63,94,0.06) 0%, transparent 60%)',
-    content: [
-      'SetCookie: Use the setcookie() function to store data directly on the user\'s browser.',
-      'Expiration: You can set a time for cookies to expire (e.g., time() + 3600 for one hour).',
-      'Security: Use the "httponly" flag to prevent JavaScript from accessing your sensitive cookies.',
-      'Retrieval: Cookies are accessed via the $_COOKIE superglobal on subsequent requests.'
-    ],
-    syntax: 'setcookie("theme", "dark", time() + 86400, "/");',
-    lab: 'Create a "Remember Me" feature that stores the user\'s preferred theme color for 7 days.',
-    result: 'The preference remains even after the browser is closed and reopened.',
-    filename: 'cookies.php',
-    code: `<?php
-$theme = $_COOKIE['theme'] ?? 'light';
-setcookie('theme', 'ocean-blue', time() + (7 * 86400));
-echo "Current App Theme: " . $theme;`,
-    icon: Fingerprint,
-    terminalOutput: "Current App Theme: light",
-  },
-  {
-    chapter: 'state', id: 'P06-S3', tag: 'Week 6', tagColor: '#f43f5e',
-    title: 'Auth Logic', subtitle: 'Simple Login System', accent: '#f43f5e',
+    chapter: 'auth', id: 'PH6-S2', tag: 'Week 7', tagColor: '#f43f5e',
+    title: 'ការ Hash លេខសម្ងាត់', subtitle: 'សុវត្ថិភាពទិន្នន័យសម្ងាត់', accent: '#f43f5e',
     bg: 'radial-gradient(ellipse at center, rgba(244,63,94,0.08) 0%, transparent 70%)',
     content: [
-      'Authentication Flow: Verify credentials -> Start Session -> Store User ID -> Redirect.',
-      'Authorization: Check $_SESSION at the top of protected pages to ensure the user is logged in.',
-      'Restricting Access: If the session variable is missing, use header("Location: login.php") to boot them out.',
-      'Clean Logout: Always clear the session cookie and destroy the session internally for safety.'
+      'ច្បាប់សំខាន់៖ ហាមដាច់ខាតកុំរក្សាទុក Password សុទ្ធៗ (Plain-text) ក្នុង Database។',
+      'password_hash()៖ ជា Function សម្រាប់បំប្លែង Password ឱ្យទៅជាកូដដែលមើលមិនយល់ (Hash)។',
+      'password_verify()៖ ប្រើសម្រាប់ផ្ទៀងផ្ទាត់ Password ដែល User វាយបញ្ជូល ជាមួយ Hash ដែលមានស្រាប់។',
+      'យន្តការការពារ៖ PHP ជួយគ្រប់គ្រង Salt ដោយស្វ័យប្រវត្តិដើម្បីសុវត្ថិភាពខ្ពស់បំផុត។'
     ],
-    syntax: 'if (!isset($_SESSION["logged_in"])) { exit("Denied"); }',
-    lab: 'Build a gatekeeper script that only displays "Top Secret" if a specific session key exists.',
-    result: 'Unauthorized users are redirected to a public page.',
-    filename: 'auth_check.php',
+    syntax: '$hash = password_hash($pw, PASSWORD_DEFAULT);',
+    lab: 'សាកល្បងបង្កើត Hash ចេញពី Password "secret123" រួចផ្ទៀងផ្ទាត់វាវិញ។',
+    result: 'អ្នកនឹងឃើញថា Password ត្រូវគ្នាជាមួយ Hash បើទោះជាយើងមើលមិនយល់ពី Hash នោះក៏ដោយ។',
+    filename: 'auth.php',
     code: `<?php
-session_start();
-// Simulate login
-$_SESSION['user'] = 'Ari Admin';
+$password = "secret123";
+$hash = password_hash($password, PASSWORD_DEFAULT);
 
-if (isset($_SESSION['user'])) {
-    echo "Access GRANTED for: " . $_SESSION['user'];
-} else {
-    echo "ACCESS DENIED. PLEASE LOGIN.";
-}`,
-    icon: ShieldCheck,
-    terminalOutput: "Access GRANTED for: Ari Admin",
-  },
+echo "Hash: " . substr($hash, 0, 20) . "...\\n";
 
-  /* ── CHAPTER 7: MYSQL & CRUD ── */
-  {
-    chapter: 'mysql', id: 'P07-S1', tag: 'Week 7', tagColor: '#3b82f6',
-    title: 'PDO Bridge', subtitle: 'Connecting to Data', accent: '#3b82f6',
-    bg: 'radial-gradient(ellipse at center, rgba(59,130,246,0.08) 0%, transparent 70%)',
-    content: [
-      'PDO Advantage: PHP Data Objects is a database-neutral way to interact with MySQL, SQLite, and more.',
-      'DSN String: The Data Source Name contains the host, database name, and charset ($dsn = "mysql:host=localhost;dbname=test").',
-      'Attributes: Set PDO::ATTR_ERRMODE to ERRMODE_EXCEPTION to catch database errors with Try/Catch.',
-      'Fetch Modes: Choose between FETCH_ASSOC (array) or FETCH_OBJ (object) based on your preference.'
-    ],
-    syntax: '$pdo = new PDO($dsn, $user, $pass, $options);',
-    lab: 'Initialize a PDO connection and catch any connection errors using a Try/Catch block.',
-    result: 'The script either confirms "Connected" or displays a friendly error message.',
-    filename: 'connect.php',
-    code: `<?php
-try {
-    $pdo = new PDO("mysql:host=localhost;dbname=demo", "root", "");
-    echo "Database: Connected Successfully.";
-} catch (PDOException $e) {
-    echo "Connection Failed: Check credentials.";
-}`,
-    icon: Database,
-    terminalOutput: "Database: Connected Successfully.",
-  },
-  {
-    chapter: 'mysql', id: 'P07-S2', tag: 'Week 7', tagColor: '#3b82f6',
-    title: 'Safe Queries', subtitle: 'Prepared Statements', accent: '#3b82f6',
-    bg: 'radial-gradient(ellipse at 20% 80%, rgba(59,130,246,0.06) 0%, transparent 60%)',
-    content: [
-      'Injection Risk: Never put variables directly into a SQL string ($sql = "SELECT * FROM users WHERE id = $id").',
-      'Preparation: Use placeholders (either "?" or ":id") to define where data will go.',
-      'Binding: Use bindValue() or pass an array to execute() to safely inject your variables.',
-      'Security: Prepared statements ensure that malicious code cannot be executed as SQL commands.'
-    ],
-    syntax: '$stmt = $pdo->prepare("SELECT * FROM users WHERE id = :id");',
-    lab: 'Write a prepared statement to fetch a user record based on an ID provided in the URL.',
-    result: 'The user record is fetched safely and printed to the screen.',
-    filename: 'secure_query.php',
-    code: `<?php
-$id = 1; // From $_GET['id']
-$stmt = $pdo->prepare("SELECT name FROM users WHERE id = ?");
-$stmt->execute([$id]);
-$user = $stmt->fetch(PDO::FETCH_ASSOC);
-
-echo "Found User: " . ($user['name'] ?? 'Not Found');`,
-    icon: Shield,
-    terminalOutput: "Found User: Ari Master",
-  },
-  {
-    chapter: 'mysql', id: 'P07-S3', tag: 'Week 7', tagColor: '#3b82f6',
-    title: 'CRUD Mastery', subtitle: 'Insert & Update', accent: '#3b82f6',
-    bg: 'radial-gradient(ellipse at center, rgba(59,130,246,0.08) 0%, transparent 70%)',
-    content: [
-      'Insert: Use INSERT INTO queries to add new rows to your tables. Always bind your values.',
-      'Last Insert ID: Use $pdo->lastInsertId() to get the ID of the record you just created.',
-      'Update: Use UPDATE queries to modify existing data. Ensure you have a WHERE clause to avoid wiping data!',
-      'Row Count: use $stmt->rowCount() to verify how many rows were actually changed by your query.'
-    ],
-    syntax: '$stmt = $pdo->prepare("UPDATE users SET name = ? WHERE id = ?");',
-    lab: 'Create a script that adds a new "Post" to a blog table and then returns the new primary key.',
-    result: 'Terminal displays "Post Created with ID: 15".',
-    filename: 'insert.php',
-    code: `<?php
-// Pseudo-code for insertion logic
-$stmt = $pdo->prepare("INSERT INTO posts (title, body) VALUES (?, ?)");
-$stmt->execute(["New Tutorial", "PHP is awesome"]);
-
-echo "Success: Record #" . $pdo->lastInsertId() . " created.";`,
-    icon: Zap,
-    terminalOutput: "Success: Record #15 created.",
-  },
-
-  /* ── CHAPTER 8: OOP FOUNDATIONS ── */
-  {
-    chapter: 'oop', id: 'P08-S1', tag: 'Week 8', tagColor: '#a855f7',
-    title: 'Classes & Objects', subtitle: 'The Blueprints', accent: '#a855f7',
-    bg: 'radial-gradient(ellipse at center, rgba(168,85,247,0.08) 0%, transparent 70%)',
-    content: [
-      'Class: A blueprint for creating objects. It defines properties (data) and methods (behavior).',
-      'Object: An instance of a class. You can create multiple objects from a single blueprint.',
-      'Properties: Use visibility keywords like public, protected, and private to control access.',
-      'Constructor: The __construct() method runs automatically when a new object is created.'
-    ],
-    syntax: 'class User { public function __construct() { ... } }',
-    lab: 'Define a "Car" class with properties for make and model, and instantiate a new object.',
-    result: 'Object properties are accessible and can be printed.',
-    filename: 'car_oop.php',
-    code: `<?php
-class Car {
-    public function __construct(public string $make, public string $model) {}
-    public function getInfo() { return "$this->make $this->model"; }
+if (password_verify("secret123", $hash)) {
+    echo "Password Verified!";
 }
-
-$myCar = new Car("Tesla", "Model S");
-echo "Car Info: " . $myCar->getInfo();`,
-    icon: Layers,
-    terminalOutput: "Car Info: Tesla Model S",
-  },
-  {
-    chapter: 'oop', id: 'P08-S2', tag: 'Week 8', tagColor: '#a855f7',
-    title: 'Inheritance & Power', subtitle: 'Extending Logic', accent: '#a855f7',
-    bg: 'radial-gradient(ellipse at 10% 80%, rgba(168,85,247,0.06) 0%, transparent 60%)',
-    content: [
-      'Extends: Use the "extends" keyword to create a child class that inherits all properties from a parent.',
-      'Parent Call: Use parent::__construct() to trigger the parent class logic inside a child constructor.',
-      'Polymorphism: Different classes can have the same method name but perform different actions.',
-      'Visibility: "Protected" properties are invisible to the public but accessible to child classes.'
-    ],
-    syntax: 'class Admin extends User { ... }',
-    lab: 'Create a "Shape" parent class and a "Square" child class that calculates its own area.',
-    result: 'The Square object successfully uses its inherited methods.',
-    filename: 'shapes.php',
-    code: `<?php
-class Shape {
-    public function __construct(public string $name) {}
-}
-
-class Square extends Shape {
-    public function __construct(public int $side) {
-        parent::__construct("Square");
-    }
-    public function getArea() { return $this->side ** 2; }
-}
-
-$sq = new Square(5);
-echo "The $sq->name area is: " . $sq->getArea();`,
-    icon: Box,
-    terminalOutput: "The Square area is: 25",
-  },
-  {
-    chapter: 'oop', id: 'P08-S3', tag: 'Week 8', tagColor: '#a855f7',
-    title: 'Interfaces & Traits', subtitle: 'Advanced Architecture', accent: '#a855f7',
-    bg: 'radial-gradient(ellipse at center, rgba(168,85,247,0.08) 0%, transparent 70%)',
-    content: [
-      'Interface: A contract that forces a class to implement specific methods ($class must have "save()").',
-      'Traits: Allow you to reuse groups of methods in several independent classes (horizontal reuse).',
-      'Abstract: Abstract classes cannot be instantiated; they exist only to be inherited from.',
-      'Static: Static methods belong to the class itself, not an object instance (Utils::log()).'
-    ],
-    syntax: 'interface Payable { public function pay(); }',
-    lab: 'Write an interface for "Logger" and implement it in two different service classes.',
-    result: 'Both classes adhere to the same method signatures.',
-    filename: 'interface.php',
-    code: `<?php
-interface Logger {
-    public function log(string $msg);
-}
-
-class FileLogger implements Logger {
-    public function log(string $msg) { echo "FILE: $msg"; }
-}
-
-$logger = new FileLogger();
-$logger->log("OOP Mastered!");`,
-    icon: Workflow,
-    terminalOutput: "FILE: OOP Mastered!",
-  },
-
-  /* ── CHAPTER 9: SECURITY OPS ── */
-  {
-    chapter: 'security', id: 'P09-S1', tag: 'Week 9', tagColor: '#ec4899',
-    title: 'Modern Security', subtitle: 'Defensive Coding', accent: '#ec4899',
-    bg: 'radial-gradient(ellipse at center, rgba(236,72,153,0.08) 0%, transparent 70%)',
-    content: [
-      'Injection: We covered SQLi, but also beware of Command Injection and LDAP injection.',
-      'XSS Protection: Never trust user data in HTML. Use htmlspecialchars() or a library like HTML Purifier.',
-      'CSRF Protection: Cross-Site Request Forgery is avoided by using unique tokens for every form.',
-      'Headers: Set security headers like Content-Security-Policy to restrict where scripts can run.'
-    ],
-    syntax: 'echo htmlspecialchars($user_input, ENT_QUOTES, "UTF-8");',
-    lab: 'Take an "alert" tag string and pass it through a cleaning function to make it safe for display.',
-    result: 'The script tag is rendered as literal text rather than executing code.',
-    filename: 'xss_shield.php',
-    code: `<?php
-$malicious = "<script>alert('Hacked!');</script>";
-$safe = htmlspecialchars($malicious);
-echo "Original: $malicious (Executed!)\\n";
-echo "Protected: $safe (Safe text)";`,
-    icon: ShieldAlert,
-    terminalOutput: "Protected: &lt;script&gt;alert('Hacked!');&lt;/script&gt; (Safe text)",
-  },
-  {
-    chapter: 'security', id: 'P09-S2', tag: 'Week 9', tagColor: '#ec4899',
-    title: 'Crypto & Hashing', subtitle: 'Protecting Passwords', accent: '#ec4899',
-    bg: 'radial-gradient(ellipse at 80% 20%, rgba(236,72,153,0.06) 0%, transparent 60%)',
-    content: [
-      'Never Plain Text: Storing passwords in plain text is a critical failure. Use hashing.',
-      'Bcrypt: PHP\'s password_hash() uses the Bcrypt algorithm by default — modern and secure.',
-      'Salting: Hashing automatically adds a unique salt to each password to prevent rainbow table attacks.',
-      'Verification: Use password_verify() to check a plain text password against its secure hash.'
-    ],
-    syntax: '$hash = password_hash("secret", PASSWORD_DEFAULT);',
-    lab: 'Hash a password, then simulate a login by verifying a correct and an incorrect attempt.',
-    result: 'The script returns "Login Success" only for the matching original string.',
-    filename: 'hashing.php',
-    code: `<?php
-$pw = "my-secret-123";
-$hash = password_hash($pw, PASSWORD_BCRYPT);
-
-$attempt = "my-secret-123";
-if (password_verify($attempt, $hash)) {
-    echo "VERIFIED: Access Granted.";
-} else {
-    echo "ERROR: Invalid Credentials.";
-}`,
+?>`,
     icon: Lock,
-    terminalOutput: "VERIFIED: Access Granted.",
-  },
-  {
-    chapter: 'security', id: 'P09-S3', tag: 'Week 9', tagColor: '#ec4899',
-    title: 'Environment Safety', subtitle: 'Hidden Credentials', accent: '#ec4899',
-    bg: 'radial-gradient(ellipse at center, rgba(236,72,153,0.08) 0%, transparent 70%)',
-    content: [
-      '.env Files: Never hardcode passwords in your PHP files. Store them in a hidden .env file.',
-      'Git Ignore: Ensure your .env file is added to .gitignore so it never reaches GitHub.',
-      'Dotenv Library: Use a package like phpdotenv to load these variables into the $_ENV superglobal.',
-      'Production: Use server-level environment variables in production (Forge, AWS, Cloud).'
-    ],
-    syntax: 'DB_PASS=123456; // Inside .env file',
-    lab: 'Simulate reading a database password from an environment variable rather than a string.',
-    result: 'Code is decoupled from sensitive data.',
-    filename: 'dotenv.php',
-    code: `<?php
-// Simulate loading .env
-$_ENV['DB_KEY'] = 'SUPER_SECRET_TOKEN_99';
-
-$key = $_ENV['DB_KEY'] ?? 'fallback-key';
-echo "Connecting using key: " . substr($key, 0, 5) . "...";`,
-    icon: Key,
-    terminalOutput: "Connecting using key: SUPER...",
+    terminalOutput: "Hash: $2y$10$...\nPassword Verified!",
   },
 
-  /* ── CHAPTER 10: ADVANCED PHP ── */
+  /* ── PHASE 7: FILE HANDLING (Week 7–8) ── */
   {
-    chapter: 'advanced', id: 'P10-S1', tag: 'Week 10', tagColor: '#14b8a6',
-    title: 'Modern PHP APIs', subtitle: 'JSON & Rest', accent: '#14b8a6',
-    bg: 'radial-gradient(ellipse at center, rgba(20,184,166,0.08) 0%, transparent 70%)',
-    content: [
-      'Header Control: Use header("Content-Type: application/json") to tell the browser what data is coming.',
-      'Json Encode: Convert arrays/objects into JSON strings for API consumption.',
-      'Status Codes: Use http_response_code() to send 200 (OK), 404 (Not Found), or 500 (Error).',
-      'REST Basics: Use HTTP methods (GET, POST, PUT, DELETE) to define actions on your resources.'
-    ],
-    syntax: 'echo json_encode(["data" => $results]);',
-    lab: 'Build a script that returns a list of users as a professional JSON object.',
-    result: 'The output is a valid JSON string that a mobile app or React frontend can use.',
-    filename: 'api_response.php',
-    code: `<?php
-header("Content-Type: application/json");
-$data = [
-    ["id" => 1, "name" => "Ari"],
-    ["id" => 2, "name" => "Dev"]
-];
-echo json_encode($data);`,
-    icon: RefreshCw,
-    terminalOutput: '[{"id":1,"name":"Ari"},{"id":2,"name":"Dev"}]',
-  },
-  {
-    chapter: 'advanced', id: 'P10-S2', tag: 'Week 10', tagColor: '#14b8a6',
-    title: 'AJAX Interactivity', subtitle: 'Waitless Updates', accent: '#14b8a6',
-    bg: 'radial-gradient(ellipse at 10% 20%, rgba(20,184,166,0.06) 0%, transparent 60%)',
-    content: [
-      'No Reload: AJAX allows the page to talk to the server in the background without refreshing.',
-      'Fetch API: Modern JavaScript uses the fetch() command to send requests to your PHP scripts.',
-      'Data Lifecycle: JS sends Request -> PHP processes -> PHP sends JSON -> JS updates the UI.',
-      'Applications: Real-time search, Infinite scrolling, and live form validation.'
-    ],
-    syntax: 'fetch("api.php").then(res => res.json()).then(data => ...);',
-    lab: 'Write a PHP script that receives a "term" and returns matching results for a live search box.',
-    result: 'A small JSON array of strings is returned to the simulated frontend.',
-    filename: 'live_search.php',
-    code: `<?php
-$q = "ar"; // Simulated from $_GET['q']
-$db = ["Ari", "Alice", "Bob"];
-$matches = array_filter($db, fn($u) => str_contains(strtolower($u), $q));
-
-echo json_encode(array_values($matches));`,
-    icon: Zap,
-    terminalOutput: '["Ari","Alice"]',
-  },
-  {
-    chapter: 'advanced', id: 'P10-S3', tag: 'Week 10', tagColor: '#14b8a6',
-    title: 'Composer & Packages', subtitle: 'The Modern Ecosystem', accent: '#14b8a6',
-    bg: 'radial-gradient(ellipse at center, rgba(20,184,166,0.08) 0%, transparent 70%)',
-    content: [
-      'Composer: The dependency manager for PHP. It downloads and updates external libraries.',
-      'Autoloading: Use vendor/autoload.php to automatically load all your project classes.',
-      'Packagist: The central repository for thousands of PHP packages (Carbon, Guzzle, PDF generators).',
-      'Namespaces: Use namespacing to prevent class name collisions when using many libraries.'
-    ],
-    syntax: 'composer require guzzlehttp/guzzle',
-    lab: 'Explain how you would add a "Date and Time" library like Carbon to your project.',
-    result: 'Understanding of how modular PHP development works in industry.',
-    filename: 'composer.md',
-    code: `# 1. Install Composer
-# 2. Run: composer require nesbot/carbon
-# 3. Use in PHP:
-# use Carbon\\Carbon;
-# echo Carbon::now()->addDays(7);`,
-    icon: Package,
-    terminalOutput: "Ready to install: Carbon v2.72.3",
-  },
-
-  /* ── CHAPTER 11: MVC INTRO ── */
-  {
-    chapter: 'mvc', id: 'P11-S1', tag: 'Week 11', tagColor: '#f97316',
-    title: 'MVC Architecture', subtitle: 'Separation of Concerns', accent: '#f97316',
+    chapter: 'files', id: 'PH7-S1', tag: 'Week 7', tagColor: '#f97316',
+    title: 'ការ Upload ឯកសារ', subtitle: 'ការគ្រប់គ្រង Assets', accent: '#f97316',
     bg: 'radial-gradient(ellipse at center, rgba(249,115,22,0.08) 0%, transparent 70%)',
     content: [
-      'Model: The Data Layer. Handles database queries and business logic.',
-      'View: The UI Layer. Pure HTML/CSS with minimal PHP logic (printing variables ONLY).',
-      'Controller: The Brain. Receives Input -> Calls Model -> Feeds Data to View.',
-      'Benefit: Makes your code organized, scalable, and easier for teams to work on.'
+      'enctype៖ ចាំបាច់ត្រូវដាក់ "multipart/form-data" ក្នុង HTML Form ទើប Upload ឯកសារបាន។',
+      '$_FILES៖ ជាអថេរសម្រាប់ផ្ទុកព័ត៌មានឯកសារដូចជា ឈ្មោះ, ប្រភេទ (Type), និងទំហំ (Size)។',
+      'move_uploaded_file()៖ ជាពាក្យបញ្ជាសម្រាប់ប្តូរឯកសារពីកន្លែងផ្ញើ ទៅកាន់ Folder ដែលយើងចង់ដាក់។',
+      'សុវត្ថិភាព៖ ត្រូវឆែកប្រភេទឯកសារឱ្យច្បាស់ ដើម្បីការពារគេផ្ញើកូដមេរោគមកកាន់ Server។'
     ],
-    syntax: 'Controller::index() -> return view("home");',
-    lab: 'Sketch the folder structure for a simple MVC application.',
-    result: 'A clear hierarchy with app/, public/, and view/ folders.',
-    filename: 'mvc_concept.md',
-    code: `/controllers/
-  UserController.php
-/models/
-  User.php
-/views/
-  profile.php
-index.php (Router)`,
+    syntax: 'move_uploaded_file($tmp, $destination);',
+    lab: 'ពន្យល់ពីសារៈសំខាន់នៃ $_FILES array ក្នុងដំណើរការ Upload រូបភាព។',
+    result: 'យល់ដឹងពីរបៀបគ្រប់គ្រង និងរក្សាទុកឯកសារបានយ៉ាងត្រឹមត្រូវ។',
+    icon: HardDrive,
+    code: `<?php
+if ($_FILES["profile"]["error"] == UPLOAD_ERR_OK) {
+    $tmp_name = $_FILES["profile"]["tmp_name"];
+    $name = basename($_FILES["profile"]["name"]);
+    move_uploaded_file($tmp_name, "uploads/$name");
+    echo "File uploaded successfully!";
+}
+?>`,
+    terminalOutput: "File uploaded successfully!",
+  },
+
+  /* ── PHASE 8: OOP IN PHP (Week 8–9) ── */
+  {
+    chapter: 'oop', id: 'PH8-S1', tag: 'Week 8', tagColor: '#a855f7',
+    title: 'Classes & Objects', subtitle: 'ស្ថាបត្យកម្មទំនើប', accent: '#a855f7',
+    bg: 'radial-gradient(ellipse at 10% 20%, rgba(168,85,247,0.15) 0%, transparent 55%)',
+    content: [
+      'Class៖ ប្រៀបដូចជាប្លង់មេ (Blueprint) សម្រាប់បង្កើត Object (ឧទាហរណ៍៖ Class "User")។',
+      'Object៖ ជាតំណាងជាក់ស្តែងនៃ Class នោះ (ឧទាហរណ៍៖ $user1 = new User())។',
+      'Properties៖ គឺជា Variable ដែលមាននៅក្នុង Class សម្រាប់រក្សាទិន្នន័យ។',
+      'Methods៖ គឺជា Function ដែលមាននៅក្នុង Class សម្រាប់ធ្វើសកម្មភាពផ្សេងៗ។'
+    ],
+    syntax: 'class User { public $name; }',
+    lab: 'បង្កើត Class ឈ្មោះ "Car" មួយដែលមាន Property ឈ្មោះ "brand" និង "model"។',
+    result: 'អ្នកអាចបង្កើត Object ជាច្រើនដែលចេញពី Class តែមួយ ប៉ុន្តែមានតម្លៃផ្សេងគ្នា។',
+    filename: 'oop.php',
+    code: `<?php
+class User {
+    public $name;
+
+    public function __construct($n) {
+        $this->name = $n;
+    }
+
+    public function introduce() {
+        return "Hi, I am " . $this->name;
+    }
+}
+
+$user = new User("Ratha");
+echo $user->introduce();
+?>`,
+    icon: Code2,
+    terminalOutput: "Hi, I am Ratha",
+  },
+
+  /* ── PHASE 9: SECURITY BASICS (Week 9–10) ── */
+  {
+    chapter: 'security', id: 'PH9-S1', tag: 'Week 9', tagColor: '#ec4899',
+    title: 'SQL Injection', subtitle: 'ការគំរាមកំហែងទូទៅ', accent: '#ec4899',
+    bg: 'radial-gradient(ellipse at 10% 20%, rgba(236,72,153,0.15) 0%, transparent 55%)',
+    content: [
+      'The Attack៖ ការលួចបញ្ចូលបញ្ជា SQL មិនល្អ តាមរយៈការវាយអត្ថបទក្នុងប្រអប់បញ្ចូលទិន្នន័យ។',
+      'គ្រោះថ្នាក់៖ អាចធ្វើឱ្យអ្នកលួច (Hacker) ឆ្លងកាត់ការ Login ឬលុបទិន្នន័យក្នុង DB ទាំងអស់បាន។',
+      'ដំណោះស្រាយ៖ ហាមភ្ជាប់កូដ SQL ជាមួយ Variable ផ្ទាល់ ត្រូវតែប្រើ Prepared Statements។',
+      'បច្ចេកទេសការពារ៖ ប្រើប្រព័ន្ធ PDO ដើម្បីបំបែកកូដ SQL និងទិន្នន័យឱ្យដាច់ពីគ្នា។'
+    ],
+    syntax: '$stmt->execute([$unsafe_variable]);',
+    lab: 'សាកល្បងពន្យល់ពីភាពខុសគ្នារវាងការសរសេរ SQL បញ្ចូលគ្នាផ្ទាល់ និងការប្រើ PDO Prepare។',
+    result: 'យល់ដឹងពីរបៀបការពារទិន្នន័យពីការប៉ុនប៉ង Hack ពីខាងក្រៅ។',
+    icon: ShieldAlert,
+    code: `<?php
+// Secure way (Prepared Statements)
+$stmt = $pdo->prepare("SELECT * FROM products WHERE category = ?");
+$stmt->execute([$category]);
+
+// DANGEROUS way (Concatenation)
+// $sql = "SELECT * FROM users WHERE id = " . $unsafe_id;
+?>`,
+    terminalOutput: "Data fetched securely.",
+  },
+  /* ── PHASE 10: FINAL PROJECT (Week 10–12) ── */
+  {
+    chapter: 'project', id: 'PH10-S1', tag: 'Week 10', tagColor: '#14b8a6',
+    title: 'រចនាសម្ព័ន្ធ Folder', subtitle: 'ដំណាក់កាលកសាង (Build)', accent: '#14b8a6',
+    bg: 'radial-gradient(ellipse at center, rgba(20,184,166,0.08) 0%, transparent 70%)',
+    content: [
+      'ការរៀបចំ Folder៖ បង្កើតរចនាសម្ព័ន្ធឱ្យមានរបៀបរៀបរយដូចជា (public/, src/, vendor/)។',
+      'Entry Point： ការដឹកនាំរាល់ Request ទាំងអស់ឱ្យមកឆ្លងកាត់ index.php តែមួយគត់។',
+      'Database Schema៖ ការបង្កើតតារាង និងទំនាក់ទំនង (Relationship) ឱ្យបានត្រឹមត្រូវសម្រាប់ Project។',
+      'គោលដៅ៖ រួមបញ្ចូលរាល់មេរៀនដែលបានរៀនទាំងអស់ ឱ្យក្លាយទៅជាវេបសាយពិតប្រាកដមួយ។'
+    ],
+    syntax: 'index.php -> controllers/PostController.php',
+    lab: 'សាកល្បងគូររចនាសម្ព័ន្ធ Folder សម្រាប់ Project ចុងក្រោយរបស់អ្នក។',
+    result: 'ទទួលបានរចនាសម្ព័ន្ធ File ដែលមានរបៀបរៀបរយតាមស្តង់ដារ។',
     icon: Layout,
+    code: `# Project Root
+/public
+  index.php
+/src
+  /Controllers
+  /Models
+/vendor
+/composer.json`,
   },
   {
-    chapter: 'mvc', id: 'P11-S2', tag: 'Week 11', tagColor: '#f97316',
-    title: 'The Modern Router', subtitle: 'Clean Friendly URLs', accent: '#f97316',
-    bg: 'radial-gradient(ellipse at 80% 30%, rgba(249,115,22,0.06) 0%, transparent 60%)',
-    content: [
-      'Front Controller: All requests (e.g., /about, /contact) are sent to a single index.php file.',
-      'URL Parsing: Using parse_url() and $_SERVER["REQUEST_URI"] to determine what the user wants.',
-      'Dispatching: Calling a specific function or class based on the URL path.',
-      '.htaccess: Use Apache/Nginx rules to hide the "index.php" from your clean URLs.'
-    ],
-    syntax: '$router->get("/profile", "ProfileController@show");',
-    lab: 'Create a simple router that echoes "Homepage" for / and "About" for /about.',
-    result: 'The script properly identifies the path and echoes the correct page title.',
-    filename: 'router.php',
-    code: `<?php
-$path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-$route = match ($path) {
-    '/' => 'home',
-    '/contact' => 'contact',
-    default => '404'
-};
-echo "Routing to: " . $route;`,
-    icon: Globe2,
-    terminalOutput: "Routing to: home",
-  },
-  {
-    chapter: 'mvc', id: 'P11-S3', tag: 'Week 11', tagColor: '#f97316',
-    title: 'Templating Engines', subtitle: 'Clean Views', accent: '#f97316',
-    bg: 'radial-gradient(ellipse at center, rgba(249,115,22,0.08) 0%, transparent 70%)',
-    content: [
-      'PHP as Templates: Use the alternative syntax (if: ... endif;) for cleaner HTML files.',
-      'Partials: Include common components like header.php and footer.php to avoid duplicates.',
-      'Escaping: Every variable printed in a view should be wrapped in htmlspecialchars().',
-      'Modern Engines: Introduction to advanced engines like Blade (Laravel) or Twig.'
-    ],
-    syntax: '<?php if($user): ?> <h1>Hi</h1> <?php endif; ?>',
-    lab: 'Refactor a messy PHP file into a clean layout with included header and footer partials.',
-    result: ' कोड much cleaner and more modular.',
-    filename: 'view_logic.php',
-    code: `<?php
-// Layout Partial Simulation
-include "header.php"; // <nav>...
-echo "<main>Hello from the Page Content</main>";
-include "footer.php"; // <footer>...`,
-    icon: Box,
-    terminalOutput: "Layout Rendered Successfully",
-  },
-
-  /* ── CHAPTER 12: PROJECT LAB ── */
-  {
-    chapter: 'project', id: 'P12-S1', tag: 'Week 12', tagColor: '#10b981',
-    title: 'System Design', subtitle: 'Database Planning', accent: '#10b981',
+    chapter: 'project', id: 'PH10-S2', tag: 'Week 12', tagColor: '#14b8a6',
+    title: 'ការដាក់ឱ្យប្រើប្រាស់ (Deployment)', subtitle: 'ការបង្ហោះវេបសាយ (Going Live)', accent: '#14b8a6',
     bg: 'radial-gradient(ellipse at center, rgba(16,185,129,0.08) 0%, transparent 70%)',
     content: [
-      'Entity Relations: Identify your tables (Users, Posts, Comments) and how they connect.',
-      'Schema Types: Choose correct data types (VARCHAR for names, TEXT for bios, INT for counts).',
-      'Primary/Foreign Keys: Essential for linking records between tables securely.',
-      'Normalization: Organize data to minimize redundancy and protect data integrity.'
-    ],
-    syntax: 'User (1) <---> (*) Posts (1) <---> (*) Comments',
-    lab: 'Draw a schema diagram for a simple Blog. List every column for the "Users" table.',
-    result: 'A complete blueprint for the project database.',
-    filename: 'schema.sql',
-    code: `CREATE TABLE users (
-  id INT AUTO_INCREMENT PRIMARY KEY,
-  username VARCHAR(50) NOT NULL UNIQUE,
-  email VARCHAR(100) NOT NULL,
-  password VARCHAR(255) NOT NULL,
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);`,
-    icon: Database,
-  },
-  {
-    chapter: 'project', id: 'P12-S2', tag: 'Week 12', tagColor: '#10b981',
-    title: 'Feature Implementation', subtitle: 'Authentication & CRUD', accent: '#10b981',
-    bg: 'radial-gradient(ellipse at 20% 80%, rgba(16,185,129,0.06) 0%, transparent 60%)',
-    content: [
-      'Registration: Securely hash passwords and insert users into the database.',
-      'Session Login: Set up a secure login flow with error handling for invalid credentials.',
-      'CRUD Flow: Build the logic to create, read, update, and delete blog posts.',
-      'Middleware: Protect the dashboard so only logged-in users can add content.'
-    ],
-    syntax: 'Login -> Dashboard -> Create Post -> View Post',
-    lab: 'Implement a "Delete" button for posts that only shows for the post owner.',
-    result: 'Functional security gate in the project UI.',
-    filename: 'dashboard.php',
-    code: `<?php
-// Simplified Dashboard logic
-if ($user_id === $post_owner_id) {
-    echo "<button>Delete Post</button>";
-}`,
-    icon: ShieldCheck,
-  },
-  {
-    chapter: 'project', id: 'P12-S3', tag: 'Week 12', tagColor: '#10b981',
-    title: 'Final Deployment', subtitle: 'Polishing & Launch', accent: '#10b981',
-    bg: 'radial-gradient(ellipse at center, rgba(16,185,129,0.08) 0%, transparent 70%)',
-    content: [
-      'Error Cleaning: Disable display_errors in production to hide sensitive server info.',
-      'Validation Review: Run a final security audit on all form inputs and SQL queries.',
-      'Environment Sync: Upload your code and migrate your local database to the live server.',
-      'Performance: Optimize images, minify CSS, and enable PHP OPcache for max speed.'
+      'Error Logs៖ ត្រូវបិទ display_errors ក្នុងផលិតកម្ម (Production) ដើម្បីកុំឱ្យគេមើលឃើញព័ត៌មាន Server។',
+      'Security Audit៖ ពិនិត្យឡើងវិញនូវរាល់កន្លែងទទួលទិន្នន័យពី User និងកូដ SQL ឱ្យមានសុវត្ថិភាពបំផុត។',
+      'Live Server៖ បង្ហោះកូដ (Upload) និងផ្ទេរទិន្នន័យ (Migration) ទៅកាន់ Server ពិតប្រាកដ។',
+      'Optimization៖ បង្រួមរូបភាព និង CSS ឱ្យតូចដើម្បីឱ្យវេបសាយដើរបានលឿនបំផុត។'
     ],
     syntax: 'git push production main',
-    lab: 'Simulate a final site check. If "prod" environment is active, hide PHP notices.',
-    result: 'Professional, secure launch environment.',
+    lab: 'ឆែកមើលទំព័រចុងក្រោយ បើក្នុងផលិតកម្ម (Production) ត្រូវប្រាកដថាគ្មាន Error ណាមួយបង្ហាញមកក្រៅ។',
+    result: 'វេបសាយរបស់អ្នកដើរបានយ៉ាងរលូន និងមានសុវត្ថិភាពខ្ពស់។',
     filename: 'launch.php',
     code: `<?php
 define("ENVIRONMENT", "production");
@@ -1017,7 +695,7 @@ const CodePanel = ({
                 tab === t ? 'bg-white/10 text-white' : 'text-zinc-500 hover:text-zinc-300'
               }`}>
               {t === 'code' ? <Code2 className="w-3 h-3" /> : <Terminal className="w-3 h-3" />}
-              {t}
+              {t === 'code' ? 'កូដ' : 'Terminal'}
             </button>
           ))}
         </div>
@@ -1033,7 +711,7 @@ const CodePanel = ({
               running ? 'bg-zinc-800 text-zinc-500' : 'bg-emerald-500/10 text-emerald-400 hover:bg-emerald-500/20'
             }`}>
             <Play className={`w-3 h-3 ${running ? 'animate-pulse' : ''}`} />
-            {running ? 'Running...' : 'Run'}
+            {running ? 'កំពុងដំណើរការ...' : 'ដំណើរការ'}
           </button>
           <button onClick={() => { setCode(initialCode); setOutput(initialOutput); }}
             className="p-1.5 rounded-lg text-zinc-600 hover:text-zinc-300 hover:bg-white/5 transition-all">
@@ -1043,7 +721,7 @@ const CodePanel = ({
             className={`flex items-center gap-1.5 px-3 py-1 rounded-lg text-[10px] font-black uppercase tracking-widest border transition-all ${
               copied ? 'bg-emerald-500/10 border-emerald-500/20 text-emerald-400' : 'bg-white/5 border-white/10 text-zinc-400 hover:text-white'
             }`}>
-            {copied ? <><Check className="w-3 h-3" />Copied</> : <><Copy className="w-3 h-3" />Copy</>}
+            {copied ? <><Check className="w-3 h-3" />ចម្លងរួច</> : <><Copy className="w-3 h-3" />ចម្លង</>}
           </button>
         </div>
       </div>
@@ -1101,7 +779,7 @@ const CodePanel = ({
             ) : output ? (
               <div className="space-y-4">
                 <div className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-emerald-400/50">
-                  <CheckCircle2 className="w-3 h-3" /> Execution Success
+                  <CheckCircle2 className="w-3 h-3" /> ដំណើរការជោគជ័យ
                 </div>
                 <pre className="text-zinc-200 indent-2 whitespace-pre-wrap font-bold">{output}</pre>
               </div>
@@ -1328,15 +1006,15 @@ export default function PHPLessonContent() {
               <div className="flex-none p-6 sm:px-12 sm:py-8 bg-black/20 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-4">
                 <div className="flex items-center gap-5">
                    <div className="px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-[10px] font-black uppercase tracking-[0.25em] text-zinc-400">
-                      Module Navigation
+                      ការរុករកវគ្គសិក្សា
                    </div>
                    <div className="hidden lg:flex items-center gap-2 text-zinc-600 text-[10px] font-bold">
                       <span className="w-1 h-1 rounded-full bg-zinc-700" />
-                      Select a chapter to jump directly to those slides
+                      ជ្រើសរើសមេរៀនដើម្បីទៅកាន់ស្លាយទាំងនោះដោយផ្ទាល់
                    </div>
                 </div>
                 <div className="text-[9px] sm:text-[10px] font-mono text-zinc-500 bg-white/5 px-3 py-1 rounded-lg border border-white/5">
-                   FULLSTACK ACADEMY • PHP FUNDAMENTALS
+                   FULLSTACK ACADEMY • មូលដ្ឋានគ្រឹះ PHP
                 </div>
               </div>
             </motion.div>
@@ -1385,14 +1063,14 @@ export default function PHPLessonContent() {
               <div className="rounded-xl border p-4 flex gap-3" style={{ background: `${slide.accent}08`, borderColor: `${slide.accent}25` }}>
                 <Play className="w-4 h-4 flex-none mt-0.5" style={{ color: slide.accent }} />
                 <div>
-                  <p className="text-[10px] font-black uppercase tracking-[0.2em] mb-1.5" style={{ color: slide.accent }}>Lab Exercise</p>
+                  <p className="text-[10px] font-black uppercase tracking-[0.2em] mb-1.5" style={{ color: slide.accent }}>លំហាត់អនុវត្ត</p>
                   <p className="text-sm text-white font-semibold leading-relaxed">{slide.lab}</p>
                 </div>
               </div>
               <div className="rounded-xl border border-emerald-500/15 bg-emerald-500/5 p-4 flex gap-3">
                 <Check className="w-4 h-4 flex-none mt-0.5 text-emerald-400" />
                 <div>
-                  <p className="text-[10px] font-black uppercase tracking-[0.2em] mb-1.5 text-emerald-400">Expected Result</p>
+                  <p className="text-[10px] font-black uppercase tracking-[0.2em] mb-1.5 text-emerald-400">លទ្ធផលរំពឹងទុក</p>
                   <p className="text-sm text-white font-semibold leading-relaxed">{slide.result}</p>
                 </div>
               </div>
@@ -1404,7 +1082,7 @@ export default function PHPLessonContent() {
               </button>
               <button onClick={next} className="flex-1 py-3 px-5 rounded-xl font-black text-xs transition-all flex items-center justify-center gap-2 shadow-lg"
                 style={{ background: slide.accent, color: '#000' }}>
-                {current === displaySlides.length - 1 ? 'Restart Chapter' : 'Next Slide'}
+                {current === displaySlides.length - 1 ? 'ចាប់ផ្តើមវគ្គនេះឡើងវិញ' : 'ស្លាយបន្ទាប់'}
                 <ChevronRight className="w-4 h-4" />
               </button>
               <button onClick={() => setShowNotes(!showNotes)}
@@ -1421,7 +1099,7 @@ export default function PHPLessonContent() {
           <div className="flex items-center gap-2 flex-none">
             <div className="flex items-center gap-2 px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest border border-white/8 bg-white/5"
               style={{ color: slide.accent }}>
-              <Terminal className="w-3.5 h-3.5" /> Code Sandbox
+              <Terminal className="w-3.5 h-3.5" /> កន្លែងសាកល្បងកូដ
             </div>
             <div className="px-3 py-1.5 rounded-lg bg-black/40 border border-white/5 font-mono text-[10px] text-zinc-500">
               {slide.filename || 'sandbox.php'}
@@ -1444,11 +1122,11 @@ export default function PHPLessonContent() {
             transition={{ type: 'spring', damping: 28 }}
             className="fixed inset-y-0 right-0 w-80 bg-[#12151e] border-l border-white/8 z-[100] p-6 flex flex-col pt-24 shadow-2xl">
             <div className="flex items-center justify-between mb-6">
-              <h3 className="text-sm font-black uppercase tracking-widest text-amber-400">Lesson Notes</h3>
+              <h3 className="text-sm font-black uppercase tracking-widest text-amber-400">កំណត់ចំណាំមេរៀន</h3>
               <button onClick={() => setShowNotes(false)} className="text-zinc-600 hover:text-white"><List className="w-5 h-5" /></button>
             </div>
             <textarea autoFocus value={notes[slide.id] || ''} onChange={e => saveNote(e.target.value)}
-              placeholder="Jot down key takeaways..."
+              placeholder="កត់ត្រានូវអ្វីដែលអ្នកបានរៀន..."
               className="flex-1 w-full bg-black/40 rounded-xl p-4 text-sm text-zinc-300 resize-none outline-none border border-white/5 focus:border-amber-500/30 font-mono" />
           </motion.div>
         )}
