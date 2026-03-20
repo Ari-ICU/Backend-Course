@@ -1,6 +1,7 @@
 'use client';
 
-import React, { useState, useEffect, useMemo, useCallback, useRef } from 'react';
+import * as React from 'react';
+import { useState, useEffect, useMemo, useCallback, useRef } from 'react';
 import { 
   ChevronLeft, ChevronRight, Menu, X, BookOpen, 
   Code2, Sparkles, Terminal, Copy, CheckCircle2, 
