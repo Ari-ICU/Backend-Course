@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useCallback, useRef } from 'react';
+import React, { useState, useEffect, useCallback, useRef, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useSearchParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
@@ -11,7 +11,7 @@ import {
   GitBranch, Star, Trophy, ShoppingCart, Key, Fingerprint,
   List, RefreshCw, Send, Search, Activity, StickyNote, Play,
   Box, HardDrive, Layout, Edit3, Sparkles, Clock, Palette,
-  Menu, X, ChevronDown, ArrowLeft,
+  Menu, X, ChevronDown, ArrowLeft, CheckCircle2
 } from 'lucide-react';
 
 /* ─── TYPES ──────────────────────────────────────────────────────── */
@@ -31,6 +31,10 @@ interface Slide {
   terminal?: string;
   terminalOutput?: string;
   icon: React.ElementType;
+}
+
+interface DisplayPage extends Slide {
+  subType: 'concept' | 'lab';
 }
 
 /* ─── CHAPTERS ───────────────────────────────────────────────────── */
@@ -1652,18 +1656,93 @@ const CodePanel = ({
   );
 };
 
+const DeploymentAnimation = () => {
+  return (
+    <div className="h-full flex flex-col items-center justify-center bg-[#07090f] rounded-3xl border border-white/5 overflow-hidden relative group">
+      <div className="absolute inset-0 bg-gradient-to-t from-purple-500/10 to-transparent pointer-events-none" />
+      
+      {/* Animated Rings */}
+      <div className="relative mb-12">
+        <motion.div animate={{ rotate: 360 }} transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
+          className="w-48 h-48 rounded-full border border-dashed border-purple-500/30 flex items-center justify-center">
+          <motion.div animate={{ rotate: -360 }} transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+            className="w-32 h-32 rounded-full border border-dashed border-blue-500/30 flex items-center justify-center">
+            <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-purple-500 to-blue-500 flex items-center justify-center shadow-[0_0_30px_rgba(168,85,247,0.5)]">
+              <Rocket className="w-8 h-8 text-white" />
+            </div>
+          </motion.div>
+        </motion.div>
+        
+        {/* Orbiting particles */}
+        {[...Array(3)].map((_, i) => (
+          <motion.div key={i}
+            animate={{ rotate: 360 }}
+            transition={{ duration: 5 + i * 2, repeat: Infinity, ease: "linear" }}
+            className="absolute inset-0 pointer-events-none"
+          >
+            <div className="w-2 h-2 rounded-full bg-white shadow-lg shadow-white/50" 
+              style={{ marginLeft: '100%', marginTop: '50%' }} />
+          </motion.div>
+        ))}
+      </div>
+
+      <div className="text-center z-10 px-8">
+        <h3 className="text-3xl font-black text-white mb-3 tracking-tight">ការដាក់ឱ្យប្រើប្រាស់បានជោគជ័យ!</h3>
+        <p className="text-zinc-400 max-w-sm mb-8 font-medium">
+          អបអរសាទរ! គម្រោង Nebula E-commerce របស់អ្នកឥឡូវនេះបានផ្សាយបន្តផ្ទាល់ហើយ។
+        </p>
+
+        <div className="grid grid-cols-2 gap-4 max-w-md mx-auto">
+          {[
+            { label: 'STATUS', val: 'PRODUCTION', color: 'emerald' },
+            { label: 'REGION', val: 'GLOBAL CONTENT', color: 'blue' },
+            { label: 'LATENCY', val: '12ms', color: 'purple' },
+            { label: 'VITALITY', val: '99.9%', color: 'amber' },
+          ].map((stat, i) => (
+            <div key={i} className="bg-white/5 border border-white/10 rounded-xl p-3 text-left">
+              <p className="text-[8px] font-black text-zinc-500 uppercase tracking-widest mb-1">{stat.label}</p>
+              <p className={`text-xs font-bold text-${stat.color}-400`}>{stat.val}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Terminal lookalike footer */}
+      <div className="absolute bottom-0 inset-x-0 h-16 bg-black/40 border-t border-white/5 flex items-center px-8 font-mono text-[10px] text-zinc-500">
+        <span className="text-emerald-500 mr-2">●</span> DEPLOYMENT PIPELINE COMPLETE: REPOSITORY SYNCED TO PRODUCTION.
+      </div>
+    </div>
+  );
+};
+
 /* ─── MAIN COMPONENT ─────────────────────────────────────────────── */
 export default function LaravelSlide() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const chapterParam = searchParams.get('chapter') || 'setup';
 
-  // ISOLATE SLIDES: Only show slides for the active chapter (2-5 slides)
-  const activeSlides = slides.filter(s => s.chapter === chapterParam);
-  const displaySlides = activeSlides.length > 0 ? activeSlides : slides.filter(s => s.chapter === 'setup');
+  // 1. Filter slides by chapter
+  const activeSlides = useMemo(() => 
+    slides.filter(s => s.chapter === chapterParam),
+    [chapterParam]
+  );
+
+  // 2. Expand into DisplayPages (Concept + Lab for each)
+  const displayPages = useMemo(() => {
+    const pages: DisplayPage[] = [];
+    activeSlides.forEach(s => {
+      pages.push({ ...s, subType: 'concept' });
+      pages.push({ ...s, subType: 'lab' });
+    });
+    return pages.length > 0 ? pages : [{ ...slides[0], subType: 'concept' } as DisplayPage];
+  }, [activeSlides]);
 
   const slideParam = searchParams.get('slide');
-  const initialSlide = slideParam ? Math.max(0, Math.min(parseInt(slideParam) - 1, displaySlides.length - 1)) : 0;
+  const initialSlide = useMemo(() => {
+    if (!slideParam) return 0;
+    const val = parseInt(slideParam) - 1;
+    return Math.max(0, Math.min(val, displayPages.length - 1));
+  }, [slideParam, displayPages.length]);
 
   const [current, setCurrent] = useState(initialSlide);
   const [isAnimating, setIsAnimating] = useState(false);
@@ -1672,9 +1751,9 @@ export default function LaravelSlide() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [notes, setNotes] = useState<Record<string, string>>({});
 
-  const slide = displaySlides[current];
+  const slide = displayPages[current];
   const Icon = slide.icon;
-  const progress = ((current + 1) / displaySlides.length) * 100;
+  const progress = ((current + 1) / displayPages.length) * 100;
   const chapterInfo = CHAPTERS.find(c => c.id === slide.chapter)!;
 
   useEffect(() => {
@@ -1712,8 +1791,8 @@ export default function LaravelSlide() {
     setTimeout(() => { setCurrent(idx); setIsAnimating(false); }, 280);
   }, [isAnimating]);
 
-  const next = () => goTo((current + 1) % displaySlides.length, 1);
-  const prev = () => goTo((current - 1 + displaySlides.length) % displaySlides.length, -1);
+  const next = () => goTo((current + 1) % displayPages.length, 1);
+  const prev = () => goTo((current - 1 + displayPages.length) % displayPages.length, -1);
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -1752,8 +1831,9 @@ export default function LaravelSlide() {
         style={{ background: 'radial-gradient(ellipse at 50% 100%, rgba(168,85,247,0.04) 0%, transparent 60%)' }} />
 
       {/* ── CHAPTER NAV BAR (NEW VERSION) ── */}
-      <div className="relative z-[60] flex items-center justify-between px-4 sm:px-6 py-4 border-b border-white/5 bg-black/60 backdrop-blur-2xl custom-header">
-        <div className="flex items-center gap-2 sm:gap-4">
+      <div className="relative z-[60] border-b border-white/5 bg-black/60 backdrop-blur-2xl custom-header">
+        <div className="max-w-[1800px] mx-auto w-full flex items-center justify-between px-6 lg:px-14 py-4">
+          <div className="flex items-center gap-2 sm:gap-4">
           <Link href="/courses/backend" 
             className="group flex items-center gap-3 px-3 sm:px-4 h-12 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 hover:border-white/20 transition-all active:scale-95 shadow-xl">
             <ArrowLeft className="w-4 h-4 text-zinc-500 group-hover:text-white transition-colors" />
@@ -1807,7 +1887,7 @@ export default function LaravelSlide() {
                <span className="text-sm font-mono text-zinc-500 flex items-center gap-1 leading-none">
                  <span className="text-white font-bold">{current + 1}</span>
                  <span className="text-zinc-800">/</span>
-                 <span>{displaySlides.length}</span>
+                 <span>{displayPages.length}</span>
                </span>
             </div>
             <button onClick={next} className="w-10 h-10 rounded-xl bg-white/5 text-zinc-400 hover:text-white hover:bg-white/10 transition-all active:scale-90 border border-white/5 flex items-center justify-center">
@@ -1816,6 +1896,7 @@ export default function LaravelSlide() {
           </div>
         </div>
       </div>
+    </div>
 
       {/* ── CHAPTER OVERLAY MENU (FULLY RESPONSIVE) ── */}
       <AnimatePresence mode="wait">
@@ -1906,98 +1987,114 @@ export default function LaravelSlide() {
       </AnimatePresence>
 
       {/* ── MAIN LAYOUT ── */}
-      <main className="relative z-10 flex-1 flex flex-col lg:flex-row overflow-hidden">
+      <main className="relative z-10 flex-1 flex flex-col lg:flex-row overflow-hidden max-w-[1800px] mx-auto w-full">
 
         {/* LEFT — Concept cards */}
         <AnimatePresence mode="wait" custom={dir}>
           <motion.div key={`left-${current}`} custom={dir} variants={variants}
             initial="enter" animate="center" exit="exit"
             transition={{ duration: 0.28, ease: [0.32, 0.72, 0, 1] }}
-            className="flex-none lg:w-[45%] flex flex-col p-6 lg:p-10 xl:p-14 lg:border-r border-white/6 overflow-y-auto gap-6">
+            className="flex-none lg:w-[45%] flex flex-col p-8 lg:p-14 xl:p-20 lg:border-r border-white/6 overflow-y-auto gap-8">
 
             {/* Title block */}
-            <div className="flex items-start gap-4">
-              <div className="w-12 h-12 rounded-2xl flex items-center justify-center flex-none border border-white/10"
-                style={{ background: `${slide.accent}18` }}>
-                <Icon className="w-6 h-6" style={{ color: slide.accent }} />
+            <div className="flex items-center gap-6 mb-4">
+              <div className="w-16 h-16 rounded-[1.25rem] flex items-center justify-center flex-none border border-white/10 shadow-2xl"
+                style={{ background: `${slide.accent}15` }}>
+                <Icon className="w-8 h-8" style={{ color: slide.accent }} />
               </div>
-              <div>
-                <div className="flex items-center gap-2 mb-1">
-                  <span className="text-[9px] font-black uppercase tracking-[0.25em] px-2 py-0.5 rounded-full border"
-                    style={{ color: chapterInfo.color, borderColor: `${chapterInfo.color}40`, background: `${chapterInfo.color}12` }}>
+              <div className="flex flex-col gap-1">
+                <div className="flex items-center gap-3">
+                  <span className="text-[10px] font-black uppercase tracking-[0.25em] px-2.5 py-1 rounded-lg border shadow-sm"
+                    style={{ color: chapterInfo.color, borderColor: `${chapterInfo.color}30`, background: `${chapterInfo.color}10` }}>
                     {chapterInfo.label}
                   </span>
-                  <span className="text-[9px] font-mono text-zinc-700">{slide.id}</span>
+                  <span className="text-[10px] font-mono font-bold text-zinc-600 tracking-tighter">{slide.id}</span>
                 </div>
-                <h1 className="text-3xl xl:text-4xl font-black leading-tight text-white tracking-tighter">
+                <h1 className="text-4xl xl:text-5xl font-black leading-none text-white tracking-tight">
                   {slide.title}
                 </h1>
-                <p className="text-sm text-white/40 font-bold uppercase tracking-widest mt-1">{slide.subtitle}</p>
+                <p className="text-[12px] text-white/30 font-black uppercase tracking-[0.3em] mt-1">{slide.subtitle}</p>
               </div>
             </div>
 
-            {/* Concept cards grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              {slide.concepts.map((c, i) => (
-                <motion.div key={i}
-                  initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.06 + i * 0.06 }}
-                  className="rounded-xl border p-4 flex flex-col gap-1.5"
-                  style={{ borderColor: `${slide.accent}20`, background: `${slide.accent}06` }}>
-                  <span className="text-xs font-black uppercase tracking-widest" style={{ color: slide.accent }}>
-                    {c.label}
-                  </span>
-                  <p className="text-sm text-zinc-300 leading-relaxed">{c.desc}</p>
-                </motion.div>
-              ))}
-            </div>
-
-            {/* Pro tip */}
-            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.35 }}
-              className="rounded-xl border border-amber-500/15 bg-amber-500/5 p-4 flex gap-3">
-              <Sparkles className="w-4 h-4 text-amber-400 flex-none mt-0.5" />
-              <p className="text-sm text-amber-200/80 leading-relaxed"><span className="font-black text-amber-400">គន្លឹះពិសេស: </span>{slide.tip}</p>
-            </motion.div>
-
-            {/* Lab + Result */}
-            <div className="space-y-3">
-              <motion.div initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.42 }}
-                className="rounded-xl border p-4 flex gap-3"
-                style={{ background: `${slide.accent}08`, borderColor: `${slide.accent}25` }}>
-                <Play className="w-4 h-4 flex-none mt-0.5" style={{ color: slide.accent }} />
-                <div>
-                  <p className="text-[10px] font-black uppercase tracking-[0.2em] mb-1.5" style={{ color: slide.accent }}>ការអនុវត្តជាក់ស្តែង (Lab Exercise)</p>
-                  <p className="text-sm text-white font-semibold leading-relaxed">{slide.lab}</p>
+            {/* Content for Concept View */}
+            {slide.subType === 'concept' ? (
+              <div className="flex flex-col gap-8">
+                <div className="grid grid-cols-1 gap-4">
+                  {slide.concepts.map((c, i) => (
+                    <motion.div key={i}
+                      initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.1 + i * 0.08 }}
+                      className="rounded-2xl border p-8 flex flex-col gap-4 group hover:bg-white/[0.02] transition-all hover:shadow-2xl"
+                      style={{ borderColor: `${slide.accent}20`, background: `${slide.accent}05` }}>
+                      <span className="text-[12px] font-black uppercase tracking-[0.2em] opacity-80" style={{ color: slide.accent }}>
+                        {c.label}
+                      </span>
+                      <p className="text-xl text-zinc-300 leading-relaxed font-medium">{c.desc}</p>
+                    </motion.div>
+                  ))}
                 </div>
-              </motion.div>
-              <motion.div initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5 }}
-                className="rounded-xl border border-emerald-500/15 bg-emerald-500/5 p-4 flex gap-3">
-                <Check className="w-4 h-4 flex-none mt-0.5 text-emerald-400" />
-                <div>
-                  <p className="text-[10px] font-black uppercase tracking-[0.2em] mb-1.5 text-emerald-400">លទ្ធផលរំពឹងទុក (Expected Result)</p>
-                  <p className="text-sm text-white font-semibold leading-relaxed">{slide.result}</p>
+              </div>
+            ) : (
+              <div className="flex flex-col gap-6">
+                {/* Lab + Result in Practice View */}
+                <div className="space-y-4">
+                  <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}
+                    className="rounded-2xl border p-6 flex gap-4 shadow-sm"
+                    style={{ background: `${slide.accent}08`, borderColor: `${slide.accent}20` }}>
+                    <div className="w-10 h-10 rounded-xl flex items-center justify-center flex-none border" 
+                      style={{ background: `${slide.accent}15`, borderColor: `${slide.accent}25` }}>
+                      <Play className="w-5 h-5" style={{ color: slide.accent }} />
+                    </div>
+                    <div>
+                      <p className="text-[10px] font-black uppercase tracking-[0.25em] mb-2 opacity-70" style={{ color: slide.accent }}>គោលបំណង (OBJECTIVE)</p>
+                      <p className="text-[18px] text-white font-bold leading-relaxed">{slide.lab}</p>
+                    </div>
+                  </motion.div>
+
+                  <motion.div initial={{ opacity: 0, scale: 0.98 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.2 }}
+                    className="rounded-2xl border border-amber-500/20 bg-amber-500/5 p-6 flex gap-4 shadow-inner">
+                    <div className="w-10 h-10 rounded-xl bg-amber-500/10 flex items-center justify-center flex-none border border-amber-500/20">
+                      <Sparkles className="w-5 h-5 text-amber-400" />
+                    </div>
+                    <div className="flex flex-col gap-1">
+                      <span className="text-[10px] font-black text-amber-500 uppercase tracking-widest">PRO INSIGHT</span>
+                      <p className="text-[15px] text-amber-200/90 leading-relaxed font-medium italic">« {slide.tip} »</p>
+                    </div>
+                  </motion.div>
+
+                  <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}
+                    className="rounded-2xl border border-emerald-500/20 bg-emerald-500/5 p-6 flex gap-4 shadow-sm">
+                    <div className="w-10 h-10 rounded-xl bg-emerald-500/10 flex items-center justify-center flex-none border border-emerald-500/20">
+                      <CheckCircle2 className="w-5 h-5 text-emerald-400" />
+                    </div>
+                    <div>
+                      <p className="text-[10px] font-black uppercase tracking-[0.25em] mb-2 text-emerald-400 opacity-70">លទ្ធផលរំពឹងទុក (EXPECTED RESULT)</p>
+                      <p className="text-[16px] text-white font-bold leading-relaxed">{slide.result}</p>
+                    </div>
+                  </motion.div>
                 </div>
-              </motion.div>
-            </div>
+              </div>
+            )}
 
             {/* Nav buttons */}
-            <div className="flex items-center gap-3 pt-2">
+            <div className="flex items-center gap-4 mt-8 pt-4 border-t border-white/5">
               <button onClick={prev}
-                className="p-3 rounded-xl bg-white/5 border border-white/8 hover:bg-white/10 active:scale-95 transition-all flex items-center gap-2 group">
-                <ChevronLeft className="w-4 h-4 group-hover:-translate-x-0.5 transition-transform" />
-                <span className="text-xs font-bold hidden sm:inline text-zinc-400">ថយក្រោយ</span>
+                className="w-14 h-14 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/10 active:scale-95 transition-all flex items-center justify-center group shadow-xl">
+                <ChevronLeft className="w-6 h-6 text-zinc-400 group-hover:text-white transition-colors" />
               </button>
               <button onClick={next}
-                className="flex-1 py-3 px-5 rounded-xl font-black text-xs active:scale-95 transition-all flex items-center justify-center gap-2 shadow-lg"
+                className="flex-1 h-14 rounded-2xl font-black text-[13px] uppercase tracking-[0.2em] active:scale-[0.98] transition-all flex items-center justify-center gap-3 shadow-[0_20px_40px_-10px_rgba(0,0,0,0.5)] group overflow-hidden relative"
                 style={{ background: slide.accent, color: '#000' }}>
-                {current === displaySlides.length - 1 ? 'ចាប់ផ្តើមឡើងវិញ' : 'បន្ទាប់'}
-                <ChevronRight className="w-4 h-4" />
+                <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300 pointer-events-none" />
+                <span className="relative z-10">{current === displayPages.length - 1 ? 'បញ្ចប់មេរៀន' : 'ស្លាយបន្ទាប់'}</span>
+                <ChevronRight className="w-5 h-5 relative z-10 group-hover:translate-x-1 transition-transform" />
               </button>
               <button onClick={() => setShowNotes(!showNotes)}
-                className={`p-3 rounded-xl border transition-all ${
-                  showNotes ? 'bg-amber-500/10 border-amber-500/30 text-amber-400' : 'bg-white/5 border-white/8 text-zinc-500 hover:text-white'
+                className={`w-14 h-14 rounded-2xl border transition-all shadow-xl flex items-center justify-center ${
+                  showNotes ? 'bg-amber-500/20 border-amber-500/40 text-amber-500' : 'bg-white/5 border-white/10 text-zinc-500 hover:text-white hover:border-white/20'
                 }`}>
-                <StickyNote className="w-4 h-4" />
+                <StickyNote className="w-6 h-6" />
               </button>
             </div>
           </motion.div>
@@ -2023,13 +2120,29 @@ export default function LaravelSlide() {
               exit={{ opacity: 0, scale: 0.99, y: -8 }}
               transition={{ duration: 0.28, ease: [0.32, 0.72, 0, 1] }}
               className="flex-1 overflow-hidden">
-              <CodePanel
-                code={slide.code}
-                terminal={slide.terminal}
-                terminalOutput={slide.terminalOutput}
-                accent={slide.accent}
-                filename={slide.filename}
-              />
+              
+              {slide.subType === 'lab' ? (
+                <CodePanel
+                  code={slide.code}
+                  terminal={slide.terminal}
+                  terminalOutput={slide.terminalOutput}
+                  accent={slide.accent}
+                  filename={slide.filename}
+                />
+              ) : (
+                <div className="h-full flex flex-col items-center justify-center text-center p-12 bg-white/[0.02] border border-white/5 rounded-3xl relative overflow-hidden group">
+                  <div className="absolute inset-0 bg-gradient-to-br from-transparent via-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+                  <div className="w-32 h-32 rounded-full flex items-center justify-center mb-8 relative"
+                    style={{ background: `${slide.accent}10` }}>
+                    <div className="absolute inset-0 rounded-full animate-ping opacity-20" style={{ background: slide.accent }} />
+                    <Icon className="w-16 h-16 relative z-10" style={{ color: slide.accent }} />
+                  </div>
+                  <h3 className="text-2xl font-black text-white mb-4 tracking-tight">សេចក្តីផ្តើមនៃគោលគំនិត</h3>
+                  <p className="text-zinc-500 max-w-sm leading-relaxed font-medium italic">
+                    « ស្វែងយល់អំពីមូលដ្ឋានគ្រឹះមុនពេលចាប់ផ្តើមការអនុវត្តន៍ជាក់ស្តែង កូដនឹងត្រូវបានបង្ហាញនៅស្លាយបន្ទាប់។ »
+                  </p>
+                </div>
+              )}
             </motion.div>
           </AnimatePresence>
         </div>
