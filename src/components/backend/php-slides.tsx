@@ -24,8 +24,8 @@ const GLOBAL_STYLE = (theme: 'dark' | 'light') => `
   @keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.7; transform: scale(1.02); } }
 `;
 
-const ACCENT="#e8ff47",GREEN="#4ade80",BLUE="#38bdf8";
-const PINK="#f472b6",ORANGE="#fb923c",PURPLE="#a78bfa",TEAL="#2dd4bf";
+const ACCENT = "#e8ff47", GREEN = "#4ade80", BLUE = "#38bdf8";
+const PINK = "#f472b6", ORANGE = "#fb923c", PURPLE = "#a78bfa", TEAL = "#2dd4bf";
 
 // ─────────────────────────────────────────────────────────────
 interface Bullet {
@@ -47,7 +47,8 @@ interface SlideData {
   bullets: Bullet[];
   code: string | null;
   concept?: string | null;
-  syntax?: string | null; // Added syntax field
+  syntax?: string | null;
+  workflow?: string | null;
   output: string | null;
   tip: string;
 }
@@ -62,272 +63,281 @@ interface ChapterData {
 // ─────────────────────────────────────────────────────────────
 const SLIDES: SlideData[] = [
   {
-    num:"01", chapter:"Foundations", chapterColor:BLUE,
-    tag:"Intro", tagColor:BLUE, icon:"🖥️",
-    title:"What is PHP?",
-    subtitle:"Server-side · Dynamic web · Request/Response flow",
-    body:`PHP (Hypertext Preprocessor) គឺជា **server-side scripting language** ។ PHP ដំណើរការនៅ **server** ─ generate HTML ─ ផ្ញើ HTML ទៅ browser ។ User មើលឃើញតែ HTML, មិនឃើញ PHP source code ។`,
-    bullets:[
-      {icon:"🖥️",label:"Server-side",    desc:"Code ដំណើរការនៅ server ─ មិនមែន browser"},
-      {icon:"🔗",label:"Works with HTML", desc:"Embed PHP ក្នុង HTML ដោយ <?php ?> tags"},
-      {icon:"⚙️",label:"Backend language",desc:"Handle DB, forms, authentication, file uploads"},
-      {icon:"🌍",label:"77% of the web",  desc:"WordPress · Wikipedia · Facebook ─ all PHP"},
+    num: "01", chapter: "Foundations", chapterColor: BLUE,
+    tag: "Intro", tagColor: BLUE, icon: "🖥️",
+    title: "What is PHP?",
+    subtitle: "Server-side · Dynamic web · Request/Response flow",
+    body: `PHP (Hypertext Preprocessor) គឺជា **server-side scripting language** ។ PHP ដំណើរការនៅ **server** ─ generate HTML ─ ផ្ញើ HTML ទៅ browser ។ User មើលឃើញតែ HTML, មិនឃើញ PHP source code ។`,
+    bullets: [
+      { icon: "🖥️", label: "Server-side", desc: "Code ដំណើរការនៅ server ─ មិនមែន browser" },
+      { icon: "🔗", label: "Works with HTML", desc: "Embed PHP ក្នុង HTML ដោយ <?php ?> tags" },
+      { icon: "⚙️", label: "Backend language", desc: "Handle DB, forms, authentication, file uploads" },
+      { icon: "🌍", label: "77% of the web", desc: "WordPress · Wikipedia · Facebook ─ all PHP" },
     ],
-    code:`<?php
-// ── Request / Response Flow ──────────────────
+    code: `<?php
+// ── PHP Request / Response Flow ──────────────────
 //
-//   Browser  ──── HTTP Request ────▶  Server
-//                                       │
-//                                  PHP runs here
-//                                  generates HTML
-//                                       │
-//   Browser  ◀─── HTML Response ────  Server
+// 1. Browser ── HTTP Request [GET /] ──▶ Apache/Nginx
+// 2. Server  ── PHP Engine runs code ──▶ HTML Generated
+// 3. Browser ◀── HTTP Response [HTML] ── Server
 //
-// ─────────────────────────────────────────────
+// ───────────────────────────────────────────────
 
-echo "PHP Version: " . phpversion();
+echo "PHP Version: " . phpversion() . "\n";
+echo "Server Time: " . date("Y-m-d H:i:s") . "\n";
 echo "Hello from the server! 👋";
 ?>`,
-    output:`PHP Version: 8.3.4
+    output: `// Server-side execution result
+PHP Version: 8.3.4
+Server Time: 2026-03-22 13:50:42
 Hello from the server! 👋`,
-    syntax: `// ── Version Check Syntax ──────────────────
+    syntax: `// ── PHP Basics Syntax ──────────────────────
 //
-//  phpversion();  : Get current PHP version
-//  echo "s";     : Print string output
-//  .            : String join (concatenation)
+//  echo "s"     : Output string to browser
+//  phpversion() : Get current PHP version
+//  date("Y-m-d"): Format current timestamp
+//  .            : String concatenation (join)
+//  "\\n"         : New line (in terminal/cli)
 //
-// ─────────────────────────────────────────`,
-    tip:"PHP ត្រូវ run លើ server ─ install XAMPP ឬ Laragon ដើម្បីចាប់ផ្តើម!",
+// ──────────────────────────────────────────`,
+    tip: "PHP ត្រូវ run លើ server (XAMPP/Laragon) ─ browser មិនអាចអាន code PHP ផ្ទាល់បានទេ គឺអានបានតែ HTML ចេញពី server!",
+    workflow: `// ── Server Execution Life Cycle ────────────
+//
+// 1. Client: URL input (វាយ URL ចូល)
+// 2. Request: Sent to server (ផ្ញើ request ទៅ server)
+// 3. Process: PHP runs at server (PHP ដើរនៅ server)
+// 4. Content: HTML generated (បង្កើតជា HTML)
+// 5. Render: Browser shows HTML (បង្ហាញលើ browser)
+//
+// ──────────────────────────────────────────`,
   },
   {
-    num:"02", chapter:"Foundations", chapterColor:BLUE,
-    tag:"First Code", tagColor:GREEN, icon:"🚀",
-    title:"Your First PHP Code",
-    subtitle:"<?php ?> · echo · print · comments · semicolon",
-    body:`PHP code ត្រូវ wrap ក្នុង **<?php ?>** tags ។ ប្រើ **echo** ឬ **print** ដើម្បី output text ។ Statement ទាំងអស់ចប់ដោយ **semicolon (;)** ─ missing semicolon = Parse Error ។`,
-    bullets:[
-      {icon:"🏷️",label:"<?php ?>",   desc:"PHP tags ─ server processes code inside these"},
-      {icon:"📢",label:"echo",        desc:"Output text/HTML ─ most used, accepts multiple args"},
-      {icon:"🔚",label:"Semicolon ;", desc:"Ends every statement ─ missing = fatal Parse Error!"},
-      {icon:"💬",label:"Comments",    desc:"// single line   /* multi-line */   # old style"},
+    num: "02", chapter: "Foundations", chapterColor: BLUE,
+    tag: "First Code", tagColor: GREEN, icon: "🚀",
+    title: "Your First PHP Code",
+    subtitle: "<?php ?> · echo · print · comments · semicolon",
+    body: `PHP code ត្រូវ wrap ក្នុង **<?php ?>** tags ។ ប្រើ **echo** ឬ **print** ដើម្បី output text ។ Statement ទាំងអស់ចប់ដោយ **semicolon (;)** ─ missing semicolon = Parse Error ។`,
+    bullets: [
+      { icon: "🏷️", label: "<?php ?>", desc: "PHP tags ─ server processes code inside these" },
+      { icon: "📢", label: "echo", desc: "Output text/HTML ─ most used, accepts multiple args" },
+      { icon: "🔚", label: "Semicolon ;", desc: "Ends every statement ─ missing = fatal Parse Error!" },
+      { icon: "💬", label: "Comments", desc: "// single line   /* multi-line */   # old style" },
     ],
-    code:`<?php
-// Single-line comment
-# Also single-line (legacy)
+    code: `<?php
+// 1. Output Basics
+echo "Hello World!";      // Most common
+print "Hello Studies";   // Returns 1
 
-/*
- * Multi-line comment block
- * PHP ignores all of this
- */
-
-// Basic output
-echo "Hello, World!";
-echo "One", " Two", " Three"; // multiple args
-
-// print (one argument, returns 1)
-print "Hello Students!";
-
-// Shorthand echo <?= ?> — cleaner in HTML
+// 2. Shorthand Echo (Used inside HTML)
 ?>
 <h2><?= "Welcome to PHP!" ?></h2>
 <?php
 
-// Double quotes: interpolate variables
+// 3. Comments in PHP
+// Line comment
+# Shell-style comment
+/* Block comment 
+   multiple lines */
+
+// 4. Double vs Single Quotes
 $name = "Ratha";
-echo "Hello $name!";   // Hello Ratha!
+echo "Hello $name";   // Interpolation: Hello Ratha
+echo 'Hello $name';   // Literal: Hello $name
 
-// Single quotes: literal (no interpolation)
-echo 'Hello $name!';   // Hello $name!
+// 5. Escaping characters
+echo "He said: \"PHP is great\""; 
 ?>`,
-    syntax: `// ── PHP Basic Syntax ──────────────────────
+    syntax: `// ── PHP Syntax Foundation ──────────────────
 //
-//  <?php ... ?>    : PHP tags
-//  echo "text";    : Output text (no return)
-//  print "text";   : Output text (returns 1)
-//  ;               : Every statement must end with semicolon
-//  // or #         : Single-line comment
-//  /* ... */       : Multi-line comment block
-//  <?= ... ?>      : Shorthand for echo
+//  <?php ... ?> : Standard PHP tags
+//  <?= ... ?>   : Shorthand echo tag
+//  echo         : Most used output command
+//  ;            : REQUIRED at end of line!
+//  // or #      : Single-line comment
+//  /* ... */    : Multi-line comment block
 //
-// ─────────────────────────────────────────`,
-    output:`Hello, World!
-One Two Three
-Hello Students!
+// ──────────────────────────────────────────`,
+    output: `Hello World!
+Hello Studies
 <h2>Welcome to PHP!</h2>
-Hello Ratha!
-Hello $name!`,
-    tip:"Omit the closing ?> tag when file is pure PHP ─ prevents accidental whitespace before HTTP headers!",
+
+Hello Ratha
+Hello $name
+He said: "PHP is great"`,
+    tip: "ប្រសិនបើ file របស់អ្នកមានតែ code PHP សុទ្ធ (no HTML), អ្នកមិនចាំបាច់ដាក់ tags បិទ ?> នៅចុងក្រោយទេ ដើម្បីការពារ error whitespace!",
+    workflow: `// ── Basic Syntax Execution ─────────────────
+//
+// 1. Search: Find <?php tag (ស្វែងរក tag)
+// 2. Context: PHP mode starts (ចូលរបៀប PHP)
+// 3. Execute: Process line by line (ដើរតាមបន្ទាត់)
+// 4. Output: Send strings to buffer (បញ្ជូនលទ្ធផល)
+// 5. Finish: Final HTML ready (HTML រួចរាល់)
+//
+// ──────────────────────────────────────────`,
   },
   {
-    num:"03", chapter:"Foundations", chapterColor:BLUE,
-    tag:"Variables", tagColor:ORANGE, icon:"📦",
-    title:"Variables",
-    subtitle:"$ · naming rules · assignment · var_dump · constants",
-    body:`Variable ជា **named container** ដែល store data ។ PHP variables ចាប់ផ្តើមដោយ **$** ─ case-sensitive ─ dynamically typed ។ ប្រើ **var_dump()** debug ─ **define()** ឬ **const** សម្រាប់ constants ។`,
-    bullets:[
-      {icon:"$",  label:"Dollar sign $",  desc:"All variables: $name $age $total ─ required prefix"},
-      {icon:"=",  label:"Assignment =",   desc:"$x = 10; ─ = assigns, == compares, === strict compare"},
-      {icon:"🔤", label:"Case-sensitive", desc:"$Name ≠ $name ─ completely different variables!"},
-      {icon:"🔍", label:"var_dump()",     desc:"Shows TYPE + VALUE ─ best debugging tool in PHP"},
+    num: "03", chapter: "Foundations", chapterColor: BLUE,
+    tag: "Variables", tagColor: ORANGE, icon: "📦",
+    title: "Variables",
+    subtitle: "$ · naming rules · assignment · var_dump · constants",
+    body: `Variable ជា **named container** ដែល store data ។ PHP variables ចាប់ផ្តើមដោយ **$** ─ case-sensitive ─ dynamically typed ។ ប្រើ **var_dump()** debug ─ **define()** ឬ **const** សម្រាប់ constants ។`,
+    bullets: [
+      { icon: "$", label: "Dollar sign $", desc: "All variables: $name $age $total ─ required prefix" },
+      { icon: "=", label: "Assignment =", desc: "$x = 10; ─ = assigns, == compares, === strict compare" },
+      { icon: "🔤", label: "Case-sensitive", desc: "$Name ≠ $name ─ completely different variables!" },
+      { icon: "🔍", label: "var_dump()", desc: "Shows TYPE + VALUE ─ best debugging tool in PHP" },
     ],
-    code:`<?php
-// Variable declaration
-$firstName = "Ratha";
-$age       = 20;
-$height    = 1.70;
-$isStudent = true;
-$score     = null;
+    code: `<?php
+// 1. Declaration & Assignment
+$username = "ratha_dev";  // String
+$age      = 20;           // Integer
+$is_admin = true;         // Boolean
 
-// Output variables
-echo $firstName . " ";           // Ratha
-echo "Age: $age";                // interpolation (double quotes)
-echo "Hi " . $firstName . "!";  // concatenation with dot
+// 2. Variable Rules
+// $1name = "bad";       // NO: Cannot start with digit
+// $my-name = "bad";     // NO: No hyphens allowed
+$my_name = "Good ✅";    // YES: Underscore ok
 
-// var_dump — shows TYPE + VALUE
-var_dump($age);       // int(20)
-var_dump($height);    // float(1.7)
-var_dump($isStudent); // bool(true)
-var_dump($score);     // NULL
+// 3. Case Sensitivity
+$color = "blue";
+$COLOR = "red";
+echo "My car is $color";  // blue
 
-// Constants — cannot be changed later
-define("APP_NAME", "UniPortal");  // runtime constant
-const VERSION = "1.0";            // compile-time constant
+// 4. Debugging with var_dump()
+var_dump($username);      // string(9) "ratha_dev"
+var_dump($age);           // int(20)
 
-echo APP_NAME . " ";   // UniPortal
-echo VERSION . " ";    // 1.0
+// 5. Constants (Fixed values)
+define("SITE_URL", "https://uni.edu");
+const API_KEY = "SECRET_123";
 
-// Multiple assignment shorthand
-$a = $b = $c = 0;
-echo "$a $b $c\n"; // 0 0 0
+// 6. Multiple Assignment
+$a = $b = $c = 100;
 ?>`,
-    syntax: `// ── Variable Syntax ──────────────────────
+    syntax: `// ── Variable & Constants Syntax ────────────
 //
-//  $name = value;  : Prefix with $
-//  $a = $b = 0;   : Multi-assignment
-//  define("N", v); : Constant (global)
-//  const N = v;    : Constant (class/file)
-//  "$var"         : Interpolation (Double quotes)
-//  '$var'         : Literal (Single quotes)
-//  .              : Concatenation operator
+//  $name = v    : Variable (starts with $)
+//  define("N",v): Constant (Global)
+//  const N = v  : Constant (Scope-bound)
+//  var_dump($x) : DEBUG: Type + Value
+//  "Hello $v"   : Variable interpolation
+//  .            : Join strings together
 //
-// ─────────────────────────────────────────`,
-    output:`Ratha
-Age: 20
-Hi Ratha!
+// ──────────────────────────────────────────`,
+    output: `My car is blue
+string(9) "ratha_dev"
 int(20)
-float(1.7)
-bool(true)
-NULL
-UniPortal
-1.0
-0 0 0`,
-    tip:"var_dump() is better than echo for debugging ─ it shows the TYPE and VALUE so you know exactly what PHP sees!",
+a=100, b=100, c=100`,
+    tip: "ប្រើ var_dump() ជាជំនួស echo នៅពេល debug ព្រោះវាបង្ហាញទាំង Type (int/string) និង Value ងាយស្រួលយល់!",
+    workflow: `// ── Variable Lifecycle ─────────────────────
+//
+// 1. Allocation: Memory reserved (បម្រុងទុក memory)
+// 2. Assignment: Value stored (ដាក់តម្លៃចូល)
+// 3. Interaction: Use in logic/math (យកមកប្រើ)
+// 4. Mutation: Change value (ប្ដូរតម្លៃថ្មី)
+// 5. Cleanup: Auto-removed (សម្អាត memory)
+//
+// ──────────────────────────────────────────`,
   },
   {
-    num:"04", chapter:"Foundations", chapterColor:BLUE,
-    tag:"Data Types", tagColor:PINK, icon:"📝",
-    title:"Data Types",
-    subtitle:"string · int · float · bool · null · array · gettype · casting",
-    body:`PHP មាន **8 data types** ─ 4 scalar, 2 compound, 2 special ។ PHP ជា **dynamically typed** ─ type auto-detected ។ ប្រើ **gettype()** ពិនិត្យ type ─ **===** strict comparison ─ **(int)** casting ។`,
-    bullets:[
-      {icon:"📝",label:"string",  desc:'"Hello" or \'World\' ─ text, any length'},
-      {icon:"🔢",label:"integer", desc:"42  -5  0 ─ whole numbers, no decimal point"},
-      {icon:"📊",label:"float",   desc:"3.14  1.5 ─ decimals (PHP internally calls it 'double')"},
-      {icon:"✅",label:"boolean", desc:"true / false ─ only two possible values"},
-      {icon:"📋",label:"array",   desc:'["A","B","C"] ─ ordered list of values'},
-      {icon:"∅", label:"NULL",    desc:"null ─ no value assigned (different from 0 or \"\")"},
+    num: "04", chapter: "Foundations", chapterColor: BLUE,
+    tag: "Data Types", tagColor: PINK, icon: "📝",
+    title: "Data Types",
+    subtitle: "string · int · float · bool · null · array · gettype · casting",
+    body: `PHP មាន **8 data types** ─ 4 scalar, 2 compound, 2 special ។ PHP ជា **dynamically typed** ─ type auto-detected ។ ប្រើ **gettype()** ពិនិត្យ type ─ **===** strict comparison ─ **(int)** casting ។`,
+    bullets: [
+      { icon: "📝", label: "string", desc: '"Hello" or \'World\' ─ text, any length' },
+      { icon: "🔢", label: "integer", desc: "42  -5  0 ─ whole numbers, no decimal point" },
+      { icon: "📊", label: "float", desc: "3.14  1.5 ─ decimals (PHP internally calls it 'double')" },
+      { icon: "✅", label: "boolean", desc: "true / false ─ only two possible values" },
+      { icon: "📋", label: "array", desc: '["A","B","C"] ─ ordered list of values' },
+      { icon: "∅", label: "NULL", desc: "null ─ no value assigned (different from 0 or \"\")" },
     ],
-    code:`<?php
-$str     = "Hello PHP";
-$int     = 42;
-$float   = 3.14;
-$bool    = true;
-$arr     = ["A", "B", "C"];
-$nothing = null;
+    code: `<?php
+// 1. Scalar Types
+$text = "PHP 8";      // string
+$year = 2024;         // integer
+$rate = 1.5;          // float (double)
+$open = true;         // boolean
 
-// gettype() — returns type name as string
-echo gettype($str);     // string
-echo gettype($int);     // integer
-echo gettype($float);   // double  ← NOT "float"!
-echo gettype($bool);    // boolean
-echo gettype($arr);     // array
-echo gettype($nothing); // NULL
+// 2. Compound Types
+$tags = ["web", "dev"]; // array
+$obj  = new stdClass(); // object
 
-// var_dump — type + value in detail
-var_dump($float);   // float(3.14)
-var_dump($bool);    // bool(true)
+// 3. Special Types
+$empty = null;          // NULL
 
-// is_* type checking functions
-var_dump(is_string($str));   // bool(true)
-var_dump(is_int($int));      // bool(true)
-var_dump(is_null($nothing)); // bool(true)
+// 4. Checking Types
+echo gettype($year);    // integer
+echo gettype($rate);    // double (internal name)
 
-// Type casting (explicit conversion)
-$price = (float)"19.99 USD"; // 19.99
-$count = (int)"5 items";     // 5
-echo "$price  $count";
+// 5. Explicit Type Casting (Conversion)
+$price = (float) "19.99";
+$qty   = (int) "5 items";
+$valid = (bool) 1;      // true
+
+var_dump($price, $qty, $valid);
 ?>`,
-    syntax: `// ── Data Types & Casting ──────────────────
+    syntax: `// ── Data Types & Casting Syntax ────────────
 //
-//  (int)$val      : Cast to Integer
-//  (float)$val    : Cast to Float
-//  (string)$val   : Cast to String
-//  (bool)$val     : Cast to Boolean
-//  (array)$val    : Cast to Array
+//  (int)$val    : Convert to Integer
+//  (string)$val : Convert to String
+//  (bool)$val   : Convert to Boolean
+//  gettype($x)  : Check type name
+//  is_int($x)   : True if integer
+//  is_array($x) : True if array
 //
-//  gettype($x);   : Check internal type name
-//  is_int($x);    : Returns true if integer
-//  is_null($x);   : Returns true if null
-//
-// ─────────────────────────────────────────`,
-    output:`string
-integer
+// ──────────────────────────────────────────`,
+    output: `integer
 double
-boolean
-array
-NULL
-float(3.14)
-bool(true)
-bool(true)
-bool(true)
-bool(true)
-19.99  5`,
-    tip:"gettype(3.14) returns 'double' not 'float' ─ that is PHP's internal name. Do not be confused!",
+float(19.99)
+int(5)
+bool(true)`,
+    tip: " gettype(1.5) នឹងបង្ហាញថា 'double' ─ នេះគឺជាឈ្មោះបច្ចេកទេសក្នុង PHP សម្រាប់ប្រភេទលេខដែលមានក្បៀស (Float)!",
+    workflow: `// ── Type Check & Conversion Flow ──────────
+//
+// 1. Input: Dynamic data arrives (ទទួលទិន្នន័យ)
+// 2. Analysis: PHP detects type (សម្គាល់ប្រភេទ)
+// 3. Conversion: Force new type (ប្ដូរទៅប្រភេទថ្មី)
+// 4. Math: Use for calculation (យកទៅគណនា)
+// 5. Debug: Inspect final state (ឆែកលទ្ធផលចុងក្រោយ)
+//
+// ──────────────────────────────────────────`,
   },
 
   // ── WEEK 2 ────────────────────────────────────────────────
   {
-    num:"05", chapter:"Operators & Flow", chapterColor:ORANGE,
-    tag:"Operators", tagColor:ORANGE, icon:"➕",
-    title:"Operators",
-    subtitle:"arithmetic · comparison · logical · assignment · ??",
-    body:`Operators ប្រើដើម្បី **calculate**, **compare** ឬ **combine** values ។ **=== (strict equality)** essential ─ PHP type juggling ជាមួយ == creates dangerous bugs ។ **??** (null coalescing) ─ clean default value pattern ។`,
-    bullets:[
-      {icon:"➕",label:"Arithmetic", desc:"+ − * / % (modulo) ** (power)"},
-      {icon:"⚖️",label:"Comparison", desc:"=== strict  == loose  != !== > < >= <="},
-      {icon:"🔗",label:"Logical",    desc:"&& AND   || OR   ! NOT ─ short-circuit evaluation"},
-      {icon:"⚡",label:"Assignment", desc:"+= −= *= /= .= (string append) ??= (null assign)"},
+    num: "05", chapter: "Operators & Flow", chapterColor: ORANGE,
+    tag: "Operators", tagColor: ORANGE, icon: "➕",
+    title: "Operators",
+    subtitle: "arithmetic · comparison · logical · assignment · ??",
+    body: `Operators ប្រើដើម្បី **calculate**, **compare** ឬ **combine** values ។ **=== (strict equality)** essential ─ PHP type juggling ជាមួយ == creates dangerous bugs ។ **??** (null coalescing) ─ clean default value pattern ។`,
+    bullets: [
+      { icon: "➕", label: "Arithmetic", desc: "+ − * / % (modulo) ** (power)" },
+      { icon: "⚖️", label: "Comparison", desc: "=== strict  == loose  != !== > < >= <=" },
+      { icon: "🔗", label: "Logical", desc: "&& AND   || OR   ! NOT ─ short-circuit evaluation" },
+      { icon: "⚡", label: "Assignment", desc: "+= −= *= /= .= (string append) ??= (null assign)" },
     ],
-    code:`<?php
+    code: `<?php
 $a = 10; $b = 3;
 
 // Arithmetic operators
-echo ($a + $b) . " ";   // 13
-echo ($a - $b) . " ";   // 7
-// echo ($a * $b) . " ";   // Commented out
-// echo ($a / $b) . " ";   // Commented out
-echo ($a % $b) . " ";   // 1 (modulo = remainder)
-echo ($a ** 2) . " ";   // 100 (power)
+echo "a + b = " . ($a + $b) . "";  // 13
+echo "a - b = " . ($a - $b) . "";  // 7
+echo "a * b = " . ($a * $b) . "";  // 30
+echo "a / b = " . ($a / $b) . "";  // 3.333...
+echo "a % b = " . ($a % $b) . "";  // 1
+echo "a ** 2 = " . ($a ** 2) . ""; // 100
 
 // Comparison — STRICT vs LOOSE
-var_dump(5 === 5);     // bool(true)  ← same type + value
-var_dump(5 === "5");   // bool(false) ← different type!
-var_dump(5 ==  "5");   // bool(true)  ← DANGEROUS: type juggling
-var_dump(0 ==  "foo"); // bool(true)  ← VERY DANGEROUS bug!
+var_dump(5 === 5);     // bool(true)
+var_dump(5 === "5");   // bool(false)
+var_dump(5 ==  "5");   // bool(true)
+var_dump(0 ==  "foo"); // bool(false)
 
 // ALWAYS use === in PHP!
-var_dump("" === false); // bool(false) ─ correct
-var_dump("" ==  false); // bool(true)  ─ wrong!
+var_dump("" === false); // bool(false)
+var_dump("" ==  false); // bool(true)
 
 // Logical operators
 $age = 20; $score = 85;
@@ -336,13 +346,11 @@ var_dump($age < 18  || $score >= 50); // bool(true)
 
 // Assignment shorthand
 $x = 10;
-$x += 5;  echo "$x "; // 15
-$x *= 2;  echo "$x "; // 30
+$x += 5;  echo "x += 5 = $x"; // 15
+$x *= 2;  echo "x *= 2 = $x"; // 30
 
-// Null coalescing — safe default value
+// Null coalescing
 $name = $_GET['name'] ?? "Guest";
-$cfg  = [];
-$cfg['debug'] ??= false; // assign only if null
 echo "Hello, $name!";
 ?>`,
     syntax: `// ── Operators Syntax ──────────────────────
@@ -356,441 +364,400 @@ echo "Hello, $name!";
 //  += -= .=       : Combined assignment
 //
 // ─────────────────────────────────────────`,
-    output:`13
-7
-1
-100
+    output: `// Arithmetic operators (+, -, *, /, %, **)
+a + b = 13
+a - b = 7
+a * b = 30
+a / b = 3.3333333333333335
+a % b = 1
+a ** 2 = 100
+
+// Comparison — STRICT vs LOOSE
 bool(true)
 bool(false)
 bool(true)
-bool(true)
+bool(false)
 bool(false)
 bool(true)
+
+// Logical operators (&&, ||)
 bool(true)
 bool(true)
-15
-30
+
+// Assignment & Null Coalescing
+x += 5 = 15
+x *= 2 = 30
 Hello, Guest!`,
-    tip:"ALWAYS use === not == ─ '0' == false is TRUE in PHP and causes real production bugs!",
+    tip: "ALWAYS use === not == ─ in PHP 8, 0 == 'foo' is false, but '' == false is still true. Type juggling is dangerous!",
+    workflow: `// ── Operator Execution Priority ────────────
+//
+// 1. Parentheses ( ) run first (ក្នុងវង់ក្រចកមុនគេ)
+// 2. Math: ** then * / % then + - (គុណចែក មុនបូកដក)
+// 3. String: . concatenation (ការភ្ជាប់អក្សរ)
+// 4. Comparisons (===, !==) (ការប្រៀបធៀប)
+// 5. Logical AND (&&) then OR (||) (ការឆែកលក្ខខណ្ឌ)
+// 6. Assignment (=) runs LAST! (ការដាក់តម្លៃគឺចុងក្រោយ)
+//
+// ─────────────────────────────────────────`,
   },
   {
-    num:"06", chapter:"Operators & Flow", chapterColor:ORANGE,
-    tag:"Strings", tagColor:TEAL, icon:"📏",
-    title:"String Functions",
-    subtitle:"strlen · trim · str_replace · explode · substr · str_contains",
-    body:`PHP មាន **string functions** ជាង 100 built-in ។ ប្រើ **mb_** prefix for Khmer/Unicode ─ regular functions count bytes not characters ។ **explode/implode** ─ convert between string and array ។`,
-    bullets:[
-      {icon:"📏",label:"strlen / mb_strlen",  desc:"String length ─ use mb_ for Unicode/Khmer text"},
-      {icon:"✂️",label:"trim / explode",       desc:"Remove whitespace / split string into array by separator"},
-      {icon:"🔍",label:"str_contains (PHP 8)", desc:"Returns bool ─ cleaner than strpos() !== false"},
-      {icon:"🔄",label:"str_replace",          desc:"str_replace('old','new',$str) ─ find and replace"},
+    num: "06", chapter: "Operators & Flow", chapterColor: ORANGE,
+    tag: "Strings", tagColor: TEAL, icon: "📏",
+    title: "String Functions",
+    subtitle: "strlen · trim · str_replace · explode · substr · str_contains",
+    body: `PHP មាន **string functions** ជាង 100 built-in ។ ប្រើ **mb_** prefix for Khmer/Unicode ─ regular functions count bytes not characters ។ **explode/implode** ─ convert between string and array ។`,
+    bullets: [
+      { icon: "📏", label: "strlen / mb_strlen", desc: "String length ─ use mb_ for Unicode/Khmer text" },
+      { icon: "✂️", label: "trim / explode", desc: "Remove whitespace / split string into array by separator" },
+      { icon: "🔍", label: "str_contains (PHP 8)", desc: "Returns bool ─ cleaner than strpos() !== false" },
+      { icon: "🔄", label: "str_replace", desc: "str_replace('old','new',$str) ─ find and replace" },
     ],
-    code:`<?php
+    code: `<?php
 $text = "  Hello PHP World!  ";
 
-// Case & trim
-echo strtoupper(trim($text)) . ""; // HELLO PHP WORLD!
-echo strtolower(trim($text)) . ""; // hello php world!
-echo ucwords(strtolower(trim($text))) . ""; // Hello Php World!
-echo strlen(trim($text)) . "";     // 17
+// 1. Basic Cleaning
+$clean = trim($text);           // "Hello PHP World!"
+echo strlen($clean);           // 17 chars
 
-// Search
-echo strpos($text, "PHP") . "";              // 9
-var_dump(str_contains($text, "PHP"));  // bool(true)  PHP 8+
-var_dump(str_starts_with(trim($text), "Hello")); // bool(true)
+// 2. Modern search (PHP 8+)
+var_dump(str_contains($clean, "PHP"));       // true
+var_dump(str_starts_with($clean, "Hello")); // true
 
-// Replace
-echo str_replace("PHP", "Laravel", $text) . "";
+// 3. Transformation
+echo str_replace("PHP", "Laravel", $clean); // "Hello Laravel World!"
+echo strtolower($clean); // "hello php world!"
 
-// Split & join
-$csv   = "Dara,Ratha,Sophal,Channa";
-$names = explode(",", $csv);   // string → array
-print_r($names);               // print_r includes newlines
-echo implode(" | ", $names) . "";   // array → string
+// 4. Split & Join (Common in CSV)
+$csv   = "Dara,Ratha,Sophal";
+$names = explode(",", $csv); // String to Array
+echo implode(" | ", $names);  // Array to String
 
-// Substring
-$s = "Hello World";
-echo substr($s, 0, 5) . "";   // Hello
-echo substr($s, -5) . "";     // World
-
-// Padding & repeat
-echo str_pad("42", 6, "0", STR_PAD_LEFT) . ""; // 000042
-echo str_repeat("-", 20) . "";                  // --------------------
+// 5. Khmer text (Multi-byte)
+$khmer = "សួស្ដី";
+echo strlen($khmer);    // 18 (Bytes - Incorrect for Khmer)
+echo mb_strlen($khmer); // 6  (Characters - Correct ✅)
 ?>`,
     syntax: `// ── Common String Functions ───────────────
 //
-//  strlen($s);          : Get character count
-//  trim($s);            : Remove edge spaces
-//  strtolower($s);      : Convert to lowercase
-//  str_replace(f, r, s) : Find & replace text
-//  explode(",", $s);    : Split string into array
-//  substr($s, 0, 5);    : Extract part of string
-//  str_contains($s, t); : Check if text exists
+//  strlen() / mb_strlen() : Get length
+//  trim($s)               : Remove spaces
+//  str_replace(f, r, s)   : Find & Replace
+//  explode(sep, $s)       : String → Array
+//  implode(sep, $a)       : Array → String
+//  str_contains($s, $v)   : Check existence
 //
-// ─────────────────────────────────────────`,
-    output:`HELLO PHP WORLD!
+// ──────────────────────────────────────────`,
+    output: `17
+bool(true)
+bool(true)
+Hello Laravel World!
 hello php world!
-Hello Php World!
-17
-9
-bool(true)
-bool(true)
-  Hello Laravel World!  
-Array ( [0] => Dara [1] => Ratha [2] => Sophal [3] => Channa )
-Dara | Ratha | Sophal | Channa
-Hello
-World
-000042
---------------------`,
-    tip:"Use mb_strlen() / mb_strtolower() for Khmer text ─ regular functions count bytes, not characters!",
+Dara | Ratha | Sophal
+18
+6`,
+    tip: "សម្រាប់អក្សរខ្មែរ ត្រូវប្រើ mb_strlen() ជំនួស strlen() ធម្មតា ព្រោះអក្សរខ្មែរប្រើច្រើន bytes ក្នុងមួយតួអក្សរ!",
+    workflow: `// ── String Transformation Workflow ─────────
+//
+// 1. Input: User enters text (បញ្ចូលអក្សរ)
+// 2. Clean: trim() whitespace (សម្អាតចន្លោះ)
+// 3. Search: str_contains() logic (ស្វែងរកពាក្យ)
+// 4. Change: str_replace() words (ជំនួសពាក្យ)
+// 5. Output: Formatted result (លទ្ធផលសម្រេច)
+//
+// ──────────────────────────────────────────`,
   },
   {
-    num:"07", chapter:"Operators & Flow", chapterColor:ORANGE,
-    tag:"Control Flow", tagColor:BLUE, icon:"🔀",
-    title:"If / Else / Match",
-    subtitle:"if · elseif · else · match · ternary · null coalescing ??",
-    body:`**if/else** ប្រើសម្រាប់ decision making ─ execute code based on condition ។ PHP 8 **match** ─ strict, no fallthrough, returns value ─ cleaner than switch ។ **Ternary** (?:) ─ one-liner ─ **??** safe default ។`,
-    bullets:[
-      {icon:"❓",label:"if / elseif / else",  desc:"Classic conditional ─ chain multiple with elseif"},
-      {icon:"🔀",label:"match (PHP 8)",       desc:"Strict === ─ no fallthrough ─ returns a value"},
-      {icon:"⚡",label:"Ternary ?:",           desc:"$x = cond ? 'yes' : 'no' ─ one-line if/else"},
-      {icon:"🛡️",label:"?? null coalescing",  desc:'$n = $_GET["n"] ?? "Guest" ─ default if null/missing'},
+    num: "07", chapter: "Operators & Flow", chapterColor: ORANGE,
+    tag: "Control Flow", tagColor: BLUE, icon: "🔀",
+    title: "If / Else / Match",
+    subtitle: "if · elseif · else · match · ternary · null coalescing ??",
+    body: `**if/else** ប្រើសម្រាប់ decision making ─ execute code based on condition ។ PHP 8 **match** ─ strict, no fallthrough, returns value ─ cleaner than switch ។ **Ternary** (?:) ─ one-liner ─ **??** safe default ។`,
+    bullets: [
+      { icon: "❓", label: "if / elseif / else", desc: "Classic conditional ─ chain multiple with elseif" },
+      { icon: "🔀", label: "match (PHP 8)", desc: "Strict === ─ no fallthrough ─ returns a value" },
+      { icon: "⚡", label: "Ternary ?:", desc: "$x = cond ? 'yes' : 'no' ─ one-line if/else" },
+      { icon: "🛡️", label: "?? null coalescing", desc: '$n = $_GET["n"] ?? "Guest" ─ default if null/missing' },
     ],
-    code:`<?php
-$score = 75;
+    code: `<?php
+$score = 85;
 
-// if / elseif / else
-if      ($score >= 90) $grade = "A";
-elseif  ($score >= 80) $grade = "B";
-elseif  ($score >= 70) $grade = "C";
-elseif  ($score >= 60) $grade = "D";
-else                   $grade = "F";
-echo "Grade: $grade";  // Grade: C
-
-// switch (older style — use match instead)
-switch ($grade) {
-    case "A": echo "Excellent!"; break;
-    case "B": echo "Very good!"; break;
-    case "C": echo "Good";       break;
-    default:  echo "Keep trying";
+// 1. Classic if / elseif / else
+if ($score >= 90) {
+    echo "Excellent! 🥇";
+} elseif ($score >= 80) {
+    echo "Very Good! 🥈";
+} else {
+    echo "Keep it up! 📖";
 }
 
-// match (PHP 8) — strict, cleaner, returns value
-$day  = "Monday";
-$type = match($day) {
-    "Saturday", "Sunday" => "Weekend 🎉",
-    default              => "Workday 💼",
+// 2. Modern MATCH (PHP 8.0+)
+// cleaner, strict, and returns a value
+$grade = match(true) {
+    $score >= 90 => "A",
+    $score >= 80 => "B",
+    $score >= 70 => "C",
+    default      => "F",
 };
-echo $type;  // Workday 💼
+echo "Grade: $grade";
 
-// Ternary operator
-$age    = 20;
-$status = $age >= 18 ? "Adult ✅" : "Minor ❌";
-echo $status;
+// 3. Ternary (Short if/else)
+$status = ($score >= 50) ? "Passed ✅" : "Failed ❌";
 
-// Nested ternary (readable chaining)
-$badge = $score >= 90 ? "🥇 Gold"
-       : ($score >= 70 ? "🥈 Silver" : "📖 Study more");
-echo $badge;  // 🥈 Silver
-
-// Null coalescing — safe default
-$name = $_GET['name'] ?? "Guest";
-echo "Hello, $name!";
+// 4. Null Coalescing (Safe default)
+$user = $_GET['user'] ?? "Guest";
 ?>`,
-    syntax: `// ── Control Flow Syntax ──────────────────
+    syntax: `// ── Control Flow Cheat Sheet ───────────────
 //
-//  if (cond) { ... }    : Conditional block
-//  elseif (cond) { ... }: Else if check
-//  else { ... }         : Default block
-//  match ($v) {         : Modern switch (PHP 8)
-//    "key" => value,
-//    default => val
-//  };
-//  $res = cond ? t : f; : Shorthand if/else
+//  if (cond) { }     : Conditional block
+//  match ($v) { }    : Modern switch (PHP 8)
+//  $a ? $b : $c      : Ternary operator
+//  $a ?? "default"   : Null check (PHP 7+)
+//  ===               : MUST use strict compare
 //
-// ─────────────────────────────────────────`,
-    output:`Grade: C
-Good
-Workday 💼
-Adult ✅
-🥈 Silver
-Hello, Guest!`,
-    tip:"Prefer match over switch in PHP 8 ─ match uses === strict comparison and always returns a value!",
+// ──────────────────────────────────────────`,
+    output: `Very Good! 🥈
+Grade: B`,
+    tip: "ប្រើ match ជំនួស switch នៅក្នុង PHP 8 ព្រោះវាខ្លីជាង មិនចាំបាច់មាន break និងប្រើ strict comparison (===) ដោយស្វ័យប្រវត្តិ!",
+    workflow: `// ── Decision Making Flow ──────────────────
+//
+// 1. If: Check primary rule (ឆែកលក្ខខណ្ឌចម្បង)
+// 2. Elseif: Check alternate (ឆែកលក្ខខណ្ឌបន្ទាប់)
+// 3. Match: Map specific value (ផ្គូផ្គងតម្លៃចំៗ)
+// 4. Default: Handle everything else (លទ្ធផលចុងក្រោយ)
+// 5. Return: Final value chosen (ទទួលបានតម្លៃសម្រេច)
+//
+// ──────────────────────────────────────────`,
   },
   {
-    num:"08", chapter:"Operators & Flow", chapterColor:ORANGE,
-    tag:"Loops", tagColor:GREEN, icon:"🔢",
-    title:"Loops",
-    subtitle:"for · while · do-while · foreach · break · continue",
-    body:`Loops ប្រើដើម្បី **repeat code** ។ **foreach** ─ best for arrays ─ use 99% of the time ─ no off-by-one errors ។ **for** ─ when count is known ─ **break** exits loop ─ **continue** skips current iteration ។`,
-    bullets:[
-      {icon:"🔢",label:"for",      desc:"for ($i=0; $i<n; $i++) ─ use when count is known"},
-      {icon:"🔄",label:"while",    desc:"Checks condition FIRST ─ may run 0 times"},
-      {icon:"🔁",label:"do-while", desc:"Checks condition AFTER ─ runs at least once"},
-      {icon:"📋",label:"foreach",  desc:"Best for arrays ─ foreach ($arr as $key => $val)"},
+    num: "08", chapter: "Operators & Flow", chapterColor: ORANGE,
+    tag: "Loops", tagColor: GREEN, icon: "🔢",
+    title: "Loops",
+    subtitle: "for · while · do-while · foreach · break · continue",
+    body: `Loops ប្រើដើម្បី **repeat code** ។ **foreach** ─ best for arrays ─ use 99% of the time ─ no off-by-one errors ។ **for** ─ when count is known ─ **break** exits loop ─ **continue** skips current iteration ។`,
+    bullets: [
+      { icon: "🔢", label: "for", desc: "for ($i=0; $i<n; $i++) ─ use when count is known" },
+      { icon: "🔄", label: "while", desc: "Checks condition FIRST ─ may run 0 times" },
+      { icon: "🔁", label: "do-while", desc: "Checks condition AFTER ─ runs at least once" },
+      { icon: "📋", label: "foreach", desc: "Best for arrays ─ foreach ($arr as $key => $val)" },
     ],
-    code:`<?php
-    echo "=== FOR ===";
-    for ($i = 1; $i <= 5; $i++) {
-        echo "Count: $i";
-    }
-    
-    // while — unknown count, check first
-    echo "=== WHILE ===";
-    $x = 10;
-    while ($x > 0) {
-        echo "$x ";
-        $x -= 3;
-    }
-    
-    // do-while — always runs at least once
-    echo "=== DO-WHILE ===";
-    $tries = 1;
-    do {
-        echo "Attempt #$tries";
-        $tries++;
-    } while ($tries <= 3);
-    
-    // foreach — indexed array (most common!)
-    echo "=== FOREACH indexed ===";
-    $fruits = ["Apple", "Banana", "Mango"];
-    foreach ($fruits as $fruit) {
-        echo "- $fruit";
-    }
-    
-    // foreach — associative array with key => value
-    echo "=== FOREACH key => value ===";
-    $student = ["name" => "Ratha", "age" => 20, "gpa" => 3.5];
-    foreach ($student as $key => $value) {
-        echo "$key: $value";
-    }
-    
-    // break and continue
-    echo "=== ODD NUMBERS 1-9 ===";
-for ($i = 1; $i <= 10; $i++) {
-    if ($i % 2 === 0) continue; // skip even numbers
-    if ($i > 9)       break;    // stop when > 9
-    echo "$i ";
+    code: `<?php
+// 1. FOREACH (99% of your array work)
+$fruits = ["Apple", "Banana", "Mango"];
+foreach ($fruits as $fruit) {
+    echo "Fruit: $fruit";
+}
+
+// 2. FOREACH with Keys
+$user = ["id" => 1, "name" => "Ratha"];
+foreach ($user as $key => $val) {
+    echo "$key: $val";
+}
+
+// 3. FOR (Fixed count)
+for ($i = 1; $i <= 3; $i++) {
+    echo "Step $i";
+}
+
+// 4. WHILE (Condition-based)
+$count = 5;
+while ($count > 0) {
+    echo $count--;
+}
+
+// 5. CONTINUE / BREAK
+for ($x = 1; $x <= 10; $x++) {
+    if ($x === 5) continue; // Skip 5
+    if ($x === 8) break;    // Stop at 8
+    echo $x;
 }
 ?>`,
-    syntax: `// ── Loop Syntax ──────────────────────────
+    syntax: `// ── PHP Loop Cheat Sheet ────────────────────
 //
-//  for ($i=0; $i<5; $i++)   : Repeat n times
-//  while (cond)             : Loop while true
-//  foreach ($arr as $v)     : Loop through array
-//  foreach ($arr as $k=>$v) : Loop with Keys
-//  continue;                : Skip to next cycle
-//  break;                   : Exit loop completely
+//  foreach ($a as $v)     : Best for arrays
+//  foreach ($a as $k=>$v) : Access key and value
+//  for ($i; $c; $u)       : Fixed repeat count
+//  while (cond) { }       : Loop while true
+//  break                  : Exit loop immediately
+//  continue               : Skip current iteration
 //
-// ─────────────────────────────────────────`,
-    output:`=== FOR ===
-Count: 1
-Count: 2
-Count: 3
-Count: 4
-Count: 5
-
-=== WHILE ===
-10 7 4 1
-
-=== DO-WHILE ===
-Attempt #1
-Attempt #2
-Attempt #3
-
-=== FOREACH indexed ===
-- Apple
-- Banana
-- Mango
-
-=== FOREACH key => value ===
+// ──────────────────────────────────────────`,
+    output: `Fruit: Apple
+Fruit: Banana
+Fruit: Mango
+id: 1
 name: Ratha
-age: 20
-gpa: 3.5
-
-=== ODD NUMBERS 1-9 ===
-1 3 5 7 9`,
-    tip:"Use foreach for 99% of array iteration ─ safer and cleaner than for ($i=0; $i<count($arr); $i++)!",
+Step 1
+Step 2
+Step 3
+54321
+123467`,
+    tip: "ប្រើ foreach សម្រាប់ array ជានិច្ច! វាចំណេញពេល ខ្លីជាង និងមិនងាយមាន error (off-by-one errors) ដូច for loop ធម្មតាទេ!",
+    workflow: `// ── Iteration Life Cycle ───────────────────
+//
+// 1. Init: Set start state (កំណត់តម្លៃផ្ដើម)
+// 2. Check: Valid condition? (ពិនិត្យលក្ខខណ្ឌ)
+// 3. Body: Run logic block (ដំណើរការកូដក្នុង loop)
+// 4. Update: Move to next (បង្កើនតម្លៃ ឬប្ដូរ step)
+// 5. Exit: Condition failed (ឈប់ដើរនៅពេលលក្ខខណ្ឌខុស)
+//
+// ──────────────────────────────────────────`,
   },
 
   // ── WEEK 3 ────────────────────────────────────────────────
   {
-    num:"09", chapter:"Functions & Arrays", chapterColor:PINK,
-    tag:"Functions", tagColor:PINK, icon:"🧪",
-    title:"Functions",
-    subtitle:"declare · params · default · return · type hints · arrow fn",
-    body:`Function ជា **reusable block of code** ─ declare once, call anywhere ─ DRY principle ។ PHP 8 **type hints** ─ declare param & return types ─ safer, self-documenting code ។ **Arrow functions** (fn) ─ concise one-liners ។`,
-    bullets:[
-      {icon:"📦",label:"function keyword",  desc:"function name($params) { return $val; }"},
-      {icon:"↩️",label:"return",            desc:"Exits function and sends value back to caller"},
-      {icon:"🎯",label:"Default params",    desc:'function greet($n, $lang = "en") ─ optional argument'},
-      {icon:"🏷️",label:"Type hints PHP 8",  desc:"function add(int $a, int $b): int ─ enforced types"},
+    num: "09", chapter: "Functions & Arrays", chapterColor: PINK,
+    tag: "Functions", tagColor: PINK, icon: "🧪",
+    title: "Functions",
+    subtitle: "declare · params · default · return · type hints · arrow fn",
+    body: `Function ជា **reusable block of code** ─ declare once, call anywhere ─ DRY principle ។ PHP 8 **type hints** ─ declare param & return types ─ safer, self-documenting code ។ **Arrow functions** (fn) ─ concise one-liners ។`,
+    bullets: [
+      { icon: "📦", label: "function keyword", desc: "function name($params) { return $val; }" },
+      { icon: "↩️", label: "return", desc: "Exits function and sends value back to caller" },
+      { icon: "🎯", label: "Default params", desc: 'function greet($n, $lang = "en") ─ optional argument' },
+      { icon: "🏷️", label: "Type hints PHP 8", desc: "function add(int $a, int $b): int ─ enforced types" },
     ],
-    code:`<?php
-// Basic function with type hints
-function greet(string $name): string {
-    return "Hello, $name!";
+    code: `<?php
+// 1. Basic Function
+function sayHello(string $name): void {
+    echo "Hello, $name!";
 }
-echo greet("Ratha");   // Hello, Ratha!
-echo greet("Sophal");  // Hello, Sophal!
+sayHello("Ratha");
 
-// Default parameter value
-function welcome(string $name, string $lang = "en"): string {
-    return match($lang) {
-        "km"    => "សួស្ដី $name!",
-        "fr"    => "Bonjour $name!",
-        default => "Hello $name!",
-    };
+// 2. Return & Type Hinting (PHP 8+)
+function multiply(int $a, int $b): int {
+    return $a * $b;
 }
-echo welcome("Dara");        // Hello Dara!
-echo welcome("Dara", "km");  // សួស្ដី Dara!
+$res = multiply(5, 4); // 20
 
-// Return multiple values as array
-function minMax(array $nums): array {
-    return ["min" => min($nums), "max" => max($nums)];
+// 3. Default Arguments
+function greet($name, $msg = "Welcome") {
+    echo "$msg, $name!";
 }
-$r = minMax([5, 2, 8, 1, 9, 3]);
-echo "Min: {$r['min']}, Max: {$r['max']}";
-// Min: 1, Max: 9
+greet("Sophal");         // Welcome, Sophal!
+greet("Dara", "Salute"); // Salute, Dara!
 
-// Arrow functions (PHP 7.4+) — single expression
-$double  = fn($n) => $n * 2;
-$squared = fn($n) => $n ** 2;
-echo $double(5);    // 10
-echo $squared(4);   // 16
+// 4. Modern Arrow Function (fn)
+$double = fn(int $n) => $n * 2;
+echo $double(10); // 20
 
-// Scope — variables inside function are LOCAL
-$appName = "UniPortal";
-function testScope(): void {
-    // $appName NOT accessible here without global keyword
-    $local = "local only";
-    echo $local;  // local only
+// 5. Multiple Returns (using array)
+function compute(int $n): array {
+    return [$n * 2, $n + 10];
 }
-testScope();
-// $local is gone after function ends
-// $local is gone after function ends
+[$doubled, $added] = compute(5); // array destructuring
 ?>`,
-    syntax: `// ── Function Syntax ───────────────────────
+    syntax: `// ── Function Cheat Sheet ────────────────────
 //
-//  function name($p) {  : Define function
-//    return $val;       : Return data
-//  }
-//  function f(type $p)  : Type hint params
-//  function f(): type   : Type hint return
-//  $f = fn($x) => $x*2; : Shorthand Arrow Fn
+//  function n(type $p): type { } : Full declaration
+//  return $val                   : Output from function
+//  $p = "default"                : Optional parameter
+//  fn($x) => $x * 2              : Arrow function (PHP 7.4+)
+//  $f("arg")                     : Calling function
+//  void                          : No return value
 //
-// ─────────────────────────────────────────`,
-    output:`Hello, Ratha!
-Hello, Sophal!
-Hello Dara!
-សួស្ដី Dara!
-Min: 1, Max: 9
-10
-16
-local only`,
-    tip:"Functions should do ONE thing. If you say 'and' when describing it, split it into two functions!",
+// ──────────────────────────────────────────`,
+    output: `Hello, Ratha!
+20
+Welcome, Sophal!
+Salute, Dara!
+20
+Doubled: 10, Added: 15`,
+    tip: "ប្រើ Type Hints (string, int, bool) ក្នុង function ជានិច្ច! វាជួយឲ្យ code របស់អ្នកកាន់តែមានសុវត្ថិភាព និងងាយស្រួលយល់សម្រាប់អ្នកដទៃ (Self-documenting)!",
+    workflow: `// ── Function Execution Cycle ────────────────
+//
+// 1. Call: Invoked with args (ហៅទៅប្រើជាមួយ values)
+// 2. Pass: Params into local scope (បញ្ជូនទិន្នន័យចូល)
+// 3. Eval: Run internal logic (ដំណើរការកូដខាងក្នុង)
+// 4. Result: return generated (បញ្ជូនលទ្ធផលចេញ)
+// 5. Destruct: Local scope cleared (សម្អាត memory)
+//
+// ──────────────────────────────────────────`,
   },
   {
-    num:"10", chapter:"Functions & Arrays", chapterColor:PINK,
-    tag:"Arrays", tagColor:ORANGE, icon:"📋",
-    title:"Arrays",
-    subtitle:"indexed · associative · multi-dim · map · filter · reduce",
-    body:`Array ជា **list** ដែល store multiple values ។ **Indexed** ─ number keys (0,1,2) ─ **Associative** ─ string keys ─ **Multi-dimensional** ─ arrays inside arrays ─ simulates database rows ─ PDO returns this exact format ។`,
-    bullets:[
-      {icon:"📋",label:"Indexed",        desc:'$arr = ["A","B","C"] ─ access with $arr[0]'},
-      {icon:"🗂️",label:"Associative",    desc:'$u = ["name"=>"Ratha"] ─ access with $u["name"]'},
-      {icon:"🔧",label:"Array functions", desc:"count() sort() array_push() in_array() array_column()"},
-      {icon:"⚡",label:"map/filter/reduce",desc:"Functional style ─ transform arrays cleanly"},
+    num: "10", chapter: "Functions & Arrays", chapterColor: PINK,
+    tag: "Arrays", tagColor: ORANGE, icon: "📋",
+    title: "Arrays",
+    subtitle: "indexed · associative · multi-dim · map · filter · reduce",
+    body: `Array ជា **list** ដែល store multiple values ។ **Indexed** ─ number keys (0,1,2) ─ **Associative** ─ string keys ─ **Multi-dimensional** ─ arrays inside arrays ─ simulates database rows ─ PDO returns this exact format ។`,
+    bullets: [
+      { icon: "📋", label: "Indexed", desc: '$arr = ["A","B","C"] ─ access with $arr[0]' },
+      { icon: "🗂️", label: "Associative", desc: '$u = ["name"=>"Ratha"] ─ access with $u["name"]' },
+      { icon: "🔧", label: "Array functions", desc: "count() sort() array_push() in_array() array_column()" },
+      { icon: "⚡", label: "map/filter/reduce", desc: "Functional style ─ transform arrays cleanly" },
     ],
-    code:`<?php
-// ── Indexed Array ───────────────────────────
-$fruits = ["Apple", "Banana", "Mango"];
-echo $fruits[0];       // Apple
-echo count($fruits);   // 3
-$fruits[] = "Grape";   // append to end
-sort($fruits);         // alphabetical A-Z
-print_r($fruits);
+    code: `<?php
+// 1. Indexed Array (The List)
+$foods = ["Sushi", "Steak", "Pizza"];
+echo $foods[0];        // Sushi
+$foods[] = "Burger";  // Add to end
 
-// ── Associative Array ───────────────────────
-$student = [
+// 2. Associative Array (Key => Value)
+$user = [
     "name"  => "Ratha",
-    "age"   => 20,
-    "major" => "Computer Science",
+    "major" => "CS",
+    "gpa"   => 3.8
 ];
-echo $student["name"];          // Ratha
-$student["gpa"] = 3.5;          // add field
-unset($student["age"]);         // remove field
-foreach ($student as $k => $v) {
-    echo "$k: $v";
-}
+echo $user["name"]; // Ratha
 
-// ── Functional array operations ─────────────
-$nums = [3, 1, 4, 1, 5, 9, 2, 6];
+// 3. Built-in Array Functions
+sort($foods);          // Alpha sort
+$count = count($foods); // 4
+$has_sushi = in_array("Sushi", $foods); // true
 
-// filter — keep only even numbers
-$evens = array_filter($nums, fn($n) => $n % 2 === 0);
-print_r(array_values($evens));  // [4, 2, 6]
+// 4. Modern Mapping & Filtering (PHP 7.4+)
+$nums    = [1, 2, 3, 4, 5];
+$doubled = array_map(fn($n) => $n * 2, $nums); 
+$evens   = array_filter($nums, fn($n) => $n % 2 === 0);
 
-// map — double each number
-$doubled = array_map(fn($n) => $n * 2, $nums);
-
-// reduce — sum all numbers
-$sum = array_reduce($nums, fn($carry, $n) => $carry + $n, 0);
-echo "Sum: $sum";  // Sum: 31
-
-// ── Multi-dimensional (like DB rows) ────────
-$students = [
-    ["name" => "Ratha",  "gpa" => 3.5],
-    ["name" => "Sophal", "gpa" => 3.8],
+// 5. Multi-dimensional (Like Database Rows)
+$matrix = [
+    ["name" => "Dara", "grade" => "A"],
+    ["name" => "Bona", "grade" => "B"]
 ];
-foreach ($students as $s) {
-    echo "{$s['name']}: GPA {$s['gpa']}";
-}
-
-// Extract one column from all rows
-$names = array_column($students, "name");
-echo implode(", ", $names);  // Ratha, Sophal
-echo implode(", ", $names);  // Ratha, Sophal
+echo $matrix[0]["name"]; // Dara
 ?>`,
-    syntax: `// ── Array Syntax ──────────────────────────
+    syntax: `// ── Array Cheat Sheet ───────────────────────
 //
-//  ["A", "B", "C"]      : Indexed array
+//  [v1, v2]             : Indexed array
 //  ["k" => "v"]         : Associative array
-//  $arr[0]              : Access by index
-//  $arr["name"]         : Access by key
-//  count($arr);         : Get size
+//  count($a)            : Get array size
+//  array_map(fn, $a)    : Transform array
 //  array_filter($a, fn) : Filter elements
-//  array_map(fn, $a)    : Transform elements
+//  sort($a)             : Sort indexed array
+//  ksort($a)            : Sort by keys
 //
-// ─────────────────────────────────────────`,
-    output:`Apple
-3
-Array ( [0] => Apple [1] => Banana [2] => Grape [3] => Mango )
-name: Ratha
-major: Computer Science
-gpa: 3.5
-Array ( [0] => 4 [1] => 2 [2] => 6 )
-Sum: 31
-Ratha: GPA 3.5
-Sophal: GPA 3.8
-Ratha, Sophal`,
-    tip:"Multi-dimensional arrays = database rows! PDO fetchAll() returns data in EXACTLY this format.",
+// ──────────────────────────────────────────`,
+    output: `Sushi
+Ratha
+Doubled: 2, 4, 6, 8, 10
+Evens: 2, 4
+Dara`,
+    tip: "Multi-dimensional arrays គឺជាទម្រង់ពិតដែលអ្នកនឹងទទួលបានពី Database (PDO fetchAll) ─ វារក្សាទុកទិន្នន័យជាជួរៗ (Rows)!",
+    workflow: `// ── Array Manipulation Flow ────────────────
+//
+// 1. Define: Create structure (រៀបចំរចនាសម្ព័ន្ធ)
+// 2. Update: Add/Edit keys (បន្ថែម ឬកែទិន្នន័យ)
+// 3. Process: Map/Filter logic (ចម្រាញ់ ឬបំប្លែង)
+// 4. Sort: Organize data (រៀបចំលំដាប់លំដោយ)
+// 5. Review: iterate with foreach (បង្ហាញលទ្ធផល)
+//
+// ──────────────────────────────────────────`,
   },
 
   // ── WEEK 4: OOP ───────────────────────────────────────────
   {
-    num:"11", chapter:"OOP", chapterColor:PURPLE,
-    tag:"Classes & Objects", tagColor:PURPLE, icon:"🏗️",
-    title:"Classes & Objects",
-    subtitle:"class · __construct · $this · methods · new · instanceof",
-    body:`**OOP** organizes code ជា **objects** ─ bundles data + behavior ។ **Class** ជា blueprint ─ **Object** ជា instance ─ **$this** refers to current object ។ PHP 8 **constructor promotion** ─ declare properties directly in constructor ─ no duplication ។`,
-    bullets:[
-      {icon:"📐",label:"class",           desc:"Blueprint/template ─ defines properties & methods"},
-      {icon:"📦",label:"new ClassName()", desc:"Creates an object (instance) from the class"},
-      {icon:"🔧",label:"__construct()",   desc:"Constructor ─ auto-called when object is created"},
-      {icon:"👉",label:"$this->",         desc:"Refers to the current object's own data & methods"},
+    num: "11", chapter: "OOP", chapterColor: PURPLE,
+    tag: "Classes & Objects", tagColor: PURPLE, icon: "🏗️",
+    title: "Classes & Objects",
+    subtitle: "class · __construct · $this · methods · new · instanceof",
+    body: `**OOP** organizes code ជា **objects** ─ bundles data + behavior ។ **Class** ជា blueprint ─ **Object** ជា instance ─ **$this** refers to current object ។ PHP 8 **constructor promotion** ─ declare properties directly in constructor ─ no duplication ។`,
+    bullets: [
+      { icon: "📐", label: "class", desc: "Blueprint/template ─ defines properties & methods" },
+      { icon: "📦", label: "new ClassName()", desc: "Creates an object (instance) from the class" },
+      { icon: "🔧", label: "__construct()", desc: "Constructor ─ auto-called when object is created" },
+      { icon: "👉", label: "$this->", desc: "Refers to the current object's own data & methods" },
     ],
-    code:`<?php
+    code: `<?php
 class Student {
     // PHP 8: Constructor Promotion
     // Declare + assign properties directly in constructor!
@@ -850,556 +817,826 @@ var_dump($ratha instanceof Student); // bool(true)
 //  $o instanceof Class  : Check type
 //
 // ─────────────────────────────────────────`,
-    output:`Hi! I'm Ratha, age 20.
+    output: `// Calling methods
+Hi! I'm Ratha, age 20.
 Hi! I'm Sophal, age 22.
 Passing ✅
 At Risk ⚠️
+
+// Accessing property & setter
 Ratha
 3.9
+
+// instanceof operator
 bool(true)`,
-    tip:"PHP 8 constructor promotion: write 'public string $name' inside __construct() params ─ no need to declare properties separately!",
+    tip: "PHP 8 constructor promotion: write 'public string $name' inside __construct() params ─ no need to declare properties separately!",
+    workflow: `// ── Object Instantiation Flow ──────────────
+//
+// 1. New object created (បង្កើត object ថ្មី)
+// 2. __construct() starts (ចាប់ផ្ដើម constructor)
+// 3. Properties assigned (ដាក់តម្លៃក្នុង property)
+// 4. Object returned (បញ្ជូន object ទៅ variable)
+// 5. Method called via -> (ហៅ method មកប្រើ)
+//
+// ─────────────────────────────────────────`,
   },
   {
-    num:"12", chapter:"OOP", chapterColor:PURPLE,
-    tag:"Inheritance", tagColor:PURPLE, icon:"🔗",
-    title:"Inheritance",
-    subtitle:"extends · parent:: · method override · access modifiers",
-    body:`**Inheritance** ─ child class (**extends**) gets all properties & methods from parent ─ reuse code ─ DRY ។ **Access modifiers** control visibility ─ public/protected/private ─ **parent::** ─ call parent's version of a method ។`,
-    bullets:[
-      {icon:"🔗",label:"extends",           desc:"class Admin extends User ─ inherit all from User"},
-      {icon:"🔒",label:"Access modifiers",  desc:"public=anywhere │ protected=class+children │ private=class only"},
-      {icon:"🔄",label:"Method override",   desc:"Child redefines parent method ─ called polymorphism"},
-      {icon:"⬆️",label:"parent::",          desc:"parent::__construct() ─ call parent's version explicitly"},
+    num: "12", chapter: "OOP", chapterColor: PURPLE,
+    tag: "Inheritance", tagColor: PURPLE, icon: "🔗",
+    title: "Inheritance",
+    subtitle: "extends · parent:: · method override · access modifiers",
+    body: `**Inheritance** ─ child class (**extends**) gets all properties & methods from parent ─ reuse code ─ DRY ។ **Access modifiers** control visibility ─ public/protected/private ─ **parent::** ─ call parent's version of a method ។`,
+    bullets: [
+      { icon: "🔗", label: "extends", desc: "class Admin extends User ─ inherit all from User" },
+      { icon: "🔒", label: "Access modifiers", desc: "public=anywhere │ protected=class+children │ private=class only" },
+      { icon: "🔄", label: "Method override", desc: "Child redefines parent method ─ called polymorphism" },
+      { icon: "⬆️", label: "parent::", desc: "parent::__construct() ─ call parent's version explicitly" },
     ],
-    code:`<?php
-// Parent Class
+    code: `<?php
 class User {
-    public    string $name;
-    protected string $email;    // accessible in child classes
-    private   string $password; // ONLY in this class, not children
+    protected string $role = "student";
 
-    public function __construct(
-        string $name,
-        string $email,
-        string $password
-    ) {
-        $this->name     = $name;
-        $this->email    = $email;
-        // NEVER store plain text passwords!
-        $this->password = password_hash($password, PASSWORD_DEFAULT);
-    }
+    public function __construct(public string $name) {}
 
-    public function getRole(): string { return "user"; }
-
-    public function describe(): string {
-        return "{$this->name} <{$this->email}> — {$this->getRole()}";
+    public function getRole(): string {
+        return $this->role;
     }
 }
 
-// Child Class — inherits everything from User
-class Admin extends User {
-    public function __construct(
-        string $name,
-        string $email,
-        string $password,
-        public string $department  // extra property for Admin
-    ) {
-        parent::__construct($name, $email, $password); // call parent!
-    }
+// Inheritance using 'extends'
+class Mentor extends User {
+    protected string $role = "mentor";
 
-    // Override — replace parent's getRole()
-    public function getRole(): string { return "admin ★"; }
+    // Override Parent Method
+    public function getRole(): string {
+        return "Certified " . parent::getRole();
+    }
 }
 
-// Usage
-$user  = new User("Ratha", "ratha@uni.edu", "pass123");
-$admin = new Admin("Dara",  "dara@uni.edu",  "admin99", "IT Dept");
+$u = new User("Sokha");
+$m = new Mentor("Dara");
 
-echo $user->describe();   // Ratha <ratha@uni.edu> — user
-echo $admin->describe();  // Dara <dara@uni.edu> — admin ★
-echo $admin->department;  // IT Dept
-
-// instanceof — Admin is also a User!
-var_dump($admin instanceof Admin); // bool(true)
-var_dump($admin instanceof User);  // bool(true)
-var_dump($admin instanceof User);  // bool(true)
+echo $u->name . ": " . $u->getRole(); // Sokha: student
+echo $m->name . ": " . $m->getRole(); // Dara: Certified mentor
 ?>`,
-    syntax: `// ── Inheritance Syntax ────────────────────
+    syntax: `// ── Inheritance Cheat Sheet ──────────────────
 //
-//  class A extends B    : A inherits from B
-//  parent::__construct(): Call parent constructor
-//  public function f()  : Visible everywhere
-//  protected $p;        : Visible to child classes
-//  private $p;          : Visible only in self
-//  parent::f();         : Call parent method
+//  class A extends B : A inherits from B
+//  parent::method()  : Call parent's version
+//  protected         : Visible in self + children
+//  private           : Visible in self ONLY
+//  final class       : Cannot be inherited
+//  final method      : Cannot be overridden
 //
-// ─────────────────────────────────────────`,
-    output:`Ratha <ratha@uni.edu> — user
-Dara <dara@uni.edu> — admin ★
-IT Dept
-bool(true)
-bool(true)`,
-    tip:"Admin instanceof User = true ─ a child object is always also an instance of the parent. This is polymorphism!",
+// ──────────────────────────────────────────`,
+    output: `Sokha: student
+Dara: Certified mentor`,
+    tip: "ប្រើ protected ជំនួស private ប្រសិនបើអ្នកចង់ឲ្យ child class អាចយក property នោះទៅប្រើបន្តបាន!",
+    workflow: `// ── Inheritance Cycle ──────────────────────
+//
+// 1. Definition: Child extends Parent (កូនស្នងមរតក)
+// 2. Access: Inherit all public/protected (ទាញយកសមត្ថភាព)
+// 3. Override: Update logic in child (កែសម្រួល logic ថ្មី)
+// 4. Reference: parent:: call (ហៅមេត្រឡប់)
+// 5. Result: Multi-layered behavior (បានលទ្ធផលច្រើនជាន់)
+//
+// ──────────────────────────────────────────`,
   },
   {
-    num:"13", chapter:"OOP", chapterColor:PURPLE,
-    tag:"Abstract & Interface", tagColor:PURPLE, icon:"📜",
-    title:"Abstract & Interface",
-    subtitle:"abstract class · interface · implements · contracts · polymorphism",
-    body:`**Abstract class** ─ cannot instantiate directly ─ defines shared code + forces children to implement abstract methods ─ **IS-A** relationship ។ **Interface** ─ pure contract ─ class can implement **multiple** interfaces ─ **CAN-DO** relationship ។`,
-    bullets:[
-      {icon:"🏗️",label:"abstract class",    desc:"Has abstract methods (no body) ─ child MUST implement"},
-      {icon:"📜",label:"interface",           desc:"Pure contract ─ only method signatures, zero implementation"},
-      {icon:"✅",label:"implements",          desc:"class Report implements Printable ─ must provide all methods"},
-      {icon:"🔀",label:"Multiple interfaces", desc:"class Foo implements A, B, C ─ unlike extends (only 1 parent)"},
+    num: "13", chapter: "OOP", chapterColor: PURPLE,
+    tag: "Abstract & Interface", tagColor: PURPLE, icon: "📜",
+    title: "Abstract & Interface",
+    subtitle: "abstract class · interface · implements · contracts · polymorphism",
+    body: `**Abstract class** ─ cannot instantiate directly ─ defines shared code + forces children to implement abstract methods ─ **IS-A** relationship ។ **Interface** ─ pure contract ─ class can implement **multiple** interfaces ─ **CAN-DO** relationship ។`,
+    bullets: [
+      { icon: "🏗️", label: "abstract class", desc: "Has abstract methods (no body) ─ child MUST implement" },
+      { icon: "📜", label: "interface", desc: "Pure contract ─ only method signatures, zero implementation" },
+      { icon: "✅", label: "implements", desc: "class Report implements Printable ─ must provide all methods" },
+      { icon: "🔀", label: "Multiple interfaces", desc: "class Foo implements A, B, C ─ unlike extends (only 1 parent)" },
     ],
-    code:`<?php
-// Abstract Class — partial implementation, forces contract
-abstract class Shape {
-    abstract public function area(): float;       // no body!
-    abstract public function perimeter(): float;  // child MUST implement
-
-    // Concrete shared method — all shapes can use this
-    public function describe(): string {
-        return sprintf("%s → Area: %.2f | Perimeter: %.2f",
-            get_class($this), $this->area(), $this->perimeter());
-    }
+    code: `<?php
+// ABSTRACT: Blueprint that can't be created directly
+abstract class Device {
+    abstract public function turnOn(): string; // Contract
 }
 
-class Circle extends Shape {
-    public function __construct(private float $r) {}
-    public function area(): float      { return M_PI * $this->r ** 2; }
-    public function perimeter(): float { return 2 * M_PI * $this->r; }
+class Laptop extends Device {
+    public function turnOn(): string { return "Laptop booting..."; }
 }
 
-class Rectangle extends Shape {
-    public function __construct(
-        private float $w, private float $h) {}
-    public function area(): float      { return $this->w * $this->h; }
-    public function perimeter(): float { return 2 * ($this->w + $this->h); }
+// INTERFACE: Behavior contract (Can-Do)
+interface Rechargeable {
+    public function charge(): void;
 }
 
-// Interface — pure contract (no code, just signatures)
-interface Printable  { public function printInfo(): void; }
-interface Exportable { public function exportPDF(): string; }
-
-// A class can implement MULTIPLE interfaces
-class Report implements Printable, Exportable {
-    public function __construct(private string $title) {}
-    public function printInfo(): void   { echo "📄 {$this->title}"; }
-    public function exportPDF(): string { return "{$this->title}.pdf"; }
+class Smartphone extends Device implements Rechargeable {
+    public function turnOn(): string { return "Phone starting..."; }
+    public function charge(): void   { echo "Battery: 100%"; }
 }
 
-// Polymorphism — same code works for any Shape
-$shapes = [new Circle(5), new Rectangle(4, 6)];
-foreach ($shapes as $shape) {
-    echo $shape->describe() . " ";
-}
-
-$r = new Report("Grade Summary");
-$r->printInfo();
-echo $r->exportPDF();
-echo $r->exportPDF();
+$p = new Smartphone();
+echo $p->turnOn();
+$p->charge();
 ?>`,
-    syntax: `// ── Abstract & Interface Syntax ───────
+    syntax: `// ── Abstract vs Interface Cheat Sheet ────────
 //
-//  abstract class A { } : Cannot instantiate
-//  abstract function f(): Forced to implement
-//  interface I { }      : Pure contract
-//  class C implements I : Must use all I methods
-//  class C implements A,B: Multiple interfaces ok
+//  abstract class    : Partial blueprint (IS-A)
+//  interface         : Pure behavior (CAN-DO)
+//  abstract function : No body, child must write it
+//  implements        : Connect to an interface
+//  extends           : Connect to a parent class
 //
-// ─────────────────────────────────────────`,
-    output:`Circle → Area: 78.54 | Perimeter: 31.42
-Rectangle → Area: 24.00 | Perimeter: 20.00
-📄 Grade Summary
-Grade Summary.pdf`,
-    tip:"Use abstract class for related classes sharing code (IS-A). Use interface for unrelated classes sharing behavior (CAN-DO)!",
+// ──────────────────────────────────────────`,
+    output: `Phone starting...
+Battery: 100%`,
+    tip: "ប្រើ Abstract Class សម្រាប់អ្វីដែលជារបស់ដូចគ្នា (IS-A) និងប្រើ Interface សម្រាប់អ្វីដែលជាសមត្ថភាពដូចគ្នា (CAN-DO)!",
+    workflow: `// ── Contract Enforcement Flow ───────────────
+//
+// 1. Define: Abstract/Interface (កំណត់ច្បាប់)
+// 2. Extend/Implement: Child class (អនុវត្តច្បាប់)
+// 3. Must: Write required methods (ត្រូវតែសរសេរ code)
+// 4. Result: Guaranteed consistency (ធានាបានភាពត្រឹមត្រូវ)
+// 5. Call: Type-safe behavior (ហៅប្រើដោយទំនុកចិត្ត)
+//
+// ──────────────────────────────────────────`,
   },
   {
-    num:"14", chapter:"OOP", chapterColor:PURPLE,
-    tag:"Static & Traits", tagColor:PURPLE, icon:"🧩",
-    title:"Static, Traits & Magic",
-    subtitle:"static · self:: · trait · use · __toString · namespaces",
-    body:`**Static** properties/methods belong to the **class itself** ─ not to any instance ─ call with **ClassName::** ─ shared across all instances ─ useful for counters, singletons ។ **Traits** ─ inject reusable code into any class ─ solves multiple inheritance problem ។`,
-    bullets:[
-      {icon:"⚡",label:"static",        desc:"ClassName::method() ─ no object needed, class-level data"},
-      {icon:"🧩",label:"Traits",         desc:"trait Logger { } then use Logger; inside any class body"},
-      {icon:"✨",label:"Magic methods",  desc:"__toString() __get() __set() ─ PHP calls these automatically"},
-      {icon:"📁",label:"Namespaces",     desc:"namespace App\\Models; ─ organize code, avoid name conflicts"},
+    num: "14", chapter: "OOP", chapterColor: PURPLE,
+    tag: "Static & Traits", tagColor: PURPLE, icon: "🧩",
+    title: "Static, Traits & Magic",
+    subtitle: "static · self:: · trait · use · __toString · namespaces",
+    body: `**Static** properties/methods belong to the **class itself** ─ not to any instance ─ call with **ClassName::** ─ shared across all instances ─ useful for counters, singletons ។ **Traits** ─ inject reusable code into any class ─ solves multiple inheritance problem ។`,
+    bullets: [
+      { icon: "⚡", label: "static", desc: "ClassName::method() ─ no object needed, class-level data" },
+      { icon: "🧩", label: "Traits", desc: "trait Logger { } then use Logger; inside any class body" },
+      { icon: "✨", label: "Magic methods", desc: "__toString() __get() __set() ─ PHP calls these automatically" },
+      { icon: "📁", label: "Namespaces", desc: "namespace App\\Models; ─ organize code, avoid name conflicts" },
     ],
-    code:`<?php
-// Static — belongs to class, not to any instance
-class Counter {
-    private static int $count = 0;
-
-    public static function increment(): void { self::$count++; }
-    public static function getCount(): int   { return self::$count; }
-    public static function reset(): void     { self::$count = 0; }
-}
-
-Counter::increment();
-Counter::increment();
-Counter::increment();
-echo Counter::getCount(); // 3
-Counter::reset();
-echo Counter::getCount(); // 0
-
-// Traits — reusable code blocks, injected into classes
-trait Timestampable {
-    private string $createdAt;
-    public function setCreated(): void {
-        $this->createdAt = date('Y-m-d H:i:s');
+    code: `<?php
+// STATIC: Class-level data
+class Math {
+    public static float $pi = 3.14;
+    public static function square(int $n): int {
+        return $n * $n;
     }
-    public function getCreated(): string {
-        return $this->createdAt ?? 'not set';
+}
+echo Math::$pi;         // 3.14
+echo Math::square(4);   // 16
+
+// TRAIT: Reusable mixin
+trait Logger {
+    public function log(string $msg) {
+        echo "[LOG]: $msg";
     }
 }
 
-trait Loggable {
-    public function log(string $msg): void {
-        echo "[LOG " . get_class($this) . "] $msg";
-    }
-}
+class Database { use Logger; }
+class Auth { use Logger; }
 
-class Article {
-    use Timestampable, Loggable;  // inject BOTH traits!
-
-    public function __construct(private string $title) {
-        $this->setCreated();
-    }
-
-    // Magic method — PHP calls this when object used as string
-    public function __toString(): string {
-        return "'{$this->title}' created: {$this->getCreated()}";
-    }
-}
-
-$a = new Article("PHP OOP Guide");
-echo $a;               // calls __toString automatically
-$a->log("Published!"); // from Loggable trait
-$a->log("Published!"); // from Loggable trait
+$db = new Database();
+$db->log("Connecting..."); // from trait
 ?>`,
-    syntax: `// ── Static & Traits Syntax ─────────────
+    syntax: `// ── Static & Traits Cheat Sheet ──────────────
 //
-//  static $p;           : Belong to class
-//  self::$p;            : Internal static access
-//  Class::$p;           : External static access
-//  trait T { ... }      : Reusable code block
-//  use T;               : Inject trait into class
-//  __toString()         : Auto-call when echo $obj
+//  static $v          : Shared across all objects
+//  self::$v           : Access static inside class
+//  Class::$v          : Access static outside class
+//  trait T { }        : Reusable code block
+//  use T              : Inject trait into class
+//  ::                 : Scope Resolution Operator
 //
-// ─────────────────────────────────────────`,
-    output:`3
-0
-'PHP OOP Guide' created: 2026-03-22 10:00:00
-[LOG Article] Published!`,
-    tip:"Traits solve the multiple inheritance problem ─ inject the same code into unrelated classes with 'use TraitName;'!",
+// ──────────────────────────────────────────`,
+    output: `3.14
+16
+[LOG]: Connecting...`,
+    tip: "Static properties មិនមែនរបស់ object ទេ តែជារបស់ Class ជារួម! ប្រើវាសម្រាប់អ្វីដែលជា Global settings ឬ Utilities!",
+    workflow: `// ── Code Sharing Workflow ──────────────────
+//
+// 1. Static: Call via Class:: (ហៅប្រើចំឈ្មោះថ្នាក់)
+// 2. Trait: define reusable code (បង្កើតកូដសម្រាប់ប្រើឡើងវិញ)
+// 3. Use: import into class (បញ្ជ្រាបចូលក្នុងថ្នាក់)
+// 4. Execute: Call injected method (ហៅមុខងារថ្មីមកប្រើ)
+// 5. Shared: Available everywhere (ប្រើបានគ្រប់ទីកន្លែង)
+//
+// ──────────────────────────────────────────`,
   },
 
   // ── WEEK 5: WEB & DATABASE ────────────────────────────────
   {
-    num:"15", chapter:"Web & Forms", chapterColor:TEAL,
-    tag:"Forms", tagColor:TEAL, icon:"📝",
-    title:"Forms (GET & POST)",
-    subtitle:"$_GET · $_POST · validate · sanitize · filter_var · XSS",
-    body:`PHP handles form submissions via **$_GET** (URL params) and **$_POST** (form body) ។ **NEVER trust user input** ─ always **validate** (check rules) then **sanitize** (clean data) ─ every input is a potential security attack ។`,
-    bullets:[
-      {icon:"🔍",label:"$_GET",              desc:"?name=Ratha in URL ─ visible, use for search/filters"},
-      {icon:"📤",label:"$_POST",             desc:"Form body ─ hidden from URL ─ use for passwords/mutations"},
-      {icon:"🛡️",label:"htmlspecialchars()", desc:"< > & → HTML entities ─ prevents XSS attacks"},
-      {icon:"✅",label:"filter_var()",        desc:"Validate email, URL, int ─ returns false if invalid"},
+    num: "15", chapter: "Web & Forms", chapterColor: TEAL,
+    tag: "Forms", tagColor: TEAL, icon: "📝",
+    title: "Forms (GET & POST)",
+    subtitle: "$_GET · $_POST · validate · sanitize · filter_var · XSS",
+    body: `PHP handles form submissions via **$_GET** (URL params) and **$_POST** (form body) ។ **NEVER trust user input** ─ always **validate** (check rules) then **sanitize** (clean data) ─ every input is a potential security attack ។`,
+    bullets: [
+      { icon: "🔍", label: "$_GET", desc: "?name=Ratha in URL ─ visible, use for search/filters" },
+      { icon: "📤", label: "$_POST", desc: "Form body ─ hidden from URL ─ use for passwords/mutations" },
+      { icon: "🛡️", label: "htmlspecialchars()", desc: "< > & → HTML entities ─ prevents XSS attacks" },
+      { icon: "✅", label: "filter_var()", desc: "Validate email, URL, int ─ returns false if invalid" },
     ],
-    code:`<!-- HTML Form -->
-<form method="POST" action="process.php">
-  <input type="text"     name="username"  placeholder="Username">
-  <input type="password" name="password"  placeholder="Password">
-  <input type="email"    name="email"     placeholder="Email">
-  <button type="submit">Register</button>
-</form>
+    code: `<?php
+// 1. GET: Visible in URL (Search/Filter)
+$search = $_GET['q'] ?? "all";
 
-<?php
-// process.php — Handle POST Submission
+// 2. POST: Secure/Hidden (Forms/Login)
+$email = $_POST['email'] ?? "";
+
+// 3. Security: Sanitize for XSS
+$safe_html = htmlspecialchars($email);
+
+// 4. Security: Validation
+$is_valid = filter_var($email, FILTER_VALIDATE_EMAIL);
+
+// 5. Password Hashing
+$hash = password_hash("secret123", PASSWORD_DEFAULT);
+?>`,
+    syntax: `// ── Secure Form Cheat Sheet ──────────────────
+//
+//  $_GET['key']        : URL parameters
+//  $_POST['key']       : Form body data
+//  htmlspecialchars($s): Clean for output (XSS)
+//  filter_var($id, F)  : Validate data type
+//  password_hash($p, D): Secure store (one-way)
+//
+// ──────────────────────────────────────────`,
+    output: `Email: test@example.com
+Is Valid: true
+Hash: $2y$10$Y5n2v...`,
+    tip: "កុំទុកពាក្យសម្ងាត់ (Passwords) ជាអត្ថបទធម្មតា! ត្រូវប្រើ password_hash() ជានិច្ចដើម្បីសុវត្ថិភាពខ្ពស់បំផុត!",
+    workflow: `// ── Data Submission Flow ───────────────────
+//
+// 1. Form: User types data (បញ្ចូលទិន្នន័យ)
+// 2. Method: GET vs POST (ជ្រើសរើសវិធីបញ្ជូន)
+// 3. Filter: Validate Input (បញ្ជាក់ភាពត្រឹមត្រូវ)
+// 4. Sanitize: Clean for DB/UI (សម្អាតឱ្យមានសុវត្ថិភាព)
+// 5. Hash: Secure passwords (បំប្លែងពាក្យសម្ងាត់)
+//
+// ──────────────────────────────────────────`,
+  },
+  {
+    num: "16", chapter: "Web & Forms", chapterColor: TEAL,
+    tag: "Include & Session", tagColor: GREEN, icon: "🔐",
+    title: "Include Files & Sessions",
+    subtitle: "require_once · partials · session_start · $_SESSION · logout",
+    body: `**require_once** ─ include a file once ─ fatal error if missing ─ use for all config/helpers ។ **$_SESSION** ─ store user login state across pages ─ server-side ─ call **session_start()** as very first line ─ before ANY output ។`,
+    bullets: [
+      { icon: "🔒", label: "require_once", desc: "Include once ─ FATAL error if missing ─ always prefer this" },
+      { icon: "🧩", label: "Partials pattern", desc: "header.php, footer.php, config.php ─ modular reusable structure" },
+      { icon: "🗝️", label: "session_start()", desc: "Must be FIRST ─ before any echo, whitespace, or HTML!" },
+      { icon: "💾", label: "$_SESSION", desc: "Store user login state across pages ─ server-side, secure" },
+    ],
+    code: `<?php
+// config.php
+define('SITE_NAME', 'UniPortal');
+
+// 1. Including Files (Modular Code)
+require_once 'config.php'; // Fatal error if missing
+include 'header.php';      // Warning only
+
+// 2. SESSIONS (Login State)
+session_start(); // Must be the VERY FIRST line!
+
+$_SESSION['user'] = "Ratha";
+echo "Welcome, " . $_SESSION['user'];
+
+// 3. Clear Session (Logout)
+// session_destroy();
+?>`,
+    syntax: `// ── Includes & Sessions Cheat Sheet ──────────
+//
+//  require_once    : Critical files (DB, Config)
+//  include         : Less critical (UI parts)
+//  session_start() : Initialize session engine
+//  $_SESSION['k']  : Store data across pages
+//  header("Loc:")  : Redirect browser
+//
+// ──────────────────────────────────────────`,
+    output: `Welcome, Ratha`,
+    tip: "session_start() ត្រូវតែនៅបន្ទាត់ទី១ ជានិច្ច! បើមាន whitespace ឬ echo មុនវានឹងបណ្ដាលឲ្យមាន Error 'Headers already sent'!",
+    workflow: `// ── User Session Lifecycle ──────────────────
+//
+// 1. Entry: session_start() called (ចាប់ផ្ដើម)
+// 2. Verify: Check $_SESSION['user'] (ឆែកព័ត៌មាន)
+// 3. Store: Write login info (រក្សាទុកទិន្នន័យ)
+// 4. Persistence: Data stays on refresh (រក្សាដដែល)
+// 5. Destroy: Terminate on logout (លុបចោលវិញ)
+//
+// ──────────────────────────────────────────`,
+  },
+  {
+    num: "17", chapter: "Web & Forms", chapterColor: TEAL,
+    tag: "Files & Upload", tagColor: ORANGE, icon: "📤",
+    title: "File Handling & Upload",
+    subtitle: "$_FILES · move_uploaded_file · enctype · validation · security",
+    body: `ការ Upload files ក្នុង PHP ត្រូវប្រើ **$_FILES** superglobal ─ Form ត្រូវមាន **enctype="multipart/form-data"** ។ ត្រូវតែ **validate** ប្រភេទ file (extension) និងទំហំ (size) ជានិច្ច ដើម្បីការពារ security ─ ប្រើ **move_uploaded_file()** ដើម្បីរក្សាទុកក្នុង server ។`,
+    bullets: [
+      { icon: "📤", label: "enctype", desc: "កូដចាំបាច់ក្នុង <form> ដើម្បី upload files: multipart/form-data" },
+      { icon: "📁", label: "$_FILES", desc: "Superglobal array ផ្ទុកព័ត៌មាន name, type, size, tmp_name" },
+      { icon: "🛡️", label: "Validation", desc: "ឆែក extension (jpg, png) និង size (max 2MB) ដើម្បីសុវត្ថិភាព" },
+      { icon: "✅", label: "move_uploaded_file", desc: "ប្តូរទីតាំង file ពី temporary ទៅកាន់ folder ក្នុង project" },
+    ],
+    code: `<?php
+// 1. Form Setup (HTML)
+// <form action="upload.php" method="POST" enctype="multipart/form-data">
+//    <input type="file" name="my_file">
+// </form>
+
+// 2. Handling the Upload (upload.php)
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-
-    // 1. Read raw input (use ?? for safe default)
-    $username = $_POST['username'] ?? '';
-    $password = $_POST['password'] ?? '';
-    $email    = $_POST['email']    ?? '';
-
-    // 2. Validate — check business rules
-    $errors = [];
-    if (empty($username))           $errors[] = "Username required";
-    if (strlen($password) < 6)      $errors[] = "Password: min 6 chars";
-    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $errors[] = "Invalid email format";
+    $file = $_FILES['my_file'];
+    
+    $name = basename($file['name']);
+    $tmp  = $file['tmp_name'];
+    $size = $file['size'];
+    
+    // 3. Security Check (Extension)
+    $ext = strtolower(pathinfo($name, PATHINFO_EXTENSION));
+    $allowed = ['jpg', 'png', 'pdf'];
+    
+    if (in_array($ext, $allowed) && $size < 2000000) {
+        $dest = "uploads/" . time() . "_" . $name;
+        if (move_uploaded_file($tmp, $dest)) {
+            echo "File uploaded successfully! ✅";
+        }
+    } else {
+        echo "Invalid file or too large! ❌";
     }
-
-    if (!empty($errors)) {
-        foreach ($errors as $e) echo "❌ $e\n";
-        exit;
-    }
-
-    // 3. Sanitize — prevent XSS attacks
-    $username = htmlspecialchars(trim($username));
-    $email    = htmlspecialchars(trim($email));
-
-    // 4. Hash password — NEVER store plain text!
-    $hashed = password_hash($password, PASSWORD_DEFAULT);
-
-    echo "✅ Welcome, $username!\n";
-    echo "📧 $email\n";
-    echo "🔐 Hash: " . substr($hashed, 0, 25) . "...\n";
 }
 ?>`,
-    syntax: `// ── Web Forms Syntax ──────────────────────
+    syntax: `// ── File Upload Cheat Sheet ─────────────────
 //
-//  $_POST['key']        : Access hidden form data
-//  $_GET['key']         : Access URL parameters
-//  htmlspecialchars($s) : Prevent XSS attacks
-//  password_hash($p, D) : Securely hash password
-//  filter_var($e, F)    : Validate Email/URL
+//  $_FILES['k']['name']     : Original filename
+//  $_FILES['k']['tmp_name'] : Temporary server path
+//  $_FILES['k']['size']     : File size in bytes
+//  $_FILES['k']['error']    : Error code (0 = success)
+//  move_uploaded_file(s, d) : Save file permanently
+//  pathinfo(f, PATHINFO_EXTENSION) : Get extension
 //
-// ─────────────────────────────────────────`,
-    output:`// Valid: username=Ratha, email=ratha@test.com, pass=secret99
-✅ Welcome, Ratha!
-📧 ratha@test.com
-🔐 Hash: $2y$10$Km9xyZ3abc...
-
-// Invalid: short password + bad email:
-❌ Password: min 6 chars
-❌ Invalid email format`,
-    tip:"NEVER store plain-text passwords! Always password_hash() to store and password_verify() to check login!",
+// ──────────────────────────────────────────`,
+    output: `File uploaded successfully! ✅`,
+    tip: "កុំទុកចិត្តឈ្មោះ file ដែល user ផ្ញើមក! ត្រូវតែបន្ថែម prefix (ដូចជា time()) ទៅកាន់ឈ្មោះ file ដើម្បីទប់ស្កាត់ការជាន់ឈ្មោះគ្នា (File Overwriting)!",
+    workflow: `// ── File Upload Workflow ────────────────────
+//
+// 1. Request: Form with multipart/form-data (ផ្ញើ request)
+// 2. Temp: PHP saves file in temp folder (រក្សាទុកបណ្តោះអាសន្ន)
+// 3. Inspect: Validate type and size (ពិនិត្យសុវត្ថិភាព)
+// 4. Move: move_uploaded_file() to dest (ប្តូរទីតាំងទុកជាអចិន្ត្រៃយ៍)
+// 5. Result: Return success/error status (បង្ហាញលទ្ធផល)
+//
+// ──────────────────────────────────────────`,
   },
   {
-    num:"16", chapter:"Web & Forms", chapterColor:TEAL,
-    tag:"Include & Session", tagColor:GREEN, icon:"🔐",
-    title:"Include Files & Sessions",
-    subtitle:"require_once · partials · session_start · $_SESSION · logout",
-    body:`**require_once** ─ include a file once ─ fatal error if missing ─ use for all config/helpers ។ **$_SESSION** ─ store user login state across pages ─ server-side ─ call **session_start()** as very first line ─ before ANY output ។`,
-    bullets:[
-      {icon:"🔒",label:"require_once",    desc:"Include once ─ FATAL error if missing ─ always prefer this"},
-      {icon:"🧩",label:"Partials pattern", desc:"header.php, footer.php, config.php ─ modular reusable structure"},
-      {icon:"🗝️",label:"session_start()", desc:"Must be FIRST ─ before any echo, whitespace, or HTML!"},
-      {icon:"💾",label:"$_SESSION",       desc:"Store user login state across pages ─ server-side, secure"},
+    num: "18", chapter: "Web & Database", chapterColor: TEAL,
+    tag: "Database PDO", tagColor: BLUE, icon: "🗄️",
+    title: "MySQL & PDO",
+    subtitle: "PDO connect · prepared statements · CRUD · fetch · fetchAll",
+    body: `PHP ភ្ជាប់ MySQL ដោយ **PDO** ─ modern, secure, multi-database ។ **Prepared statements** with **?** placeholders ─ NEVER concatenate user input into SQL ─ prevents SQL Injection ─ the most critical security rule in backend development ។`,
+    bullets: [
+      { icon: "🔌", label: "PDO connect", desc: "new PDO($dsn, $user, $pass) ─ connect to MySQL" },
+      { icon: "🛡️", label: "Prepared statements", desc: "prepare() + execute([$val]) ─ prevents SQL injection" },
+      { icon: "📥", label: "fetch()", desc: "One row ─ for detail/show page (WHERE id = ?)" },
+      { icon: "📋", label: "fetchAll()", desc: "All rows as array ─ for listing/index page" },
     ],
-    code:`<?php
-// ── config.php ──────────────────────────────
-define('DB_HOST', 'localhost');
-define('DB_NAME', 'university_db');
-define('APP_NAME', 'UniPortal');
-define('VERSION',  '2.0');
+    code: `<?php
+// 1. Connect via PDO
+$dsn = "mysql:host=localhost;dbname=school;charset=utf8mb4";
+$db = new PDO($dsn, "root", "");
 
-// ── header.php ──────────────────────────────
+// 2. Create (Securely)
+$stmt = $db->prepare("INSERT INTO users (name) VALUES (?)");
+$stmt->execute(["Ratha"]);
+
+// 3. Read (Fast)
+$users = $db->query("SELECT * FROM users")->fetchAll(PDO::FETCH_ASSOC);
+
+// 4. Update
+$db->prepare("UPDATE users SET name = ? WHERE id = ?")
+   ->execute(["Dara", 1]);
+
+// 5. Delete
+$db->prepare("DELETE FROM users WHERE id = ?")
+   ->execute([2]);
+?>`,
+    syntax: `// ── PDO CRUD Cheat Sheet ─────────────────────
+//
+//  new PDO()          : Connect to Database
+//  prepare()          : Secure query template
+//  execute([$v])      : Bind data to template
+//  fetch()            : Get one row
+//  fetchAll()         : Get all rows in array
+//  lastInsertId()     : Get ID of new record
+//
+// ──────────────────────────────────────────`,
+    output: `Connected Successfully!
+Record Inserted.
+Users: [Dara, Ratha]`,
+    tip: "កុំប្រើការបូក string (concatenation) ក្នុង SQL! ត្រូវប្រើ '?' placeholders ជាមួយ prepare() ជានិច្ច ដើម្បីទប់ស្កាត់ SQL Injection!",
+    workflow: `// ── Secure DB Operation Flow ────────────────
+//
+// 1. Connect: Establish PDO link (ភ្ជាប់ទៅ DB)
+// 2. Prepare: Design SQL template (រៀបចំប្លង់ SQL)
+// 3. Execute: Bind values safely (បញ្ចូលតម្លៃដោយសុវត្ថិភាព)
+// 4. Trace: Check success/failure (ពិនិត្យលទ្ធផល)
+// 5. Output: Present data to USER (បង្ហាញទិន្នន័យ)
+//
+// ──────────────────────────────────────────`,
+  },
+  {
+    num: "19", chapter: "Web & Database", chapterColor: TEAL,
+    tag: "Full CRUD Project", tagColor: PINK, icon: "📂",
+    title: "Mini-Project: SQLite CRUD",
+    subtitle: "sqlite connection · create table · insert · fetch · search",
+    body: `គ្រោងការណ៍ **Full Project** ─ ប្រើ **SQLite** (គ្មានការតម្លើង SQL server) ។ រួមបញ្ចូលការតភ្ជាប់ DB ─ បង្កើត Table ─ បញ្ចូលទិន្នន័យ (Create) ─ បង្ហាញទិន្នន័យ (Read) ។`,
+    bullets: [
+      { icon: "📂", label: "database.db", desc: "SQLite keeps everything in ONE file inside your project" },
+      { icon: "⚡", label: "Auto-Setup", desc: "CREATE TABLE IF NOT EXISTS runs first to ensure DB is ready" },
+      { icon: "🛡️", label: "Prepared Bindings", desc: "execute(['val']) ensures safety against SQL injection" },
+      { icon: "🚀", label: "Built-in Server", desc: "php -S localhost:8000 runs the project locally" },
+    ],
+    code: `<?php
+// 1. Connect to SQLite
+$db = new PDO("sqlite:database.db");
+
+// 2. Setup table (Auto-runs once)
+$db->exec("CREATE TABLE IF NOT EXISTS students (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT,
+    major TEXT
+)");
+
+// 3. Handle Form Submission
+$msg = "";
+if (isset($_POST['name'])) {
+    $name = $_POST['name'];
+    $major = $_POST['major'] ?? "General";
+
+    // 🛡️ Validation
+    if (empty($name)) {
+        $msg = "<div class='alert err'>❌ Error: Name is required!</div>";
+    } else {
+        $stmt = $db->prepare("INSERT INTO students (name, major) VALUES (?, ?)");
+        $stmt->execute([$name, $major]);
+        $msg = "<div class='alert ok'>✅ Student saved successfully!</div>";
+    }
+}
+
+// 3. Fetch Results
+$students = $db->query("SELECT * FROM students")->fetchAll(PDO::FETCH_ASSOC);
 ?>
-<!DOCTYPE html>
-<html><head><title><?= APP_NAME ?></title></head>
-<body>
-<nav><?= APP_NAME ?> v<?= VERSION ?></nav>
-<?php
 
-// ── auth.php — session helper functions ─────
-function login(string $name, int $id): void {
-    session_start();  // MUST be first!
-    $_SESSION['user_id']   = $id;
-    $_SESSION['user_name'] = $name;
-    $_SESSION['logged_at'] = time();
-}
+<!-- HTML Interface -->
+<div style="font-family:'Outfit', sans-serif; max-width:400px; margin:0 auto; background:#fff; padding:24px; border-radius:16px; border:1px solid #eee; box-shadow:0 10px 40px rgba(0,0,0,0.04)">
+  <h2 style="margin:0 0 4px; font-size:1.4rem; color:#111">Student Register</h2>
+  <p style="margin:0 0 20px; font-size:0.85rem; color:#888">Add new students to the database</p>
 
-function isLoggedIn(): bool {
-    if (session_status() === PHP_SESSION_NONE) session_start();
-    return isset($_SESSION['user_id']);
-}
+  <!-- Dynamic Message UI -->
+  <style>
+    .alert { padding:12px; border-radius:8px; font-size:13px; font-weight:600; margin-bottom:15px; }
+    .ok { background:#e6fcf5; color:#0ca678; border:1px solid #c3fae8; }
+    .err { background:#fff5f5; color:#fa5252; border:1px solid #ffe3e3; }
+  </style>
+  <?= $msg ?>
+  
+  <form method="POST" style="display:flex; flex-direction:column; gap:12px; margin-bottom:24px">
+    <input name="name"  placeholder="Enter Student Name" style="padding:12px; border:1px solid #eee; background:#f8f9fa; border-radius:8px; font-size:14px; outline:none">
+    <select name="major" style="padding:12px; border:1px solid #eee; background:#f8f9fa; border-radius:8px; font-size:14px; color:#555">
+       <option selected>Computer Science</option>
+       <option>Business Admin</option>
+       <option>Marketing</option>
+    </select>
+    <button style="background:#111; color:#fff; padding:14px; border:none; border-radius:8px; cursor:pointer; font-weight:700; font-size:14px; transition:0.2s">Save student record</button>
+  </form>
 
-function logout(): void {
-    session_start();
-    session_unset();    // clear all session vars
-    session_destroy();  // delete session file
-}
-
-function requireLogin(): void {
-    if (!isLoggedIn()) {
-        header("Location: /login.php");
-        exit;
-    }
-}
-
-// ── index.php — assemble page from parts ────
-require_once 'config.php';   // constants
-require_once 'header.php';   // HTML header
-require_once 'auth.php';     // session functions
-
-login("Ratha", 42);    // simulate login
-requireLogin();        // protect the page
-echo "<h1>Welcome " . $_SESSION['user_name'] . "!</h1>";
-echo "<p>Session ID: " . session_id() . "</p>";
-// require_once 'footer.php';
-// require_once 'footer.php';
-?>`,
-    syntax: `// ── Session & Includes Syntax ────────────
+  <h3 style="margin:0 0 12px; font-size:0.8rem; color:#aaa; text-transform:uppercase; letter-spacing:0.1em; font-weight:800">Recent Enrolled</h3>
+  <div style="display:flex; flex-direction:column; gap:8px">
+    <?php foreach($students as $s): ?>
+      <div style="background:#fff; padding:14px; border-radius:10px; border:1px solid #f1f1f1; display:flex; justify-content:space-between; align-items:center; box-shadow:0 2px 5px rgba(0,0,0,0.01)">
+         <span style="font-weight:600; color:#222; font-size:14px"><?= $s['name'] ?></span>
+         <span style="font-size:11px; color:#111; background:#f0f0f0; padding:3px 10px; border-radius:100px; font-weight:700"><?= $s['major'] ?></span>
+      </div>
+    <?php endforeach; ?>
+  </div>
+</div>`,
+    syntax: `// ── SQLite CRUD Syntax ────────────────────
 //
-//  require_once "f.php" : Import file (fatal if missing)
-//  include "f.php"      : Import file (warning if missing)
-//  session_start()      : MUST be line 1 of file
-//  $_SESSION['k'] = v   : Persistent user data
-//  session_destroy()    : Clear all session data
-//  header("Location: f"): Redirect to new page
+//  sqlite:db.db       : SQLite DSN (Connection string)
+//  exec("SQL");       : Run direct query (no results)
+//  query("SQL");      : Run select query (has results)
+//  prepare("SQL ?");  : Setup secured query template
+//  fetchAll(PDO::ASSOC): Get results as array
 //
 // ─────────────────────────────────────────`,
-    output:`// File structure:
-project/
-├── config.php       ← DB + App constants
-├── auth.php         ← Session helper functions
-├── header.php       ← Reusable HTML header
-├── footer.php       ← Reusable HTML footer
-└── index.php        ← Main page
+    output: `// Starting PHP Server...
+[Mon Mar 23 10:00:15] PHP 8.3.4 Development Server (http://localhost:8000) started
+[Mon Mar 23 10:00:16] DB INIT: SQLite core connected. file="database.db"
 
-// Output of index.php:
-<!DOCTYPE html>
-<html><head><title>UniPortal</title></head>
-<body>
-<nav>UniPortal v2.0</nav>
-<h1>Welcome Ratha!</h1>
-<p>Session ID: abc123xyz789...</p>`,
-    tip:"session_start() must be the VERY FIRST LINE before any echo, whitespace, or HTML ─ even a blank line breaks it!",
-  },
-  {
-    num:"17", chapter:"Web & Forms", chapterColor:TEAL,
-    tag:"Database PDO", tagColor:BLUE, icon:"🗄️",
-    title:"MySQL & PDO",
-    subtitle:"PDO connect · prepared statements · CRUD · fetch · fetchAll",
-    body:`PHP ភ្ជាប់ MySQL ដោយ **PDO** ─ modern, secure, multi-database ។ **Prepared statements** with **?** placeholders ─ NEVER concatenate user input into SQL ─ prevents SQL Injection ─ the most critical security rule in backend development ។`,
-    bullets:[
-      {icon:"🔌",label:"PDO connect",        desc:"new PDO($dsn, $user, $pass) ─ connect to MySQL"},
-      {icon:"🛡️",label:"Prepared statements", desc:"prepare() + execute([$val]) ─ prevents SQL injection"},
-      {icon:"📥",label:"fetch()",             desc:"One row ─ for detail/show page (WHERE id = ?)"},
-      {icon:"📋",label:"fetchAll()",           desc:"All rows as array ─ for listing/index page"},
-    ],
-    code:`<?php
-// ── Database Connection ──────────────────────
-function getDB(): PDO {
-    $dsn = "mysql:host=localhost;dbname=university;charset=utf8mb4";
-    try {
-        return new PDO($dsn, "root", "", [
-            PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
-            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-        ]);
-    } catch (PDOException $e) {
-        die("DB Error: " . $e->getMessage());
-    }
-}
+// Incoming Traffic:
+[Mon Mar 23 10:01:05] [200] GET /index.php 
+[Mon Mar 23 10:01:12] [200] POST /index.php (Student: Dara was saved)
 
-$db = getDB();
-echo "Connected!\n";
-
-// ── CREATE (INSERT) ──────────────────────────
-// Use ? placeholders — NEVER string concatenation!
-$stmt = $db->prepare(
-    "INSERT INTO students (name, email, major) VALUES (?, ?, ?)"
-);
-$stmt->execute(["Ratha", "ratha@uni.edu", "CS"]);
-echo "Added! New ID: " . $db->lastInsertId() . "\n";
-
-// ── READ ALL (SELECT) ────────────────────────
-$stmt     = $db->query("SELECT * FROM students ORDER BY name");
-$students = $stmt->fetchAll();  // returns array of assoc arrays
-foreach ($students as $s) {
-    echo "{$s['name']} — {$s['major']}\n";
-}
-
-// ── READ ONE (SELECT WHERE id) ───────────────
-$stmt = $db->prepare("SELECT * FROM students WHERE id = ?");
-$stmt->execute([1]);
-$student = $stmt->fetch();  // one row or false
-
-if ($student) {
-    echo "Found: {$student['name']}\n";
-} else {
-    http_response_code(404);
-    echo "404 Not found!\n";
-}
-
-// ── UPDATE ───────────────────────────────────
-$stmt = $db->prepare("UPDATE students SET major = ? WHERE id = ?");
-$stmt->execute(["Software Engineering", 1]);
-echo "Updated: " . $stmt->rowCount() . " row(s)\n";
-
-// ── DELETE ───────────────────────────────────
-$stmt = $db->prepare("DELETE FROM students WHERE id = ?");
-$stmt->execute([5]);
-echo "Deleted!\n";
-?>`,
-    syntax: `// ── Database PDO Syntax ───────────────────
+// Query Trace (SELECT *):
+1. Dara | Computer Science
+2. Ratha | Information Technology
+3. Sophal | Architecture`,
+    workflow: `// ── Local SQLite CRUD Workflow ────────────
 //
-//  new PDO($dsn, u, p)  : Connect to MySQL
-//  $db->prepare($sql)   : Create safe template
-//  $stmt->execute([$v]) : Send safe data
-//  $stmt->fetch()       : Get 1 row (assoc array)
-//  $stmt->fetchAll()    : Get all rows (nested array)
-//  $db->lastInsertId()  : Get ID of new row
+// 1. Initialize: new PDO("sqlite:database.db") (បង្កើត/ភ្ជាប់ DB)
+// 2. Schema: CREATE TABLE runs automatically (រៀបចំ table)
+// 3. Input: Receive Form via $_POST (ទទួលទិន្នន័យពី Form)
+// 4. Write: secure execute() into DB file (រក្សាទុកក្នុង file)
+// 5. Read: Fetch data for HTML list (ទាញយកមកបង្ហាញក្នុងបញ្ជី)
 //
 // ─────────────────────────────────────────`,
-    output:`Connected!
-Added! New ID: 3
-Dara — Math
-Ratha — CS
-Sophal — IT
-Found: Ratha
-Updated: 1 row(s)
-Deleted!`,
-    tip:"NEVER do: 'WHERE id = ' . $id ─ that is SQL Injection! ALWAYS use ? placeholders with prepare() + execute().",
+    tip: "SQLite គឺសាកសមបំផុតសម្រាប់គម្រោងខ្នាតតូច ឬការធ្វើ Demo ព្រោះវាមិនត្រូវការតម្លើង Database Server ទេ—គឺប្រើត្រឹមតែ file មួយប៉ុណ្ណោះ!",
   },
 ];
 
 // ── CHAPTER GROUPS for TOC ────────────────────────────────────
 const CHAPTERS: ChapterData[] = [
-  {name:"Foundations",        color:BLUE,   nums:["01","02","03","04"], icon:"🧱"},
-  {name:"Operators & Flow",   color:ORANGE, nums:["05","06","07","08"], icon:"⚙️"},
-  {name:"Functions & Arrays", color:PINK,   nums:["09","10"],           icon:"📦"},
-  {name:"OOP",                color:PURPLE, nums:["11","12","13","14"], icon:"🏛️"},
-  {name:"Web & Database",     color:TEAL,   nums:["15","16","17"],      icon:"🌐"},
+  { name: "Foundations", color: BLUE, nums: ["01", "02", "03", "04"], icon: "🧱" },
+  { name: "Operators & Flow", color: ORANGE, nums: ["05", "06", "07", "08"], icon: "⚙️" },
+  { name: "Functions & Arrays", color: PINK, nums: ["09", "10"], icon: "📦" },
+  { name: "OOP", color: PURPLE, nums: ["11", "12", "13", "14"], icon: "🏛️" },
+  { name: "Web & Database", color: TEAL, nums: ["15", "16", "17", "18", "19"], icon: "🌐" },
 ];
 
 // ── SYNTAX HIGHLIGHTER ────────────────────────────────────────
-const PHP_KW = new Set(["php","echo","print","return","if","else","elseif","foreach","for","while","do","class","extends","implements","interface","abstract","trait","use","new","public","protected","private","static","readonly","function","fn","array","string","int","float","bool","void","null","true","false","require","require_once","include","throw","try","catch","match","const","switch","case","break","continue","die","isset","empty","unset","exit","header","session_start","define","self","parent","sprintf","date"]);
-const SQL_KW = new Set(["SELECT","FROM","WHERE","INSERT","INTO","VALUES","UPDATE","SET","DELETE","CREATE","TABLE","ORDER","BY","LIMIT","AND","OR","NOT","IN","IS","NULL","PRIMARY","KEY","FOREIGN","REFERENCES","JOIN","ON"]);
+const PHP_KW = new Set(["php", "echo", "print", "return", "if", "else", "elseif", "foreach", "for", "while", "do", "class", "extends", "implements", "interface", "abstract", "trait", "use", "new", "public", "protected", "private", "static", "readonly", "function", "fn", "array", "string", "int", "float", "bool", "void", "null", "true", "false", "require", "require_once", "include", "throw", "try", "catch", "match", "const", "switch", "case", "break", "continue", "die", "isset", "empty", "unset", "exit", "header", "session_start", "define", "self", "parent", "sprintf", "date"]);
+const SQL_KW = new Set(["SELECT", "FROM", "WHERE", "INSERT", "INTO", "VALUES", "UPDATE", "SET", "DELETE", "CREATE", "TABLE", "ORDER", "BY", "LIMIT", "AND", "OR", "NOT", "IN", "IS", "NULL", "PRIMARY", "KEY", "FOREIGN", "REFERENCES", "JOIN", "ON"]);
 
 function hl(code: string) {
   return code.split('\n').map((line: string, li: number) => {
     const t = line.trim();
     if (t.startsWith('//') || t.startsWith('#') || t.startsWith('*') || t.startsWith('/*'))
-      return <div key={li} style={{color:'#6b8e6b',fontStyle:'italic',minHeight:'1.65em'}}>{line}</div>;
+      return <div key={li} style={{ color: '#6b8e6b', fontStyle: 'italic', minHeight: '1.65em' }}>{line}</div>;
     if (t.startsWith('--'))
-      return <div key={li} style={{color:'#6b8e6b',fontStyle:'italic',minHeight:'1.65em'}}>{line}</div>;
+      return <div key={li} style={{ color: '#6b8e6b', fontStyle: 'italic', minHeight: '1.65em' }}>{line}</div>;
     if (/^\s*<[^?]/.test(line))
-      return <div key={li} style={{color:'#79c0ff',minHeight:'1.65em'}}>{line}</div>;
+      return <div key={li} style={{ color: '#79c0ff', minHeight: '1.65em' }}>{line}</div>;
     const parts = line.split(/("(?:[^"\\]|\\.)*"|'(?:[^'\\]|\\.)*'|\$[a-zA-Z_]\w*|\b\d+(?:\.\d+)?\b|\b[A-Z_]{2,}\b|\b[a-zA-Z_]\w*\b)/g);
     return (
-      <div key={li} style={{minHeight:'1.65em'}}>
+      <div key={li} style={{ minHeight: '1.65em' }}>
         {parts.map((p: string, i: number) => {
           if (!p) return null;
-          if (p.startsWith('$'))                    return <span key={i} style={{color:'#ffd700'}}>{p}</span>;
-          if (p.startsWith('"')||p.startsWith("'")) return <span key={i} style={{color:'#98d98e'}}>{p}</span>;
-          if (PHP_KW.has(p))                        return <span key={i} style={{color:'#ff7b72',fontWeight:700}}>{p}</span>;
-          if (SQL_KW.has(p))                        return <span key={i} style={{color:'#ffa07a',fontWeight:700}}>{p}</span>;
-          if (/^\d/.test(p))                        return <span key={i} style={{color:'#b19cd9'}}>{p}</span>;
-          if (/^[A-Z_]{2,}$/.test(p))               return <span key={i} style={{color:'#56b3d8'}}>{p}</span>;
-          return <span key={i} style={{color:'inherit'}}>{p}</span>;
+          if (p.startsWith('$')) return <span key={i} style={{ color: '#ffd700' }}>{p}</span>;
+          if (p.startsWith('"') || p.startsWith("'")) return <span key={i} style={{ color: '#98d98e' }}>{p}</span>;
+          if (PHP_KW.has(p)) return <span key={i} style={{ color: '#ff7b72', fontWeight: 700 }}>{p}</span>;
+          if (SQL_KW.has(p)) return <span key={i} style={{ color: '#ffa07a', fontWeight: 700 }}>{p}</span>;
+          if (/^\d/.test(p)) return <span key={i} style={{ color: '#b19cd9' }}>{p}</span>;
+          if (/^[A-Z_]{2,}$/.test(p)) return <span key={i} style={{ color: '#56b3d8' }}>{p}</span>;
+          return <span key={i} style={{ color: 'inherit' }}>{p}</span>;
         })}
       </div>
     );
   });
 }
 
+// ── MOCK PHP EXECUTOR ──────────────────────────────────────────
+function simulatePHP(code: string, isPost: boolean = false, stripHtml: boolean = false): string {
+  const vars: Record<string, any> = {
+    _GET: { name: "Guest", search: "Coffee" },
+    _POST: isPost ? { name: "New Student", major: "Design" } : {},
+    _SESSION: { user_name: "Ratha" },
+    students: [
+      { id: 1, name: "Dara", major: "Computer Science" },
+      { id: 2, name: "Ratha", major: "Information Technology" }
+    ]
+  };
+  if (isPost) {
+    vars.students.push({ id: 3, name: "New Student", major: "Marketing" });
+  }
+  const consts: Record<string, any> = {
+    'PHP_VERSION': '8.3.4'
+  };
+  
+  // Helper to resolve PHP-style expressions to JS equivalents
+  const evalExpr = (expr: string): any => {
+    try {
+      let js = expr.trim();
+      // 1. Handle string interpolation: "Hello $name"
+      js = js.replace(/"([^"]*)"/g, (_, content) => {
+        return '`' + content.replace(/\$([a-zA-Z_]\w*)/g, '${vars["$1"]}') + '`';
+      });
+      // 2. Handle concatenation . -> +
+      js = js.replace(/(?<!\d)\.|\.(?!\d)/g, ' + ');
+      // 3. Handle casting: (int), (float), (string), (bool)
+      js = js.replace(/\(int\)/g, 'Number');
+      js = js.replace(/\(float\)/g, 'Number');
+      js = js.replace(/\(string\)/g, 'String');
+      js = js.replace(/\(bool\)/g, 'Boolean');
+      // 4. Handle superglobals: $_GET['x']
+      js = js.replace(/\$_([A-Z]+)\[['"](.*?)['"]\]/g, "vars._$1['$2']");
+      // Handle isset specifically
+      js = js.replace(/isset\(\s*\$_POST\[['"](.*?)['"]\]\s*\)/g, "vars._POST['$1'] !== undefined");
+      js = js.replace(/empty\(\s*([\s\S]*?)\s*\)/g, "(!$1 || $1.length === 0)");
+
+      // 5. Handle remaining variables: $var -> vars.var
+      js = js.replace(/\$([a-zA-Z_][\w]*)/g, (_, v) => {
+        if (v === 'this') return 'this';
+        return `vars['${v}']`;
+      });
+      // 6. Provide built-in PHP functions
+      const builtins = {
+        gettype: (v: any) => {
+          if (v === null) return "NULL";
+          if (Array.isArray(v)) return "array";
+          if (typeof v === 'number') return Number.isInteger(v) ? "integer" : "double";
+          if (typeof v === 'boolean') return "boolean";
+          return typeof v;
+        },
+        is_int: (v: any) => Number.isInteger(v),
+        is_integer: (v: any) => Number.isInteger(v),
+        is_float: (v: any) => typeof v === 'number' && !Number.isInteger(v),
+        is_double: (v: any) => typeof v === 'number' && !Number.isInteger(v),
+        is_string: (v: any) => typeof v === 'string',
+        is_bool: (v: any) => typeof v === 'boolean',
+        is_null: (v: any) => v === null,
+        is_array: (v: any) => Array.isArray(v),
+        min: (arr: any[]) => Math.min(...arr),
+        max: (arr: any[]) => Math.max(...arr),
+      };
+
+      return new Function('vars', 'consts', 'builtins', `
+        const { gettype, is_int, is_integer, is_float, is_double, is_string, is_bool, is_null, is_array, min, max } = builtins;
+        try { return (${js}); } catch(e) { return undefined; }
+      `)(vars, consts, builtins);
+    } catch (e) { return undefined; }
+  };
+
+  const formatValue = (val: any) => {
+    if (val === null || val === undefined) return "";
+    if (val === false) return ""; 
+    if (val === true) return "1";  
+    return String(val);
+  };
+
+  const formatVarDump = (val: any) => {
+    if (val === null || val === undefined) return "NULL";
+    if (typeof val === 'number') return `${Number.isInteger(val) ? 'int' : 'float'}(${val})`;
+    if (typeof val === 'string') return `string(${val.length}) "${val}"`;
+    if (typeof val === 'boolean') return `bool(${val ? 'true' : 'false'})`;
+    return "unknown";
+  };
+
+  const processedCode = code.replace(/<\?=\s*([\s\S]*?)\s*\?>/g, '<?php echo $1; ?>');
+  const tokens = processedCode.split(/(<\?php[\s\S]*?\?>)/g);
+  let buffer = "";
+
+  const execPHP = (token: string) => {
+    let cleanBlock = token.replace(/<\?php/g, '').replace(/\?>/g, '').trim();
+    const lines = cleanBlock.split('\n');
+    let skip = false;
+    let braceCount = 0;
+
+    for (let line of lines) {
+      let t = line.trim();
+      t = t.split('//')[0].split('#')[0].trim();
+      if (!t) continue;
+
+      if (skip) {
+        if (t.includes('{')) braceCount++;
+        if (t.includes('}')) {
+          if (braceCount === 0) skip = false;
+          else braceCount--;
+        }
+        continue;
+      }
+
+      if (t.startsWith('if')) {
+        const m = t.match(/if\s*\((.*)\)/);
+        if (m && !evalExpr(m[1])) {
+           if (t.includes('{')) skip = true;
+        }
+        continue;
+      }
+      if (t === '{' || t === '}') continue;
+
+      const statements = t.split(';');
+      for (let s of statements) {
+        let stmt = s.trim();
+        if (!stmt) continue;
+        
+        // Foreach start
+        const feMatch = stmt.match(/foreach\s*\(\s*\$([a-zA-Z_]\w*)\s*as\s*\$([a-zA-Z_]\w*)\s*\)\s*:/);
+        if (feMatch) return { type: 'loop_start', array: feMatch[1], item: feMatch[2] };
+        if (stmt === 'endforeach') return { type: 'loop_end' };
+
+        // Simple local parser
+        const assignMatch = stmt.match(/^\$([a-zA-Z_]\w*)\s*([\+\-\*\/%]|(?:\?\?))?=\s*(.+)$/);
+        if (assignMatch) {
+          const [, name, op, expr] = assignMatch;
+          const val = evalExpr(expr);
+          if (!op) vars[name] = val;
+          else if (op === '??') { if (!vars[name]) vars[name] = val; }
+          else {
+            const current = vars[name] || 0;
+            if (op === '+') vars[name] = current + val;
+            if (op === '-') vars[name] = current - val;
+            if (op === '*') vars[name] = current * val;
+            if (op === '/') vars[name] = current / val;
+            if (op === '%') vars[name] = current % val;
+          }
+          continue;
+        }
+        if (stmt.startsWith('echo ') || stmt.startsWith('print ')) {
+          const rawArgs = stmt.replace(/^(echo|print)\s+/, '').trim();
+          const parts = rawArgs.split(/,(?=(?:[^"]*"[^"]*")*[^"]*$)/);
+          parts.forEach(p => buffer += formatValue(evalExpr(p)));
+          continue;
+        }
+        if (stmt.match(/^var_dump\((.*)\)$/)) {
+           buffer += formatVarDump(evalExpr(stmt.match(/^var_dump\((.*)\)$/)![1])) + "\n";
+           continue;
+        }
+        evalExpr(stmt);
+      }
+    }
+    return { type: 'normal' };
+  };
+
+  for (let i = 0; i < tokens.length; i++) {
+    const token = tokens[i];
+    if (token.startsWith('<?php')) {
+      const res = execPHP(token);
+      if (res.type === 'loop_start' && res.array && res.item) {
+        // Collect loop body
+        let bodyTokens: string[] = [];
+        let j = i + 1;
+        let depth = 1;
+        while (j < tokens.length) {
+          if (tokens[j].includes('foreach') && tokens[j].includes(':')) depth++;
+          if (tokens[j].includes('endforeach')) depth--;
+          if (depth === 0) break;
+          bodyTokens.push(tokens[j]);
+          j++;
+        }
+        // Run loop
+        const dataArr = vars[res.array] || [];
+        if (Array.isArray(dataArr)) {
+          dataArr.forEach(itemVal => {
+            vars[res.item] = itemVal;
+            // Process body tokens
+            for (let subToken of bodyTokens) {
+              if (subToken.startsWith('<?php')) execPHP(subToken);
+              else buffer += subToken;
+            }
+          });
+        }
+        i = j; // skip to endforeach
+      }
+    } else {
+      buffer += token;
+    }
+  }
+  
+  if (stripHtml) {
+     return buffer.replace(/<[^>]*>/g, '').trim() || "(no output)";
+  }
+  return buffer || "(no output)";
+}
+
 // ── CODE PANEL ────────────────────────────────────────────────
-function CodePanel({code, output, syntax, accent, theme}: {code: string, output: string | null, syntax?: string | null, accent: string, theme: 'dark' | 'light'}) {
+function CodePanel({ code: initialCode, output, syntax, workflow, showPreview, accent, theme }: { 
+  code: string, 
+  output: string | null, 
+  syntax?: string | null, 
+  workflow?: string | null, 
+  showPreview?: boolean,
+  accent: string, 
+  theme: 'dark' | 'light' 
+}) {
   const [tab, setTab] = useState('code');
+  const [code, setCode] = useState(initialCode);
+  const [isEditing, setIsEditing] = useState(false);
   const [copied, setCopied] = useState(false);
   const [isRunning, setIsRunning] = useState(false);
+  const [mockPost, setMockPost] = useState(false);
+
+  // Sync state when slide changes
+  useEffect(() => { setCode(initialCode); setIsEditing(false); setMockPost(false); }, [initialCode]);
+
+  useEffect(() => {
+    if (tab === 'preview') {
+      const timer = setTimeout(() => {
+        const preview = document.querySelector('.browser-preview');
+        if (preview) {
+           const btn = preview.querySelector('button');
+           if (btn) {
+              btn.onclick = (e) => {
+                e.preventDefault();
+                setMockPost(true);
+              };
+           }
+        }
+      }, 100);
+      return () => clearTimeout(timer);
+    }
+  }, [tab, code, mockPost]);
 
   const copy = () => {
-    navigator.clipboard.writeText(tab==='code' ? code : tab==='syntax' ? (syntax||'') : (output||''));
-    setCopied(true); setTimeout(()=>setCopied(false), 1800);
+    const textToCopy = tab === 'code' ? code : tab === 'syntax' ? (syntax || '') : tab === 'workflow' ? (workflow || '') : (output || '');
+    navigator.clipboard.writeText(textToCopy);
+    setCopied(true); setTimeout(() => setCopied(false), 1800);
   };
 
   const runCode = () => {
@@ -1408,39 +1645,43 @@ function CodePanel({code, output, syntax, accent, theme}: {code: string, output:
     setTimeout(() => setIsRunning(false), 800);
   };
 
+  const currentOutput = (tab === 'preview' || code !== initialCode)
+    ? simulatePHP(code, mockPost, tab === 'output')
+    : (output || '(no output)');
+
   return (
-    <div style={{display:'flex',flexDirection:'column',height:'100%',background:'var(--card)',borderRadius:14,overflow:'hidden',border:`1px solid var(--border)`,boxShadow:'0 10px 30px rgba(0,0,0,0.2)'}}>
-      <div style={{display:'flex',alignItems:'center',justifyContent:'space-between',padding:'10px 16px',borderBottom:`1px solid var(--border)`,background:'var(--header-bg)',flexShrink:0}}>
-        <div style={{display:'flex',alignItems:'center',gap:12}}>
-          <div style={{display:'flex',gap:6}}>
-            {['#ff5f57','#febc2e','#28c840'].map(c=><div key={c} style={{width:10,height:10,borderRadius:'50%',background:c}}/>)}
+    <div style={{ display: 'flex', flexDirection: 'column', height: '100%', background: 'var(--card)', borderRadius: 14, overflow: 'hidden', border: `1px solid var(--border)`, boxShadow: '0 10px 30px rgba(0,0,0,0.2)' }}>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '10px 16px', borderBottom: `1px solid var(--border)`, background: 'var(--header-bg)', flexShrink: 0 }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+          <div style={{ display: 'flex', gap: 6 }}>
+            {['#ff5f57', '#febc2e', '#28c840'].map(c => <div key={c} style={{ width: 10, height: 10, borderRadius: '50%', background: c }} />)}
           </div>
-          <div style={{width:1,height:14,background:'var(--border)',margin:'0 4px'}}/>
-          <button 
+          <div style={{ width: 1, height: 14, background: 'var(--border)', margin: '0 4px' }} />
+          <button
             onClick={runCode}
             style={{
-              display:'flex',alignItems:'center',gap:6,padding:'4px 10px',borderRadius:6,border:'none',
-              background:isRunning ? '#28c84030' : ACCENT, 
-              color:'#000',fontSize:9,fontWeight:900,fontFamily:'Space Mono,monospace',
-              transition:'all 0.2s', transform: isRunning ? 'scale(0.95)' : 'none'
+              display: 'flex', alignItems: 'center', gap: 6, padding: '4px 10px', borderRadius: 6, border: 'none',
+              background: isRunning ? '#28c84030' : ACCENT,
+              color: '#000', fontSize: 9, fontWeight: 900, fontFamily: 'Space Mono,monospace',
+              transition: 'all 0.2s', transform: isRunning ? 'scale(0.95)' : 'none'
             }}
           >
             {isRunning ? 'RUNNING...' : 'RUN CODE ▶'}
           </button>
         </div>
 
-        <div style={{display:'flex',background:'#000',borderRadius:8,padding:3,gap:2,border:'1px solid var(--border)'}}>
-          {[['code','PHP'],['syntax','SYNTAX'],['output','OUTPUT']].map(([v,lbl])=>(
-            (v !== 'syntax' || syntax) && (
-              <button 
-                key={v} 
-                onClick={()=>setTab(v)} 
+        <div style={{ display: 'flex', background: '#000', borderRadius: 8, padding: 2, gap: 1, border: '1px solid var(--border)' }}>
+          {[['code', 'PHP'], ['syntax', 'SYNTAX'], ['workflow', 'WORKFLOW'], ['preview', 'PREVIEW'], ['output', 'OUTPUT']].map(([v, lbl]) => (
+            ((v === 'code' || v === 'output') || (v === 'syntax' && syntax) || (v === 'workflow' && workflow) || (v === 'preview' && showPreview)) && (
+              <button
+                key={v}
+                onClick={() => setTab(v)}
                 style={{
-                  padding:'5px 14px',borderRadius:6,border:'none',
-                  background:tab===v ? (theme==='dark'?'#222':'#eee') : 'transparent',
-                  color:tab===v ? accent : 'var(--dim)',
-                  fontSize:9,fontWeight:800,fontFamily:'Space Mono,monospace',
-                  transition:'all 0.15s'
+                  padding: '5px 12px', borderRadius: 6, border: 'none',
+                  background: tab === v ? (theme === 'dark' ? '#222' : '#eee') : 'transparent',
+                  color: tab === v ? accent : 'var(--dim)',
+                  fontSize: 9, fontWeight: 800, fontFamily: 'Space Mono,monospace',
+                  transition: 'all 0.15s'
                 }}
               >
                 {lbl}
@@ -1449,34 +1690,99 @@ function CodePanel({code, output, syntax, accent, theme}: {code: string, output:
           ))}
         </div>
 
-        <button onClick={copy} style={{background:'none',border:'none',color:copied?GREEN:'var(--dim)',fontSize:10,fontWeight:700,fontFamily:'Space Mono,monospace',display:'flex',alignItems:'center',gap:4}}>
-          {copied ? '✓ COPIED' : 'COPY'}
-        </button>
+        <div style={{ display: 'flex', gap: 14, alignItems: 'center' }}>
+          <button
+            onClick={() => setIsEditing(!isEditing)}
+            style={{ background: 'none', border: 'none', color: isEditing ? ACCENT : 'var(--dim)', fontSize: 10, fontWeight: 700, fontFamily: 'Space Mono,monospace' }}
+          >
+            {isEditing ? '✓ SAVED' : 'EDIT'}
+          </button>
+          <button onClick={copy} style={{ background: 'none', border: 'none', color: copied ? GREEN : 'var(--dim)', fontSize: 10, fontWeight: 700, fontFamily: 'Space Mono,monospace' }}>
+            {copied ? '✓ COPIED' : 'COPY'}
+          </button>
+        </div>
       </div>
 
-      <div style={{flex:1,overflow:'auto',padding:0,position:'relative',background:tab==='output'?'#050505':'transparent'}}>
+      <div style={{ flex: 1, overflow: 'auto', padding: 0, position: 'relative', background: tab === 'output' ? '#050505' : 'transparent' }}>
         {isRunning && (
-          <div style={{position:'absolute',inset:0,background:'rgba(0,0,0,0.4)',zIndex:5,display:'flex',alignItems:'center',justifyContent:'center',backdropFilter:'blur(2px)'}}>
-            <div style={{fontFamily:'Space Mono,monospace',fontSize:12,color:ACCENT,animation:'pulse 1s infinite'}}>executing php runtime...</div>
+          <div style={{ position: 'absolute', inset: 0, background: 'rgba(0,0,0,0.4)', zIndex: 5, display: 'flex', alignItems: 'center', justifyContent: 'center', backdropFilter: 'blur(2px)' }}>
+            <div style={{ fontFamily: 'Space Mono,monospace', fontSize: 12, color: ACCENT, animation: 'pulse 1s infinite' }}>executing php runtime...</div>
           </div>
         )}
-        
-        <div style={{padding:'20px 24px'}}>
-          {tab==='code'
-            ? <pre style={{margin:0,fontFamily:'Space Mono,monospace',fontSize:12.5,lineHeight:1.75}}>{hl(code)}</pre>
-            : tab==='syntax'
-              ? <pre style={{margin:0,fontFamily:'Space Mono,monospace',fontSize:12.5,lineHeight:1.75,color:accent,whiteSpace:'pre-wrap'}}>{syntax}</pre>
-              : <div>
-                  <div style={{fontFamily:'Space Mono,monospace',fontSize:10,color:accent,opacity:0.6,marginBottom:15,borderBottom:'1px solid #222',paddingBottom:8,display:'flex',justifyContent:'space-between'}}>
-                    <span>TERMINAL — PHP 8.3.4</span>
-                    <span>{new Date().toLocaleTimeString()}</span>
+
+        <div style={{ padding: '24px', height: '100%' }}>
+          {tab === 'code'
+            ? (isEditing
+              ? <textarea
+                value={code}
+                onChange={(e) => setCode(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === 'Tab') {
+                    e.preventDefault();
+                    const target = e.target as HTMLTextAreaElement;
+                    const start = target.selectionStart;
+                    const end = target.selectionEnd;
+                    const newValue = code.substring(0, start) + "  " + code.substring(end);
+                    setCode(newValue);
+                    // Using a slight delay to ensure the re-render happens before setting selection
+                    setTimeout(() => {
+                      target.selectionStart = target.selectionEnd = start + 2;
+                    }, 0);
+                  }
+                }}
+                spellCheck={false}
+                style={{
+                  width: '100%', height: '100%', minHeight: 300,
+                  background: 'none', border: 'none', outline: 'none',
+                  color: 'var(--ink)', fontFamily: 'Space Mono,monospace', fontSize: 12.5, lineHeight: 1.75,
+                  resize: 'none', padding: 0
+                }}
+              />
+              : <pre style={{ margin: 0, fontFamily: 'Space Mono,monospace', fontSize: 12.5, lineHeight: 1.75 }}>{hl(code)}</pre>
+            )
+            : tab === 'syntax'
+              ? <pre style={{ margin: 0, fontFamily: 'Space Mono,monospace', fontSize: 12.5, lineHeight: 1.75, color: accent, whiteSpace: 'pre-wrap' }}>{syntax}</pre>
+            : tab === 'workflow'
+              ? <pre style={{ margin: 0, fontFamily: 'Space Mono,monospace', fontSize: 12.5, lineHeight: 1.75, color: '#f0f0f0', whiteSpace: 'pre-wrap' }}>{workflow}</pre>
+            : tab === 'preview'
+              ? <div style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+                  <div style={{ fontFamily: 'Space Mono,monospace', fontSize: 10, color: accent, opacity: 0.6, marginBottom: 15, borderBottom: '1px solid #222', paddingBottom: 8, display: 'flex', justifyContent: 'space-between' }}>
+                    <span>PREVIEW — BROWSER ENGINE</span>
+                    <span>127.0.0.1:8000</span>
                   </div>
-                  <pre style={{margin:0,fontFamily:'Space Mono,monospace',fontSize:12.5,lineHeight:1.75,color:GREEN,whiteSpace:'pre-wrap'}}>
-                    <span style={{color:accent,marginRight:10}}>$ php runtime.php</span>
-                    {'\n'}{output||'(no output)'}
-                    {'\n\n'}<span style={{color:accent,animation:'blink 1s infinite'}}>_</span>
-                  </pre>
+                  <div 
+                    className="browser-preview"
+                    style={{ 
+                      flex: 1,
+                      padding: '24px', 
+                      background: '#fff', 
+                      color: '#333', 
+                      borderRadius: 12, 
+                      overflowY: 'auto',
+                      fontFamily: 'system-ui, -apple-system, sans-serif'
+                    }}
+                    dangerouslySetInnerHTML={{ __html: currentOutput }}
+                  />
                 </div>
+              : <div>
+                <div style={{ fontFamily: 'Space Mono,monospace', fontSize: 10, color: accent, opacity: 0.6, marginBottom: 15, borderBottom: '1px solid #222', paddingBottom: 8, display: 'flex', justifyContent: 'space-between' }}>
+                  <span>{code === initialCode ? 'TERMINAL — PHP 8.3.4' : 'SIMULATION — MOCK PHP RUNNER'}</span>
+                  <span>{new Date().toLocaleTimeString()}</span>
+                </div>
+                <pre style={{ margin: 0, fontFamily: 'Space Mono,monospace', fontSize: 12.5, lineHeight: 1.75, color: GREEN, whiteSpace: 'pre-wrap' }}>
+                  <span style={{ color: accent, marginRight: 10 }}>$ php runtime.php</span>
+                  {'\n'}{currentOutput}
+                  {'\n\n'}<span style={{ color: accent, animation: 'blink 1s infinite' }}>_</span>
+                </pre>
+                {code !== initialCode && (
+                  <button
+                    onClick={() => setCode(initialCode)}
+                    style={{ marginTop: 20, background: 'none', border: `1px solid #333`, color: '#666', fontSize: 9, padding: '4px 10px', borderRadius: 4, fontFamily: 'Space Mono,monospace' }}
+                  >
+                    RESET CODE TO ORIGINAL
+                  </button>
+                )}
+              </div>
           }
         </div>
       </div>
@@ -1485,20 +1791,20 @@ function CodePanel({code, output, syntax, accent, theme}: {code: string, output:
 }
 
 // ── BULLET CARD ───────────────────────────────────────────────
-function BulletCard({bullet, accent}: {bullet: Bullet, accent: string}) {
+function BulletCard({ bullet, accent }: { bullet: Bullet, accent: string }) {
   return (
-    <div style={{display:'flex',gap:10,padding:'10px 12px',background:'var(--card)',border:`1px solid var(--border)`,borderRadius:9,alignItems:'flex-start'}}>
-      <div style={{width:30,height:30,borderRadius:7,flexShrink:0,background:accent+'15',border:`1px solid ${accent}25`,display:'flex',alignItems:'center',justifyContent:'center',fontSize:13,fontFamily:'Space Mono,monospace',color:accent,fontWeight:700}}>{bullet.icon}</div>
+    <div style={{ display: 'flex', gap: 10, padding: '10px 12px', background: 'var(--card)', border: `1px solid var(--border)`, borderRadius: 9, alignItems: 'flex-start' }}>
+      <div style={{ width: 30, height: 30, borderRadius: 7, flexShrink: 0, background: accent + '15', border: `1px solid ${accent}25`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 13, fontFamily: 'Space Mono,monospace', color: accent, fontWeight: 700 }}>{bullet.icon}</div>
       <div>
-        <div style={{fontFamily:'Space Mono,monospace',fontSize:11,color:accent,fontWeight:700,marginBottom:2}}>{bullet.label}</div>
-        <div style={{fontSize:12,color:'var(--dim)',lineHeight:1.5}}>{bullet.desc}</div>
+        <div style={{ fontFamily: 'Space Mono,monospace', fontSize: 11, color: accent, fontWeight: 700, marginBottom: 2 }}>{bullet.label}</div>
+        <div style={{ fontSize: 12, color: 'var(--dim)', lineHeight: 1.5 }}>{bullet.desc}</div>
       </div>
     </div>
   );
 }
 
 // ── SLIDE ─────────────────────────────────────────────────────
-function Slide({slide, current, total, onNext, onPrev, theme, toggleTheme}: {
+function Slide({ slide, current, total, onNext, onPrev, theme, toggleTheme }: {
   slide: SlideData,
   current: number,
   total: number,
@@ -1509,84 +1815,92 @@ function Slide({slide, current, total, onNext, onPrev, theme, toggleTheme}: {
 }) {
   const accent = slide.tagColor;
   const rb = (t: string) => t.split(/\*\*(.*?)\*\*/g).map((p: string, i: number) =>
-    i%2===1 ? <strong key={i} style={{color:accent}}>{p}</strong> : <span key={i}>{p}</span>
+    i % 2 === 1 ? <strong key={i} style={{ color: accent }}>{p}</strong> : <span key={i}>{p}</span>
   );
   return (
-    <div style={{display:'flex',flexDirection:'column',height:'100%'}}>
+    <div style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
       {/* Top bar */}
-      <div style={{display:'flex',alignItems:'center',justifyContent:'space-between',padding:'12px 22px',borderBottom:`1px solid var(--border)`,flexShrink:0,background:'var(--header-bg)'}}>
-        <div style={{display:'flex',alignItems:'center',gap:10}}>
-          <span style={{fontSize:18,marginRight:2}}>{slide.icon}</span>
-          <span style={{fontFamily:'Space Mono,monospace',fontSize:13,fontWeight:700,color:ACCENT}}>PHP<span style={{color:'var(--ink)'}}>_</span>101</span>
-          <span style={{color:'var(--border)'}}>│</span>
-          <span style={{padding:'2px 8px',borderRadius:4,background:slide.chapterColor+'18',border:`1px solid ${slide.chapterColor}30`,color:slide.chapterColor,fontSize:9,fontFamily:'Space Mono,monospace',fontWeight:700,letterSpacing:'0.07em'}}>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '12px 22px', borderBottom: `1px solid var(--border)`, flexShrink: 0, background: 'var(--header-bg)' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+          <span style={{ fontSize: 18, marginRight: 2 }}>{slide.icon}</span>
+          <span style={{ fontFamily: 'Space Mono,monospace', fontSize: 13, fontWeight: 700, color: ACCENT }}>PHP<span style={{ color: 'var(--ink)' }}>_</span>101</span>
+          <span style={{ color: 'var(--border)' }}>│</span>
+          <span style={{ padding: '2px 8px', borderRadius: 4, background: slide.chapterColor + '18', border: `1px solid ${slide.chapterColor}30`, color: slide.chapterColor, fontSize: 9, fontFamily: 'Space Mono,monospace', fontWeight: 700, letterSpacing: '0.07em' }}>
             {slide.chapter}
           </span>
-          <span style={{padding:'2px 8px',borderRadius:4,background:accent+'12',border:`1px solid ${accent}25`,color:accent,fontSize:9,fontFamily:'Space Mono,monospace',fontWeight:700}}>
+          <span style={{ padding: '2px 8px', borderRadius: 4, background: accent + '12', border: `1px solid ${accent}25`, color: accent, fontSize: 9, fontFamily: 'Space Mono,monospace', fontWeight: 700 }}>
             {slide.tag}
           </span>
         </div>
-        <div style={{display:'flex',alignItems:'center',gap:12}}>
-          <button 
+        <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+          <button
             onClick={toggleTheme}
             style={{
-              display:'flex', alignItems:'center', gap:6, padding:'5px 10px',
-              borderRadius:6, border:`1px solid var(--border)`,
-              background:'var(--card)', color:theme === 'dark' ? ACCENT : '#000',
-              fontFamily:'Space Mono,monospace', fontSize:9, fontWeight:700
+              display: 'flex', alignItems: 'center', gap: 6, padding: '5px 10px',
+              borderRadius: 6, border: `1px solid var(--border)`,
+              background: 'var(--card)', color: theme === 'dark' ? ACCENT : '#000',
+              fontFamily: 'Space Mono,monospace', fontSize: 9, fontWeight: 700
             }}
           >
-            <Monitor size={12}/>
+            <Monitor size={12} />
             {theme.toUpperCase()}
           </button>
-          <div style={{display:'flex',gap:3}}>
-            {SLIDES.map((_,i)=>(
-              <div key={i} style={{width:i===current?16:4,height:4,borderRadius:3,background:i===current?accent:i<current?accent+'40':(theme === 'dark' ? '#1e1e1e' : '#e0e0e0'),transition:'all 0.3s'}}/>
+          <div style={{ display: 'flex', gap: 3 }}>
+            {SLIDES.map((_, i) => (
+              <div key={i} style={{ width: i === current ? 16 : 4, height: 4, borderRadius: 3, background: i === current ? accent : i < current ? accent + '40' : (theme === 'dark' ? '#1e1e1e' : '#e0e0e0'), transition: 'all 0.3s' }} />
             ))}
           </div>
-          <span style={{fontFamily:'Space Mono,monospace',fontSize:10,color:'var(--dim)'}}>{slide.num}/{String(total).padStart(2,'0')}</span>
+          <span style={{ fontFamily: 'Space Mono,monospace', fontSize: 10, color: 'var(--dim)' }}>{slide.num}/{String(total).padStart(2, '0')}</span>
         </div>
       </div>
 
       {/* Content */}
-      <div style={{flex:1,display:'flex',overflow:'hidden'}}>
+      <div style={{ flex: 1, display: 'flex', overflow: 'hidden' }}>
         {/* LEFT */}
-        <div style={{width:'38%',minWidth:290,padding:'22px 22px 14px',overflowY:'auto',borderRight:'1px solid var(--border)',display:'flex',flexDirection:'column',gap:16}}>
+        <div style={{ width: '38%', minWidth: 290, padding: '22px 22px 14px', overflowY: 'auto', borderRight: '1px solid var(--border)', display: 'flex', flexDirection: 'column', gap: 16 }}>
           <div>
-            <h1 style={{fontFamily:'DM Serif Display,serif',fontSize:32,fontWeight:400,color:'var(--ink)',lineHeight:1.1,margin:'0 0 5px'}}>{slide.title}</h1>
-            <p style={{fontFamily:'Space Mono,monospace',fontSize:9.5,color:'var(--dim)',margin:0}}>{slide.subtitle}</p>
+            <h1 style={{ fontFamily: 'DM Serif Display,serif', fontSize: 32, fontWeight: 400, color: 'var(--ink)', lineHeight: 1.1, margin: '0 0 5px' }}>{slide.title}</h1>
+            <p style={{ fontFamily: 'Space Mono,monospace', fontSize: 9.5, color: 'var(--dim)', margin: 0 }}>{slide.subtitle}</p>
           </div>
-          <p style={{fontSize:13,lineHeight:1.75,color:theme === 'dark' ? '#bbb' : '#444',fontFamily:"'Noto Sans Khmer',sans-serif",margin:0}}>
+          <p style={{ fontSize: 13, lineHeight: 1.75, color: theme === 'dark' ? '#bbb' : '#444', fontFamily: "'Noto Sans Khmer',sans-serif", margin: 0 }}>
             {rb(slide.body)}
           </p>
-          <div style={{display:'grid',gridTemplateColumns:slide.bullets.length>4?'1fr 1fr':'1fr',gap:6}}>
-            {slide.bullets.map((b,i)=><BulletCard key={i} bullet={b} accent={accent}/>)}
+          <div style={{ display: 'grid', gridTemplateColumns: slide.bullets.length > 4 ? '1fr 1fr' : '1fr', gap: 6 }}>
+            {slide.bullets.map((b, i) => <BulletCard key={i} bullet={b} accent={accent} />)}
           </div>
           {/* Tip */}
-          <div style={{marginTop:'auto',padding:'11px 13px',borderRadius:9,background:accent+'08',border:`1px solid ${accent}22`,display:'flex',gap:8,alignItems:'flex-start'}}>
-            <span style={{fontSize:14,flexShrink:0}}>💡</span>
-            <p style={{fontSize:11.5,lineHeight:1.6,color:accent+'cc',margin:0,fontFamily:"'Noto Sans Khmer',sans-serif"}}>{slide.tip}</p>
+          <div style={{ marginTop: 'auto', padding: '11px 13px', borderRadius: 9, background: accent + '08', border: `1px solid ${accent}22`, display: 'flex', gap: 8, alignItems: 'flex-start' }}>
+            <span style={{ fontSize: 14, flexShrink: 0 }}>💡</span>
+            <p style={{ fontSize: 11.5, lineHeight: 1.6, color: accent + 'cc', margin: 0, fontFamily: "'Noto Sans Khmer',sans-serif" }}>{slide.tip}</p>
           </div>
         </div>
 
         {/* RIGHT */}
-        <div style={{flex:1,padding:16,background:'rgba(0,0,0,0.22)',display:'flex',flexDirection:'column'}}>
-          {slide.code
-            ? <CodePanel code={slide.code} output={slide.output} syntax={slide.syntax} accent={accent} theme={theme}/>
+        <div style={{ flex: 1, padding: 16, background: 'rgba(0,0,0,0.22)', display: 'flex', flexDirection: 'column' }}>
+        {slide.code
+            ? <CodePanel 
+                code={slide.code} 
+                output={slide.output} 
+                syntax={slide.syntax} 
+                workflow={slide.workflow} 
+                showPreview={slide.title === "Your First PHP Code" || slide.chapter === "Web & Database" || slide.num === "15"}
+                accent={accent} 
+                theme={theme} 
+              />
             : slide.concept
-              ? <div style={{flex:1,background:'var(--header-bg)',border:'1px solid var(--border)',borderRadius:14,padding:'36px',display:'flex',alignItems:'center',justifyContent:'center'}}>
-                  <pre style={{fontFamily:'Space Mono,monospace',fontSize:13,lineHeight:2.2,color:theme === 'dark' ? '#3a5a3a' : '#226b22',textAlign:'left',whiteSpace:'pre',margin:0}}>{slide.concept}</pre>
-                </div>
+              ? <div style={{ flex: 1, background: 'var(--header-bg)', border: '1px solid var(--border)', borderRadius: 14, padding: '36px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <pre style={{ fontFamily: 'Space Mono,monospace', fontSize: 13, lineHeight: 2.2, color: theme === 'dark' ? '#3a5a3a' : '#226b22', textAlign: 'left', whiteSpace: 'pre', margin: 0 }}>{slide.concept}</pre>
+              </div>
               : null
           }
         </div>
       </div>
 
-      <div style={{display:'flex',alignItems:'center',justifyContent:'space-between',padding:'11px 22px',borderTop:`1px solid var(--border)`,flexShrink:0,background:'var(--bg)'}}>
-        <button onClick={onPrev} disabled={current===0} style={{padding:'8px 16px',borderRadius:7,border:`1px solid var(--border)`,background:current===0?'transparent':'var(--card)',color:current===0?'var(--border)':'var(--dim)',fontFamily:'Space Mono,monospace',fontSize:10}}>← PREV</button>
-        <span style={{fontFamily:'Space Mono,monospace',fontSize:9,color:'var(--border)'}}>← → arrow keys · Esc = menu</span>
-        <button onClick={onNext} style={{padding:'8px 20px',borderRadius:7,border:'none',background:accent,color:'#000',fontFamily:'Space Mono,monospace',fontSize:10,fontWeight:700}}>
-          {current===total-1?'RESTART ↺':'NEXT →'}
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '11px 22px', borderTop: `1px solid var(--border)`, flexShrink: 0, background: 'var(--bg)' }}>
+        <button onClick={onPrev} disabled={current === 0} style={{ padding: '8px 16px', borderRadius: 7, border: `1px solid var(--border)`, background: current === 0 ? 'transparent' : 'var(--card)', color: current === 0 ? 'var(--border)' : 'var(--dim)', fontFamily: 'Space Mono,monospace', fontSize: 10 }}>← PREV</button>
+        <span style={{ fontFamily: 'Space Mono,monospace', fontSize: 9, color: 'var(--border)' }}>← → arrow keys · Esc = menu</span>
+        <button onClick={onNext} style={{ padding: '8px 20px', borderRadius: 7, border: 'none', background: accent, color: '#000', fontFamily: 'Space Mono,monospace', fontSize: 10, fontWeight: 700 }}>
+          {current === total - 1 ? 'RESTART ↺' : 'NEXT →'}
         </button>
       </div>
     </div>
@@ -1594,15 +1908,15 @@ function Slide({slide, current, total, onNext, onPrev, theme, toggleTheme}: {
 }
 
 // ── TABLE OF CONTENTS ─────────────────────────────────────────
-function TOC({onStart, onGoTo, theme, toggleTheme}: {onStart: () => void, onGoTo: (idx: number) => void, theme: 'dark' | 'light', toggleTheme: () => void}) {
+function TOC({ onStart, onGoTo, theme, toggleTheme }: { onStart: () => void, onGoTo: (idx: number) => void, theme: 'dark' | 'light', toggleTheme: () => void }) {
   return (
-    <div style={{height:'100%',overflow:'auto',display:'flex',flexDirection:'column',alignItems:'center',padding:'36px 24px 28px'}}>
-      <div style={{textAlign:'center',marginBottom:36, position: 'relative'}}>
+    <div style={{ height: '100%', overflow: 'auto', display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '36px 24px 28px' }}>
+      <div style={{ textAlign: 'center', marginBottom: 36, position: 'relative' }}>
         {/* Theme Toggle in Header/Hero */}
-        <button 
+        <button
           onClick={toggleTheme}
           style={{
-            position: 'absolute', top: -10, right: 0,
+            position: 'relative', top: 0, right: 0,
             padding: '8px 12px', borderRadius: 8,
             border: `1px solid var(--border)`,
             background: theme === 'dark' ? 'transparent' : '#000',
@@ -1614,42 +1928,42 @@ function TOC({onStart, onGoTo, theme, toggleTheme}: {onStart: () => void, onGoTo
           <Monitor size={14} />
           {theme === 'dark' ? 'PROJECTOR MODE' : 'DARK MODE'}
         </button>
-        <div style={{fontFamily:'Space Mono,monospace',fontSize:10,color:ACCENT,letterSpacing:'0.2em',marginBottom:12,textTransform:'uppercase'}}>University Course · 17 Lessons</div>
-        <h1 style={{fontFamily:'DM Serif Display,serif',fontSize:52,fontWeight:400,color:'var(--ink)',lineHeight:1.05,margin:'0 0 12px'}}>
-          PHP<br/><em style={{color:ACCENT}}>Programming</em>
+        <div style={{ fontFamily: 'Space Mono,monospace', fontSize: 10, color: ACCENT, letterSpacing: '0.2em', marginBottom: 12, textTransform: 'uppercase' }}>University Course · 19 Lessons</div>
+        <h1 style={{ fontFamily: 'DM Serif Display,serif', fontSize: 52, fontWeight: 400, color: 'var(--ink)', lineHeight: 1.05, margin: '0 0 12px' }}>
+          PHP<br /><em style={{ color: ACCENT }}>Programming</em>
         </h1>
-        <p style={{fontFamily:'Space Mono,monospace',fontSize:10,color:'var(--dim)',maxWidth:400,lineHeight:1.8}}>
+        <p style={{ fontFamily: 'Space Mono,monospace', fontSize: 10, color: 'var(--dim)', maxWidth: 400, lineHeight: 1.8 }}>
           Step-by-step: Foundations → Operators → Functions → Arrays → OOP → Web → Database
         </p>
       </div>
 
-      <div style={{width:'100%',maxWidth:900,display:'flex',flexDirection:'column',gap:22,marginBottom:32}}>
+      <div style={{ width: '100%', maxWidth: 900, display: 'flex', flexDirection: 'column', gap: 22, marginBottom: 32 }}>
         {CHAPTERS.map(ch => (
           <div key={ch.name}>
-          <div style={{display:'flex',alignItems:'center',gap:10,marginBottom:9}}>
-              <div style={{width:3,height:16,background:ch.color,borderRadius:2}}/>
-              <span style={{fontSize:16,marginRight:2}}>{ch.icon}</span>
-              <span style={{fontFamily:'Space Mono,monospace',fontSize:10,fontWeight:700,color:ch.color,letterSpacing:'0.08em'}}>{ch.name}</span>
-              <div style={{flex:1,height:1,background:'var(--border)'}}/>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 9 }}>
+              <div style={{ width: 3, height: 16, background: ch.color, borderRadius: 2 }} />
+              <span style={{ fontSize: 16, marginRight: 2 }}>{ch.icon}</span>
+              <span style={{ fontFamily: 'Space Mono,monospace', fontSize: 10, fontWeight: 700, color: ch.color, letterSpacing: '0.08em' }}>{ch.name}</span>
+              <div style={{ flex: 1, height: 1, background: 'var(--border)' }} />
             </div>
-            <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fill,minmax(185px,1fr))',gap:7}}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill,minmax(185px,1fr))', gap: 7 }}>
               {ch.nums.map(num => {
-                const s = SLIDES.find(sl=>sl.num===num);
+                const s = SLIDES.find(sl => sl.num === num);
                 if (!s) return null;
                 const idx = SLIDES.indexOf(s);
                 return (
-                  <button key={num} onClick={()=>onGoTo(idx)}
-                    style={{display:'flex',alignItems:'center',gap:10,padding:'10px 11px',background:'var(--card)',border:`1px solid var(--border)`,borderRadius:8,cursor:'pointer',textAlign:'left',transition:'all 0.18s'}}
-                    onMouseEnter={(e: React.MouseEvent<HTMLButtonElement>) =>{e.currentTarget.style.borderColor=ch.color+'65';e.currentTarget.style.background=ch.color+'09';}}
-                    onMouseLeave={(e: React.MouseEvent<HTMLButtonElement>) =>{e.currentTarget.style.borderColor='var(--border)';e.currentTarget.style.background='var(--card)';}}
+                  <button key={num} onClick={() => onGoTo(idx)}
+                    style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '10px 11px', background: 'var(--card)', border: `1px solid var(--border)`, borderRadius: 8, cursor: 'pointer', textAlign: 'left', transition: 'all 0.18s' }}
+                    onMouseEnter={(e: React.MouseEvent<HTMLButtonElement>) => { e.currentTarget.style.borderColor = ch.color + '65'; e.currentTarget.style.background = ch.color + '09'; }}
+                    onMouseLeave={(e: React.MouseEvent<HTMLButtonElement>) => { e.currentTarget.style.borderColor = 'var(--border)'; e.currentTarget.style.background = 'var(--card)'; }}
                   >
-                    <div style={{width:32,height:32,borderRadius:6,background:ch.color+'20',color:ch.color,fontFamily:'Space Mono,monospace',fontSize:10,fontWeight:700,display:'flex',alignItems:'center',justifyContent:'center',flexShrink:0,position:'relative'}}>
-                      <span style={{position:'absolute',top:2,left:4,fontSize:8,opacity:0.6}}>{s.num}</span>
-                      <span style={{fontSize:16}}>{s.icon}</span>
+                    <div style={{ width: 32, height: 32, borderRadius: 6, background: ch.color + '20', color: ch.color, fontFamily: 'Space Mono,monospace', fontSize: 10, fontWeight: 700, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, position: 'relative' }}>
+                      <span style={{ position: 'absolute', top: 2, left: 4, fontSize: 8, opacity: 0.6 }}>{s.num}</span>
+                      <span style={{ fontSize: 16 }}>{s.icon}</span>
                     </div>
                     <div>
-                      <div style={{fontSize:11,fontWeight:700,color:'var(--ink)',fontFamily:'Space Mono,monospace',lineHeight:1.2}}>{s.title}</div>
-                      <div style={{fontSize:9,color:'var(--dim)',marginTop:2}}>{s.tag}</div>
+                      <div style={{ fontSize: 11, fontWeight: 700, color: 'var(--ink)', fontFamily: 'Space Mono,monospace', lineHeight: 1.2 }}>{s.title}</div>
+                      <div style={{ fontSize: 9, color: 'var(--dim)', marginTop: 2 }}>{s.tag}</div>
                     </div>
                   </button>
                 );
@@ -1659,7 +1973,7 @@ function TOC({onStart, onGoTo, theme, toggleTheme}: {onStart: () => void, onGoTo
         ))}
       </div>
 
-      <button onClick={onStart} style={{padding:'13px 44px',borderRadius:8,border:'none',background:ACCENT,color:'#000',fontFamily:'Space Mono,monospace',fontSize:12,fontWeight:700,letterSpacing:'0.06em'}}>
+      <button onClick={onStart} style={{ padding: '13px 44px', borderRadius: 8, border: 'none', background: ACCENT, color: '#000', fontFamily: 'Space Mono,monospace', fontSize: 12, fontWeight: 700, letterSpacing: '0.06em' }}>
         START FROM LESSON 01 →
       </button>
     </div>
@@ -1668,57 +1982,59 @@ function TOC({onStart, onGoTo, theme, toggleTheme}: {onStart: () => void, onGoTo
 
 // ── ROOT ──────────────────────────────────────────────────────
 export default function PHPSlides() {
-  const [screen,  setScreen]  = useState('toc');
+  const [screen, setScreen] = useState('toc');
   const [current, setCurrent] = useState(0);
-  const [dir,     setDir]     = useState(1);
-  const [theme,   setTheme]   = useState<'dark' | 'light'>('dark');
+  const [dir, setDir] = useState(1);
+  const [theme, setTheme] = useState<'dark' | 'light'>('dark');
 
   const toggleTheme = () => setTheme(prev => prev === 'dark' ? 'light' : 'dark');
 
 
   const goTo = useCallback((idx: number) => {
-    setDir(idx>current?1:-1); setCurrent(idx); setScreen('slide');
+    setDir(idx > current ? 1 : -1); setCurrent(idx); setScreen('slide');
   }, [current]);
 
   const next = useCallback(() => {
-    if (current<SLIDES.length-1){setDir(1);setCurrent(c=>c+1);}
-    else {setScreen('toc');setCurrent(0);}
+    if (current < SLIDES.length - 1) { setDir(1); setCurrent(c => c + 1); }
+    else { setScreen('toc'); setCurrent(0); }
   }, [current]);
 
   const prev = useCallback(() => {
-    if (current>0){setDir(-1);setCurrent(c=>c-1);}
+    if (current > 0) { setDir(-1); setCurrent(c => c - 1); }
   }, [current]);
 
   useEffect(() => {
     const h = (e: KeyboardEvent) => {
-      if (screen!=='slide') return;
-      if (e.key==='ArrowRight') next();
-      if (e.key==='ArrowLeft')  prev();
-      if (e.key==='Escape')     setScreen('toc');
+      if (screen !== 'slide') return;
+      if (document.activeElement?.tagName === 'INPUT' || document.activeElement?.tagName === 'TEXTAREA') return;
+
+      if (e.key === 'ArrowRight') next();
+      if (e.key === 'ArrowLeft') prev();
+      if (e.key === 'Escape') setScreen('toc');
     };
-    window.addEventListener('keydown',h);
-    return ()=>window.removeEventListener('keydown',h);
-  }, [screen,next,prev]);
+    window.addEventListener('keydown', h);
+    return () => window.removeEventListener('keydown', h);
+  }, [screen, next, prev]);
 
   const slide = SLIDES[current]!;
 
   return (
-    <div style={{width:'100%',height:'100vh',background:'var(--bg)',color:'var(--ink)',overflow:'hidden',fontFamily:"'Noto Sans Khmer','Inter',sans-serif"}}>
+    <div style={{ width: '100%', height: '100vh', background: 'var(--bg)', color: 'var(--ink)', overflow: 'hidden', fontFamily: "'Noto Sans Khmer','Inter',sans-serif" }}>
       <style>{GLOBAL_STYLE(theme)}</style>
       {/* grid texture */}
-      <div style={{position:'fixed',inset:0,opacity:theme === 'dark' ? 0.02 : 0.05,pointerEvents:'none',backgroundImage:`linear-gradient(${theme === 'dark' ? '#fff' : '#000'} 1px,transparent 1px),linear-gradient(90deg,${theme === 'dark' ? '#fff' : '#000'} 1px,transparent 1px)`,backgroundSize:'32px 32px'}}/>
+      <div style={{ position: 'fixed', inset: 0, opacity: theme === 'dark' ? 0.02 : 0.05, pointerEvents: 'none', backgroundImage: `linear-gradient(${theme === 'dark' ? '#fff' : '#000'} 1px,transparent 1px),linear-gradient(90deg,${theme === 'dark' ? '#fff' : '#000'} 1px,transparent 1px)`, backgroundSize: '32px 32px' }} />
       {/* accent glow */}
-      {screen==='slide'&&(
-        <div style={{position:'fixed',inset:0,pointerEvents:'none',transition:'background 0.6s',background:`radial-gradient(ellipse at 75% 15%, ${slide.tagColor}10 0%, transparent 55%)`}}/>
+      {screen === 'slide' && (
+        <div style={{ position: 'fixed', inset: 0, pointerEvents: 'none', transition: 'background 0.6s', background: `radial-gradient(ellipse at 75% 15%, ${slide.tagColor}10 0%, transparent 55%)` }} />
       )}
       <AnimatePresence mode="wait">
-        {screen==='toc' ? (
-          <motion.div key="toc" initial={{opacity:0}} animate={{opacity:1}} exit={{opacity:0}} transition={{duration:0.2}} style={{position:'absolute',inset:0,zIndex:10}}>
-            <TOC onStart={()=>{setCurrent(0);setScreen('slide');}} onGoTo={goTo} theme={theme} toggleTheme={toggleTheme}/>
+        {screen === 'toc' ? (
+          <motion.div key="toc" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.2 }} style={{ position: 'absolute', inset: 0, zIndex: 10 }}>
+            <TOC onStart={() => { setCurrent(0); setScreen('slide'); }} onGoTo={goTo} theme={theme} toggleTheme={toggleTheme} />
           </motion.div>
         ) : (
-          <motion.div key={`s${current}`} initial={{opacity:0,x:dir*20}} animate={{opacity:1,x:0}} exit={{opacity:0,x:-dir*20}} transition={{duration:0.2,ease:[0.32,0.72,0,1]}} style={{position:'absolute',inset:0,zIndex:10}}>
-            <Slide slide={slide} current={current} total={SLIDES.length} onNext={next} onPrev={prev} theme={theme} toggleTheme={toggleTheme}/>
+          <motion.div key={`s${current}`} initial={{ opacity: 0, x: dir * 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -dir * 20 }} transition={{ duration: 0.2, ease: [0.32, 0.72, 0, 1] }} style={{ position: 'absolute', inset: 0, zIndex: 10 }}>
+            <Slide slide={slide} current={current} total={SLIDES.length} onNext={next} onPrev={prev} theme={theme} toggleTheme={toggleTheme} />
           </motion.div>
         )}
       </AnimatePresence>
