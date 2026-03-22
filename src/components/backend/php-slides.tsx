@@ -11,8 +11,8 @@ const GLOBAL_STYLE = (theme: 'dark' | 'light') => `
     --bg: ${theme === 'dark' ? '#0d0d0d' : '#ffffff'};
     --card: ${theme === 'dark' ? '#161616' : '#f9f9f9'};
     --border: ${theme === 'dark' ? '#2a2a2a' : '#eeeeee'};
-    --dim: ${theme === 'dark' ? '#666666' : '#888888'};
-    --ink: ${theme === 'dark' ? '#f0f0f0' : '#000000'};
+    --dim: ${theme === 'dark' ? '#a0a0a0' : '#888888'};
+    --ink: ${theme === 'dark' ? '#ffffff' : '#000000'};
     --ghost: ${theme === 'dark' ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)'};
     --header-bg: ${theme === 'dark' ? '#080a11' : '#f0f4f8'};
   }
@@ -25,13 +25,29 @@ const GLOBAL_STYLE = (theme: 'dark' | 'light') => `
 `;
 
 const ACCENT = "#e8ff47", GREEN = "#4ade80", BLUE = "#38bdf8";
-const PINK = "#f472b6", ORANGE = "#fb923c", PURPLE = "#a78bfa", TEAL = "#2dd4bf";
+const PINK = "#f472b6", ORANGE = "#fb923c", PURPLE = "#a78bfa", TEAL = "#2dd4bf", RED = "#f87171";
 
 // ─────────────────────────────────────────────────────────────
+interface Lab {
+  title: string;
+  titleKh: string;
+  duration: string;
+  objective: string;
+  steps: string[];
+  code: string;
+  output: string;
+}
+
 interface Bullet {
   icon: string;
   label: string;
   desc: string;
+}
+
+interface ExplanationStep {
+  title: string;
+  desc: string;
+  targetLine?: number; // Highlight specific line
 }
 
 interface SlideData {
@@ -40,7 +56,7 @@ interface SlideData {
   chapterColor: string;
   tag: string;
   tagColor: string;
-  icon: string; // New field
+  icon: string;
   title: string;
   subtitle: string;
   body: string;
@@ -49,15 +65,17 @@ interface SlideData {
   concept?: string | null;
   syntax?: string | null;
   workflow?: string | null;
+  explanation?: ExplanationStep[]; // New field for animated explanations
   output: string | null;
   tip: string;
+  lab?: Lab | null;
 }
 
 interface ChapterData {
   name: string;
   color: string;
   nums: string[];
-  icon: string; // New field
+  icon: string;
 }
 
 // ─────────────────────────────────────────────────────────────
@@ -65,1299 +83,1403 @@ const SLIDES: SlideData[] = [
   {
     num: "01", chapter: "Foundations", chapterColor: BLUE,
     tag: "Intro", tagColor: BLUE, icon: "🖥️",
-    title: "What is PHP?",
-    subtitle: "Server-side · Dynamic web · Request/Response flow",
-    body: `PHP (Hypertext Preprocessor) គឺជា **server-side scripting language** ។ PHP ដំណើរការនៅ **server** ─ generate HTML ─ ផ្ញើ HTML ទៅ browser ។ User មើលឃើញតែ HTML, មិនឃើញ PHP source code ។`,
+    title: "The PHP Ecosystem",
+    subtitle: "Server-side Processing · Hypertext Preprocessor · Backend Logic",
+    body: `**PHP** is the engine of the web. មិនដូច JavaScript ដែលដើរលើ Browser, PHP ដំណើរការនៅលើ **Server** ។ វាទទួលយក Request, គណនា Logic, និងបង្កើតជា **HTML** ដើម្បីផ្ញើទៅកាន់ Browser វិញ។ នេះជាមូលដ្ឋានគ្រឹះនៃ Dynamic Website ។`,
     bullets: [
-      { icon: "🖥️", label: "Server-side", desc: "Code ដំណើរការនៅ server ─ មិនមែន browser" },
-      { icon: "🔗", label: "Works with HTML", desc: "Embed PHP ក្នុង HTML ដោយ <?php ?> tags" },
-      { icon: "⚙️", label: "Backend language", desc: "Handle DB, forms, authentication, file uploads" },
-      { icon: "🌍", label: "77% of the web", desc: "WordPress · Wikipedia · Facebook ─ all PHP" },
+      { icon: "🛡️", label: "Server-side", desc: "Code processes on your hardware/cloud, not the user's laptop." },
+      { icon: "📦", label: "Runtime", desc: "PHP transforms raw scripts into valid HTML strings for visitors." },
+      { icon: "⚙️", label: "Backend Power", desc: "Handles Databases, Files, Sessions, and API integrations." },
+      { icon: "📈", label: "Industry standard", desc: "Powers 77%+ of the internet including WordPress & Laravel." },
+    ],
+    explanation: [
+      { title: "Browser Request", desc: "User វាយ URL (ឧទាហរណ៍: facebook.com) ។ Browser ផ្ញើ Request ទៅកាន់ Server តាមរយៈ HTTP ។" },
+      { title: "Server Action", desc: "Server (Nginx/Apache) ទទួលយក Request រួចហៅ PHP Engine ឲ្យដំណើរការ Code ក្នុង File .php នោះ។" },
+      { title: "HTML Generation", desc: "PHP គណនា Logic រួចបង្កើតជា HTML Output ។ Server បញ្ជូន HTML ត្រឡប់ទៅ User វិញ។" },
+      { title: "User View", desc: "Browser ទទួលយកតែ HTML/CSS ប៉ុណ្ណោះ ─ User មិនអាចមើលឃើញកូដ PHP ដើមឡើយ។" }
     ],
     code: `<?php
-// ── PHP Request / Response Flow ──────────────────
-//
-// 1. Browser ── HTTP Request [GET /] ──▶ Apache/Nginx
-// 2. Server  ── PHP Engine runs code ──▶ HTML Generated
-// 3. Browser ◀── HTTP Response [HTML] ── Server
-//
-// ───────────────────────────────────────────────
+/**
+ * PHP Request/Response Lifecycle
+ * Level: Academic Overview
+ */
 
-echo "PHP Version: " . phpversion() . "\n";
-echo "Server Time: " . date("Y-m-d H:i:s") . "\n";
-echo "Hello from the server! 👋";
+echo "PHP Version: " . PHP_VERSION . "\n";
+echo "Server Node: " . php_uname('n') . "\n";
+echo "Generated at: " . date("H:i:s") . " UTC\n";
+
+// This string is sent to the client as clean HTML
+echo "<h1>Hello from the Backend! 🚀</h1>";
 ?>`,
-    output: `// Server-side execution result
-PHP Version: 8.3.4
-Server Time: 2026-03-22 13:50:42
-Hello from the server! 👋`,
-    syntax: `// ── PHP Basics Syntax ──────────────────────
+    output: `PHP Version: 8.3.4
+Server Node: local-runtime-env
+Generated at: 13:50:42 UTC
+<h1>Hello from the Backend! 🚀</h1>`,
+    syntax: `// ── PHP Core Syntax ────────────────────────
 //
-//  echo "s"     : Output string to browser
-//  phpversion() : Get current PHP version
-//  date("Y-m-d"): Format current timestamp
-//  .            : String concatenation (join)
-//  "\\n"         : New line (in terminal/cli)
+//  echo        : Command to output data
+//  PHP_VERSION : Global constant for engine version
+//  date()      : Function for system timestamps
+//  .           : String concatenation operator
+//  "" vs ''    : Double quotes allow $variables
 //
 // ──────────────────────────────────────────`,
-    tip: "PHP ត្រូវ run លើ server (XAMPP/Laragon) ─ browser មិនអាចអាន code PHP ផ្ទាល់បានទេ គឺអានបានតែ HTML ចេញពី server!",
-    workflow: `// ── Server Execution Life Cycle ────────────
+    tip: "PHP គឺជា 'Preprocessor' ─ វាមានន័យថាវាបំប្លែង Script របស់អ្នកទៅជា HTML មុនពេលវាទៅដល់ភ្នែករបស់ User!",
+    workflow: `// ── Execution Workflow ────────────────────
 //
-// 1. Client: URL input (វាយ URL ចូល)
-// 2. Request: Sent to server (ផ្ញើ request ទៅ server)
-// 3. Process: PHP runs at server (PHP ដើរនៅ server)
-// 4. Content: HTML generated (បង្កើតជា HTML)
-// 5. Render: Browser shows HTML (បង្ហាញលើ browser)
+// 1. Request: Browser calls server (ហៅទៅកាន់ server)
+// 2. Parser: PHP engine starts (engine ចាប់ផ្ដើមអានកូដ)
+// 3. Logic: Database/Math processed (ដំណើរការ logic)
+// 4. Buffer: HTML output generated (បង្កើតជា HTML)
+// 5. Response: Sent back to client (បញ្ជូនទៅកាន់ client)
 //
 // ──────────────────────────────────────────`,
   },
   {
     num: "02", chapter: "Foundations", chapterColor: BLUE,
-    tag: "First Code", tagColor: GREEN, icon: "🚀",
-    title: "Your First PHP Code",
-    subtitle: "<?php ?> · echo · print · comments · semicolon",
-    body: `PHP code ត្រូវ wrap ក្នុង **<?php ?>** tags ។ ប្រើ **echo** ឬ **print** ដើម្បី output text ។ Statement ទាំងអស់ចប់ដោយ **semicolon (;)** ─ missing semicolon = Parse Error ។`,
+    tag: "Execution", tagColor: GREEN, icon: "🚀",
+    title: "Syntax & Anatomy",
+    subtitle: "Directives · Semicolons · Tags · Code Blocks",
+    body: `កូដ PHP ត្រូវតែស្ថិតនៅក្នុង **<?php ... ?>** tags ។ Statement នីមួយៗត្រូវតែបញ្ចប់ដោយ **semicolon ( ; )** ជានិច្ច ។ ប្រសិនបើអ្នកភ្លេចបិទ semicolon, PHP នឹងឈប់ដំណើរការភ្លាមៗ (Fatal Error) ។`,
     bullets: [
-      { icon: "🏷️", label: "<?php ?>", desc: "PHP tags ─ server processes code inside these" },
-      { icon: "📢", label: "echo", desc: "Output text/HTML ─ most used, accepts multiple args" },
-      { icon: "🔚", label: "Semicolon ;", desc: "Ends every statement ─ missing = fatal Parse Error!" },
-      { icon: "💬", label: "Comments", desc: "// single line   /* multi-line */   # old style" },
+      { icon: "🏷️", label: "Open Tags", desc: "PHP mode starts with <?php and optionally ends with ?>" },
+      { icon: "📢", label: "Output Directives", desc: "echo for data strings, print for single expressions." },
+      { icon: "🔚", label: "Semicolon", desc: "Required sentence terminator for every PHP command line." },
+      { icon: "📄", label: "Commentary", desc: "// Single line, # shell style, and /* Multi line */ blocks." },
+    ],
+    explanation: [
+      { title: "The Entry Point", desc: "PHP Engine ស្វែងរក <?php tag ដើម្បីចាប់ផ្ដើមបកស្រាយកូដនៅក្នុង File ។" },
+      { title: "Processing Commands", desc: "Engine អានកូដពីលើចុះក្រោម បន្ទាត់នីមួយៗត្រូវបញ្ចប់ដោយ semicolon (;) ។" },
+      { title: "HTML Hybrid", desc: "អ្នកអាចសរសេរ PHP លាយជាមួយ HTML បាន ─ Engine នឹងប្តូរ Mode ទៅតាម Tag កូដ។" },
+      { title: "The Exit Signal", desc: "Tag ?> ប្រាប់បញ្ឈប់ PHP Mode ─ ចាប់ពីទីនេះទៅគឺ HTML សុទ្ធសាធ។" }
     ],
     code: `<?php
-// 1. Output Basics
-echo "Hello World!";      // Most common
-print "Hello Studies";   // Returns 1
+// Traditional echo
+echo "Modern Backend Development";
 
-// 2. Shorthand Echo (Used inside HTML)
+// Shorthand syntax (used inside HTML templates)
+# Result: <h2>Hello</h2>
 ?>
-<h2><?= "Welcome to PHP!" ?></h2>
+<h2><?= "Hello Studies" ?></h2>
+
 <?php
+/* Double quotes support variable 
+   interpolation and escaping */
+echo "I'm learning \"PHP\""; 
 
-// 3. Comments in PHP
-// Line comment
-# Shell-style comment
-/* Block comment 
-   multiple lines */
-
-// 4. Double vs Single Quotes
-$name = "Ratha";
-echo "Hello $name";   // Interpolation: Hello Ratha
-echo 'Hello $name';   // Literal: Hello $name
-
-// 5. Escaping characters
-echo "He said: \"PHP is great\""; 
+// Missing semicolon here would cause an error:
+echo "This works because it has a semicolon";
 ?>`,
-    syntax: `// ── PHP Syntax Foundation ──────────────────
+    syntax: `// ── Syntax Standards ────────────────────────
 //
-//  <?php ... ?> : Standard PHP tags
-//  <?= ... ?>   : Shorthand echo tag
-//  echo         : Most used output command
-//  ;            : REQUIRED at end of line!
-//  // or #      : Single-line comment
-//  /* ... */    : Multi-line comment block
+//  <?php ... ?> : Full PHP block
+//  <?= ... ?>   : Shorthand echo (Echo Tag)
+//  ;            : Mandatory Line Terminator ⚠️
+//  //           : Inline Comment
+//  /* ... */    : Documentation Block
 //
 // ──────────────────────────────────────────`,
-    output: `Hello World!
-Hello Studies
-<h2>Welcome to PHP!</h2>
-
-Hello Ratha
-Hello $name
-He said: "PHP is great"`,
-    tip: "ប្រសិនបើ file របស់អ្នកមានតែ code PHP សុទ្ធ (no HTML), អ្នកមិនចាំបាច់ដាក់ tags បិទ ?> នៅចុងក្រោយទេ ដើម្បីការពារ error whitespace!",
-    workflow: `// ── Basic Syntax Execution ─────────────────
+    output: `Modern Backend Development
+<h2>Hello Studies</h2>
+I'm learning "PHP"
+This works because it has a semicolon`,
+    tip: "ក្នុង File ដែលមានតែ PHP សុទ្ធ (ដូចជា Controller), គេមិនដែលដាក់ Tag បិទ ?> ទេ ដើម្បីការពារបញ្ហា Whitespace Error!",
+    workflow: `// ── Tag Lifecycle ─────────────────────────
 //
-// 1. Search: Find <?php tag (ស្វែងរក tag)
-// 2. Context: PHP mode starts (ចូលរបៀប PHP)
-// 3. Execute: Process line by line (ដើរតាមបន្ទាត់)
-// 4. Output: Send strings to buffer (បញ្ជូនលទ្ធផល)
-// 5. Finish: Final HTML ready (HTML រួចរាល់)
+// 1. Search: Find opening tag (ស្វែងរក tag បើក)
+// 2. Interpret: Process script (បកស្រាយកូដ)
+// 3. Output: Write to buffer (សរសេរចូល buffer)
+// 4. Close: End at closing tag (ឈប់ត្រឹម tag បិទ)
+// 5. Raw: Render HTML outside (បង្ហាញ HTML ធម្មតា)
 //
 // ──────────────────────────────────────────`,
   },
   {
     num: "03", chapter: "Foundations", chapterColor: BLUE,
-    tag: "Variables", tagColor: ORANGE, icon: "📦",
-    title: "Variables",
-    subtitle: "$ · naming rules · assignment · var_dump · constants",
-    body: `Variable ជា **named container** ដែល store data ។ PHP variables ចាប់ផ្តើមដោយ **$** ─ case-sensitive ─ dynamically typed ។ ប្រើ **var_dump()** debug ─ **define()** ឬ **const** សម្រាប់ constants ។`,
+    tag: "Core Data", tagColor: ORANGE, icon: "📦",
+    title: "Variables & State",
+    subtitle: "Memory Containers · Case Sensitivity · Naming Conventions",
+    body: `**Variable** គឺជាឈ្មោះដែលយើងដាក់ឲ្យ Memory សម្រាប់រក្សាទុកទិន្នន័យ ។ ក្នុង PHP, វាត្រូវតែចាប់ផ្ដើមដោយ **$** ជានិច្ច ។ PHP គឺជា **Dynamically Typed**, មានន័យថាយើងមិនបាច់ប្រាប់ប្រភេទ data (int/string) មុនឡើយ ។`,
     bullets: [
-      { icon: "$", label: "Dollar sign $", desc: "All variables: $name $age $total ─ required prefix" },
-      { icon: "=", label: "Assignment =", desc: "$x = 10; ─ = assigns, == compares, === strict compare" },
-      { icon: "🔤", label: "Case-sensitive", desc: "$Name ≠ $name ─ completely different variables!" },
-      { icon: "🔍", label: "var_dump()", desc: "Shows TYPE + VALUE ─ best debugging tool in PHP" },
+      { icon: "$", label: "The Prefix", desc: "Every variable requires a dollar sign prefix (e.g. $user)." },
+      { icon: "🔠", label: "Case-Sensitive", desc: "$user and $USER are different memory locations." },
+      { icon: "📝", label: "Valid Names", desc: "Must start with a letter or underscore, never a number." },
+      { icon: "🧳", label: "Dynamic Typing", desc: "One variable can store a string, then later an integer." },
+    ],
+    explanation: [
+      { title: "Allocation", desc: "នៅពេលអ្នកសរសេរ $x = 10, PHP រៀបចំកន្លែងក្នុង Memory រក្សាទុកតម្លៃ 10 ។" },
+      { title: "Variable Access", desc: "គ្រប់ពេលដែលអ្នកហៅ $x, Engine ទៅទាញយកតម្លៃ 10 ចេញពី Memory មកប្រើ។" },
+      { title: "Dynamic Nature", desc: "អ្នកអាចប្ដូរ $x = 'PHP' បានភ្លាមៗ ─ PHP នឹងប្តូរប្រភេទ Data ដោយស្វ័យប្រវត្តិ។" },
+      { title: "Debugging State", desc: "ប្រើ var_dump($x) ដើម្បីមើលព័ត៌មានលម្អិតទាំង Value និង Data Type ។" }
     ],
     code: `<?php
-// 1. Declaration & Assignment
-$username = "ratha_dev";  // String
-$age      = 20;           // Integer
-$is_admin = true;         // Boolean
+// Initialization
+$username = "ratha_dev"; // String
+$age      = 22;          // Integer
+$isActive = true;        // Boolean
 
-// 2. Variable Rules
-// $1name = "bad";       // NO: Cannot start with digit
-// $my-name = "bad";     // NO: No hyphens allowed
-$my_name = "Good ✅";    // YES: Underscore ok
+// Naming standards (CamelCase or Snake_case)
+$total_price = 105.50; 
+$isAdmin     = false;
 
-// 3. Case Sensitivity
-$color = "blue";
-$COLOR = "red";
-echo "My car is $color";  // blue
+// Variable expansion in double quotes
+echo "Profile: $username (Age: $age)";
 
-// 4. Debugging with var_dump()
-var_dump($username);      // string(9) "ratha_dev"
-var_dump($age);           // int(20)
+// Strict Debugging
+var_dump($total_price); // float(105.5)
+var_dump($isAdmin);     // bool(false)
 
-// 5. Constants (Fixed values)
-define("SITE_URL", "https://uni.edu");
-const API_KEY = "SECRET_123";
-
-// 6. Multiple Assignment
-$a = $b = $c = 100;
+// Re-assignment (Dynamic)
+$score = 10;
+$score = "Ten"; // Valid in PHP
 ?>`,
-    syntax: `// ── Variable & Constants Syntax ────────────
+    syntax: `// ── Variable Rules ──────────────────────────
 //
-//  $name = v    : Variable (starts with $)
-//  define("N",v): Constant (Global)
-//  const N = v  : Constant (Scope-bound)
-//  var_dump($x) : DEBUG: Type + Value
-//  "Hello $v"   : Variable interpolation
-//  .            : Join strings together
+//  $variable = v : Assign value (starts with $)
+//  var_dump($v)  : Deep inspection (debug)
+//  "Hello $v"    : String interpolation
+//  'Hello $v'    : Literal string (no expansion)
+//  gettype($v)   : Get data type name
 //
 // ──────────────────────────────────────────`,
-    output: `My car is blue
-string(9) "ratha_dev"
-int(20)
-a=100, b=100, c=100`,
-    tip: "ប្រើ var_dump() ជាជំនួស echo នៅពេល debug ព្រោះវាបង្ហាញទាំង Type (int/string) និង Value ងាយស្រួលយល់!",
-    workflow: `// ── Variable Lifecycle ─────────────────────
+    output: `Profile: ratha_dev (Age: 22)
+float(105.5)
+bool(false)
+(score changed from int to string)`,
+    tip: "ចូរប្រើ var_dump() ជាឧបករណ៍ចម្បងក្នុងពេល Debug ព្រោះវាប្រាប់យើងគ្រប់យ៉ាង ទាំងផ្ទាំងទិន្នន័យ និងប្រភេទរបស់វា!",
+    workflow: `// ── State Management Flow ──────────────────
 //
-// 1. Allocation: Memory reserved (បម្រុងទុក memory)
-// 2. Assignment: Value stored (ដាក់តម្លៃចូល)
-// 3. Interaction: Use in logic/math (យកមកប្រើ)
-// 4. Mutation: Change value (ប្ដូរតម្លៃថ្មី)
-// 5. Cleanup: Auto-removed (សម្អាត memory)
+// 1. Declare: Define name with $ (បង្កើតឈ្មោះ)
+// 2. Assign: Put value into memory (ដាក់តម្លៃចូល)
+// 3. Reference: Use value in code (យកតម្លៃមកប្រើ)
+// 4. Mutate: Overwrite with new (ប្ដូរតម្លៃថ្មី)
+// 5. Inspect: var_dump for check (ឆែកលទ្ធផល)
 //
 // ──────────────────────────────────────────`,
   },
   {
     num: "04", chapter: "Foundations", chapterColor: BLUE,
     tag: "Data Types", tagColor: PINK, icon: "📝",
-    title: "Data Types",
-    subtitle: "string · int · float · bool · null · array · gettype · casting",
-    body: `PHP មាន **8 data types** ─ 4 scalar, 2 compound, 2 special ។ PHP ជា **dynamically typed** ─ type auto-detected ។ ប្រើ **gettype()** ពិនិត្យ type ─ **===** strict comparison ─ **(int)** casting ។`,
+    title: "Data Type ",
+    subtitle: "Scalar · Compound · Special · Type Casting",
+    body: `PHP គឺជា **Weakly Typed** language ប៉ុន្តែវាមាន Data Type ច្បាស់លាស់ ។ យើងបែងចែកវាជា ៣ ក្រុមធំៗ: **Scalar** (តម្លៃទោល), **Compound** (សំណុំតម្លៃ), និង **Special** (តម្លៃពិសេសដូចជា NULL) ។`,
     bullets: [
-      { icon: "📝", label: "string", desc: '"Hello" or \'World\' ─ text, any length' },
-      { icon: "🔢", label: "integer", desc: "42  -5  0 ─ whole numbers, no decimal point" },
-      { icon: "📊", label: "float", desc: "3.14  1.5 ─ decimals (PHP internally calls it 'double')" },
-      { icon: "✅", label: "boolean", desc: "true / false ─ only two possible values" },
-      { icon: "📋", label: "array", desc: '["A","B","C"] ─ ordered list of values' },
-      { icon: "∅", label: "NULL", desc: "null ─ no value assigned (different from 0 or \"\")" },
+      { icon: "🔢", label: "Integers & Floats", desc: "Whole numbers (42) and decimals (3.14) for math." },
+      { icon: "📝", label: "Strings", desc: "Sequence of characters 'Hello' - used for text data." },
+      { icon: "✅", label: "Booleans", desc: "Logic states: true or false - used in conditions." },
+      { icon: "📦", label: "Compound", desc: "Arrays and Objects - for complex data structures." },
+    ],
+    explanation: [
+      { title: "Type Detection", desc: "PHP សម្គាល់ប្រភេទ Data ដោយស្វ័យប្រវត្តិតាមរយៈតម្លៃដែលអ្នកដាក់ឲ្យវា ($x = 5 ─ integer)។" },
+      { title: "Type Juggling", desc: "PHP អាចបំប្លែង Type ភ្លាមៗ (ឧទាហរណ៍: យក String '5' ទៅបូកលេខ ─ វានឹងក្លាយជាលេខបូកលេខ)។" },
+      { title: "Explicit Casting", desc: "អ្នកអាចបង្ខំ Type ដោយប្រើ (int), (string), ឬ (bool) នៅពីមុខ Variable ។" },
+      { title: "Inspection", desc: "ប្រើ gettype() ដើម្បីដឹងពីប្រភេទបច្ចេកទេស ឬ var_dump() ដើម្បីមើលយ៉ាងស៊ីជម្រៅ។" }
     ],
     code: `<?php
-// 1. Scalar Types
-$text = "PHP 8";      // string
-$year = 2024;         // integer
-$rate = 1.5;          // float (double)
-$open = true;         // boolean
+// Scalar Types
+$name   = "Ratha";  // string
+$points = 95;       // integer
+$price  = 12.99;    // double (float)
+$isPaid = true;     // boolean
 
-// 2. Compound Types
-$tags = ["web", "dev"]; // array
-$obj  = new stdClass(); // object
+// Compound & Special
+$items = ["A", "B"]; // array
+$none  = null;       // NULL
 
-// 3. Special Types
-$empty = null;          // NULL
+// Type Casting (Manual conversion)
+$strNum = "100";
+$intNum = (int)$strNum; // Now it's 100 as integer
 
-// 4. Checking Types
-echo gettype($year);    // integer
-echo gettype($rate);    // double (internal name)
-
-// 5. Explicit Type Casting (Conversion)
-$price = (float) "19.99";
-$qty   = (int) "5 items";
-$valid = (bool) 1;      // true
-
-var_dump($price, $qty, $valid);
+echo gettype($price); // double
+var_dump($intNum);    // int(100)
 ?>`,
-    syntax: `// ── Data Types & Casting Syntax ────────────
+    output: `double
+int(100)`,
+    syntax: `// ── Type Casting Syntax ───────────────────
 //
-//  (int)$val    : Convert to Integer
-//  (string)$val : Convert to String
-//  (bool)$val   : Convert to Boolean
-//  gettype($x)  : Check type name
-//  is_int($x)   : True if integer
-//  is_array($x) : True if array
+//  (int)$v    : To Integer
+//  (string)$v : To String
+//  (bool)$v   : To Boolean
+//  gettype()  : Return type string
+//  is_int()   : Check if integer (bool)
 //
 // ──────────────────────────────────────────`,
-    output: `integer
-double
-float(19.99)
-int(5)
-bool(true)`,
-    tip: " gettype(1.5) នឹងបង្ហាញថា 'double' ─ នេះគឺជាឈ្មោះបច្ចេកទេសក្នុង PHP សម្រាប់ប្រភេទលេខដែលមានក្បៀស (Float)!",
-    workflow: `// ── Type Check & Conversion Flow ──────────
+    tip: "PHP តែងតែហៅ Float ថា 'double' នៅក្នុង gettype() ─ កុំបារម្ភ វាគឺជាប្រភេទលេខក្បៀសដូចគ្នា!",
+    workflow: `// ── Type Lifecycle ───────────────────────
 //
-// 1. Input: Dynamic data arrives (ទទួលទិន្នន័យ)
-// 2. Analysis: PHP detects type (សម្គាល់ប្រភេទ)
-// 3. Conversion: Force new type (ប្ដូរទៅប្រភេទថ្មី)
-// 4. Math: Use for calculation (យកទៅគណនា)
-// 5. Debug: Inspect final state (ឆែកលទ្ធផលចុងក្រោយ)
+// 1. Assign: Value enters system (បញ្ចូលតម្លៃ)
+// 2. Detect: PHP identifies type (កំណត់ប្រភេទ)
+// 3. Juggling: Auto-conversion if needed (បំប្លែងអូតូ)
+// 4. Casting: Forced conversion by dev (បំប្លែងដោយដៃ)
+// 5. Validation: Check before logic (ពិនិត្យប្រភេទ)
 //
 // ──────────────────────────────────────────`,
   },
+  {
+    num: "04-L", chapter: "Foundations", chapterColor: BLUE,
+    tag: "Practice", tagColor: GREEN, icon: "🧪",
+    title: "Lab: Your First Script",
+    subtitle: "Hands-on Scripting · Variables · Output",
+    body: `ក្នុងលំហាត់នេះ យើងនឹងអនុវត្តការសរសេរ Script PHP ដំបូងបង្អស់របស់អ្នក។ អ្នកនឹងរៀនពីរបៀបបង្ហាញព័ត៌មាន Profile និងប្រើប្រាស់ Variable ឱ្យបានត្រឹមត្រូវបំផុតតាមលក្ខណៈបច្ចេកទេស។`,
+    bullets: [
+      { icon: "📄", label: "File Structure", desc: "Start with <?php tag and end with correct semicolon." },
+      { icon: "🛠️", label: "Variable Declaration", desc: "Define name, age, and skill variables with proper types." },
+      { icon: "📡", label: "Output Formatting", desc: "Use double quotes for variable expansion in echo." },
+      { icon: "🔍", label: "Validation", desc: "Use gettype() to verify your data storage." },
+    ],
+    lab: {
+      title: "Creating a Personal Profile Script",
+      titleKh: "ការបង្កើត Script បង្ហាញព័ត៌មានផ្ទាល់ខ្លួន",
+      duration: "20 min",
+      objective: "Set up a script that stores and displays user data using variables.",
+      steps: [
+        "Create variables: $name (string), $age (int), $isStudent (bool).",
+        "Echo a greeting using the name variable.",
+        "Print a sentence about your age.",
+        "Toggle $isStudent and var_dump it to see the change."
+      ],
+      code: `<?php
+// Define my profile variables
+$name      = "Ratha";
+$age       = 24;
+$isStudent = true;
 
-  // ── WEEK 2 ────────────────────────────────────────────────
+echo "Hello, my name is $name \n";
+echo "I am $age years old. \n";
+
+// Show internal data type
+var_dump($isStudent);
+?>`,
+      output: `Hello, my name is Ratha
+I am 24 years old.
+bool(true)`
+    },
+    code: `<?php
+echo "Ready to start the lab!";
+?>`,
+    output: `Ready to start the lab!`,
+    tip: "ចចងចាំថា PHP មិនបង្ហាញ Variable ក្នុង 'Single Quotes' ទេ! អ្នកត្រូវតែប្រើ \"Double Quotes\" ដើម្បីឱ្យវាដំណើរការ!",
+  },
   {
     num: "05", chapter: "Operators & Flow", chapterColor: ORANGE,
     tag: "Operators", tagColor: ORANGE, icon: "➕",
-    title: "Operators",
-    subtitle: "arithmetic · comparison · logical · assignment · ??",
-    body: `Operators ប្រើដើម្បី **calculate**, **compare** ឬ **combine** values ។ **=== (strict equality)** essential ─ PHP type juggling ជាមួយ == creates dangerous bugs ។ **??** (null coalescing) ─ clean default value pattern ។`,
+    title: "Logic & Math",
+    subtitle: "Arithmetic · Comparison · Strict Equality · Coalescing",
+    body: `**Operators** ប្រើសម្រាប់អនុវត្តការងារលើ Variable ។ ចំណុចសំខាន់បំផុតគឺ **=== (Strict Equality)** ─ វាឆែកទាំង **Value** និង **Type** ដើម្បីការពារកំហុស Logic (Type Juggling) ដែលតែងតែកើតមានក្នុង PHP ។`,
     bullets: [
-      { icon: "➕", label: "Arithmetic", desc: "+ − * / % (modulo) ** (power)" },
-      { icon: "⚖️", label: "Comparison", desc: "=== strict  == loose  != !== > < >= <=" },
-      { icon: "🔗", label: "Logical", desc: "&& AND   || OR   ! NOT ─ short-circuit evaluation" },
-      { icon: "⚡", label: "Assignment", desc: "+= −= *= /= .= (string append) ??= (null assign)" },
+      { icon: "➕", label: "Arithmetic", desc: "+, -, *, /, % (modulo), ** (power)." },
+      { icon: "⚖️", label: "Strict Compare", desc: "=== and !== are safer than == and != in PHP." },
+      { icon: "🔗", label: "Logical", desc: "&& (AND), || (OR), ! (NOT) for complex conditions." },
+      { icon: "⚡", label: "Coalescing ??", desc: "Returns first value if exists/not-null, else the fallback." },
+    ],
+    explanation: [
+      { title: "Math Power", desc: "PHP គាំទ្រការគណនាគ្រប់ប្រភេទ រួមទាំង Modulo (%) និងស្វ័យគុណ (**) ។" },
+      { title: "The '===' Rule", desc: "ប្រើ === ជានិច្ច! ព្រោះ 0 == 'false' អាចនឹង true ក្នុង PHP ចាស់ៗ ─ វគ្រោះថ្នាក់ណាស់។" },
+      { title: "Null Safety", desc: "Operator ?? ជួយឲ្យកូដខ្លី និងសុវត្ថិភាពនៅពេលទាញទិន្នន័យពី User Input ។" },
+      { title: "Short-circuit", desc: "ក្នុង &&, បើលក្ខខណ្ឌទី១ ខុស វានឹងមិនទៅឆែកលក្ខខណ្ឌទី២ ទៀតទេ ─ ចំណេញ Performance ។" }
     ],
     code: `<?php
 $a = 10; $b = 3;
 
-// Arithmetic operators
-echo "a + b = " . ($a + $b) . "";  // 13
-echo "a - b = " . ($a - $b) . "";  // 7
-echo "a * b = " . ($a * $b) . "";  // 30
-echo "a / b = " . ($a / $b) . "";  // 3.333...
-echo "a % b = " . ($a % $b) . "";  // 1
-echo "a ** 2 = " . ($a ** 2) . ""; // 100
+// Math
+$result = ($a * $b) + 5; // 35
 
-// Comparison — STRICT vs LOOSE
-var_dump(5 === 5);     // bool(true)
-var_dump(5 === "5");   // bool(false)
-var_dump(5 ==  "5");   // bool(true)
-var_dump(0 ==  "foo"); // bool(false)
+// Strict vs Loose
+var_dump(10 == "10");  // true (Values match)
+var_dump(10 === "10"); // false (Types differ!)
 
-// ALWAYS use === in PHP!
-var_dump("" === false); // bool(false)
-var_dump("" ==  false); // bool(true)
+// Null Coalescing (Elegant Fallback)
+$userInput = null;
+$name = $userInput ?? "Guest User"; 
 
-// Logical operators
-$age = 20; $score = 85;
-var_dump($age >= 18 && $score >= 50); // bool(true)
-var_dump($age < 18  || $score >= 50); // bool(true)
-
-// Assignment shorthand
-$x = 10;
-$x += 5;  echo "x += 5 = $x"; // 15
-$x *= 2;  echo "x *= 2 = $x"; // 30
-
-// Null coalescing
-$name = $_GET['name'] ?? "Guest";
-echo "Hello, $name!";
+// Logical Chains
+$isAdult = true;
+$hasId   = false;
+var_dump($isAdult && $hasId); // false
 ?>`,
-    syntax: `// ── Operators Syntax ──────────────────────
+    output: `true
+false
+Guest User
+false`,
+    syntax: `// ── Essential Operators ────────────────────
 //
-//  + - * / % **   : Math operators
-//  .              : String join (concatenation)
-//  ===            : Strict compare (Value + Type)
-//  ==             : Loose compare (DANGEROUS!)
-//  &&  ||  !      : AND, OR, NOT
-//  ??             : Null check (if null, use default)
-//  += -= .=       : Combined assignment
+//  ===   : Strict Identity
+//  !==   : Strict Inequality
+//  .     : Concatenation (Join strings)
+//  ??    : Null Coalescing
+//  && || : Logic operators
 //
-// ─────────────────────────────────────────`,
-    output: `// Arithmetic operators (+, -, *, /, %, **)
-a + b = 13
-a - b = 7
-a * b = 30
-a / b = 3.3333333333333335
-a % b = 1
-a ** 2 = 100
-
-// Comparison — STRICT vs LOOSE
-bool(true)
-bool(false)
-bool(true)
-bool(false)
-bool(false)
-bool(true)
-
-// Logical operators (&&, ||)
-bool(true)
-bool(true)
-
-// Assignment & Null Coalescing
-x += 5 = 15
-x *= 2 = 30
-Hello, Guest!`,
-    tip: "ALWAYS use === not == ─ in PHP 8, 0 == 'foo' is false, but '' == false is still true. Type juggling is dangerous!",
-    workflow: `// ── Operator Execution Priority ────────────
+// ──────────────────────────────────────────`,
+    tip: "កុំប្រើ ==! ប្រើ === ជានិច្ចដើម្បីកុំឱ្យ PHP បន្លំភ្នែកអ្នកជាមួយ Type Casting របស់វា!",
+    workflow: `// ── Evaluation Priority ───────────────────
 //
-// 1. Parentheses ( ) run first (ក្នុងវង់ក្រចកមុនគេ)
-// 2. Math: ** then * / % then + - (គុណចែក មុនបូកដក)
-// 3. String: . concatenation (ការភ្ជាប់អក្សរ)
-// 4. Comparisons (===, !==) (ការប្រៀបធៀប)
-// 5. Logical AND (&&) then OR (||) (ការឆែកលក្ខខណ្ឌ)
-// 6. Assignment (=) runs LAST! (ការដាក់តម្លៃគឺចុងក្រោយ)
+// 1. Grouping: ( )
+// 2. Unary: ! ++ --
+// 3. Power: **
+// 4. Multiplication: * / %
+// 5. Addition: + - .
+// 6. Relational: < > <= >=
+// 7. Equality: === !==
 //
-// ─────────────────────────────────────────`,
+// ──────────────────────────────────────────`,
   },
   {
     num: "06", chapter: "Operators & Flow", chapterColor: ORANGE,
-    tag: "Strings", tagColor: TEAL, icon: "📏",
-    title: "String Functions",
-    subtitle: "strlen · trim · str_replace · explode · substr · str_contains",
-    body: `PHP មាន **string functions** ជាង 100 built-in ។ ប្រើ **mb_** prefix for Khmer/Unicode ─ regular functions count bytes not characters ។ **explode/implode** ─ convert between string and array ។`,
+    tag: "Logic", tagColor: BLUE, icon: "🚦",
+    title: "Control Flow: If/Else",
+    subtitle: "Branching · Multi-conditions · Nested Logic",
+    body: `**Conditionals** អនុញ្ញាតឲ្យកម្មវិធីសរសេរផ្លូវដើរផ្សេងៗគ្នា ។ **if** ដំណើរការកូដលុះត្រាតែលក្ខខណ្ឌជា **true** ។ យើងប្រើ **elseif** សម្រាប់ឆែកលក្ខខណ្ឌបន្ទាប់ និង **else** ជាករណីចុងក្រោយគេបង្អស់។`,
     bullets: [
-      { icon: "📏", label: "strlen / mb_strlen", desc: "String length ─ use mb_ for Unicode/Khmer text" },
-      { icon: "✂️", label: "trim / explode", desc: "Remove whitespace / split string into array by separator" },
-      { icon: "🔍", label: "str_contains (PHP 8)", desc: "Returns bool ─ cleaner than strpos() !== false" },
-      { icon: "🔄", label: "str_replace", desc: "str_replace('old','new',$str) ─ find and replace" },
+      { icon: "❓", label: "if block", desc: "The primary entry point for conditional execution." },
+      { icon: "🛤️", label: "elseif", desc: "Additional checks if the previous one failed." },
+      { icon: "🏁", label: "else", desc: "The 'catch-all' block if no conditions match." },
+      { icon: "📐", label: "Nesting", desc: "Placing if-statements inside other if-statements." },
+    ],
+    explanation: [
+      { title: "Evaluation", desc: "PHP ពិនិត្យលក្ខខណ្ឌក្នុងវង់ក្រចក ( ) ។ ប្រសិនបើ True, វាដើរកូដក្នុង { } ។" },
+      { title: "Exclusivity", desc: "ក្នុងសំណុំ If/Elseif/Else, មានតែ Block មួយគត់ដែលនឹងត្រូវដើរ ទោះមានលក្ខខណ្ឌត្រូវច្រើនក៏ដោយ។" },
+      { title: "Falsy values", desc: "ក្នុង PHP, 0, '', null, និង [] ត្រូវបានចាត់ទុកជា false ក្នុង if condition ។" },
+      { title: "Return context", desc: "ក្នុង Web App, យើងប្រើ If/Else ដើម្បីឆែក Login Status ឬឆែក Error Form ជាដើម។" }
     ],
     code: `<?php
-$text = "  Hello PHP World!  ";
+$score = 85;
 
-// 1. Basic Cleaning
-$clean = trim($text);           // "Hello PHP World!"
-echo strlen($clean);           // 17 chars
+if ($score >= 90) {
+    echo "Grade: A 🏆";
+} elseif ($score >= 80) {
+    echo "Grade: B 🥈";
+} elseif ($score >= 70) {
+    echo "Grade: C 🥉";
+} else {
+    echo "Grade: F ❌";
+}
 
-// 2. Modern search (PHP 8+)
-var_dump(str_contains($clean, "PHP"));       // true
-var_dump(str_starts_with($clean, "Hello")); // true
-
-// 3. Transformation
-echo str_replace("PHP", "Laravel", $clean); // "Hello Laravel World!"
-echo strtolower($clean); // "hello php world!"
-
-// 4. Split & Join (Common in CSV)
-$csv   = "Dara,Ratha,Sophal";
-$names = explode(",", $csv); // String to Array
-echo implode(" | ", $names);  // Array to String
-
-// 5. Khmer text (Multi-byte)
-$khmer = "សួស្ដី";
-echo strlen($khmer);    // 18 (Bytes - Incorrect for Khmer)
-echo mb_strlen($khmer); // 6  (Characters - Correct ✅)
+// Inline check (Ternary)
+$status = ($score >= 50) ? "Passed" : "Failed";
+echo "Status: $status";
 ?>`,
-    syntax: `// ── Common String Functions ───────────────
+    output: `Grade: B 🥈
+Status: Passed`,
+    syntax: `// ── Comparison Control ──────────────────────
 //
-//  strlen() / mb_strlen() : Get length
-//  trim($s)               : Remove spaces
-//  str_replace(f, r, s)   : Find & Replace
-//  explode(sep, $s)       : String → Array
-//  implode(sep, $a)       : Array → String
-//  str_contains($s, $v)   : Check existence
+//  if (c) { }      : Standard if
+//  elseif (c) { }  : Else if 
+//  else { }        : Default fallback
+//  (c) ? t : f     : Ternary (Short if)
 //
 // ──────────────────────────────────────────`,
-    output: `17
-bool(true)
-bool(true)
-Hello Laravel World!
-hello php world!
-Dara | Ratha | Sophal
-18
-6`,
-    tip: "សម្រាប់អក្សរខ្មែរ ត្រូវប្រើ mb_strlen() ជំនួស strlen() ធម្មតា ព្រោះអក្សរខ្មែរប្រើច្រើន bytes ក្នុងមួយតួអក្សរ!",
-    workflow: `// ── String Transformation Workflow ─────────
+    tip: "ចូរប្រើ Ternary Operator ( ? : ) សម្រាប់លក្ខខណ្ឌងាយៗ ដើម្បីឲ្យកូដរបស់អ្នកមើលទៅខ្លី និងស្អាត!",
+    workflow: `// ── Decision Tree ─────────────────────────
 //
-// 1. Input: User enters text (បញ្ចូលអក្សរ)
-// 2. Clean: trim() whitespace (សម្អាតចន្លោះ)
-// 3. Search: str_contains() logic (ស្វែងរកពាក្យ)
-// 4. Change: str_replace() words (ជំនួសពាក្យ)
-// 5. Output: Formatted result (លទ្ធផលសម្រេច)
+// 1. Start: Condition check (ឆែកលក្ខខណ្ឌ)
+// 2. Path A: If true -> run and exit (ត្រូវ -> ដើររួចឈប់)
+// 3. Path B: Elseif check next (ខុស -> ឆែកបន្ត)
+// 4. Path C: Else run fallback (ខុសទាំងអស់ -> ដើរ else)
+// 5. Resume: Continue script (បន្តកូដខាងក្រោម)
 //
 // ──────────────────────────────────────────`,
   },
   {
     num: "07", chapter: "Operators & Flow", chapterColor: ORANGE,
-    tag: "Control Flow", tagColor: BLUE, icon: "🔀",
-    title: "If / Else / Match",
-    subtitle: "if · elseif · else · match · ternary · null coalescing ??",
-    body: `**if/else** ប្រើសម្រាប់ decision making ─ execute code based on condition ។ PHP 8 **match** ─ strict, no fallthrough, returns value ─ cleaner than switch ។ **Ternary** (?:) ─ one-liner ─ **??** safe default ។`,
+    tag: "Selection", tagColor: PURPLE, icon: "🔀",
+    title: "Match & Switch",
+    subtitle: "Value Matching · Modern Match Expression · Fallthroughs",
+    body: `សម្រាប់កិច្ចការដែលឆែកតម្លៃតែមួយ (Single Value) ច្រើនលទ្ធផល, PHP 8 ផ្ដល់នូវ **match** expression ដែលខ្លី និងមានសុវត្ថិភាពជាង **switch** ។ **match** ប្រើការប្រៀបធៀបបែប **Strict (===)** និងអាស្រ័យលើ 'Value Mapping'។`,
     bullets: [
-      { icon: "❓", label: "if / elseif / else", desc: "Classic conditional ─ chain multiple with elseif" },
-      { icon: "🔀", label: "match (PHP 8)", desc: "Strict === ─ no fallthrough ─ returns a value" },
-      { icon: "⚡", label: "Ternary ?:", desc: "$x = cond ? 'yes' : 'no' ─ one-line if/else" },
-      { icon: "🛡️", label: "?? null coalescing", desc: '$n = $_GET["n"] ?? "Guest" ─ default if null/missing' },
+      { icon: "🏎️", label: "match expression", desc: "PHP 8 feature - shorter, returns a value, uses strict check." },
+      { icon: "🎛️", label: "switch statement", desc: "Traditional method - requires 'break' to prevent fallthrough." },
+      { icon: "🛡️", label: "Strict Check", desc: "Match uses === which prevents common loose-typing bugs." },
+      { icon: "🎭", label: "Default case", desc: "Always handle unknown values with 'default' or 'UnhandledMatchError'." },
+    ],
+    explanation: [
+      { title: "Switch logic", desc: "Switch អានតម្លៃម្ដងមួយ block រហូតដល់ឃើញពាក្យ break ទើបវាឈប់។" },
+      { title: "The Match Power", desc: "Match គឺជា Expression (វា return តម្លៃ) ─ វាមានន័យថាអ្នកអាចដាក់ $x = match(...) បានភ្លាមៗ។" },
+      { title: "Strict Equality", desc: "Match មិនបត់បែនដូច Switch ទេ ─ ប្រសិនបើ Type ខុសគ្នា គឺវាមិនយកតែម្ដង (Safe behavior)។" },
+      { title: "Return context", desc: "ស័ក្តិសមបំផុតសម្រាប់បកប្រែ Status Code (200, 404) ទៅជាអត្ថបទ។" }
     ],
     code: `<?php
-$score = 85;
+$status = 200;
 
-// 1. Classic if / elseif / else
-if ($score >= 90) {
-    echo "Excellent! 🥇";
-} elseif ($score >= 80) {
-    echo "Very Good! 🥈";
-} else {
-    echo "Keep it up! 📖";
-}
-
-// 2. Modern MATCH (PHP 8.0+)
-// cleaner, strict, and returns a value
-$grade = match(true) {
-    $score >= 90 => "A",
-    $score >= 80 => "B",
-    $score >= 70 => "C",
-    default      => "F",
+// 1. Modern Match (Recommended)
+$message = match($status) {
+    200, 201 => "Success!",
+    404      => "Not Found",
+    500      => "Server Error",
+    default  => "Unknown Status",
 };
-echo "Grade: $grade";
+echo $message;
 
-// 3. Ternary (Short if/else)
-$status = ($score >= 50) ? "Passed ✅" : "Failed ❌";
-
-// 4. Null Coalescing (Safe default)
-$user = $_GET['user'] ?? "Guest";
+// 2. Traditional Switch
+switch ($status) {
+    case 200:
+        echo "OK";
+        break; 
+    default:
+        echo "Other";
+}
 ?>`,
-    syntax: `// ── Control Flow Cheat Sheet ───────────────
+    output: `Success!
+OK`,
+    syntax: `// ── Switch & Match Syntax ────────────────────
 //
-//  if (cond) { }     : Conditional block
-//  match ($v) { }    : Modern switch (PHP 8)
-//  $a ? $b : $c      : Ternary operator
-//  $a ?? "default"   : Null check (PHP 7+)
-//  ===               : MUST use strict compare
+//  match($v) { v => res } : Modern Expression
+//  switch($v) { case v: } : Old Statement
+//  break                  : Stop switch execution
+//  default                : Last resort path
 //
 // ──────────────────────────────────────────`,
-    output: `Very Good! 🥈
-Grade: B`,
-    tip: "ប្រើ match ជំនួស switch នៅក្នុង PHP 8 ព្រោះវាខ្លីជាង មិនចាំបាច់មាន break និងប្រើ strict comparison (===) ដោយស្វ័យប្រវត្តិ!",
-    workflow: `// ── Decision Making Flow ──────────────────
+    tip: "ប្រសិនបើអ្នកប្រើ PHP 8+, ចូរប្រើ match ជំនួស switch ជានិច្ច ព្រោះវាខ្លីជាង និងប្រើ Strict Comparison កាត់បន្ថយ Bug!",
+    workflow: `// ── Mapping Process ────────────────────────
 //
-// 1. If: Check primary rule (ឆែកលក្ខខណ្ឌចម្បង)
-// 2. Elseif: Check alternate (ឆែកលក្ខខណ្ឌបន្ទាប់)
-// 3. Match: Map specific value (ផ្គូផ្គងតម្លៃចំៗ)
-// 4. Default: Handle everything else (លទ្ធផលចុងក្រោយ)
-// 5. Return: Final value chosen (ទទួលបានតម្លៃសម្រេច)
+// 1. Input: Get target value (ទទួលតម្លៃគោលដៅ)
+// 2. Compare: Match against keys (ប្រៀបធៀបនឹង key)
+// 3. Select: Find matching block (ជ្រើសរើស block)
+// 4. Return: Output mapped value (បញ្ជូនតម្លៃចេញ)
+// 5. Default: Handle if no match (ករណីមិនមានក្នុងបញ្ជី)
 //
 // ──────────────────────────────────────────`,
   },
   {
     num: "08", chapter: "Operators & Flow", chapterColor: ORANGE,
-    tag: "Loops", tagColor: GREEN, icon: "🔢",
-    title: "Loops",
-    subtitle: "for · while · do-while · foreach · break · continue",
-    body: `Loops ប្រើដើម្បី **repeat code** ។ **foreach** ─ best for arrays ─ use 99% of the time ─ no off-by-one errors ។ **for** ─ when count is known ─ **break** exits loop ─ **continue** skips current iteration ។`,
+    tag: "Iteration", tagColor: GREEN, icon: "🔄",
+    title: "Mastering Loops",
+    subtitle: "For · While · Do-While · Breaking Control",
+    body: `**Loop** ប្រើសម្រាប់អនុវត្តកូដដដែលៗ ។ ក្នុង PHP, **for** ស័ក្តិសមសម្រាប់ចំនួនជុំដែលដឹងមុន, ចំណែក **while** ស័ក្តិសមសម្រាប់លក្ខខណ្ឌដែលមិនច្បាស់លាស់ ។ យើងប្រើ **break** ដើម្បីឈប់ និង **continue** ដើម្បីរំលងជុំបច្ចុប្បន្ន។`,
     bullets: [
-      { icon: "🔢", label: "for", desc: "for ($i=0; $i<n; $i++) ─ use when count is known" },
-      { icon: "🔄", label: "while", desc: "Checks condition FIRST ─ may run 0 times" },
-      { icon: "🔁", label: "do-while", desc: "Checks condition AFTER ─ runs at least once" },
-      { icon: "📋", label: "foreach", desc: "Best for arrays ─ foreach ($arr as $key => $val)" },
+      { icon: "🔢", label: "for loop", desc: "Classic counter-based loop: for ($i=0; $i<10; $i++)." },
+      { icon: "🔄", label: "while loop", desc: "Runs as long as the condition remains true." },
+      { icon: "🛑", label: "break", desc: "Immediately terminates the loop and moves to next script." },
+      { icon: "⏭️", label: "continue", desc: "Skips the rest of code in the current round and starts next round." },
+    ],
+    explanation: [
+      { title: "Initializer", desc: "For loop ចាប់ផ្ដើមដោយកំណត់តម្លៃដំបូង (ឧទាហរណ៍: $i = 0) ។" },
+      { title: "Condition Check", desc: "មុននឹងដើរជុំនីមួយៗ PHP ឆែកលក្ខខណ្ឌ (Is $i < 10?) ។ បើ False វានឹងឈប់ភ្លាម។" },
+      { title: "Iteration", desc: "បន្ទាប់ពីចប់កូដក្នុង Block, វានឹងអនុវត្តការបង្កើនតម្លៃ ($i++) រួចទៅចាប់ផ្ដើមឆែកលក្ខខណ្ឌឡើងវិញ។" },
+      { title: "Infinite Danger", desc: "ប្រយ័ត្ន! បើលក្ខខណ្ឌ While True ជានិច្ច វានឹងគាំង Browser/Server (Infinite Loop) ។" }
     ],
     code: `<?php
-// 1. FOREACH (99% of your array work)
-$fruits = ["Apple", "Banana", "Mango"];
-foreach ($fruits as $fruit) {
-    echo "Fruit: $fruit";
-}
-
-// 2. FOREACH with Keys
-$user = ["id" => 1, "name" => "Ratha"];
-foreach ($user as $key => $val) {
-    echo "$key: $val";
-}
-
-// 3. FOR (Fixed count)
+// 1. For Loop (Standard)
 for ($i = 1; $i <= 3; $i++) {
-    echo "Step $i";
+    echo "Iteration: $i \n";
 }
 
-// 4. WHILE (Condition-based)
-$count = 5;
-while ($count > 0) {
-    echo $count--;
+// 2. While Loop (Condition based)
+$fuel = 2;
+while ($fuel > 0) {
+    echo "Driving... Fuel: $fuel \n";
+    $fuel--;
 }
 
-// 5. CONTINUE / BREAK
-for ($x = 1; $x <= 10; $x++) {
-    if ($x === 5) continue; // Skip 5
-    if ($x === 8) break;    // Stop at 8
-    echo $x;
+// 3. Break & Continue
+for ($x = 1; $x <= 5; $x++) {
+    if ($x === 2) continue; // Skip 2
+    if ($x === 4) break;    // Stop at 4
+    echo "Number: $x \n";
 }
 ?>`,
-    syntax: `// ── PHP Loop Cheat Sheet ────────────────────
+    output: `Iteration: 1 
+Iteration: 2 
+Iteration: 3 
+Driving... Fuel: 2 
+Driving... Fuel: 1 
+Number: 1 
+Number: 3 `,
+    syntax: `// ── Loop Control Syntax ─────────────────────
 //
-//  foreach ($a as $v)     : Best for arrays
-//  foreach ($a as $k=>$v) : Access key and value
-//  for ($i; $c; $u)       : Fixed repeat count
-//  while (cond) { }       : Loop while true
-//  break                  : Exit loop immediately
-//  continue               : Skip current iteration
+//  for (init; cond; step) : Structured loop
+//  while (cond) { }       : Simple condition loop
+//  do { } while (cond);    : Runs at least once
+//  break                  : Exit loop
+//  continue               : Skip current round
 //
 // ──────────────────────────────────────────`,
-    output: `Fruit: Apple
-Fruit: Banana
-Fruit: Mango
-id: 1
-name: Ratha
-Step 1
-Step 2
-Step 3
-54321
-123467`,
-    tip: "ប្រើ foreach សម្រាប់ array ជានិច្ច! វាចំណេញពេល ខ្លីជាង និងមិនងាយមាន error (off-by-one errors) ដូច for loop ធម្មតាទេ!",
-    workflow: `// ── Iteration Life Cycle ───────────────────
+    tip: "ក្នុងកូដខ្លះដែលពិបាកកំណត់ចំនួនជុំ (ឧទាហរណ៍: អាន File រហូតដល់អស់), while គឺជាជម្រើសដ៏ល្អបំផុត!",
+    workflow: `// ── Loop Lifecycle ─────────────────────────
 //
-// 1. Init: Set start state (កំណត់តម្លៃផ្ដើម)
-// 2. Check: Valid condition? (ពិនិត្យលក្ខខណ្ឌ)
-// 3. Body: Run logic block (ដំណើរការកូដក្នុង loop)
-// 4. Update: Move to next (បង្កើនតម្លៃ ឬប្ដូរ step)
-// 5. Exit: Condition failed (ឈប់ដើរនៅពេលលក្ខខណ្ឌខុស)
+// 1. Entry: Check condition (ឆែកលក្ខខណ្ឌផ្ដើម)
+// 2. Execution: Run code block (ដំណើរការកូដ)
+// 3. Step: Increment/Decrement (ប្ដូរតម្លៃជំហាន)
+// 4. Reset: Jump back to start (ត្រឡប់ទៅផ្ដើមវិញ)
+// 5. Exit: Condition failed (ឈប់នៅពេលលក្ខខណ្ឌខុស)
 //
 // ──────────────────────────────────────────`,
   },
+  {
+    num: "08-L", chapter: "Operators & Flow", chapterColor: ORANGE,
+    tag: "Practice", tagColor: GREEN, icon: "🎮",
+    title: "Lab: Flow Control Game",
+    subtitle: "Logic Practice · If/Else · Loops · Modulo",
+    body: `លំហាត់នេះនឹងធ្វើឱ្យអ្នកជំនាញលើ **Logic** ។ យើងនឹងសរសេរកម្មវិធីសម្រាប់ឆែក **Even/Odd Number** និងបង្កើតជា **Number Sequence** តាមរយៈការប្រើ loops និង conditions រួមគ្នា។`,
+    bullets: [
+      { icon: "🛤️", label: "Logic Branching", desc: "Use if-statements to solve mathematical problems." },
+      { icon: "🔄", label: "Loop Practice", desc: "Generate sequences based on dynamic conditions." },
+      { icon: "⚖️", label: "Modulo Operator", desc: "Use % operator to determine divisibility." },
+      { icon: "🏎️", label: "Speed Hack", desc: "Optimize your conditions for maximum readability." },
+    ],
+    lab: {
+      title: "Even/Odd Number Generator",
+      titleKh: "កម្មវិធីស្វែងរកលេខគូ និងលេខសេស",
+      duration: "30 min",
+      objective: "Combine loops and if-statements to process a sequence of numbers.",
+      steps: [
+        "Create a for loop that runs from 1 to 10.",
+        "Inside the loop, use an if-statement and modulo (%) to check if the number is even.",
+        "Echo 'Even' or 'Odd' next to each number.",
+        "Break the loop if the number reaches 7."
+      ],
+      code: `<?php
+echo "Number Sequence Analysis:\n";
 
-  // ── WEEK 3 ────────────────────────────────────────────────
+for ($i = 1; $i <= 10; $i++) {
+    if ($i % 2 === 0) {
+        echo "$i is EVEN \n";
+    } else {
+        echo "$i is ODD \n";
+    }
+    
+    // Safety break at 7
+    if ($i === 7) {
+        echo "Stopping at 7... \n";
+        break;
+    }
+}
+?>`,
+      output: `Number Sequence Analysis:
+1 is ODD
+2 is EVEN
+3 is ODD
+4 is EVEN
+5 is ODD
+6 is EVEN
+7 is ODD
+Stopping at 7...`
+    },
+    code: `<?php
+// Test your modulo logic here
+$n = 42;
+echo ($n % 2 === 0) ? "Even" : "Odd";
+?>`,
+    output: `Even`,
+    tip: "ការប្រើ Modulo (%) គឺជាបច្ចេកទេសដ៏សំខាន់បំផុតក្នុង Programming សម្រាប់បែងចែកក្រុមទិន្នន័យ!",
+  },
   {
     num: "09", chapter: "Functions & Arrays", chapterColor: PINK,
-    tag: "Functions", tagColor: PINK, icon: "🧪",
-    title: "Functions",
-    subtitle: "declare · params · default · return · type hints · arrow fn",
-    body: `Function ជា **reusable block of code** ─ declare once, call anywhere ─ DRY principle ។ PHP 8 **type hints** ─ declare param & return types ─ safer, self-documenting code ។ **Arrow functions** (fn) ─ concise one-liners ។`,
+    tag: "Reusability", tagColor: PINK, icon: "📦",
+    title: "Functions: Logic Blocks",
+    subtitle: "Declarations · Parameters · Return Types · Type Hinting",
+    body: `**Function** គឺជាសំណុំកូដដែលយើងអាចហៅមកប្រើឡើងវិញបានច្រើនដង ។ ក្នុង PHP 8, យើងគួរតែប្រើ **Type Hinting** (កំណត់ប្រភេទ Data ឲ្យ Parameter និង Return) ដើម្បីឲ្យ Code របស់យើងរឹងមាំ និងងាយស្រួល Debug ។`,
     bullets: [
-      { icon: "📦", label: "function keyword", desc: "function name($params) { return $val; }" },
-      { icon: "↩️", label: "return", desc: "Exits function and sends value back to caller" },
-      { icon: "🎯", label: "Default params", desc: 'function greet($n, $lang = "en") ─ optional argument' },
-      { icon: "🏷️", label: "Type hints PHP 8", desc: "function add(int $a, int $b): int ─ enforced types" },
+      { icon: "🛠️", label: "Declaration", desc: "function name($arg) { ... } - define your logic unit." },
+      { icon: "↩️", label: "Return", desc: "Sends a value back to the caller using the 'return' keyword." },
+      { icon: "🏷️", label: "Type Hinting", desc: "Declare types in PHP 8: function(int $a): string." },
+      { icon: "🎯", label: "Default Args", desc: "Declare optional parameters: function($user = 'Guest')." },
+    ],
+    explanation: [
+      { title: "Definiton", desc: "យើងបង្កើតកិច្ចការមួយទុកក្នុង Function (ឧទាហរណ៍: ការគណនាពន្ធ) ។" },
+      { title: "Input Flow", desc: "នៅពេលហៅប្រើ យើងបញ្ជូនទិន្នន័យ (Arguments) ទៅកាន់ Parameter របស់ Function ។" },
+      { title: "Logic Execution", desc: "កូដក្នុង { } ដើរដោយប្រើតម្លៃដែលបញ្ជូនមក ─ វាមាន Scope ផ្ទាល់ខ្លួនរបស់វា។" },
+      { title: "The Handover", desc: "ពាក្យ return បញ្ឈប់ Function រួចបញ្ជូនលទ្ធផលចេញក្រៅឱ្យទៅអ្នកហៅ (Caller) ។" }
     ],
     code: `<?php
-// 1. Basic Function
-function sayHello(string $name): void {
-    echo "Hello, $name!";
+/**
+ * A proper PHP 8 Function
+ */
+function calculateTotal(int $price, float $tax = 0.1): float {
+    $total = $price + ($price * $tax);
+    return $total;
 }
-sayHello("Ratha");
 
-// 2. Return & Type Hinting (PHP 8+)
-function multiply(int $a, int $b): int {
-    return $a * $b;
-}
-$res = multiply(5, 4); // 20
+// Using the function
+$payable = calculateTotal(100); // Uses default tax
+echo "Total: $" . $payable . "\n";
 
-// 3. Default Arguments
-function greet($name, $msg = "Welcome") {
-    echo "$msg, $name!";
-}
-greet("Sophal");         // Welcome, Sophal!
-greet("Dara", "Salute"); // Salute, Dara!
+$custom = calculateTotal(200, 0.05); // Custom tax
+echo "Custom Total: $" . $custom;
 
-// 4. Modern Arrow Function (fn)
-$double = fn(int $n) => $n * 2;
-echo $double(10); // 20
-
-// 5. Multiple Returns (using array)
-function compute(int $n): array {
-    return [$n * 2, $n + 10];
-}
-[$doubled, $added] = compute(5); // array destructuring
+// Anonymous / Arrow function (PHP 7.4+)
+$add = fn($n) => $n + 10;
+echo "Arrow result: " . $add(5);
 ?>`,
-    syntax: `// ── Function Cheat Sheet ────────────────────
+    output: `Total: $110
+Custom Total: $210
+Arrow result: 15`,
+    syntax: `// ── Modern Function Standards ───────────────
 //
-//  function n(type $p): type { } : Full declaration
-//  return $val                   : Output from function
-//  $p = "default"                : Optional parameter
-//  fn($x) => $x * 2              : Arrow function (PHP 7.4+)
-//  $f("arg")                     : Calling function
+//  function n(type $p): type { } : Typed decl
+//  return v                      : Send result back
+//  $p = val                      : Default value
 //  void                          : No return value
+//  fn() => res                   : Arrow Function
 //
 // ──────────────────────────────────────────`,
-    output: `Hello, Ratha!
-20
-Welcome, Sophal!
-Salute, Dara!
-20
-Doubled: 10, Added: 15`,
-    tip: "ប្រើ Type Hints (string, int, bool) ក្នុង function ជានិច្ច! វាជួយឲ្យ code របស់អ្នកកាន់តែមានសុវត្ថិភាព និងងាយស្រួលយល់សម្រាប់អ្នកដទៃ (Self-documenting)!",
-    workflow: `// ── Function Execution Cycle ────────────────
+    tip: "ចងចាំថា កូដនៅក្នុង Function មាន Scope ផ្ទាល់ខ្លួន ─ វាមានន័យថា Variable ខាងក្រៅមិនអាចស្គាល់ក្នុង Function ទេ បើមិនបញ្ជូនមក!",
+    workflow: `// ── Execution Pipe ─────────────────────────
 //
-// 1. Call: Invoked with args (ហៅទៅប្រើជាមួយ values)
-// 2. Pass: Params into local scope (បញ្ជូនទិន្នន័យចូល)
-// 3. Eval: Run internal logic (ដំណើរការកូដខាងក្នុង)
-// 4. Result: return generated (បញ្ជូនលទ្ធផលចេញ)
-// 5. Destruct: Local scope cleared (សម្អាត memory)
+// 1. Call: Invocation starts (ហៅទៅប្រើ)
+// 2. Map: Args match parameters (ភ្ជាប់ទិន្នន័យ)
+// 3. Eval: Internal logic runs (ដំណើរការ logic)
+// 4. Return: Value sent back (ផ្ញើលទ្ធផលចេញ)
+// 5. Clear: Local memory freed (សម្អាត memory)
 //
 // ──────────────────────────────────────────`,
   },
   {
     num: "10", chapter: "Functions & Arrays", chapterColor: PINK,
-    tag: "Arrays", tagColor: ORANGE, icon: "📋",
-    title: "Arrays",
-    subtitle: "indexed · associative · multi-dim · map · filter · reduce",
-    body: `Array ជា **list** ដែល store multiple values ។ **Indexed** ─ number keys (0,1,2) ─ **Associative** ─ string keys ─ **Multi-dimensional** ─ arrays inside arrays ─ simulates database rows ─ PDO returns this exact format ។`,
+    tag: "Data Structures", tagColor: ORANGE, icon: "📋",
+    title: "The Heart of PHP: Arrays",
+    subtitle: "Indexed · Associative · Multi-dimensional · Modern Ops",
+    body: `**Array** គឺជាបេះដូងរបស់ PHP ។ វាអាចដើរតួជា List សាមញ្ញ (Indexed) ឬជា Map ស្មុគស្មាញ (Associative) ។ រាល់ទិន្នន័យដែលចេញពី Database (PDO) គឺតែងតែស្ថិតនៅក្នុងទម្រង់ជា Array ជានិច្ច ។`,
     bullets: [
-      { icon: "📋", label: "Indexed", desc: '$arr = ["A","B","C"] ─ access with $arr[0]' },
-      { icon: "🗂️", label: "Associative", desc: '$u = ["name"=>"Ratha"] ─ access with $u["name"]' },
-      { icon: "🔧", label: "Array functions", desc: "count() sort() array_push() in_array() array_column()" },
-      { icon: "⚡", label: "map/filter/reduce", desc: "Functional style ─ transform arrays cleanly" },
+      { icon: "📋", label: "Indexed Array", desc: "Access values by position: $list[0]. Great for simple queues." },
+      { icon: "🗂️", label: "Associative Array", desc: "Access by naming keys: $user['id']. Acts like a JSON object." },
+      { icon: "🛠️", label: "Built-in Helpers", desc: "count(), sort(), array_merge(), in_array() for manipulation." },
+      { icon: "⚡", label: "Modern Ops", desc: "array_map, array_filter, and arrow functions for clean logic." },
+    ],
+    explanation: [
+      { title: "Storage", desc: "Array អាចផ្ទុក Data ច្រើនក្នុងឈ្មោះតែមួយ ($students) ─ វារក្សាទុកតម្លៃជាលំដាប់លំដោយ។" },
+      { title: "Key-Value Pair", desc: "ក្នុង Associative Array, អ្នកអាចកំណត់ឈ្មោះ (Key) ឱ្យតម្លៃនីមួយៗបាន ─ ងាយស្រួលយល់ជាងលេខ index ។" },
+      { title: "Multi-dim", desc: "Array ក្នុង Array ─ គឺជាទម្រង់ដែលយើងប្រើសម្រាប់តំណាងឱ្យតារាង Database (Rows & Columns)។" },
+      { title: "Foreach Power", desc: "យើងប្រើ Foreach ដើម្បីដើរកាត់រាល់ទិន្នន័យក្នុង Array ដោយមិនបាច់បារម្ភពីរឿងចំនួនជុំឡើយ។" }
     ],
     code: `<?php
-// 1. Indexed Array (The List)
-$foods = ["Sushi", "Steak", "Pizza"];
-echo $foods[0];        // Sushi
-$foods[] = "Burger";  // Add to end
+/**
+ * Advanced Array Patterns
+ */
 
-// 2. Associative Array (Key => Value)
-$user = [
-    "name"  => "Ratha",
-    "major" => "CS",
-    "gpa"   => 3.8
+// 1. Associative (The Dictionary)
+$profile = [
+    "id"   => 101,
+    "name" => "Ratha Dev",
+    "role" => "Admin"
 ];
-echo $user["name"]; // Ratha
 
-// 3. Built-in Array Functions
-sort($foods);          // Alpha sort
-$count = count($foods); // 4
-$has_sushi = in_array("Sushi", $foods); // true
-
-// 4. Modern Mapping & Filtering (PHP 7.4+)
-$nums    = [1, 2, 3, 4, 5];
-$doubled = array_map(fn($n) => $n * 2, $nums); 
-$evens   = array_filter($nums, fn($n) => $n % 2 === 0);
-
-// 5. Multi-dimensional (Like Database Rows)
-$matrix = [
-    ["name" => "Dara", "grade" => "A"],
-    ["name" => "Bona", "grade" => "B"]
+// 2. Multi-dimensional (Database Mockup)
+$database = [
+    ["id" => 1, "user" => "Dara"],
+    ["id" => 2, "user" => "Bona"]
 ];
-echo $matrix[0]["name"]; // Dara
+
+// 3. Functional Mapping
+$nums    = [1, 2, 3];
+$squared = array_map(fn($n) => $n ** 2, $nums); 
+
+echo "User: " . $profile['name'] . "\n";
+echo "DB Row 0: " . $database[0]['user'] . "\n";
+var_dump($squared);
 ?>`,
-    syntax: `// ── Array Cheat Sheet ───────────────────────
+    output: `User: Ratha Dev
+DB Row 0: Dara
+array(3) { [0]=> int(1), [1]=> int(4), [2]=> int(9) }`,
+    syntax: `// ── Array Operations Cheat Sheet ────────────
 //
-//  [v1, v2]             : Indexed array
-//  ["k" => "v"]         : Associative array
-//  count($a)            : Get array size
-//  array_map(fn, $a)    : Transform array
-//  array_filter($a, fn) : Filter elements
-//  sort($a)             : Sort indexed array
-//  ksort($a)            : Sort by keys
+//  []            : Empty / New Array
+//  $a['key']     : Access associative
+//  count($a)     : Get size
+//  array_push()  : Add to end
+//  in_array()    : Check if value exists
 //
 // ──────────────────────────────────────────`,
-    output: `Sushi
-Ratha
-Doubled: 2, 4, 6, 8, 10
-Evens: 2, 4
-Dara`,
-    tip: "Multi-dimensional arrays គឺជាទម្រង់ពិតដែលអ្នកនឹងទទួលបានពី Database (PDO fetchAll) ─ វារក្សាទុកទិន្នន័យជាជួរៗ (Rows)!",
-    workflow: `// ── Array Manipulation Flow ────────────────
+    tip: "ចូរប្រើ Associative Arrays ជានិច្ចនៅពេលអ្នកចង់រក្សាទុកទិន្នន័យដែលមានអត្ថន័យ (ឧទាហរណ៍: ឈ្មោះបុគ្គលិក អាយុ តួនាទី)!",
+    workflow: `// ── Data Processing Flow ──────────────────
 //
 // 1. Define: Create structure (រៀបចំរចនាសម្ព័ន្ធ)
-// 2. Update: Add/Edit keys (បន្ថែម ឬកែទិន្នន័យ)
-// 3. Process: Map/Filter logic (ចម្រាញ់ ឬបំប្លែង)
-// 4. Sort: Organize data (រៀបចំលំដាប់លំដោយ)
-// 5. Review: iterate with foreach (បង្ហាញលទ្ធផល)
+// 2. Insert: Add elements (បញ្ចូលទិន្នន័យ)
+// 3. Transform: Map/Filter (បំប្លែងទិន្នន័យ)
+// 4. View: Access keys/values (ហៅមកប្រើ)
+// 5. Clean: unset() if needed (សម្អាត memory)
 //
 // ──────────────────────────────────────────`,
   },
-
-  // ── WEEK 4: OOP ───────────────────────────────────────────
   {
-    num: "11", chapter: "OOP", chapterColor: PURPLE,
-    tag: "Classes & Objects", tagColor: PURPLE, icon: "🏗️",
-    title: "Classes & Objects",
-    subtitle: "class · __construct · $this · methods · new · instanceof",
-    body: `**OOP** organizes code ជា **objects** ─ bundles data + behavior ។ **Class** ជា blueprint ─ **Object** ជា instance ─ **$this** refers to current object ។ PHP 8 **constructor promotion** ─ declare properties directly in constructor ─ no duplication ។`,
+    num: "11", chapter: "Functions & Arrays", chapterColor: PINK,
+    tag: "Practice", tagColor: GREEN, icon: "🧪",
+    title: "Lab: Array Masterclass",
+    subtitle: "Hands-on Data Processing · Associative Arrays · Loops",
+    body: `ក្នុងលំហាត់នេះ យើងនឹងយកចំណេះដឹងពី **Arrays** និង **Foreach Loop** មកសរសេរជាកម្មវិធីគ្រប់គ្រងបញ្ជីឈ្មោះសិស្សសាមញ្ញមួយ។ គោលដៅគឺចេះបង្កើត, បន្ថែមទិន្នន័យ, និងបង្ហាញវាត្រឡប់មកវិញ។`,
     bullets: [
-      { icon: "📐", label: "class", desc: "Blueprint/template ─ defines properties & methods" },
-      { icon: "📦", label: "new ClassName()", desc: "Creates an object (instance) from the class" },
-      { icon: "🔧", label: "__construct()", desc: "Constructor ─ auto-called when object is created" },
-      { icon: "👉", label: "$this->", desc: "Refers to the current object's own data & methods" },
+      { icon: "📝", label: "Initialization", desc: "Create an associative array with sample student records." },
+      { icon: "➕", label: "Mutation", desc: "Dynamically add new elements using array_push or [] syntax." },
+      { icon: "🔄", label: "Traversal", desc: "Use foreach to iterate and generate formatted output." },
+      { icon: "🛡️", label: "Verification", desc: "Use var_dump to inspect the final structure." },
     ],
-    code: `<?php
-class Student {
-    // PHP 8: Constructor Promotion
-    // Declare + assign properties directly in constructor!
-    public function __construct(
-        public string $name,
-        public int    $age,
-        public float  $gpa = 0.0   // default value
-    ) {} // ← empty body, PHP handles assignment
+    lab: {
+      title: "Building a Dynamic Student List",
+      titleKh: "ការបង្កើតបញ្ជីឈ្មោះសិស្សតាមបែប Dynamic",
+      duration: "45 min",
+      objective: "Master array manipulation and looping in a real-world context.",
+      steps: [
+        "Initialize an array $students with at least 2 students (id, name, major).",
+        "Add a 3rd student to the array manually.",
+        "Loop through all students and echo their names in an <li> tag.",
+        "Count the total number of students using count().",
+        "Bonus: Use array_filter to find students in a specific major."
+      ],
+      code: `<?php
+// 1. Setup multi-dimensional array
+$students = [
+    ["id" => 1, "name" => "Sok", "major" => "IT"],
+    ["id" => 2, "name" => "Dara", "major" => "Design"]
+];
 
-    // Method — uses $this to access own properties
-    public function introduce(): string {
-        return "Hi! I'm {$this->name}, age {$this->age}.";
-    }
+// 2. Add new student
+$students[] = ["id" => 3, "name" => "Vibol", "major" => "IT"];
 
-    public function getStatus(): string {
-        return $this->gpa >= 2.0 ? "Passing ✅" : "At Risk ⚠️";
-    }
+// 3. Display total count
+echo "Total Students: " . count($students) . "\n\n";
 
-    // Setter with validation
-    public function setGpa(float $gpa): void {
-        if ($gpa < 0 || $gpa > 4.0) {
-            throw new InvalidArgumentException("GPA must be 0-4.0");
-        }
-        $this->gpa = $gpa;
-    }
+// 4. Loop & Display
+echo "Student List:\n";
+foreach ($students as $s) {
+    echo "- " . $s['name'] . " (" . $s['major'] . ")\n";
 }
 
-// Create instances (objects)
-$ratha  = new Student("Ratha",  20, 3.5);
-$sophal = new Student("Sophal", 22, 1.8);
-
-// Call methods
-echo $ratha->introduce();   // Hi! I'm Ratha, age 20.
-echo $sophal->introduce();  // Hi! I'm Sophal, age 22.
-echo $ratha->getStatus();   // Passing ✅
-echo $sophal->getStatus();  // At Risk ⚠️
-
-// Access property
-echo $ratha->name;  // Ratha
-
-// Use setter
-$ratha->setGpa(3.9);
-echo $ratha->gpa;   // 3.9
-
-// instanceof operator
-var_dump($ratha instanceof Student); // bool(true)
-var_dump($ratha instanceof Student); // bool(true)
+// 5. Advanced: Filter IT students
+echo "\nIT Students Only:\n";
+$itOnly = array_filter($students, fn($s) => $s['major'] === "IT");
+foreach ($itOnly as $s) {
+    echo "✓ " . $s['name'] . "\n";
+}
 ?>`,
-    syntax: `// ── Class & Object Syntax ─────────────────
-//
-//  class Name { ... }   : Define class
-//  new Name();          : Create object
-//  public $p;           : Property (accessible)
-//  $this->p             : Internal access
-//  $obj->p              : External access
-//  __construct(...)     : Initializer
-//  $o instanceof Class  : Check type
-//
-// ─────────────────────────────────────────`,
-    output: `// Calling methods
-Hi! I'm Ratha, age 20.
-Hi! I'm Sophal, age 22.
-Passing ✅
-At Risk ⚠️
+      output: `Total Students: 3
 
-// Accessing property & setter
-Ratha
-3.9
+Student List:
+- Sok (IT)
+- Dara (Design)
+- Vibol (IT)
 
-// instanceof operator
-bool(true)`,
-    tip: "PHP 8 constructor promotion: write 'public string $name' inside __construct() params ─ no need to declare properties separately!",
-    workflow: `// ── Object Instantiation Flow ──────────────
-//
-// 1. New object created (បង្កើត object ថ្មី)
-// 2. __construct() starts (ចាប់ផ្ដើម constructor)
-// 3. Properties assigned (ដាក់តម្លៃក្នុង property)
-// 4. Object returned (បញ្ជូន object ទៅ variable)
-// 5. Method called via -> (ហៅ method មកប្រើ)
-//
-// ─────────────────────────────────────────`,
-  },
-  {
-    num: "12", chapter: "OOP", chapterColor: PURPLE,
-    tag: "Inheritance", tagColor: PURPLE, icon: "🔗",
-    title: "Inheritance",
-    subtitle: "extends · parent:: · method override · access modifiers",
-    body: `**Inheritance** ─ child class (**extends**) gets all properties & methods from parent ─ reuse code ─ DRY ។ **Access modifiers** control visibility ─ public/protected/private ─ **parent::** ─ call parent's version of a method ។`,
-    bullets: [
-      { icon: "🔗", label: "extends", desc: "class Admin extends User ─ inherit all from User" },
-      { icon: "🔒", label: "Access modifiers", desc: "public=anywhere │ protected=class+children │ private=class only" },
-      { icon: "🔄", label: "Method override", desc: "Child redefines parent method ─ called polymorphism" },
-      { icon: "⬆️", label: "parent::", desc: "parent::__construct() ─ call parent's version explicitly" },
-    ],
+IT Students Only:
+✓ Sok
+✓ Vibol`
+    },
     code: `<?php
-class User {
-    protected string $role = "student";
+// Practice Area: Try building your own data array here
+$data = [
+    "app" => "PHP Lab",
+    "version" => 8.2
+];
 
-    public function __construct(public string $name) {}
-
-    public function getRole(): string {
-        return $this->role;
-    }
-}
-
-// Inheritance using 'extends'
-class Mentor extends User {
-    protected string $role = "mentor";
-
-    // Override Parent Method
-    public function getRole(): string {
-        return "Certified " . parent::getRole();
-    }
-}
-
-$u = new User("Sokha");
-$m = new Mentor("Dara");
-
-echo $u->name . ": " . $u->getRole(); // Sokha: student
-echo $m->name . ": " . $m->getRole(); // Dara: Certified mentor
+echo "Welcome to " . $data['app'];
 ?>`,
-    syntax: `// ── Inheritance Cheat Sheet ──────────────────
-//
-//  class A extends B : A inherits from B
-//  parent::method()  : Call parent's version
-//  protected         : Visible in self + children
-//  private           : Visible in self ONLY
-//  final class       : Cannot be inherited
-//  final method      : Cannot be overridden
-//
-// ──────────────────────────────────────────`,
-    output: `Sokha: student
-Dara: Certified mentor`,
-    tip: "ប្រើ protected ជំនួស private ប្រសិនបើអ្នកចង់ឲ្យ child class អាចយក property នោះទៅប្រើបន្តបាន!",
-    workflow: `// ── Inheritance Cycle ──────────────────────
-//
-// 1. Definition: Child extends Parent (កូនស្នងមរតក)
-// 2. Access: Inherit all public/protected (ទាញយកសមត្ថភាព)
-// 3. Override: Update logic in child (កែសម្រួល logic ថ្មី)
-// 4. Reference: parent:: call (ហៅមេត្រឡប់)
-// 5. Result: Multi-layered behavior (បានលទ្ធផលច្រើនជាន់)
-//
-// ──────────────────────────────────────────`,
+    output: `Welcome to PHP Lab`,
+    tip: "ចូរកុំភ្លេចប្រើ [] ជំនួសឱ្យ array_push() សម្រាប់បច្ចេកទេសសរសេរកូដបែបសម័យថ្មី (Modern PHP)!",
   },
   {
-    num: "13", chapter: "OOP", chapterColor: PURPLE,
-    tag: "Abstract & Interface", tagColor: PURPLE, icon: "📜",
-    title: "Abstract & Interface",
-    subtitle: "abstract class · interface · implements · contracts · polymorphism",
-    body: `**Abstract class** ─ cannot instantiate directly ─ defines shared code + forces children to implement abstract methods ─ **IS-A** relationship ។ **Interface** ─ pure contract ─ class can implement **multiple** interfaces ─ **CAN-DO** relationship ។`,
+    num: "12", chapter: "Web & Forms", chapterColor: TEAL,
+    tag: "HTTP Protocol", tagColor: TEAL, icon: "🌐",
+    title: "GET vs POST Methods",
+    subtitle: "Data Transfer · URL Parameters · Request Body",
+    body: `Web apps ត្រូវបញ្ជូន Data ទៅកាន់ Server ។ PHP ផ្តល់នូវវិធីសាស្ត្រពីរគឺ **GET** (បញ្ជូនតាម URL) និង **POST** (បញ្ជូនតាម Request Body) ។ ការជ្រើសរើសបានត្រឹមត្រូវគឺជាមូលដ្ឋានគ្រឹះនៃ Security ។`,
     bullets: [
-      { icon: "🏗️", label: "abstract class", desc: "Has abstract methods (no body) ─ child MUST implement" },
-      { icon: "📜", label: "interface", desc: "Pure contract ─ only method signatures, zero implementation" },
-      { icon: "✅", label: "implements", desc: "class Report implements Printable ─ must provide all methods" },
-      { icon: "🔀", label: "Multiple interfaces", desc: "class Foo implements A, B, C ─ unlike extends (only 1 parent)" },
+      { icon: "🌐", label: "$_GET", desc: "Data visible in URL. Used for searching/filtering. Max 2k chars." },
+      { icon: "📪", label: "$_POST", desc: "Data hidden in body. Used for sensitive info (Login/Register)." },
+      { icon: "⚡", label: "Superglobals", desc: "Built-in arrays available in every scope. Auto-populated." },
+      { icon: "🧼", label: "Sanitization", desc: "Never trust user input. Use htmlspecialchars() for safety." },
+    ],
+    explanation: [
+      { title: "The URL Method (GET)", desc: "ទិន្នន័យបញ្ជូនតាម query string (?id=1) ។ ងាយស្រួល Bookmark ប៉ុន្តែមិនមានសុវត្ថិភាពសម្រាប់ password ទេ ។" },
+      { title: "The Body Method (POST)", desc: "ទិន្នន័យបញ្ជូនលាក់ខាងក្នុង HTTP Request ។ អាចបញ្ជូន File បាន និងគ្មានដែនកំណត់ទំហំ (Unlimited size) ។" },
+      { title: "Auto-Population", desc: "PHP នឹងទាញទិន្នន័យទាំងនោះដាក់ក្នុង $_GET ឬ $_POST Array ដោយស្វ័យប្រវត្តិដើម្បីឱ្យយើងស្រួលប្រើ ។" }
     ],
     code: `<?php
-// ABSTRACT: Blueprint that can't be created directly
-abstract class Device {
-    abstract public function turnOn(): string; // Contract
-}
+// 1. Handling GET request (?name=Guest)
+$name = $_GET['name'] ?? 'Guest';
 
-class Laptop extends Device {
-    public function turnOn(): string { return "Laptop booting..."; }
-}
+// 2. Handling POST from a Form
+$user = $_POST['user'] ?? null;
 
-// INTERFACE: Behavior contract (Can-Do)
-interface Rechargeable {
-    public function charge(): void;
-}
+echo "Greeting via GET: Hello, $name \n";
 
-class Smartphone extends Device implements Rechargeable {
-    public function turnOn(): string { return "Phone starting..."; }
-    public function charge(): void   { echo "Battery: 100%"; }
+if ($user) {
+    echo "Processing POST for user: $user \n";
+} else {
+    echo "Visit us via POST to see more!";
 }
-
-$p = new Smartphone();
-echo $p->turnOn();
-$p->charge();
 ?>`,
-    syntax: `// ── Abstract vs Interface Cheat Sheet ────────
+    output: `Greeting via GET: Hello, Guest
+Visit us via POST to see more!`,
+    syntax: `// ── Web Superglobals ───────────────────────
 //
-//  abstract class    : Partial blueprint (IS-A)
-//  interface         : Pure behavior (CAN-DO)
-//  abstract function : No body, child must write it
-//  implements        : Connect to an interface
-//  extends           : Connect to a parent class
-//
-// ──────────────────────────────────────────`,
-    output: `Phone starting...
-Battery: 100%`,
-    tip: "ប្រើ Abstract Class សម្រាប់អ្វីដែលជារបស់ដូចគ្នា (IS-A) និងប្រើ Interface សម្រាប់អ្វីដែលជាសមត្ថភាពដូចគ្នា (CAN-DO)!",
-    workflow: `// ── Contract Enforcement Flow ───────────────
-//
-// 1. Define: Abstract/Interface (កំណត់ច្បាប់)
-// 2. Extend/Implement: Child class (អនុវត្តច្បាប់)
-// 3. Must: Write required methods (ត្រូវតែសរសេរ code)
-// 4. Result: Guaranteed consistency (ធានាបានភាពត្រឹមត្រូវ)
-// 5. Call: Type-safe behavior (ហៅប្រើដោយទំនុកចិត្ត)
+//  $_GET['key']    : Read from URL
+//  $_POST['key']   : Read from Form body
+//  $_REQUEST['k']  : Combines GET and POST
+//  $_SERVER['k']   : Header/Path info
 //
 // ──────────────────────────────────────────`,
+    tip: "ចូរប្រើ POST ជានិច្ចនៅពេលអ្នកចង់រក្សាទុក (Create) ឬកែប្រែ (Update) ទិន្នន័យក្នុង Database!",
   },
   {
-    num: "14", chapter: "OOP", chapterColor: PURPLE,
-    tag: "Static & Traits", tagColor: PURPLE, icon: "🧩",
-    title: "Static, Traits & Magic",
-    subtitle: "static · self:: · trait · use · __toString · namespaces",
-    body: `**Static** properties/methods belong to the **class itself** ─ not to any instance ─ call with **ClassName::** ─ shared across all instances ─ useful for counters, singletons ។ **Traits** ─ inject reusable code into any class ─ solves multiple inheritance problem ។`,
+    num: "13", chapter: "Web & Forms", chapterColor: TEAL,
+    tag: "Integrations", tagColor: BLUE, icon: "📝",
+    title: "Processing Form Logic",
+    subtitle: "Validation · Error Handling · State Management",
+    body: `ការទទួលទិន្នន័យពី Form មិនគ្រាន់តែជាការ Echo ទេ ។ យើងត្រូវ **បែងចែក Logic** : ពិនិត្យមើលថាតើទិន្នន័យបានផ្ញើមកឬនៅ, ពិនិត្យភាពត្រឹមត្រូវ (Validation), និងផ្តល់ Feedback ទៅអ្នកប្រើវិញ។`,
     bullets: [
-      { icon: "⚡", label: "static", desc: "ClassName::method() ─ no object needed, class-level data" },
-      { icon: "🧩", label: "Traits", desc: "trait Logger { } then use Logger; inside any class body" },
-      { icon: "✨", label: "Magic methods", desc: "__toString() __get() __set() ─ PHP calls these automatically" },
-      { icon: "📁", label: "Namespaces", desc: "namespace App\\Models; ─ organize code, avoid name conflicts" },
+      { icon: "🛡️", label: "isset() Check", desc: "Always check if(isset($_POST['submit'])) before processing." },
+      { icon: "✅", label: "Validation", desc: "Check for empty fields, email format, and string length." },
+      { icon: "🎨", label: "Form UX", desc: "Keep user values in the form if an error occurs (Form persistence)." },
+      { icon: "🚀", label: "Redirect", desc: "Use header('Location: ...') to prevent double entry after success." },
     ],
     code: `<?php
-// STATIC: Class-level data
-class Math {
-    public static float $pi = 3.14;
-    public static function square(int $n): int {
-        return $n * $n;
-    }
-}
-echo Math::$pi;         // 3.14
-echo Math::square(4);   // 16
-
-// TRAIT: Reusable mixin
-trait Logger {
-    public function log(string $msg) {
-        echo "[LOG]: $msg";
-    }
-}
-
-class Database { use Logger; }
-class Auth { use Logger; }
-
-$db = new Database();
-$db->log("Connecting..."); // from trait
-?>`,
-    syntax: `// ── Static & Traits Cheat Sheet ──────────────
-//
-//  static $v          : Shared across all objects
-//  self::$v           : Access static inside class
-//  Class::$v          : Access static outside class
-//  trait T { }        : Reusable code block
-//  use T              : Inject trait into class
-//  ::                 : Scope Resolution Operator
-//
-// ──────────────────────────────────────────`,
-    output: `3.14
-16
-[LOG]: Connecting...`,
-    tip: "Static properties មិនមែនរបស់ object ទេ តែជារបស់ Class ជារួម! ប្រើវាសម្រាប់អ្វីដែលជា Global settings ឬ Utilities!",
-    workflow: `// ── Code Sharing Workflow ──────────────────
-//
-// 1. Static: Call via Class:: (ហៅប្រើចំឈ្មោះថ្នាក់)
-// 2. Trait: define reusable code (បង្កើតកូដសម្រាប់ប្រើឡើងវិញ)
-// 3. Use: import into class (បញ្ជ្រាបចូលក្នុងថ្នាក់)
-// 4. Execute: Call injected method (ហៅមុខងារថ្មីមកប្រើ)
-// 5. Shared: Available everywhere (ប្រើបានគ្រប់ទីកន្លែង)
-//
-// ──────────────────────────────────────────`,
-  },
-
-  // ── WEEK 5: WEB & DATABASE ────────────────────────────────
-  {
-    num: "15", chapter: "Web & Forms", chapterColor: TEAL,
-    tag: "Forms", tagColor: TEAL, icon: "📝",
-    title: "Forms (GET & POST)",
-    subtitle: "$_GET · $_POST · validate · sanitize · filter_var · XSS",
-    body: `PHP handles form submissions via **$_GET** (URL params) and **$_POST** (form body) ។ **NEVER trust user input** ─ always **validate** (check rules) then **sanitize** (clean data) ─ every input is a potential security attack ។`,
-    bullets: [
-      { icon: "🔍", label: "$_GET", desc: "?name=Ratha in URL ─ visible, use for search/filters" },
-      { icon: "📤", label: "$_POST", desc: "Form body ─ hidden from URL ─ use for passwords/mutations" },
-      { icon: "🛡️", label: "htmlspecialchars()", desc: "< > & → HTML entities ─ prevents XSS attacks" },
-      { icon: "✅", label: "filter_var()", desc: "Validate email, URL, int ─ returns false if invalid" },
-    ],
-    code: `<?php
-// 1. GET: Visible in URL (Search/Filter)
-$search = $_GET['q'] ?? "all";
-
-// 2. POST: Secure/Hidden (Forms/Login)
-$email = $_POST['email'] ?? "";
-
-// 3. Security: Sanitize for XSS
-$safe_html = htmlspecialchars($email);
-
-// 4. Security: Validation
-$is_valid = filter_var($email, FILTER_VALIDATE_EMAIL);
-
-// 5. Password Hashing
-$hash = password_hash("secret123", PASSWORD_DEFAULT);
-?>`,
-    syntax: `// ── Secure Form Cheat Sheet ──────────────────
-//
-//  $_GET['key']        : URL parameters
-//  $_POST['key']       : Form body data
-//  htmlspecialchars($s): Clean for output (XSS)
-//  filter_var($id, F)  : Validate data type
-//  password_hash($p, D): Secure store (one-way)
-//
-// ──────────────────────────────────────────`,
-    output: `Email: test@example.com
-Is Valid: true
-Hash: $2y$10$Y5n2v...`,
-    tip: "កុំទុកពាក្យសម្ងាត់ (Passwords) ជាអត្ថបទធម្មតា! ត្រូវប្រើ password_hash() ជានិច្ចដើម្បីសុវត្ថិភាពខ្ពស់បំផុត!",
-    workflow: `// ── Data Submission Flow ───────────────────
-//
-// 1. Form: User types data (បញ្ចូលទិន្នន័យ)
-// 2. Method: GET vs POST (ជ្រើសរើសវិធីបញ្ជូន)
-// 3. Filter: Validate Input (បញ្ជាក់ភាពត្រឹមត្រូវ)
-// 4. Sanitize: Clean for DB/UI (សម្អាតឱ្យមានសុវត្ថិភាព)
-// 5. Hash: Secure passwords (បំប្លែងពាក្យសម្ងាត់)
-//
-// ──────────────────────────────────────────`,
-  },
-  {
-    num: "16", chapter: "Web & Forms", chapterColor: TEAL,
-    tag: "Include & Session", tagColor: GREEN, icon: "🔐",
-    title: "Include Files & Sessions",
-    subtitle: "require_once · partials · session_start · $_SESSION · logout",
-    body: `**require_once** ─ include a file once ─ fatal error if missing ─ use for all config/helpers ។ **$_SESSION** ─ store user login state across pages ─ server-side ─ call **session_start()** as very first line ─ before ANY output ។`,
-    bullets: [
-      { icon: "🔒", label: "require_once", desc: "Include once ─ FATAL error if missing ─ always prefer this" },
-      { icon: "🧩", label: "Partials pattern", desc: "header.php, footer.php, config.php ─ modular reusable structure" },
-      { icon: "🗝️", label: "session_start()", desc: "Must be FIRST ─ before any echo, whitespace, or HTML!" },
-      { icon: "💾", label: "$_SESSION", desc: "Store user login state across pages ─ server-side, secure" },
-    ],
-    code: `<?php
-// config.php
-define('SITE_NAME', 'UniPortal');
-
-// 1. Including Files (Modular Code)
-require_once 'config.php'; // Fatal error if missing
-include 'header.php';      // Warning only
-
-// 2. SESSIONS (Login State)
-session_start(); // Must be the VERY FIRST line!
-
-$_SESSION['user'] = "Ratha";
-echo "Welcome, " . $_SESSION['user'];
-
-// 3. Clear Session (Logout)
-// session_destroy();
-?>`,
-    syntax: `// ── Includes & Sessions Cheat Sheet ──────────
-//
-//  require_once    : Critical files (DB, Config)
-//  include         : Less critical (UI parts)
-//  session_start() : Initialize session engine
-//  $_SESSION['k']  : Store data across pages
-//  header("Loc:")  : Redirect browser
-//
-// ──────────────────────────────────────────`,
-    output: `Welcome, Ratha`,
-    tip: "session_start() ត្រូវតែនៅបន្ទាត់ទី១ ជានិច្ច! បើមាន whitespace ឬ echo មុនវានឹងបណ្ដាលឲ្យមាន Error 'Headers already sent'!",
-    workflow: `// ── User Session Lifecycle ──────────────────
-//
-// 1. Entry: session_start() called (ចាប់ផ្ដើម)
-// 2. Verify: Check $_SESSION['user'] (ឆែកព័ត៌មាន)
-// 3. Store: Write login info (រក្សាទុកទិន្នន័យ)
-// 4. Persistence: Data stays on refresh (រក្សាដដែល)
-// 5. Destroy: Terminate on logout (លុបចោលវិញ)
-//
-// ──────────────────────────────────────────`,
-  },
-  {
-    num: "17", chapter: "Web & Forms", chapterColor: TEAL,
-    tag: "Files & Upload", tagColor: ORANGE, icon: "📤",
-    title: "File Handling & Upload",
-    subtitle: "$_FILES · move_uploaded_file · enctype · validation · security",
-    body: `ការ Upload files ក្នុង PHP ត្រូវប្រើ **$_FILES** superglobal ─ Form ត្រូវមាន **enctype="multipart/form-data"** ។ ត្រូវតែ **validate** ប្រភេទ file (extension) និងទំហំ (size) ជានិច្ច ដើម្បីការពារ security ─ ប្រើ **move_uploaded_file()** ដើម្បីរក្សាទុកក្នុង server ។`,
-    bullets: [
-      { icon: "📤", label: "enctype", desc: "កូដចាំបាច់ក្នុង <form> ដើម្បី upload files: multipart/form-data" },
-      { icon: "📁", label: "$_FILES", desc: "Superglobal array ផ្ទុកព័ត៌មាន name, type, size, tmp_name" },
-      { icon: "🛡️", label: "Validation", desc: "ឆែក extension (jpg, png) និង size (max 2MB) ដើម្បីសុវត្ថិភាព" },
-      { icon: "✅", label: "move_uploaded_file", desc: "ប្តូរទីតាំង file ពី temporary ទៅកាន់ folder ក្នុង project" },
-    ],
-    code: `<?php
-// 1. Form Setup (HTML)
-// <form action="upload.php" method="POST" enctype="multipart/form-data">
-//    <input type="file" name="my_file">
-// </form>
-
-// 2. Handling the Upload (upload.php)
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $file = $_FILES['my_file'];
+// Simple Form Processor Simulation
+if (isset($_POST['name'])) {
+    $name = trim($_POST['name']);
     
-    $name = basename($file['name']);
-    $tmp  = $file['tmp_name'];
-    $size = $file['size'];
-    
-    // 3. Security Check (Extension)
-    $ext = strtolower(pathinfo($name, PATHINFO_EXTENSION));
-    $allowed = ['jpg', 'png', 'pdf'];
-    
-    if (in_array($ext, $allowed) && $size < 2000000) {
-        $dest = "uploads/" . time() . "_" . $name;
-        if (move_uploaded_file($tmp, $dest)) {
-            echo "File uploaded successfully! ✅";
-        }
+    if (empty($name)) {
+        echo "Error: Name is required! \n";
     } else {
-        echo "Invalid file or too large! ❌";
+        echo "Success: Welcome aboard, $name! \n";
     }
+} else {
+    echo "Form not submitted yet.";
 }
 ?>`,
-    syntax: `// ── File Upload Cheat Sheet ─────────────────
-//
-//  $_FILES['k']['name']     : Original filename
-//  $_FILES['k']['tmp_name'] : Temporary server path
-//  $_FILES['k']['size']     : File size in bytes
-//  $_FILES['k']['error']    : Error code (0 = success)
-//  move_uploaded_file(s, d) : Save file permanently
-//  pathinfo(f, PATHINFO_EXTENSION) : Get extension
-//
-// ──────────────────────────────────────────`,
-    output: `File uploaded successfully! ✅`,
-    tip: "កុំទុកចិត្តឈ្មោះ file ដែល user ផ្ញើមក! ត្រូវតែបន្ថែម prefix (ដូចជា time()) ទៅកាន់ឈ្មោះ file ដើម្បីទប់ស្កាត់ការជាន់ឈ្មោះគ្នា (File Overwriting)!",
-    workflow: `// ── File Upload Workflow ────────────────────
-//
-// 1. Request: Form with multipart/form-data (ផ្ញើ request)
-// 2. Temp: PHP saves file in temp folder (រក្សាទុកបណ្តោះអាសន្ន)
-// 3. Inspect: Validate type and size (ពិនិត្យសុវត្ថិភាព)
-// 4. Move: move_uploaded_file() to dest (ប្តូរទីតាំងទុកជាអចិន្ត្រៃយ៍)
-// 5. Result: Return success/error status (បង្ហាញលទ្ធផល)
-//
-// ──────────────────────────────────────────`,
+    output: `Form not submitted yet.`,
+    tip: "ចូរប្រើ trim() ដើម្បីសម្អាតចន្លោះទំនេរ (Space) ដែលអ្នកប្រើអាចនឹងវាយបញ្ចូលដោយអចេតនា!",
   },
   {
-    num: "18", chapter: "Web & Database", chapterColor: TEAL,
-    tag: "Database PDO", tagColor: BLUE, icon: "🗄️",
-    title: "MySQL & PDO",
-    subtitle: "PDO connect · prepared statements · CRUD · fetch · fetchAll",
-    body: `PHP ភ្ជាប់ MySQL ដោយ **PDO** ─ modern, secure, multi-database ។ **Prepared statements** with **?** placeholders ─ NEVER concatenate user input into SQL ─ prevents SQL Injection ─ the most critical security rule in backend development ។`,
+    num: "14", chapter: "Web & Forms", chapterColor: TEAL,
+    tag: "File System", tagColor: GREEN, icon: "📂",
+    title: "File Handling: Uploading",
+    subtitle: "Security · Move Uploaded · Permissions",
+    body: `ការ Upload File ជាផ្នែកមួយយ៉ាងសំខាន់នៃ Web Apps (ឧទាហរណ៍: Profile Picture) ។ PHP ប្រើប្រាស់ superglobal **$_FILES** ដើម្បីគ្រប់គ្រងរាល់ទិន្នន័យរបស់ File ដែលបានបញ្ជូនមក។`,
     bullets: [
-      { icon: "🔌", label: "PDO connect", desc: "new PDO($dsn, $user, $pass) ─ connect to MySQL" },
-      { icon: "🛡️", label: "Prepared statements", desc: "prepare() + execute([$val]) ─ prevents SQL injection" },
-      { icon: "📥", label: "fetch()", desc: "One row ─ for detail/show page (WHERE id = ?)" },
-      { icon: "📋", label: "fetchAll()", desc: "All rows as array ─ for listing/index page" },
+      { icon: "📤", label: "Multipart Form", desc: "Forms must use enctype='multipart/form-data' to send files." },
+      { icon: "📑", label: "$_FILES Array", desc: "Contains: name, type, size, tmp_name, and error status." },
+      { icon: "🔒", label: "File Validation", desc: "Check file extensions (png, jpg) and max size before saving." },
+      { icon: "🚚", label: "Moving File", desc: "Use move_uploaded_file() to save it to your uploads folder." },
     ],
     code: `<?php
-// 1. Connect via PDO
-$dsn = "mysql:host=localhost;dbname=school;charset=utf8mb4";
-$db = new PDO($dsn, "root", "");
-
-// 2. Create (Securely)
-$stmt = $db->prepare("INSERT INTO users (name) VALUES (?)");
-$stmt->execute(["Ratha"]);
-
-// 3. Read (Fast)
-$users = $db->query("SELECT * FROM users")->fetchAll(PDO::FETCH_ASSOC);
-
-// 4. Update
-$db->prepare("UPDATE users SET name = ? WHERE id = ?")
-   ->execute(["Dara", 1]);
-
-// 5. Delete
-$db->prepare("DELETE FROM users WHERE id = ?")
-   ->execute([2]);
+// File Upload Logic Mockup
+// 1. Inspect file info
+if (isset($_FILES['photo'])) {
+    $photo = $_FILES['photo'];
+    
+    echo "File Name: " . $photo['name'] . "\n";
+    echo "File Size: " . ($photo['size'] / 1024) . " KB \n";
+    
+    // 2. Validate (Simplified)
+    if ($photo['size'] > 5000000) {
+        echo "Error: File too large!";
+    } else {
+        echo "Ready to store in: uploads/" . $photo['name'];
+    }
+} else {
+    echo "No file selected.";
+}
 ?>`,
-    syntax: `// ── PDO CRUD Cheat Sheet ─────────────────────
-//
-//  new PDO()          : Connect to Database
-//  prepare()          : Secure query template
-//  execute([$v])      : Bind data to template
-//  fetch()            : Get one row
-//  fetchAll()         : Get all rows in array
-//  lastInsertId()     : Get ID of new record
-//
-// ──────────────────────────────────────────`,
-    output: `Connected Successfully!
-Record Inserted.
-Users: [Dara, Ratha]`,
-    tip: "កុំប្រើការបូក string (concatenation) ក្នុង SQL! ត្រូវប្រើ '?' placeholders ជាមួយ prepare() ជានិច្ច ដើម្បីទប់ស្កាត់ SQL Injection!",
-    workflow: `// ── Secure DB Operation Flow ────────────────
-//
-// 1. Connect: Establish PDO link (ភ្ជាប់ទៅ DB)
-// 2. Prepare: Design SQL template (រៀបចំប្លង់ SQL)
-// 3. Execute: Bind values safely (បញ្ចូលតម្លៃដោយសុវត្ថិភាព)
-// 4. Trace: Check success/failure (ពិនិត្យលទ្ធផល)
-// 5. Output: Present data to USER (បង្ហាញទិន្នន័យ)
-//
-// ──────────────────────────────────────────`,
+    output: "No file selected.",
+    tip: "អ្នកត្រូវតែប្រើ enctype=\"multipart/form-data\" ក្នុង <form> tag បើមិនដូច្នោះទេ $_FILES នឹងនៅទទេជានិច្ច!",
   },
   {
-    num: "19", chapter: "Web & Database", chapterColor: TEAL,
-    tag: "Full CRUD Project", tagColor: PINK, icon: "📂",
-    title: "Mini-Project: SQLite CRUD",
-    subtitle: "sqlite connection · create table · insert · fetch · search",
-    body: `គ្រោងការណ៍ **Full Project** ─ ប្រើ **SQLite** (គ្មានការតម្លើង SQL server) ។ រួមបញ្ចូលការតភ្ជាប់ DB ─ បង្កើត Table ─ បញ្ចូលទិន្នន័យ (Create) ─ បង្ហាញទិន្នន័យ (Read) ។`,
+    num: "14-L", chapter: "Web & Forms", chapterColor: TEAL,
+    tag: "Practice", tagColor: GREEN, icon: "🧪",
+    title: "Lab: Contact Form Pro",
+    subtitle: "Real-world Form Submission · Validation · Feedback",
+    body: `ក្នុងលំហាត់នេះ យើងនឹងរួមបញ្ចូលអ្វីៗគ្រប់យ៉ាងដែលបានរៀនពី **Chapter 04** ដើម្បីបង្កើត Contact Form មួយដែលមានពេញលេញ (Full features) មានទាំងការឆែក error និងការបង្ហាញលទ្ធផល។`,
     bullets: [
-      { icon: "📂", label: "database.db", desc: "SQLite keeps everything in ONE file inside your project" },
-      { icon: "⚡", label: "Auto-Setup", desc: "CREATE TABLE IF NOT EXISTS runs first to ensure DB is ready" },
-      { icon: "🛡️", label: "Prepared Bindings", desc: "execute(['val']) ensures safety against SQL injection" },
-      { icon: "🚀", label: "Built-in Server", desc: "php -S localhost:8000 runs the project locally" },
+      { icon: "🏗️", label: "Skeleton", desc: "Build a form structure using HTML & PHP blocks." },
+      { icon: "🧹", label: "Cleanse", desc: "Sanitize user inputs to prevent XSS attacks." },
+      { icon: "🚦", label: "Rules", desc: "Apply logic rules (Min length 3, Email must contain @)." },
+      { icon: "🔄", label: "Feedback", desc: "Display clear success or error messages to the user." },
+    ],
+    lab: {
+      title: "Building a Validated Contact Form",
+      titleKh: "ការបង្កើត Contact Form ដែលមានការឆែកទិន្នន័យត្រឹមត្រូវ",
+      duration: "45 min",
+      objective: "Master POST processing, validation, and user feedback cycles.",
+      steps: [
+        "Create a script that checks if $_POST is submitted.",
+        "Sanitize the name and email fields using htmlspecialchars().",
+        "Validate if the name's length is at least 3 characters.",
+        "Verify the email field is not empty.",
+        "If all pass, echo a personalized success message."
+      ],
+      code: `<?php
+/**
+ * LAB: CONTACT FORM PROCESSOR
+ */
+$error = "";
+$success = "";
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // 1. Get and Sanitize
+    $name = htmlspecialchars(trim($_POST['name'] ?? ''));
+    $email = htmlspecialchars(trim($_POST['email'] ?? ''));
+
+    // 2. Validate
+    if (empty($name) || strlen($name) < 3) {
+        $error = "Name must be at least 3 characters.";
+    } elseif (empty($email)) {
+        $error = "Email is required.";
+    } else {
+        $success = "Thanks $name! We will contact you at $email.";
+    }
+}
+
+// Result Display
+if ($error) echo "❌ $error";
+if ($success) echo "✅ $success";
+if (!$error && !$success) echo "Please submit the form.";
+?>`,
+      output: `Please submit the form.`
+    },
+    code: `<?php
+// Test your validation logic here
+$email = "user@example.com";
+echo str_contains($email, "@") ? "Valid Email" : "Invalid Email";
+?>`,
+    output: `Valid Email`,
+    tip: "ចូរប្រើ htmlspecialchars() រាល់ពេលដែលអ្នកបង្ហាញ (Echo) ទិន្នន័យដែលសិស្ស/អ្នកប្រើប្រាស់បានវាយបញ្ចូលវិញ ដើម្បីសុវត្ថិភាព!",
+  },
+  {
+    num: "15", chapter: "Database & CRUD", chapterColor: PURPLE,
+    tag: "Persistent Data", tagColor: PURPLE, icon: "💾",
+    title: "Intro to SQLite & PDO",
+    subtitle: "Database Connectivity · SQL Introduction · PDO Drivers",
+    body: `Variable នឹងបាត់បង់ទិន្នន័យរាល់ពេល Refresh ទំព័រ ។ ដើម្បីរក្សាទិន្នន័យបានយូរអង្វែង យើងត្រូវប្រើ **Database** ។ យើងនឹងប្រើ **SQLite** (Database ក្នុង File តែមួយ) និង **PDO** (បច្ចេកវិទ្យាទំនើបសម្រាប់ភ្ជាប់ PHP ទៅ DB) ។`,
+    bullets: [
+      { icon: "📁", label: "SQLite", desc: "Serverless database stored in a single file. Zero configuration." },
+      { icon: "🔌", label: "PDO", desc: "PHP Data Objects. A secure, consistent way to talk to any DB." },
+      { icon: "🛡️", label: "PreparedStatement", desc: "The #1 defense against SQL Injection. Essential security." },
+      { icon: "🏗️", label: "Migration", desc: "PHP code that sets up your DB tables automatically." },
+    ],
+    explanation: [
+      { title: "Connection", desc: "យើងបង្កើត Object ថ្មីមួយ (new PDO) ដែលតំណាងឱ្យការតភ្ជាប់ទៅកាន់ Database File ។" },
+      { title: "Query vs Exec", desc: "Exec ប្រើសម្រាប់ប្តូររចនាសម្ព័ន្ធ (Create table) រីឯ Query ប្រើសម្រាប់ទាញទិន្នន័យ (Selection) ។" },
+      { title: "Universal Driver", desc: "ចំណុចល្អរបស់ PDO គឺយើងអាចប្តូរពី SQLite ទៅ MySQL បានដោយគ្រាន់តែដូរ Connection String តែមួយប៉ុណ្ណោះ ។" }
     ],
     code: `<?php
 // 1. Connect to SQLite
-$db = new PDO("sqlite:database.db");
+$pdo = new PDO('sqlite:database.db');
 
-// 2. Setup table (Auto-runs once)
-$db->exec("CREATE TABLE IF NOT EXISTS students (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
+// 2. Create Table (Schema)
+$sql = "CREATE TABLE IF NOT EXISTS students (
+    id INTEGER PRIMARY KEY,
     name TEXT,
-    major TEXT
-)");
+    email TEXT
+)";
+$pdo->exec($sql);
 
-// 3. Handle Form Submission
-$msg = "";
-if (isset($_POST['name'])) {
-    $name = $_POST['name'];
-    $major = $_POST['major'] ?? "General";
+echo "Database Connected & Table Ready!";
+?>`,
+    output: `Database Connected & Table Ready!`,
+    syntax: `// ── PDO Connection Patterns ─────────────────
+//
+//  new PDO('sqlite:db.sqlite')    : SQLite
+//  new PDO('mysql:host=localhost') : MySQL
+//  $pdo->exec($sql)               : For CREATE/DROP
+//  $pdo->query($sql)              : For SELECT
+//
+// ──────────────────────────────────────────`,
+    tip: "SQLite គឺល្អបំផុតសម្រាប់បរិបទរៀនដំបូង និង Project តូចៗ ព្រោះអ្នកមិនចាំបាច់តម្លើង MySQL Server ឡើយ!",
+  },
+  {
+    num: "16", chapter: "Database & CRUD", chapterColor: PURPLE,
+    tag: "Data Manipulation", tagColor: GREEN, icon: "➕",
+    title: "SQL: INSERT & SELECT",
+    subtitle: "Adding Records · Querying Data · Fetching Results",
+    body: `នៅពេលមាន Table ហើយ យើងត្រូវចេះ **INSERT** (បញ្ចូល) និង **SELECT** (ទាញយក) ។ ក្នុង PHP យើងប្រើ **Prepared Statements** ដើម្បីបញ្ជូនទិន្នន័យទៅកាន់ Database ដោយសុវត្ថិភាពបំផុត។`,
+    bullets: [
+      { icon: "✍️", label: "INSERT INTO", desc: "SQL command to add new rows. Use placeholders (?) for security." },
+      { icon: "🔍", label: "SELECT *", desc: "Command to read data. Filter with WHERE and order with BY." },
+      { icon: "📦", label: "Fetch Modes", desc: "PDO::FETCH_ASSOC returns data as a clean associative array." },
+      { icon: "🔒", label: "bindValue", desc: "Assigns your PHP variables to SQL placeholders securely." },
+    ],
+    code: `<?php
+/**
+ * SECURE DATABASE INTEGRATION
+ */
+$pdo = new PDO('sqlite:demo.db');
 
-    // 🛡️ Validation
-    if (empty($name)) {
-        $msg = "<div class='alert err'>❌ Error: Name is required!</div>";
-    } else {
-        $stmt = $db->prepare("INSERT INTO students (name, major) VALUES (?, ?)");
-        $stmt->execute([$name, $major]);
-        $msg = "<div class='alert ok'>✅ Student saved successfully!</div>";
-    }
+// 1. Insert securely (Example)
+$stmt = $pdo->prepare("INSERT INTO users (name) VALUES (?)");
+$stmt->execute(["Ratha"]);
+
+// 2. Read back
+$results = $pdo->query("SELECT * FROM users");
+foreach ($results as $row) {
+    echo "ID: " . $row['id'] . " | Name: " . $row['name'] . "\n";
+}
+?>`,
+    output: `ID: 1 | Name: Ratha`,
+    tip: "កុំដាក់ Variable ផ្ទាល់ក្នុង SQL string! ត្រូវប្រើ ? ជានិច្ចដើម្បីរារាំង Hacker មិនឱ្យលួចទិន្នន័យបាន (SQL Injection)!",
+  },
+  {
+    num: "17", chapter: "Database & CRUD", chapterColor: PURPLE,
+    tag: "Core CRUD 🔥", tagColor: PINK, icon: "🛠️",
+    title: "UPDATE & DELETE",
+    subtitle: "Modifying Records · Removing Data · Row Identification",
+    body: `CRUD តំណាងឱ្យ **Create, Read, Update, Delete** ។ ក្នុងមេរៀននេះ យើងនឹងបញ្ចប់វដ្តជីវិតរបស់ទិន្នន័យដោយការរៀនកែប្រែ (UPDATE) និងលុបទិន្នន័យ (DELETE) ចេញពីគ្រឹះទិន្នន័យ។`,
+    bullets: [
+      { icon: "📝", label: "UPDATE", desc: "Modify existing rows. NEVER forget the WHERE clause!" },
+      { icon: "🗑️", label: "DELETE", desc: "Remove rows permanently. Again, check your WHERE conditions." },
+      { icon: "🆔", label: "Primary Key", desc: "Use unique IDs (id = 5) to target specific records precisely." },
+      { icon: "📊", label: "Row Count", desc: "Use rowCount() to see how many rows were actually changed." },
+    ],
+    code: `<?php
+$pdo = new PDO('sqlite:demo.db');
+
+// 1. Update name where id = 1
+$upd = $pdo->prepare("UPDATE users SET name = ? WHERE id = ?");
+$upd->execute(["Dara", 1]);
+
+// 2. Delete where id = 2
+$del = $pdo->prepare("DELETE FROM users WHERE id = ?");
+$del->execute([2]);
+
+echo "Rows updated: " . $upd->rowCount();
+?>`,
+    output: `Rows updated: 1`,
+    tip: "ការលុបទិន្នន័យ (Delete) គឺមិនអាចយកមកវិញបានទេ! ជួនកាល developers ប្រើ 'Deleted_at' column ជំនួសវិញ (Soft Delete)។",
+  },
+  {
+    num: "17-L", chapter: "Database & CRUD", chapterColor: PURPLE,
+    tag: "Practice", tagColor: GREEN, icon: "🧪",
+    title: "Lab: Core CRUD App",
+    subtitle: "Build a Persistent Student Registry",
+    body: `ក្នុងមន្ទីរពិសោធន៍នេះ យើងនឹងបង្កើត Backend ចម្បងសម្រាប់កម្មវិធីគ្រប់គ្រងសិស្ស។ យើងនឹងប្រើ SQLite ដើម្បីរក្សាទុកឈ្មោះសិស្ស ទោះបីជាយើងបិទ Browser ក៏ព័ត៌មានមិនបាត់បង់ដែរ។`,
+    bullets: [
+      { icon: "🏗️", label: "DB Boot", desc: "Set up the student table using PHP exec()." },
+      { icon: "📥", label: "Mock Enrollment", desc: "Insert 3 sample students into the database." },
+      { icon: "🔄", label: "Sync", desc: "Fetch all records and display them in a neat list." },
+      { icon: "🔧", label: "Maintenance", desc: "Update a student's name and verify the change." },
+    ],
+    lab: {
+      title: "Building the Final CRUD System",
+      titleKh: "ការបង្កើតប្រព័ន្ធគ្រប់គ្រងទិន្នន័យ (CRUD) ពេញលេញ",
+      duration: "60 min",
+      objective: "Full mastery of PHP and Database interaction cycle.",
+      steps: [
+        "Initialize SQLite PDO connection.",
+        "Create a 'students' table with 'id' and 'name'.",
+        "Add 3 students using prepared statements.",
+        "Fetch all students using a while loop and display them.",
+        "Change the name of student #1 to 'Pro Master'.",
+        "Delete student #2 from the database."
+      ],
+      code: `<?php
+/**
+ * FINAL CORE CRUD LAB
+ */
+$db = new PDO('sqlite:app.db');
+$db->exec("CREATE TABLE IF NOT EXISTS students (id INTEGER PRIMARY KEY, name TEXT)");
+
+// 1. Create
+$ins = $db->prepare("INSERT INTO students (name) VALUES (?)");
+$ins->execute(["Student A"]);
+$ins->execute(["Student B"]);
+
+// 2. Read
+echo "Before Update:\n";
+$rows = $db->query("SELECT * FROM students")->fetchAll(PDO::FETCH_ASSOC);
+foreach($rows as $r) echo "- " . $r['name'] . "\n";
+
+// 3. Update
+$db->prepare("UPDATE students SET name = ? WHERE id = 1")->execute(["Pro Master"]);
+
+// 4. Delete
+$db->prepare("DELETE FROM students WHERE id = 2")->execute();
+
+echo "\nAfter Maintenance:\n";
+$final = $db->query("SELECT * FROM students")->fetchAll(PDO::FETCH_ASSOC);
+foreach($final as $r) echo "✓ " . $r['name'] . "\n";
+?>`,
+      output: `Before Update:
+- Student A
+- Student B
+
+After Maintenance:
+✓ Pro Master`
+    },
+    code: `<?php
+// SQL Sandbox: Run any SELECT query here
+echo "SQL Ready to process...";
+?>`,
+    output: `SQL Ready to process...`,
+    tip: "ចូរប្រើ fetchAll(PDO::FETCH_ASSOC) ដើម្បីទទួលបាន Array ដែលមានឈ្មោះ Key ស្រដៀងនឹងឈ្មោះ Column ក្នុង Database!",
+  },
+  {
+    num: "18", chapter: "Sessions & Security", chapterColor: ORANGE,
+    tag: "State Management", tagColor: ORANGE, icon: "🔑",
+    title: "Sessions & Authentication",
+    subtitle: "Persistent Login · Cookies · Server-side Storage",
+    body: `HTTP គឺជា **Stateless** protocol (វាមិនចងចាំថាអ្នកជាអ្នកណាទេ) ។ ដើម្បីធ្វើឱ្យ User អាច Login ជាប់ យើងត្រូវប្រើ **Sessions** ។ Session អនុញ្ញាតឱ្យយើងរក្សាទុកទិន្នន័យ User នៅលើ Server និងប្រើប្រាស់បានគ្រប់ទំព័រ។`,
+    bullets: [
+      { icon: "🏁", label: "session_start()", desc: "The first line required to use sessions. Initializes the engine." },
+      { icon: "📦", label: "$_SESSION", desc: "Global array to store user data (e.g. user_id, role)." },
+      { icon: "🍪", label: "Cookies", desc: "Small files on client PC that store the Session ID." },
+      { icon: "🚪", label: "Logout", desc: "Clearing sessions using session_destroy() and unset()." },
+    ],
+    code: `<?php
+session_start();
+
+// 1. Simulate Login
+$_SESSION['user'] = "Ratha";
+$_SESSION['is_logged_in'] = true;
+
+echo "User " . $_SESSION['user'] . " is now logged in! \n";
+
+// 2. Access in another part of app
+if ($_SESSION['is_logged_in']) {
+    echo "Welcome back to the Dashboard.";
+}
+?>`,
+    output: `User Ratha is now logged in! 
+Welcome back to the Dashboard.`,
+    tip: "អ្នកត្រូវតែហៅ session_start() នៅមុនគេបង្អស់ មុននឹងមានការ echo អ្វីទាំងអស់ បើមិនដូច្នោះទេវានឹងមាន Error!",
+  },
+  {
+    num: "19", chapter: "Sessions & Security", chapterColor: ORANGE,
+    tag: "Protection", tagColor: RED, icon: "🛡️",
+    title: "Security Essentials",
+    subtitle: "XSS · SQL Injection · CSRF Protection",
+    body: `ការសរសេរកូដឱ្យដើរគឺងាយស្រួល ប៉ុន្តែការសរសេរកូដឱ្យមានសុវត្ថិភាពគឺសំខាន់ជាង ។ យើងត្រូវការពារកម្មវិធីពីការវាយប្រហារចម្បងៗដែល Hacker ប្រើប្រាស់ជាប្រចាំ។`,
+    bullets: [
+      { icon: "🧼", label: "XSS Defense", desc: "Cross-Site Scripting. Always use htmlspecialchars() on output." },
+      { icon: "💉", label: "SQL Injection", desc: "Always use Prepared Statements. NEVER concat variables into SQL." },
+      { icon: "🔑", label: "Password Hashing", desc: "Use password_hash() and password_verify(). NEVER store plain text." },
+      { icon: "🚫", label: "Validation", desc: "Double-check inputs on the server side, not just frontend." },
+    ],
+    code: `<?php
+// 1. Secure Password Hashing
+$password = "secret123";
+$hash = password_hash($password, PASSWORD_BCRYPT);
+
+echo "Hashed: " . substr($hash, 0, 30) . "... \n";
+
+// 2. Verify Login
+if (password_verify("secret123", $hash)) {
+    echo "Access Granted!";
+}
+?>`,
+    output: `Hashed: $2y$10$8Kj...
+Access Granted!`,
+    tip: "ចូរចងចាំថា: 'Never trust user input'. ទិន្នន័យដែលមកពីអ្នកប្រើប្រាស់គឺជាប្រភពនៃគ្រោះថ្នាក់បំផុត!",
+  },
+  {
+    num: "20", chapter: "Sessions & Security", chapterColor: ORANGE,
+    tag: "Design Patterns", tagColor: BLUE, icon: "🏢",
+    title: "Intro to MVC Structure",
+    subtitle: "Model · View · Controller · Prep for Laravel",
+    body: `នៅពេលកម្មវិធីរីកធំ យើងមិនអាចសរសេរអ្វីៗគ្រប់យ៉ាងក្នុង File តែមួយបានទេ ។ **MVC** គឺជាការបែងចែកកូដជា ៣ ផ្នែកដើម្បីងាយស្រួលគ្រប់គ្រង និងត្រៀមខ្លួនសម្រាប់រៀន **Laravel Framework**។`,
+    bullets: [
+      { icon: "📊", label: "Model", desc: "Handles Data and Database logic (PDO stuff)." },
+      { icon: "🎮", label: "Controller", desc: "Handles logic and links Model to View." },
+      { icon: "🖼️", label: "View", desc: "Handles HTML and what the user sees." },
+      { icon: "🗺️", label: "Routing", desc: "Deciding which controller to run based on the URL." },
+    ],
+    code: `<?php
+// simplified MVC structure example
+// 1. Model (Data)
+$model = ["title" => "PHP Course", "students" => 150];
+
+// 2. Controller (Logic)
+$pageTitle = strtoupper($model['title']);
+
+// 3. View (Display)
+echo "<h1> $pageTitle </h1>";
+echo "<p> Total Students: " . $model['students'] . "</p>";
+?>`,
+    output: `<h1> PHP COURSE </h1>
+<p> Total Students: 150 </p>`,
+    tip: "Laravel ប្រើប្រាស់ MVC យ៉ាងសុទ្ធសាធ! បើអ្នកយល់ពី MVC ក្នុងមេរៀននេះ អ្នកនឹងរៀន Laravel លឿនជាងគេ ៥០%!",
+  },
+  {
+    num: "20-L", chapter: "Sessions & Security", chapterColor: ORANGE,
+    tag: "Practice", tagColor: GREEN, icon: "🧪",
+    title: "Lab: Secure Auth System",
+    subtitle: "Password Hashing · Session Login · Protection",
+    body: `ក្នុងមន្ទីរពិសោធន៍ចុងក្រោយនេះ យើងនឹងបង្កើត Backend ចម្បងសម្រាប់ប្រព័ន្ធ Login ដែលមានសុវត្ថិភាព ប្រើទាំងការ Hash Password និងការចងចាំ Session។`,
+    bullets: [
+      { icon: "🔐", label: "Registration", desc: "Create a hashed password for a new user." },
+      { icon: "🛡️", label: "Verification", desc: "Check login attempts against the hashed password." },
+      { icon: "🎫", label: "Session Issue", desc: "Set $_SESSION variables upon successful login." },
+      { icon: "🚪", label: "Guard", desc: "Create a mock dashboard that only displays if logged in." },
+    ],
+    lab: {
+      title: "Building a Secure Password Guard",
+      titleKh: "ការបង្កើតប្រព័ន្ធការពារ Password ដែលមានសុវត្ថិភាព",
+      duration: "60 min",
+      objective: "Understand the professional flow of User Authentication.",
+      steps: [
+        "Create a script that hashes a password using password_hash().",
+        "Implement a login check using password_verify().",
+        "If correct, start session and store 'user_id'.",
+        "Create a 'Profile' logic that only echoes if session exists.",
+        "Implement a 'Logout' button logic that clears sessions."
+      ],
+      code: `<?php
+/**
+ * SECURE AUTH LAB
+ */
+session_start();
+
+$stored_hash = password_hash("12345", PASSWORD_DEFAULT);
+
+// 1. Simulate Login Request
+$input_pass = "12345"; 
+
+if (password_verify($input_pass, $stored_hash)) {
+    $_SESSION['auth'] = true;
+    $_SESSION['username'] = "Ratha";
+    echo "Login successful!\n";
 }
 
-// 3. Fetch Results
-$students = $db->query("SELECT * FROM students")->fetchAll(PDO::FETCH_ASSOC);
-?>
+// 2. Guarded Content
+if (isset($_SESSION['auth'])) {
+    echo "Welcome to your Secure Profile, " . $_SESSION['username'];
+} else {
+    echo "Access Denied. Please Login.";
+}
+?>`,
+      output: `Login successful!
+Welcome to your Secure Profile, Ratha`
+    },
+    code: `<?php
+// Security Sandbox: Test your password hashing here
+$p = "mypassword";
+echo "Hash size: " . strlen(password_hash($p, PASSWORD_DEFAULT)) . " chars";
+?>`,
+    output: `Hash size: 60 chars`,
+    tip: "ចូរកុំប្រើ md5() ឬ sha1() សម្រាប់ Password ឱ្យសោះ ព្រោះវាមិនមានសុវត្ថិភាពទៀតទេ! ត្រូវប្រើ password_hash() ជានិច្ច!",
+  },
+  {
+    num: "21", chapter: "Final Projects", chapterColor: BLUE,
+    tag: "Application", tagColor: GREEN, icon: "🎓",
+    title: "Project 01: Auth System",
+    subtitle: "Login · Register · User Sessions",
+    body: `ក្នុង Project នេះ យើងនឹងបញ្ចូលគ្នាបញ្ចូលគ្នានូវគ្រប់ចំណេះដឹងដែលបានរៀន ។ គោលដៅគឺអនុញ្ញាតឱ្យ User បង្កើត Account និង Login ចូលទៅកាន់ Content ដែលត្រូវបានការពារ។`,
+    bullets: [
+      { icon: "📝", label: "Register", desc: "Form that takes user names and passwords, then hashes and stores them." },
+      { icon: "🔑", label: "Login", desc: "Querying the DB and verifying password hashes to start sessions." },
+      { icon: "🛡️", label: "Access Guard", desc: "Checking for active sessions before showing private pages." },
+      { icon: "📤", label: "Logout", desc: "Safely clearing session data and redirecting to public home." },
+    ],
+    explanation: [
+      { title: "User Flow", desc: "Hacker មិនអាចទស្សន៍ទាយ password បានទេ ព្រោះយើងប្រើ password_hash() ។" },
+      { title: "Session Security", desc: "យើងប្រើ session_regenerate_id() ដើម្បីការពារការលួច Session ID ។" },
+      { title: "UX", desc: "បង្ហាញ Error message ឱ្យចំចំណុចនៅពេល User វាយ Password ខុស ។" }
+    ],
+    code: `<?php
+/**
+ * PROJECT: MINI AUTH SERVICE
+ */
+$users = []; // Mock DB
 
-<!-- HTML Interface -->
-<div style="font-family:'Outfit', sans-serif; max-width:400px; margin:0 auto; background:#fff; padding:24px; border-radius:16px; border:1px solid #eee; box-shadow:0 10px 40px rgba(0,0,0,0.04)">
-  <h2 style="margin:0 0 4px; font-size:1.4rem; color:#111">Student Register</h2>
-  <p style="margin:0 0 20px; font-size:0.85rem; color:#888">Add new students to the database</p>
+// 1. Sign Up
+$pass = "password123";
+$users['ratha'] = password_hash($pass, PASSWORD_DEFAULT);
 
-  <!-- Dynamic Message UI -->
-  <style>
-    .alert { padding:12px; border-radius:8px; font-size:13px; font-weight:600; margin-bottom:15px; }
-    .ok { background:#e6fcf5; color:#0ca678; border:1px solid #c3fae8; }
-    .err { background:#fff5f5; color:#fa5252; border:1px solid #ffe3e3; }
-  </style>
-  <?= $msg ?>
-  
-  <form method="POST" style="display:flex; flex-direction:column; gap:12px; margin-bottom:24px">
-    <input name="name"  placeholder="Enter Student Name" style="padding:12px; border:1px solid #eee; background:#f8f9fa; border-radius:8px; font-size:14px; outline:none">
-    <select name="major" style="padding:12px; border:1px solid #eee; background:#f8f9fa; border-radius:8px; font-size:14px; color:#555">
-       <option selected>Computer Science</option>
-       <option>Business Admin</option>
-       <option>Marketing</option>
-    </select>
-    <button style="background:#111; color:#fff; padding:14px; border:none; border-radius:8px; cursor:pointer; font-weight:700; font-size:14px; transition:0.2s">Save student record</button>
-  </form>
+// 2. Login Logic
+$login_user = 'ratha';
+$login_pass = 'password123';
 
-  <h3 style="margin:0 0 12px; font-size:0.8rem; color:#aaa; text-transform:uppercase; letter-spacing:0.1em; font-weight:800">Recent Enrolled</h3>
-  <div style="display:flex; flex-direction:column; gap:8px">
-    <?php foreach($students as $s): ?>
-      <div style="background:#fff; padding:14px; border-radius:10px; border:1px solid #f1f1f1; display:flex; justify-content:space-between; align-items:center; box-shadow:0 2px 5px rgba(0,0,0,0.01)">
-         <span style="font-weight:600; color:#222; font-size:14px"><?= $s['name'] ?></span>
-         <span style="font-size:11px; color:#111; background:#f0f0f0; padding:3px 10px; border-radius:100px; font-weight:700"><?= $s['major'] ?></span>
-      </div>
-    <?php endforeach; ?>
-  </div>
-</div>`,
-    syntax: `// ── SQLite CRUD Syntax ────────────────────
-//
-//  sqlite:db.db       : SQLite DSN (Connection string)
-//  exec("SQL");       : Run direct query (no results)
-//  query("SQL");      : Run select query (has results)
-//  prepare("SQL ?");  : Setup secured query template
-//  fetchAll(PDO::ASSOC): Get results as array
-//
-// ─────────────────────────────────────────`,
-    output: `// Starting PHP Server...
-[Mon Mar 23 10:00:15] PHP 8.3.4 Development Server (http://localhost:8000) started
-[Mon Mar 23 10:00:16] DB INIT: SQLite core connected. file="database.db"
+if (isset($users[$login_user]) && password_verify($login_pass, $users[$login_user])) {
+    echo "Welcome back, $login_user! \n";
+} else {
+    echo "Invalid Credentials.";
+}
+?>`,
+    output: `Welcome back, ratha!`,
+    tip: "ចូរប្រើ password_verify() ព្រោះវាការពារពី 'Timing Attacks' ដែល Hacker អាចប្រើដើម្បីលួច Password!",
+  },
+  {
+    num: "22", chapter: "Final Projects", chapterColor: BLUE,
+    tag: "Data Driven", tagColor: PINK, icon: "📰",
+    title: "Project 02: Simple Blog",
+    subtitle: "CRUD Operations · Database Listing · Content Management",
+    body: `Blog គឺជា Project ដ៏ល្អបំផុតសម្រាប់រៀន CRUD ។ យើងនឹងរៀនពីរបៀបបង្ហាញព័ត៌មានពី Database ទៅកាន់ Screen និងរបៀបបង្កើតព័ត៌មានថ្មីៗ។`,
+    bullets: [
+      { icon: "📜", label: "Read Posts", desc: "SELECT * FROM posts and display them as a list." },
+      { icon: "✍️", label: "Write Posts", desc: "Form that captures Title and Content into the Database." },
+      { icon: "🖼️", label: "Images", desc: "Allow users to upload featured images for their blogs." },
+      { icon: "💬", label: "Comments", desc: "Linking comments to a specific post_id (One-to-Many)." },
+    ],
+    code: `<?php
+// Blog Engine Schema Mock
+$posts = [
+    ["id" => 1, "title" => "PHP 8.3 is great!", "author" => "Ratha"],
+    ["id" => 2, "title" => "Why learn Laravel?", "author" => "Admin"]
+];
 
-// Incoming Traffic:
-[Mon Mar 23 10:01:05] [200] GET /index.php 
-[Mon Mar 23 10:01:12] [200] POST /index.php (Student: Dara was saved)
+echo "<h3> Latest Blogs </h3>";
+foreach ($posts as $p) {
+    echo "- " . $p['title'] . " by " . $p['author'] . "\n";
+}
+?>`,
+    output: `<h3> Latest Blogs </h3>
+- PHP 8.3 is great! by Ratha
+- Why learn Laravel? by Admin`,
+    tip: "ចង់ឱ្យ Blog មានជំនាញ? ត្រូវបន្ថែម Column 'Created_at' ដើម្បីតម្រៀប Blog តាមពេលវេលា!",
+  },
+  {
+    num: "23", chapter: "Final Projects", chapterColor: BLUE,
+    tag: "Commerce", tagColor: ORANGE, icon: "🛒",
+    title: "Project 03: E-Commerce",
+    subtitle: "Product Catalog · Cart Logic · Order Processing",
+    body: `E-Commerce គឺជាកម្មវិធីស្មុគស្មាញបំផុតដែលត្រូវការការគ្រប់គ្រងទិន្នន័យបានល្អបំផុត ។ យើងនឹងផ្តោតលើការបង្ហាញទំនិញ និងការគ្រប់គ្រងចំនួនទំនិញ (Stock)។`,
+    bullets: [
+      { icon: "🛍️", label: "Catalog", desc: "Displaying products with names, prices, and stock counts." },
+      { icon: "🛒", label: "Cart Session", desc: "Using $_SESSION['cart'] to remember items chosen by user." },
+      { icon: "💳", label: "Checkout", desc: "Processing the total cost and saving the order in Database." },
+      { icon: "📊", label: "Admin Panel", desc: "A place for admins to update prices and stock levels." },
+    ],
+    code: `<?php
+// E-commerce logic: Cart Simulator
+session_start();
+$products = [
+    "MacBook" => 1200,
+    "iPhone"  => 800
+];
 
-// Query Trace (SELECT *):
-1. Dara | Computer Science
-2. Ratha | Information Technology
-3. Sophal | Architecture`,
-    workflow: `// ── Local SQLite CRUD Workflow ────────────
-//
-// 1. Initialize: new PDO("sqlite:database.db") (បង្កើត/ភ្ជាប់ DB)
-// 2. Schema: CREATE TABLE runs automatically (រៀបចំ table)
-// 3. Input: Receive Form via $_POST (ទទួលទិន្នន័យពី Form)
-// 4. Write: secure execute() into DB file (រក្សាទុកក្នុង file)
-// 5. Read: Fetch data for HTML list (ទាញយកមកបង្ហាញក្នុងបញ្ជី)
-//
-// ─────────────────────────────────────────`,
-    tip: "SQLite គឺសាកសមបំផុតសម្រាប់គម្រោងខ្នាតតូច ឬការធ្វើ Demo ព្រោះវាមិនត្រូវការតម្លើង Database Server ទេ—គឺប្រើត្រឹមតែ file មួយប៉ុណ្ណោះ!",
+// Add to cart
+$_SESSION['cart'][] = "MacBook";
+$_SESSION['cart'][] = "iPhone";
+
+$total = 0;
+foreach($_SESSION['cart'] as $item) {
+    $total += $products[$item];
+}
+
+echo "Items in Cart: " . count($_SESSION['cart']) . "\n";
+echo "Total Bill: $" . $total;
+?>`,
+    output: `Items in Cart: 2
+Total Bill: $2000`,
+    tip: "ចូរប្រើ Decimal(10,2) សម្រាប់តម្លៃលុយក្នុង Database ដើម្បីភាពត្រឹមត្រូវបំផុត!",
+  },
+  {
+    num: "24", chapter: "Final Projects", chapterColor: BLUE,
+    tag: "Review", tagColor: BLUE, icon: "🎯",
+    title: "Project Roadmap",
+    subtitle: "Choosing your project · Coding Standards · Optimization",
+    body: `យើងបានរៀនបានច្រើនណាស់ហើយ! ជំហានបន្ទាប់គឺការរើស Project មួយដែលអ្នកចូលចិត្តជាងគេ ហើយសរសេរវាឱ្យចប់សព្វគ្រប់។ ចូរប្រកាន់ខ្ជាប់នូវស្តង់ដារកូដល្អៗ។`,
+    bullets: [
+      { icon: "🎯", label: "Focus", desc: "Start small, then add features. Don't try to build Facebook in 1 day." },
+      { icon: "🧹", label: "Refactoring", desc: "Keep your functions small. Don't repeat yourself (DRY)." },
+      { icon: "📂", label: "Structure", desc: "Organize your files: /assets, /inc, /pages, /config." },
+      { icon: "🚀", label: "To Laravel", desc: "Once you master these, you are 100% ready for Laravel!" },
+    ],
+    code: `<?php
+echo "Final Achievement Unlocked: PHP Master Level 1! \n";
+echo "Roadmap to Laravel: GET -> DB -> SESSIONS -> MVC -> SUCCESS!";
+?>`,
+    output: `Final Achievement Unlocked: PHP Master Level 1! 
+Roadmap to Laravel: GET -> DB -> SESSIONS -> MVC -> SUCCESS!`,
+    tip: "កុំឈប់ត្រឹមនេះ! ចូរចាប់ផ្តើមជាមួយ Laravel ដើម្បីបង្កើត Project ឱ្យបានលឿន និងមានសុវត្ថិភាពខ្ពស់!",
   },
 ];
 
-// ── CHAPTER GROUPS for TOC ────────────────────────────────────
+
+
 const CHAPTERS: ChapterData[] = [
-  { name: "Foundations", color: BLUE, nums: ["01", "02", "03", "04"], icon: "🧱" },
-  { name: "Operators & Flow", color: ORANGE, nums: ["05", "06", "07", "08"], icon: "⚙️" },
-  { name: "Functions & Arrays", color: PINK, nums: ["09", "10"], icon: "📦" },
-  { name: "OOP", color: PURPLE, nums: ["11", "12", "13", "14"], icon: "🏛️" },
-  { name: "Web & Database", color: TEAL, nums: ["15", "16", "17", "18", "19"], icon: "🌐" },
+  { name: "Foundations", color: BLUE, nums: ["01", "02", "03", "04", "04-L"], icon: "🧱" },
+  { name: "Operators & Flow", color: ORANGE, nums: ["05", "06", "07", "08", "08-L"], icon: "⚙️" },
+  { name: "Functions & Arrays", color: PINK, nums: ["09", "10", "11"], icon: "📦" },
+  { name: "Web & Forms", color: TEAL, nums: ["12", "13", "14", "14-L"], icon: "🌐" },
+  { name: "Database & CRUD", color: PURPLE, nums: ["15", "16", "17", "17-L"], icon: "💾" },
+  { name: "Sessions & Security", color: ORANGE, nums: ["18", "19", "20", "20-L"], icon: "🔒" },
+  { name: "Final Projects", color: BLUE, nums: ["21", "22", "23", "24"], icon: "🎯" },
 ];
 
 // ── SYNTAX HIGHLIGHTER ────────────────────────────────────────
@@ -1595,25 +1717,70 @@ function simulatePHP(code: string, isPost: boolean = false, stripHtml: boolean =
   return buffer || "(no output)";
 }
 
+// ── LAB VIEW ──────────────────────────────────────────────────
+function LabView({ lab, accent, theme }: { lab: Lab, accent: string, theme: 'dark' | 'light' }) {
+  const [done, setDone] = useState<Record<number, boolean>>({});
+  
+  return (
+    <div style={{ height: '100%', display: 'flex', flexDirection: 'column', gap: 20 }}>
+      <div>
+        <div style={{ fontFamily: 'Space Mono,monospace', fontSize: 10, color: accent, letterSpacing: '0.14em', marginBottom: 8 }}>LAB EXERCISE · {lab.duration}</div>
+        <h2 style={{ fontFamily: 'DM Serif Display,serif', fontSize: 26, color: 'var(--ink)', marginBottom: 6 }}>{lab.title}</h2>
+        <div style={{ fontSize: 13, color: 'var(--ink)', lineHeight: 1.6, fontFamily: "'Noto Sans Khmer', sans-serif" }}>{lab.titleKh}</div>
+      </div>
+
+      <div style={{ padding: '16px', background: 'var(--bg)', borderRadius: 10, border: '1px solid var(--border)' }}>
+         <div style={{ fontSize: 10, fontWeight: 700, color: accent, marginBottom: 8, fontFamily: 'Space Mono,monospace', letterSpacing: '0.05em' }}>OBJECTIVE</div>
+         <div style={{ fontSize: 12, color: 'var(--ink)', lineHeight: 1.6, fontFamily: "'Noto Sans Khmer', sans-serif" }}>{lab.objective}</div>
+      </div>
+
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+        <div style={{ fontSize: 9, fontWeight: 700, color: 'var(--ink)', marginBottom: 4, fontFamily: 'Space Mono,monospace' }}>STEPS TO COMPLETE:</div>
+        {lab.steps.map((step, i) => (
+          <div key={i} onClick={() => setDone(d => ({...d, [i]: !d[i]}))}
+            style={{ display: 'flex', gap: 12, padding: '12px', background: done[i] ? accent + '10' : 'transparent', border: `1px solid ${done[i] ? accent + '40' : 'var(--border)'}`, borderRadius: 8, cursor: 'pointer', transition: 'all 0.2s' }}>
+            <div style={{ width: 22, height: 22, borderRadius: 5, background: done[i] ? accent : 'var(--border)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: done[i] ? '#000' : 'var(--ink)', fontSize: 10, fontWeight: 800, flexShrink: 0 }}>
+              {done[i] ? '✓' : i + 1}
+            </div>
+            <div style={{ fontSize: 12.5, color: done[i] ? 'var(--ink)' : 'var(--ink)', textDecoration: done[i] ? 'line-through' : 'none', lineHeight: 1.5, fontFamily: "'Noto Sans Khmer', sans-serif" }}>
+              {step}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 // ── CODE PANEL ────────────────────────────────────────────────
-function CodePanel({ code: initialCode, output, syntax, workflow, showPreview, accent, theme }: { 
+function CodePanel({ code: initialCode, output, syntax, workflow, explanation, lab, showPreview, accent, theme }: { 
   code: string, 
   output: string | null, 
   syntax?: string | null, 
   workflow?: string | null, 
+  explanation?: ExplanationStep[] | null,
+  lab?: Lab | null,
   showPreview?: boolean,
   accent: string, 
   theme: 'dark' | 'light' 
 }) {
-  const [tab, setTab] = useState('code');
+  const [tab, setTab] = useState(lab ? 'lab' : 'code');
   const [code, setCode] = useState(initialCode);
   const [isEditing, setIsEditing] = useState(false);
   const [copied, setCopied] = useState(false);
   const [isRunning, setIsRunning] = useState(false);
   const [mockPost, setMockPost] = useState(false);
+  const [expStep, setExpStep] = useState(0);
 
   // Sync state when slide changes
-  useEffect(() => { setCode(initialCode); setIsEditing(false); setMockPost(false); }, [initialCode]);
+  useEffect(() => { 
+    setCode(initialCode); 
+    setIsEditing(false); 
+    setMockPost(false); 
+    setExpStep(0);
+    if (lab) setTab('lab');
+    else setTab('code');
+  }, [initialCode, lab]);
 
   useEffect(() => {
     if (tab === 'preview') {
@@ -1634,7 +1801,10 @@ function CodePanel({ code: initialCode, output, syntax, workflow, showPreview, a
   }, [tab, code, mockPost]);
 
   const copy = () => {
-    const textToCopy = tab === 'code' ? code : tab === 'syntax' ? (syntax || '') : tab === 'workflow' ? (workflow || '') : (output || '');
+    const textToCopy = tab === 'code' ? code : 
+                        tab === 'lab' ? (lab?.code || '') :
+                        tab === 'syntax' ? (syntax || '') : 
+                        tab === 'workflow' ? (workflow || '') : (output || '');
     navigator.clipboard.writeText(textToCopy);
     setCopied(true); setTimeout(() => setCopied(false), 1800);
   };
@@ -1671,15 +1841,28 @@ function CodePanel({ code: initialCode, output, syntax, workflow, showPreview, a
         </div>
 
         <div style={{ display: 'flex', background: '#000', borderRadius: 8, padding: 2, gap: 1, border: '1px solid var(--border)' }}>
-          {[['code', 'PHP'], ['syntax', 'SYNTAX'], ['workflow', 'WORKFLOW'], ['preview', 'PREVIEW'], ['output', 'OUTPUT']].map(([v, lbl]) => (
-            ((v === 'code' || v === 'output') || (v === 'syntax' && syntax) || (v === 'workflow' && workflow) || (v === 'preview' && showPreview)) && (
+          {[
+            ['code', 'PHP'], 
+            ['lab', 'LAB'],
+            ['explain', 'EXPLAIN'], 
+            ['syntax', 'SYNTAX'], 
+            ['workflow', 'WORKFLOW'], 
+            ['preview', 'PREVIEW'], 
+            ['output', 'OUTPUT']
+          ].map(([v, lbl]) => (
+            ((v === 'code' || v === 'output') || 
+             (v === 'syntax' && syntax) || 
+             (v === 'workflow' && workflow) || 
+             (v === 'explain' && explanation) ||
+             (v === 'lab' && lab) ||
+             (v === 'preview' && showPreview)) && (
               <button
                 key={v}
                 onClick={() => setTab(v)}
                 style={{
                   padding: '5px 12px', borderRadius: 6, border: 'none',
                   background: tab === v ? (theme === 'dark' ? '#222' : '#eee') : 'transparent',
-                  color: tab === v ? accent : 'var(--dim)',
+                  color: tab === v ? accent : 'var(--ink)',
                   fontSize: 9, fontWeight: 800, fontFamily: 'Space Mono,monospace',
                   transition: 'all 0.15s'
                 }}
@@ -1693,11 +1876,11 @@ function CodePanel({ code: initialCode, output, syntax, workflow, showPreview, a
         <div style={{ display: 'flex', gap: 14, alignItems: 'center' }}>
           <button
             onClick={() => setIsEditing(!isEditing)}
-            style={{ background: 'none', border: 'none', color: isEditing ? ACCENT : 'var(--dim)', fontSize: 10, fontWeight: 700, fontFamily: 'Space Mono,monospace' }}
+            style={{ background: 'none', border: 'none', color: isEditing ? ACCENT : 'var(--ink)', fontSize: 10, fontWeight: 700, fontFamily: 'Space Mono,monospace' }}
           >
             {isEditing ? '✓ SAVED' : 'EDIT'}
           </button>
-          <button onClick={copy} style={{ background: 'none', border: 'none', color: copied ? GREEN : 'var(--dim)', fontSize: 10, fontWeight: 700, fontFamily: 'Space Mono,monospace' }}>
+          <button onClick={copy} style={{ background: 'none', border: 'none', color: copied ? GREEN : 'var(--ink)', fontSize: 10, fontWeight: 700, fontFamily: 'Space Mono,monospace' }}>
             {copied ? '✓ COPIED' : 'COPY'}
           </button>
         </div>
@@ -1740,6 +1923,52 @@ function CodePanel({ code: initialCode, output, syntax, workflow, showPreview, a
               />
               : <pre style={{ margin: 0, fontFamily: 'Space Mono,monospace', fontSize: 12.5, lineHeight: 1.75 }}>{hl(code)}</pre>
             )
+            : tab === 'lab' && lab
+              ? <LabView lab={lab} accent={accent} theme={theme} />
+            : tab === 'explain' && explanation
+              ? <div style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+                  <div style={{ flex: 1, position: 'relative', overflow: 'hidden' }}>
+                    <AnimatePresence mode="wait">
+                      <motion.div
+                        key={expStep}
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -10 }}
+                        transition={{ duration: 0.3 }}
+                        style={{ height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', textAlign: 'center', padding: '0 20px' }}
+                      >
+                        <div style={{ fontSize: 10, color: accent, fontFamily: 'Space Mono,monospace', textTransform: 'uppercase', letterSpacing: '0.2em', marginBottom: 12 }}>Stage {expStep + 1} of {explanation.length}</div>
+                        <h2 style={{ fontFamily: 'DM Serif Display,serif', fontSize: 28, color: 'var(--ink)', marginBottom: 16 }}>{explanation[expStep].title}</h2>
+                        <p style={{ fontSize: 14, lineHeight: 1.8, color: 'var(--ink)', maxWidth: 450, fontFamily: "'Noto Sans Khmer', sans-serif" }}>{explanation[expStep].desc}</p>
+                        
+                        {/* Visual Animation Placeholder */}
+                        <div style={{ marginTop: 30, width: '100%', display: 'flex', justifyContent: 'center' }}>
+                           <div style={{ width: 60, height: 60, borderRadius: '50%', background: accent + '20', border: `2px solid ${accent}`, display: 'flex', alignItems: 'center', justifyContent: 'center', animation: 'pulse 2s infinite' }}>
+                             <span style={{ fontSize: 24 }}>{expStep === explanation.length - 1 ? '✅' : '⚙️'}</span>
+                           </div>
+                        </div>
+                      </motion.div>
+                    </AnimatePresence>
+                  </div>
+                  
+                  {/* Controls */}
+                  <div style={{ padding: '20px 0', borderTop: '1px solid var(--border)', display: 'flex', justifyContent: 'center', gap: 15 }}>
+                    <button 
+                      onClick={() => setExpStep(Math.max(0, expStep - 1))}
+                      disabled={expStep === 0}
+                      style={{ padding: '8px 16px', borderRadius: 8, border: '1px solid var(--border)', background: 'none', color: expStep === 0 ? '#333' : 'var(--ink)', fontSize: 10, fontFamily: 'Space Mono,monospace', fontWeight: 700 }}
+                    >
+                      ← PREV
+                    </button>
+                    <button 
+                      onClick={() => setExpStep(Math.min(explanation.length - 1, expStep + 1))}
+                      disabled={expStep === explanation.length - 1}
+                      style={{ padding: '8px 16px', borderRadius: 8, border: 'none', background: expStep === explanation.length - 1 ? 'var(--border)' : accent, color: '#000', fontSize: 10, fontFamily: 'Space Mono,monospace', fontWeight: 700 }}
+                    >
+                      {expStep === explanation.length - 1 ? 'COMPLETED' : 'NEXT STEP →'}
+                    </button>
+                  </div>
+                </div>
             : tab === 'syntax'
               ? <pre style={{ margin: 0, fontFamily: 'Space Mono,monospace', fontSize: 12.5, lineHeight: 1.75, color: accent, whiteSpace: 'pre-wrap' }}>{syntax}</pre>
             : tab === 'workflow'
@@ -1777,7 +2006,7 @@ function CodePanel({ code: initialCode, output, syntax, workflow, showPreview, a
                 {code !== initialCode && (
                   <button
                     onClick={() => setCode(initialCode)}
-                    style={{ marginTop: 20, background: 'none', border: `1px solid #333`, color: '#666', fontSize: 9, padding: '4px 10px', borderRadius: 4, fontFamily: 'Space Mono,monospace' }}
+                    style={{ marginTop: 20, background: 'none', border: `1px solid #333`, color: 'var(--ink)', fontSize: 9, padding: '4px 10px', borderRadius: 4, fontFamily: 'Space Mono,monospace' }}
                   >
                     RESET CODE TO ORIGINAL
                   </button>
@@ -1797,7 +2026,7 @@ function BulletCard({ bullet, accent }: { bullet: Bullet, accent: string }) {
       <div style={{ width: 30, height: 30, borderRadius: 7, flexShrink: 0, background: accent + '15', border: `1px solid ${accent}25`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 13, fontFamily: 'Space Mono,monospace', color: accent, fontWeight: 700 }}>{bullet.icon}</div>
       <div>
         <div style={{ fontFamily: 'Space Mono,monospace', fontSize: 11, color: accent, fontWeight: 700, marginBottom: 2 }}>{bullet.label}</div>
-        <div style={{ fontSize: 12, color: 'var(--dim)', lineHeight: 1.5 }}>{bullet.desc}</div>
+        <div style={{ fontSize: 12, color: 'var(--ink)', lineHeight: 1.5 }}>{bullet.desc}</div>
       </div>
     </div>
   );
@@ -1850,7 +2079,7 @@ function Slide({ slide, current, total, onNext, onPrev, theme, toggleTheme }: {
               <div key={i} style={{ width: i === current ? 16 : 4, height: 4, borderRadius: 3, background: i === current ? accent : i < current ? accent + '40' : (theme === 'dark' ? '#1e1e1e' : '#e0e0e0'), transition: 'all 0.3s' }} />
             ))}
           </div>
-          <span style={{ fontFamily: 'Space Mono,monospace', fontSize: 10, color: 'var(--dim)' }}>{slide.num}/{String(total).padStart(2, '0')}</span>
+          <span style={{ fontFamily: 'Space Mono,monospace', fontSize: 10, color: 'var(--ink)' }}>{slide.num}/{String(total).padStart(2, '0')}</span>
         </div>
       </div>
 
@@ -1860,9 +2089,9 @@ function Slide({ slide, current, total, onNext, onPrev, theme, toggleTheme }: {
         <div style={{ width: '38%', minWidth: 290, padding: '22px 22px 14px', overflowY: 'auto', borderRight: '1px solid var(--border)', display: 'flex', flexDirection: 'column', gap: 16 }}>
           <div>
             <h1 style={{ fontFamily: 'DM Serif Display,serif', fontSize: 32, fontWeight: 400, color: 'var(--ink)', lineHeight: 1.1, margin: '0 0 5px' }}>{slide.title}</h1>
-            <p style={{ fontFamily: 'Space Mono,monospace', fontSize: 9.5, color: 'var(--dim)', margin: 0 }}>{slide.subtitle}</p>
+            <p style={{ fontFamily: 'Space Mono,monospace', fontSize: 9.5, color: 'var(--ink)', margin: 0 }}>{slide.subtitle}</p>
           </div>
-          <p style={{ fontSize: 13, lineHeight: 1.75, color: theme === 'dark' ? '#bbb' : '#444', fontFamily: "'Noto Sans Khmer',sans-serif", margin: 0 }}>
+          <p style={{ fontSize: 13, lineHeight: 1.75, color: theme === 'dark' ? 'var(--ink)' : '#444', fontFamily: "'Noto Sans Khmer',sans-serif", margin: 0 }}>
             {rb(slide.body)}
           </p>
           <div style={{ display: 'grid', gridTemplateColumns: slide.bullets.length > 4 ? '1fr 1fr' : '1fr', gap: 6 }}>
@@ -1883,13 +2112,15 @@ function Slide({ slide, current, total, onNext, onPrev, theme, toggleTheme }: {
                 output={slide.output} 
                 syntax={slide.syntax} 
                 workflow={slide.workflow} 
+                explanation={slide.explanation}
+                lab={slide.lab}
                 showPreview={slide.title === "Your First PHP Code" || slide.chapter === "Web & Database" || slide.num === "15"}
                 accent={accent} 
                 theme={theme} 
               />
             : slide.concept
               ? <div style={{ flex: 1, background: 'var(--header-bg)', border: '1px solid var(--border)', borderRadius: 14, padding: '36px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <pre style={{ fontFamily: 'Space Mono,monospace', fontSize: 13, lineHeight: 2.2, color: theme === 'dark' ? '#3a5a3a' : '#226b22', textAlign: 'left', whiteSpace: 'pre', margin: 0 }}>{slide.concept}</pre>
+                <pre style={{ fontFamily: 'Space Mono,monospace', fontSize: 13, lineHeight: 2.2, color: 'var(--ink)', textAlign: 'left', whiteSpace: 'pre', margin: 0 }}>{slide.concept}</pre>
               </div>
               : null
           }
@@ -1897,7 +2128,7 @@ function Slide({ slide, current, total, onNext, onPrev, theme, toggleTheme }: {
       </div>
 
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '11px 22px', borderTop: `1px solid var(--border)`, flexShrink: 0, background: 'var(--bg)' }}>
-        <button onClick={onPrev} disabled={current === 0} style={{ padding: '8px 16px', borderRadius: 7, border: `1px solid var(--border)`, background: current === 0 ? 'transparent' : 'var(--card)', color: current === 0 ? 'var(--border)' : 'var(--dim)', fontFamily: 'Space Mono,monospace', fontSize: 10 }}>← PREV</button>
+        <button onClick={onPrev} disabled={current === 0} style={{ padding: '8px 16px', borderRadius: 7, border: `1px solid var(--border)`, background: current === 0 ? 'transparent' : 'var(--card)', color: current === 0 ? 'var(--border)' : 'var(--ink)', fontFamily: 'Space Mono,monospace', fontSize: 10 }}>← PREV</button>
         <span style={{ fontFamily: 'Space Mono,monospace', fontSize: 9, color: 'var(--border)' }}>← → arrow keys · Esc = menu</span>
         <button onClick={onNext} style={{ padding: '8px 20px', borderRadius: 7, border: 'none', background: accent, color: '#000', fontFamily: 'Space Mono,monospace', fontSize: 10, fontWeight: 700 }}>
           {current === total - 1 ? 'RESTART ↺' : 'NEXT →'}
@@ -1928,12 +2159,12 @@ function TOC({ onStart, onGoTo, theme, toggleTheme }: { onStart: () => void, onG
           <Monitor size={14} />
           {theme === 'dark' ? 'PROJECTOR MODE' : 'DARK MODE'}
         </button>
-        <div style={{ fontFamily: 'Space Mono,monospace', fontSize: 10, color: ACCENT, letterSpacing: '0.2em', marginBottom: 12, textTransform: 'uppercase' }}>University Course · 19 Lessons</div>
+        <div style={{ fontFamily: 'Space Mono,monospace', fontSize: 10, color: ACCENT, letterSpacing: '0.2em', marginBottom: 12, textTransform: 'uppercase' }}>University Course · 10 Lessons</div>
         <h1 style={{ fontFamily: 'DM Serif Display,serif', fontSize: 52, fontWeight: 400, color: 'var(--ink)', lineHeight: 1.05, margin: '0 0 12px' }}>
-          PHP<br /><em style={{ color: ACCENT }}>Programming</em>
+          PHP<br /><em style={{ color: ACCENT }}>Basics</em>
         </h1>
-        <p style={{ fontFamily: 'Space Mono,monospace', fontSize: 10, color: 'var(--dim)', maxWidth: 400, lineHeight: 1.8 }}>
-          Step-by-step: Foundations → Operators → Functions → Arrays → OOP → Web → Database
+        <p style={{ fontFamily: 'Space Mono,monospace', fontSize: 10, color: 'var(--ink)', maxWidth: 400, lineHeight: 1.8 }}>
+          Foundations → Operators → Logic → Functions → Arrays
         </p>
       </div>
 
@@ -1963,7 +2194,7 @@ function TOC({ onStart, onGoTo, theme, toggleTheme }: { onStart: () => void, onG
                     </div>
                     <div>
                       <div style={{ fontSize: 11, fontWeight: 700, color: 'var(--ink)', fontFamily: 'Space Mono,monospace', lineHeight: 1.2 }}>{s.title}</div>
-                      <div style={{ fontSize: 9, color: 'var(--dim)', marginTop: 2 }}>{s.tag}</div>
+                      <div style={{ fontSize: 9, color: 'var(--ink)', marginTop: 2 }}>{s.tag}</div>
                     </div>
                   </button>
                 );

@@ -103,7 +103,7 @@ const SECTIONS: GitSection[] = [
     title:'What is Git?',
     khmer:'Git ជាអ្វី?',
     subtitle:'Version Control System',
-    desc:'Git = Version Control System ─ ប្រព័ន្ធ track ការផ្លាស់ប្តូរ code ─ Save history ─ undo mistakes ─ collaborate with teams ─ industry standard tool used worldwide',
+    desc:'Git = Version Control System\n ─ ប្រព័ន្ធ track ការផ្លាស់ប្តូរ code  \n─ Save history \n─ undo mistakes \n─ collaborate with teams \n─ industry standard tool used worldwide',
     concept:{
       without:[
         'project-final.zip',
