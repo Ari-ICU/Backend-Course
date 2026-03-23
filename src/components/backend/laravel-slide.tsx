@@ -447,185 +447,269 @@ Created: database/migrations/2026_01_01_create_products_table.php`,
     project: null,
   },
   {
-    id: "m02b", num: "02B", section: "Section 2 (cont.)", hours: "1.5h",
+    id: "m02a", num: "02a", section: "Section 2 (cont.)", hours: "1.5h",
     title: "Docker Fundamentals for Backend",
     titleKh: "មូលដ្ឋានគ្រឹះ Docker សម្រាប់ Backend",
-    goal: "Set up a professional Docker environment and understand containerization basics",
-    goalKh: "តំឡើង Docker Environment និងយល់ពីមូលដ្ឋានគ្រឹះនៃ Containerization",
+    goal: "Understand container basics and run your first Docker environment",
+    goalKh: "យល់ដឹងពីមូលដ្ឋាន Container និងដំណើរការ Docker ជាលើកដំបូង",
     color: "#4d9fff",
     badge: "DEVOPS",
+
     topics: [
       {
-        en: "Docker Desktop Setup",
-        kh: "ការតំឡើង Docker Desktop",
-        answerEn: "Installing the Docker engine to run containerized applications on Mac/Windows.",
-        answerKh: "ការតំឡើង Docker Engine ដើម្បីដំណើរការកម្មវិធីក្នុង Container លើ Mac ឬ Windows។"
+        en: "Docker Setup",
+        kh: "ការតំឡើង Docker",
+        answerEn: "Install Docker Desktop to run containers on your machine.",
+        answerKh: "ដំឡើង Docker Desktop ដើម្បីដំណើរការ Container លើកុំព្យូទ័រ។"
       },
       {
         en: "Images vs Containers",
-        kh: "Images ធៀបនឹង Containers",
-        answerEn: "Images are blueprints (Classes); Containers are running instances (Objects).",
-        answerKh: "Images គឺជាប្លង់មេ (Classes); Containers គឺជា Instance ដែលកំពុងដំណើរការ (Objects)។"
+        kh: "Images និង Containers",
+        answerEn: "Image = template, Container = running app.",
+        answerKh: "Image = ប្លង់មេ, Container = កម្មវិធីកំពុងដំណើរការ។"
       },
       {
-        en: "VirtioFS for Performance",
-        kh: "VirtioFS ដើម្បីបង្កើនល្បឿន",
-        answerEn: "A modern file system that makes Docker file access up to 5 times faster.",
-        answerKh: "ប្រព័ន្ធ File ទំនើបដែលធ្វើឱ្យការប្រើប្រាស់ File ក្នុង Docker លឿនជាងមុនដល់ទៅ ៥ ដង។"
-      },
-      {
-        en: "Docker Dashboard Monitoring",
-        kh: "ការគ្រប់គ្រងតាម Docker Dashboard",
-        answerEn: "A GUI to manage containers, view logs, and monitor resource usage easily.",
-        answerKh: "GUI សម្រាប់គ្រប់គ្រង Containers, មើល Logs និងពិនិត្យការប្រើប្រាស់ Resource។"
-      },
+        en: "Why Docker?",
+        kh: "ហេតុអ្វីប្រើ Docker?",
+        answerEn: "Same environment everywhere, no conflict.",
+        answerKh: "Environment ដូចគ្នា គ្មានបញ្ហា version conflict។"
+      }
     ],
+
     lab: {
-      title: "Preparing the Docker Engine",
-      titleKh: "ការរៀបចំ Docker Engine",
+      title: "Run Your First Container",
+      titleKh: "ដំណើរការ Container ដំបូង",
       duration: "45 min",
-      objective: "Install Docker and run your first generic container to verify setup",
+      objective: "Verify Docker works and understand container lifecycle",
+
       steps: [
-        "Download and install Docker Desktop (macOS/Windows)",
-        "Enable 'VirtioFS' in Settings -> General for 5x faster file access",
-        "Allocate at least 4GB RAM and 4 CPUs to Docker",
-        "Open terminal and run: docker --version",
-        "Pull and run a test: docker run hello-world",
-        "Inspect the running container in the Docker Desktop UI",
+        "Install Docker Desktop",
+        "Run: docker --version",
+        "Run: docker pull hello-world",
+        "Run: docker run hello-world",
+        "Check containers: docker ps -a",
+        "Open Docker Dashboard to view container"
       ],
-      code: `// ── 1. Check if Docker is healthy ──────────────
-docker --version
-docker info  // Detailed system information
 
-// ── 2. Run your first container (The 'Class' → 'Object' flow) ──
-docker pull hello-world    // Download the image (The Class)
-docker run hello-world     // Create a container (The Object)
-
-// ── 3. Essential Docker CLI ────────────────────
-docker ps       // List running containers
-docker ps -a    // List ALL containers (including stopped)
-docker images   // List downloaded images
-docker stop [id] // Stop a container
-docker rm [id]   // Delete a container record`,
-      output: `docker --version
-Docker version 27.2.0, build 3f42231
-
+      code: `docker --version
+docker pull hello-world
 docker run hello-world
-Hello from Docker!
-This message shows that your installation appears to be working correctly.`,
+
+docker ps -a
+docker images`,
+
+      output: `Hello from Docker!
+This shows Docker is working correctly.`
     },
+
     concepts: [
-      { term: "Docker Image", def: "A read-only template that contains the instructions for creating a Docker container. Think of it as a 'snapshot' of a tiny OS with PHP installed." },
-      { term: "Docker Container", def: "A runnable instance of an image. You can have 10 containers running from the same 1 image simultaneously." },
-      { term: "VirtioFS", def: "A modern file system for Docker Desktop on macOS that drastically speeds up the communication between your code folder and the container." },
+      { term: "Image", def: "Template សម្រាប់បង្កើត Container" },
+      { term: "Container", def: "កម្មវិធីកំពុងដំណើរការ នៅក្នុង Docker" }
     ],
-    tip: "Docker consumes a lot of power. Always quit Docker Desktop when you are finished developing to save your battery life and free up your RAM.",
-    project: null,
+
+    tip: "Docker = run app without installing PHP/MySQL directly on your machine.",
+    project: null
+  },
+  {
+    id: "m02b", num: "02b", section: "Section 2 (cont.)", hours: "1.5h",
+    title: "XAMPP Setup",
+    titleKh: "ការតំឡើង XAMPP",
+    goal: "Setup traditional local environment with XAMPP",
+    goalKh: "ដំឡើង Environment Local បែបប្រពៃណីជាមួយ XAMPP",
+    color: "#fbbf24",
+    badge: "SETUP",
+
+    topics: [
+      {
+        en: "What is XAMPP?",
+        kh: "តើ XAMPP ជាអ្វី?",
+        answerEn: "Apache, MariaDB, PHP and Perl distribution in one package.",
+        answerKh: "កញ្ចប់កម្មវិធីរួមមាន Apache, MariaDB, PHP និង Perl។"
+      },
+      {
+        en: "Control Panel",
+        kh: "ផ្ទាំងបញ្ជា",
+        answerEn: "Start/Stop Apache (Web Server) and MySQL (Database).",
+        answerKh: "បញ្ជាបើក/បិទ Apache និង MySQL។"
+      },
+      {
+        en: "htdocs folder",
+        kh: "ថត htdocs",
+        answerEn: "The place where you put your PHP project files.",
+        answerKh: "ទីតាំងសម្រាប់ដាក់ឯកសារ Project PHP។"
+      }
+    ],
+
+    lab: {
+      title: "Run PHP with XAMPP",
+      titleKh: "ដំណើរការ PHP ជាមួយ XAMPP",
+      duration: "45 min",
+      objective: "Verify XAMPP is working and understand htdocs",
+
+      steps: [
+        "Download and install XAMPP from apachefriends.org",
+        "Open XAMPP Control Panel",
+        "Start Apache and MySQL services",
+        "Navigate to htdocs folder in XAMPP directory",
+        "Create index.php with basic echo",
+        "Visit: http://localhost"
+      ],
+
+      code: `<?php\necho "Hello from XAMPP!";\nphpinfo();`,
+
+      output: `Hello from XAMPP!\nPHP Version ...`
+    },
+
+    concepts: [
+      { term: "Local Server", def: "កុំព្យូទ័ររបស់អ្នកដើរតួជា Server សម្រាប់ផ្ទុក Website" },
+      { term: "htdocs", def: "ថតលំនាំដើមសម្រាប់ដាក់ Project PHP ក្នុង XAMPP" },
+      { term: "Services", def: "កម្មវិធីដែលដំណើរការនៅ Background (Apache, MySQL)" }
+    ],
+
+    tip: "XAMPP ងាយស្រួលសម្រាប់ចាប់ផ្តើមដំបូង ប៉ុន្តែវាអាចមានបញ្ហា version conflict ពេលមាន project ច្រើន។",
+    project: null
+  },
+  {
+    id: "m02c", num: "02C", section: "Section 2 (cont.)", hours: "1h",
+    title: "Docker vs XAMPP",
+    titleKh: "Docker ប្រៀបធៀប XAMPP",
+    goal: "Clearly understand the difference between local server and containers",
+    goalKh: "យល់ច្បាស់ពីភាពខុសគ្នារវាង Server Local និង Container",
+    color: "#22c55e",
+    badge: "COMPARISON",
+
+    topics: [
+      {
+        en: "XAMPP",
+        kh: "XAMPP",
+        answerEn: "Runs PHP & MySQL directly on your OS.",
+        answerKh: "ដំណើរការ PHP និង MySQL លើ OS ផ្ទាល់។"
+      },
+      {
+        en: "Docker",
+        kh: "Docker",
+        answerEn: "Runs apps inside isolated containers.",
+        answerKh: "ដំណើរការកម្មវិធីក្នុង Container ដាច់ដោយឡែក។"
+      },
+      {
+        en: "Main Difference",
+        kh: "ភាពខុសគ្នាសំខាន់",
+        answerEn: "XAMPP = shared system, Docker = isolated per project.",
+        answerKh: "XAMPP = ប្រើរួម, Docker = ដាច់ដោយឡែក។"
+      }
+    ],
+
+    lab: {
+      title: "XAMPP vs Docker Demo",
+      titleKh: "សាកល្បង XAMPP និង Docker",
+      duration: "60 min",
+      objective: "Run Laravel in both environments and compare",
+
+      steps: [
+        "Create Laravel project (XAMPP)",
+        "Run: php artisan serve",
+        "Open: http://127.0.0.1:8000",
+
+        "Install Sail in same project",
+        "Run: php artisan sail:install",
+        "Run: ./vendor/bin/sail up -d",
+        "Open: http://localhost",
+
+        "Compare results"
+      ],
+
+      code: `# XAMPP
+php artisan serve
+
+# Docker
+composer require laravel/sail --dev
+php artisan sail:install
+
+cp .env.example .env
+php artisan key:generate
+
+./vendor/bin/sail up -d`,
+
+      output: `XAMPP → http://127.0.0.1:8000
+Docker → http://localhost`
+    },
+
+    concepts: [
+      { term: "XAMPP", def: "Server ដំណើរការលើម៉ាស៊ីនផ្ទាល់" },
+      { term: "Docker", def: "Container ដាច់ដោយឡែកសម្រាប់ Project" },
+      { term: "Isolation", def: "Project មួយមិនប៉ះពាល់មួយទៀត" }
+    ],
+
+    tip: "XAMPP សម្រាប់រៀន → Docker សម្រាប់ការងារពិត",
+    project: null
   },
   {
     id: "m03", num: "03", section: "Section 3", hours: "1.5h",
     title: "Docker & Laravel Sail",
-    titleKh: "Docker & Laravel Sail",
-    goal: "Run a consistent development environment with Docker — never 'works on my machine' again",
-    goalKh: "ដំណើរការ Dev Environment ដូចគ្នាលើ Computer ទាំងអស់ដោយ Docker",
+    titleKh: "Docker និង Laravel Sail",
+    goal: "Run Laravel using Docker like real-world projects",
+    goalKh: "ដំណើរការ Laravel ជាមួយ Docker ដូចការងារពិត",
     color: "#4d9fff",
     badge: "DEVOPS",
+
     topics: [
       {
-        en: "Docker Philosophy",
-        kh: "ទស្សនវិជ្ជា Docker",
-        answerEn: "Isolated containers ensure a consistent environment across all developer machines.",
-        answerKh: "ការប្រើ Container ធានាថា Environment ដំណើរការដូចគ្នាលើគ្រប់កុំព្យូទ័រទាំងអស់។"
+        en: "Laravel Sail",
+        kh: "Laravel Sail",
+        answerEn: "Simple way to use Docker in Laravel.",
+        answerKh: "វិធីងាយស្រួលប្រើ Docker ក្នុង Laravel។"
       },
       {
-        en: "Laravel Sail Overview",
-        kh: "ទិដ្ឋភាពទូទៅនៃ Laravel Sail",
-        answerEn: "A light-weight CLI for interacting with Laravel's default Docker configuration.",
-        answerKh: "ឧបករណ៍ CLI សម្រាប់ប្រើប្រាស់ Docker ក្នុង Laravel ដោយមិនចាំបាច់កំណត់ច្រើន។"
-      },
-      {
-        en: "Multi-service Stack",
-        kh: "Multi-service Stack",
-        answerEn: "Running multiple services like PHP, MySQL, Redis, and Mailpit in harmony.",
-        answerKh: "ដំណើរការ Service ច្រើនក្នុងពេលតែមួយដូចជា PHP, MySQL, Redis និង Mailpit។"
-      },
-      {
-        en: "Artisan & Composer in Sail",
-        kh: "Artisan & Composer ក្នុង Sail",
-        answerEn: "Running Laravel and PHP commands inside the isolated Docker container.",
-        answerKh: "ការដំណើរការពាក្យបញ្ជា Laravel និង PHP នៅក្នុង Docker Container។"
-      },
+        en: "Multi Services",
+        kh: "Service ច្រើន",
+        answerEn: "PHP, MySQL, Redis run together.",
+        answerKh: "PHP, MySQL, Redis ដំណើរការជាមួយគ្នា។"
+      }
     ],
+
     lab: {
-      title: "Launch Full Docker Stack",
-      titleKh: "ដំណើរការ Docker Stack ពេញលេញ",
+      title: "Run Laravel with Docker",
+      titleKh: "ដំណើរការ Laravel ជាមួយ Docker",
       duration: "60 min",
-      objective: "Set up Laravel with Docker using a stable method and run full stack",
+      objective: "Setup full Laravel Docker environment",
+
       steps: [
-        "Install Docker Desktop and make sure it is running",
-        "Install Sail: composer require laravel/sail --dev",
-        "Run: php artisan sail:install (choose mysql, redis, mailpit)",
-        "Copy env: cp .env.example .env",
-        "Generate key: php artisan key:generate",
-        "Start containers: ./vendor/bin/sail up -d",
-        "Check running containers: ./vendor/bin/sail ps",
-        "Run migrations: ./vendor/bin/sail artisan migrate",
-        "If missing add redis: php artisan sail:add redis"
-
+        "Install Sail",
+        "Run sail:install (select mysql, redis, mailpit)",
+        "Setup .env and key",
+        "Start containers",
+        "Check services",
+        "Run migration"
       ],
-      code: `
-# ── STEP 1: Install Laravel Sail ───────────────────────────
-composer require laravel/sail --dev
+
+      code: `composer require laravel/sail --dev
+
 php artisan sail:install
-# Select: mysql, redis, mailpit
+# select: mysql, redis, mailpit
 
-# ── STEP 2: Add redis if missing add ──────────────────────────────
-php artisan sail:add redis
-
-# ── STEP 3: Setup environment ──────────────────────────────
 cp .env.example .env
 php artisan key:generate
 
-# ── STEP 4: Start Docker containers ───────────────────────
-./vendor/bin/sail down 
 ./vendor/bin/sail up -d
 
-# ── Optional: alias sail (shortcut) ───────────────────────
-alias sail="./vendor/bin/sail"
+./vendor/bin/sail ps
 
-# ── STEP 5: Verify services ───────────────────────────────
-sail ps
+./vendor/bin/sail artisan migrate`,
 
-# ── STEP 6: Run Laravel inside container ──────────────────
-sail artisan migrate
-sail artisan tinker
-sail composer require guzzlehttp/guzzle`,
-      output: `# After sail up -d:
-[+] Running 4/4
- ✔ Container my-shop-laravel-1  Started
- ✔ Container my-shop-mysql-1    Started
- ✔ Container my-shop-redis-1    Started
- ✔ Container my-shop-mailpit-1  Started
-
-# sail ps:
-NAME                    STATUS
-my-shop-laravel-1       Up
-my-shop-mysql-1         Up
-my-shop-redis-1         Up
-my-shop-mailpit-1       Up
-
-# sail artisan migrate:
-INFO  Running migrations... DONE`
+      output: `Containers running:
+- laravel
+- mysql
+- redis
+- mailpit`
     },
+
     concepts: [
-      { term: "Container", def: "A lightweight isolated box with its own OS, PHP version, and dependencies. Different projects can use different PHP versions without conflict." },
-      { term: "Sail", def: "A light-weight CLI for interacting with Laravel's default Docker configuration. It makes running Docker simple for PHP developers." },
-      { term: "Docker Port", def: "A mapping from your computer (Host) to a port inside the virtual container (Guest). Standard for DB is 3306:3306." },
-      { term: "Docker Volume", def: "A special folder managed by Docker that survives even if you delete the container. It is essential for database files; otherwise, all data is lost when you stop the container." },
-      { term: "docker-compose.yml", def: "The 'Blueprint' file. It tells Docker exactly which images to use and how they should talk to each other." },
+      { term: "Sail", def: "CLI សម្រាប់ដំណើរការ Docker ក្នុង Laravel" },
+      { term: "Container", def: "Environment ដាច់ដោយឡែក" }
     ],
-    tip: "If your MySQL data disappears, you likely deleted your Docker Volume accidentally. Always use 'sail down --volumes' with caution!",
-    project: null,
+
+    tip: "Use Docker → no more 'it works on my machine' problem",
+    project: null
   },
   {
     id: "m04", num: "04", section: "Section 4", hours: "1.5h",

@@ -32,7 +32,7 @@ const modules: Module[] = [
   // STAGE 1: PHP CORE
   {
     href: "/courses/backend/lessons/php",
-    num: "01", label: "PHP Mastery", tag: "The Core Language",
+    num: "01", label: "PHP", tag: "The Core Language",
     description: "From foundations to advanced OOP architecture. Mastering modern PHP 8.x logic, types, and enterprise data structures.",
     color: "#a78bfa", dimColor: "rgba(167,139,250,0.12)", icon: Terminal,
     weeks: "Weeks 1-9", lessons: 17, skills: ["Foundations", "Control Flow", "Functions", "OOP Architecture"],

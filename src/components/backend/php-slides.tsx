@@ -22,6 +22,95 @@ const GLOBAL_STYLE = (theme: 'dark' | 'light') => `
   button { cursor: pointer; }
   @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
   @keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.7; transform: scale(1.02); } }
+
+  .slide-content-wrapper {
+    flex: 1;
+    display: flex;
+    overflow: hidden;
+  }
+
+  .slide-left-panel {
+    width: 38% !important;
+    min-width: 290px;
+    padding: 22px 22px 14px;
+    overflow-y: auto;
+    border-right: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .slide-right-panel {
+    flex: 1;
+    padding: 16px;
+    background: rgba(0,0,0,0.22);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  .root-container {
+    width: 100%;
+    height: 100vh;
+    height: 100dvh;
+    background: var(--bg);
+    color: var(--ink);
+    overflow: hidden;
+    position: relative;
+  }
+
+  @media (max-width: 1024px) {
+    .slide-content-wrapper {
+      flex-direction: column;
+      overflow-y: auto;
+    }
+    .slide-left-panel {
+      width: 100% !important;
+      border-right: none;
+      border-bottom: 1px solid var(--border);
+      flex-shrink: 0;
+      overflow-y: visible;
+      min-width: 0 !important;
+    }
+    .slide-right-panel {
+      width: 100%;
+      min-height: 500px;
+      flex-shrink: 0;
+      overflow: visible;
+    }
+    .hide-mobile {
+      display: none !important;
+    }
+    .toc-grid {
+      grid-template-columns: 1fr !important;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .slide-title {
+      font-size: 24px !important;
+    }
+    .slide-subtitle {
+      font-size: 8px !important;
+    }
+    .code-panel-header {
+      padding: 8px !important;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .top-bar {
+      padding: 8px 12px !important;
+    }
+    .bottom-bar {
+      padding: 8px 12px !important;
+    }
+    .toc-hero h1 {
+      font-size: 36px !important;
+    }
+    .toc-container {
+      padding: 24px 16px !important;
+    }
+  }
 `;
 
 const ACCENT = "#e8ff47", GREEN = "#4ade80", BLUE = "#38bdf8";
@@ -65,7 +154,7 @@ interface SlideData {
   concept?: string | null;
   syntax?: string | null;
   workflow?: string | null;
-  explanation?: ExplanationStep[]; // New field for animated explanations
+  explanation?: ExplanationStep[];
   output: string | null;
   tip: string;
   lab?: Lab | null;
@@ -1209,12 +1298,12 @@ function CodePanel({ code: initialCode, output, syntax, workflow, explanation, l
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', height: '100%', background: 'var(--card)', borderRadius: 14, overflow: 'hidden', border: `1px solid var(--border)`, boxShadow: '0 10px 30px rgba(0,0,0,0.2)' }}>
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '10px 16px', borderBottom: `1px solid var(--border)`, background: 'var(--header-bg)', flexShrink: 0 }}>
+      <div className="code-panel-header" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '10px 16px', borderBottom: `1px solid var(--border)`, background: 'var(--header-bg)', flexShrink: 0 }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
           <div style={{ display: 'flex', gap: 6 }}>
             {['#ff5f57', '#febc2e', '#28c840'].map(c => <div key={c} style={{ width: 10, height: 10, borderRadius: '50%', background: c }} />)}
           </div>
-          <div style={{ width: 1, height: 14, background: 'var(--border)', margin: '0 4px' }} />
+          <div className="hide-mobile" style={{ width: 1, height: 14, background: 'var(--border)', margin: '0 4px' }} />
           <button
             onClick={runCode}
             style={{
@@ -1228,7 +1317,7 @@ function CodePanel({ code: initialCode, output, syntax, workflow, explanation, l
           </button>
         </div>
 
-        <div style={{ display: 'flex', background: '#000', borderRadius: 8, padding: 2, gap: 1, border: '1px solid var(--border)' }}>
+        <div style={{ display: 'flex', background: '#000', borderRadius: 8, padding: 2, gap: 1, border: '1px solid var(--border)', overflowX: 'auto' }}>
           {[
             ['code', 'PHP'], 
             ['lab', 'LAB'],
@@ -1252,7 +1341,8 @@ function CodePanel({ code: initialCode, output, syntax, workflow, explanation, l
                   background: tab === v ? (theme === 'dark' ? '#222' : '#eee') : 'transparent',
                   color: tab === v ? accent : 'var(--ink)',
                   fontSize: 9, fontWeight: 800, fontFamily: 'Space Mono,monospace',
-                  transition: 'all 0.15s'
+                  transition: 'all 0.15s',
+                  whiteSpace: 'nowrap'
                 }}
               >
                 {lbl}
@@ -1268,7 +1358,7 @@ function CodePanel({ code: initialCode, output, syntax, workflow, explanation, l
           >
             {isEditing ? '✓ SAVED' : 'EDIT'}
           </button>
-          <button onClick={copy} style={{ background: 'none', border: 'none', color: copied ? GREEN : 'var(--ink)', fontSize: 10, fontWeight: 700, fontFamily: 'Space Mono,monospace' }}>
+          <button className="hide-mobile" onClick={copy} style={{ background: 'none', border: 'none', color: copied ? GREEN : 'var(--ink)', fontSize: 10, fontWeight: 700, fontFamily: 'Space Mono,monospace' }}>
             {copied ? '✓ COPIED' : 'COPY'}
           </button>
         </div>
@@ -1437,12 +1527,12 @@ function Slide({ slide, current, total, onNext, onPrev, theme, toggleTheme }: {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
       {/* Top bar */}
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '12px 22px', borderBottom: `1px solid var(--border)`, flexShrink: 0, background: 'var(--header-bg)' }}>
+      <div className="top-bar" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '12px 22px', borderBottom: `1px solid var(--border)`, flexShrink: 0, background: 'var(--header-bg)' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-          <span style={{ fontSize: 18, marginRight: 2 }}>{slide.icon}</span>
+          <span style={{ fontSize: 18, marginRight: 2 }} className="hide-mobile">{slide.icon}</span>
           <span style={{ fontFamily: 'Space Mono,monospace', fontSize: 13, fontWeight: 700, color: ACCENT }}>PHP<span style={{ color: 'var(--ink)' }}>_</span>101</span>
           <span style={{ color: 'var(--border)' }}>│</span>
-          <span style={{ padding: '2px 8px', borderRadius: 4, background: slide.chapterColor + '18', border: `1px solid ${slide.chapterColor}30`, color: slide.chapterColor, fontSize: 9, fontFamily: 'Space Mono,monospace', fontWeight: 700, letterSpacing: '0.07em' }}>
+          <span className="hide-mobile" style={{ padding: '2px 8px', borderRadius: 4, background: slide.chapterColor + '18', border: `1px solid ${slide.chapterColor}30`, color: slide.chapterColor, fontSize: 9, fontFamily: 'Space Mono,monospace', fontWeight: 700, letterSpacing: '0.07em' }}>
             {slide.chapter}
           </span>
           <span style={{ padding: '2px 8px', borderRadius: 4, background: accent + '12', border: `1px solid ${accent}25`, color: accent, fontSize: 9, fontFamily: 'Space Mono,monospace', fontWeight: 700 }}>
@@ -1472,12 +1562,12 @@ function Slide({ slide, current, total, onNext, onPrev, theme, toggleTheme }: {
       </div>
 
       {/* Content */}
-      <div style={{ flex: 1, display: 'flex', overflow: 'hidden' }}>
+      <div className="slide-content-wrapper">
         {/* LEFT */}
-        <div style={{ width: '38%', minWidth: 290, padding: '22px 22px 14px', overflowY: 'auto', borderRight: '1px solid var(--border)', display: 'flex', flexDirection: 'column', gap: 16 }}>
+        <div className="slide-left-panel">
           <div>
-            <h1 style={{ fontFamily: 'DM Serif Display,serif', fontSize: 32, fontWeight: 400, color: 'var(--ink)', lineHeight: 1.1, margin: '0 0 5px' }}>{slide.title}</h1>
-            <p style={{ fontFamily: 'Space Mono,monospace', fontSize: 9.5, color: 'var(--ink)', margin: 0 }}>{slide.subtitle}</p>
+            <h1 className="slide-title" style={{ fontFamily: 'DM Serif Display,serif', fontSize: 32, fontWeight: 400, color: 'var(--ink)', lineHeight: 1.1, margin: '0 0 5px' }}>{slide.title}</h1>
+            <p className="slide-subtitle" style={{ fontFamily: 'Space Mono,monospace', fontSize: 9.5, color: 'var(--ink)', margin: 0 }}>{slide.subtitle}</p>
           </div>
           <p style={{ fontSize: 13, lineHeight: 1.75, color: theme === 'dark' ? 'var(--ink)' : '#444', fontFamily: "'Noto Sans Khmer',sans-serif", margin: 0 }}>
             {rb(slide.body)}
@@ -1486,14 +1576,14 @@ function Slide({ slide, current, total, onNext, onPrev, theme, toggleTheme }: {
             {slide.bullets.map((b, i) => <BulletCard key={i} bullet={b} accent={accent} />)}
           </div>
           {/* Tip */}
-          <div style={{ marginTop: 'auto', padding: '11px 13px', borderRadius: 9, background: accent + '08', border: `1px solid ${accent}22`, display: 'flex', gap: 8, alignItems: 'flex-start' }}>
+          <div className="hide-mobile" style={{ marginTop: 'auto', padding: '11px 13px', borderRadius: 9, background: accent + '08', border: `1px solid ${accent}22`, display: 'flex', gap: 8, alignItems: 'flex-start' }}>
             <span style={{ fontSize: 14, flexShrink: 0 }}>💡</span>
             <p style={{ fontSize: 11.5, lineHeight: 1.6, color: accent + 'cc', margin: 0, fontFamily: "'Noto Sans Khmer',sans-serif" }}>{slide.tip}</p>
           </div>
         </div>
 
         {/* RIGHT */}
-        <div style={{ flex: 1, padding: 16, background: 'rgba(0,0,0,0.22)', display: 'flex', flexDirection: 'column' }}>
+        <div className="slide-right-panel">
         {slide.code
             ? <CodePanel 
                 code={slide.code} 
@@ -1515,7 +1605,7 @@ function Slide({ slide, current, total, onNext, onPrev, theme, toggleTheme }: {
         </div>
       </div>
 
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '11px 22px', borderTop: `1px solid var(--border)`, flexShrink: 0, background: 'var(--bg)' }}>
+      <div className="bottom-bar" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '11px 22px', borderTop: `1px solid var(--border)`, flexShrink: 0, background: 'var(--bg)' }}>
         <button onClick={onPrev} disabled={current === 0} style={{ padding: '8px 16px', borderRadius: 7, border: `1px solid var(--border)`, background: current === 0 ? 'transparent' : 'var(--card)', color: current === 0 ? 'var(--border)' : 'var(--ink)', fontFamily: 'Space Mono,monospace', fontSize: 10 }}>← PREV</button>
         <span style={{ fontFamily: 'Space Mono,monospace', fontSize: 9, color: 'var(--border)' }}>← → arrow keys · Esc = menu</span>
         <button onClick={onNext} style={{ padding: '8px 20px', borderRadius: 7, border: 'none', background: accent, color: '#000', fontFamily: 'Space Mono,monospace', fontSize: 10, fontWeight: 700 }}>
@@ -1529,8 +1619,8 @@ function Slide({ slide, current, total, onNext, onPrev, theme, toggleTheme }: {
 // ── TABLE OF CONTENTS ─────────────────────────────────────────
 function TOC({ onStart, onGoTo, theme, toggleTheme }: { onStart: () => void, onGoTo: (idx: number) => void, theme: 'dark' | 'light', toggleTheme: () => void }) {
   return (
-    <div style={{ height: '100%', overflow: 'auto', display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '36px 24px 28px' }}>
-      <div style={{ textAlign: 'center', marginBottom: 36, position: 'relative' }}>
+    <div className="toc-container" style={{ height: '100%', overflow: 'auto', display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '36px 24px 28px' }}>
+      <div className="toc-hero" style={{ textAlign: 'center', marginBottom: 36, position: 'relative' }}>
         {/* Theme Toggle in Header/Hero */}
         <button
           onClick={toggleTheme}
@@ -1556,7 +1646,7 @@ function TOC({ onStart, onGoTo, theme, toggleTheme }: { onStart: () => void, onG
         </p>
       </div>
 
-      <div style={{ width: '100%', maxWidth: 900, display: 'flex', flexDirection: 'column', gap: 22, marginBottom: 32 }}>
+      <div className="toc-grid" style={{ width: '100%', maxWidth: 900, display: 'flex', flexDirection: 'column', gap: 22, marginBottom: 32 }}>
         {CHAPTERS.map(ch => (
           <div key={ch.name}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 9 }}>
@@ -1565,7 +1655,7 @@ function TOC({ onStart, onGoTo, theme, toggleTheme }: { onStart: () => void, onG
               <span style={{ fontFamily: 'Space Mono,monospace', fontSize: 10, fontWeight: 700, color: ch.color, letterSpacing: '0.08em' }}>{ch.name}</span>
               <div style={{ flex: 1, height: 1, background: 'var(--border)' }} />
             </div>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill,minmax(185px,1fr))', gap: 7 }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill,minmax(185px,1fr))', gap: 7 }} className="toc-grid-inner">
               {ch.nums.map(num => {
                 const s = SLIDES.find(sl => sl.num === num);
                 if (!s) return null;
@@ -1638,7 +1728,7 @@ export default function PHPSlides() {
   const slide = SLIDES[current]!;
 
   return (
-    <div style={{ width: '100%', height: '100vh', background: 'var(--bg)', color: 'var(--ink)', overflow: 'hidden', fontFamily: "'Noto Sans Khmer','Inter',sans-serif" }}>
+    <div className="root-container" style={{ width: '100%', height: '100vh', background: 'var(--bg)', color: 'var(--ink)', overflow: 'hidden', fontFamily: "'Noto Sans Khmer','Inter',sans-serif", position: 'relative' }}>
       <style>{GLOBAL_STYLE(theme)}</style>
       {/* grid texture */}
       <div style={{ position: 'fixed', inset: 0, opacity: theme === 'dark' ? 0.02 : 0.05, pointerEvents: 'none', backgroundImage: `linear-gradient(${theme === 'dark' ? '#fff' : '#000'} 1px,transparent 1px),linear-gradient(90deg,${theme === 'dark' ? '#fff' : '#000'} 1px,transparent 1px)`, backgroundSize: '32px 32px' }} />

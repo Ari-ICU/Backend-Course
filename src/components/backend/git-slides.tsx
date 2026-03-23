@@ -57,7 +57,7 @@ const G = `
   --paper:#ffffff;
   --cream:#f5f5f5;
   --warm:#f8f9fa;
-  --rule:rgba(0,0,0,0.15);
+  --rule:rgba(0, 0, 0, 0.96);
   --faint:rgba(0,0,0,0.05);
   --ghost:rgba(0,0,0,0.02);
   --red:#c0392b;
@@ -90,6 +90,119 @@ body::before{
 .cmd-line:hover{background:var(--faint)!important;}
 .nav-tab:hover{background:var(--warm)!important;}
 .nav-tab.active{background:var(--ink)!important;color:var(--paper)!important;}
+
+.main-layout {
+  display: flex;
+  max-width: 1000px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+.sidebar {
+  width: 190px;
+  flex-shrink: 0;
+  border-right: 1px solid var(--rule);
+  min-height: calc(100vh - 52px);
+  position: sticky;
+  top: 52px;
+  height: calc(100vh - 52px);
+  overflow-y: auto;
+  background: var(--paper);
+}
+
+.content-area {
+  flex: 1;
+  padding: 32px 28px;
+  min-width: 0;
+}
+
+.intro-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.workflow-container {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  border: 1px solid var(--rule);
+  overflow: hidden;
+}
+
+.plan-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+@media (max-width: 850px) {
+  .main-layout {
+    flex-direction: column;
+  }
+  .sidebar {
+    width: 100%;
+    height: auto;
+    min-height: 0;
+    position: relative;
+    top: 0;
+    border-right: none;
+    border-bottom: 1px solid var(--rule);
+    display: flex;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 0;
+    white-space: nowrap;
+    scrollbar-width: none;
+  }
+  .sidebar::-webkit-scrollbar {
+    display: none;
+  }
+  .sidebar > div {
+    display: flex;
+    padding: 0 !important;
+  }
+  .nav-tab {
+    width: auto !important;
+    padding: 12px 20px !important;
+    border-left: none !important;
+    border-bottom: 3px solid transparent;
+  }
+  .nav-tab.active {
+    border-bottom: 3px solid var(--amber) !important;
+  }
+  .content-area {
+    padding: 20px 16px;
+  }
+  .intro-grid, .plan-grid {
+    grid-template-columns: 1fr;
+  }
+  .workflow-container {
+    flex-direction: column;
+  }
+  .workflow-container > div {
+    border-right: none !important;
+    border-bottom: 1px solid var(--rule);
+    width: 100%;
+  }
+}
+
+@media (max-width: 600px) {
+  .header-content {
+    flex-wrap: wrap;
+    height: auto !important;
+    padding: 10px 16px !important;
+    gap: 10px;
+  }
+  .header-brand {
+    width: 100%;
+    justify-content: space-between;
+  }
+  .hide-xs {
+    display: none !important;
+  }
+}
 `;
 
 // ─── DATA ─────────────────────────────────────────────────────
@@ -380,7 +493,7 @@ function SectionIntro({s}: {s: GitSection}) {
   return (
     <div style={{display:'flex',flexDirection:'column',gap:20,animation:'fadeSlide 0.3s ease'}}>
       {/* Without/With comparison */}
-      <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:16}}>
+      <div className="intro-grid">
         <div style={{border:'2px dashed var(--red)',padding:'16px 18px'}}>
           <div style={{fontFamily:'var(--mono)',fontSize:10,fontWeight:700,color:'var(--red)',letterSpacing:'0.1em',marginBottom:10}}>WITHOUT GIT</div>
           {s.concept?.without.map((l,i)=>(
@@ -422,7 +535,7 @@ function SectionWorkflow({s}: {s: GitSection}) {
   return (
     <div style={{display:'flex',flexDirection:'column',gap:16,animation:'fadeSlide 0.3s ease'}}>
       {/* Flow diagram */}
-      <div style={{display:'flex',alignItems:'center',gap:0,border:'1px solid var(--rule)',overflow:'hidden'}}>
+      <div className="workflow-container">
         {s.flow?.map((f: FlowItem, i: number)=>(
           <div key={i} style={{flex:1,padding:'14px 16px',borderRight:i<(s.flow?.length || 0)-1?'1px solid var(--rule)':'none',background:i%2===0?'var(--paper)':'var(--cream)'}}>
             <div style={{fontFamily:'var(--mono)',fontSize:9,fontWeight:700,color:f.color,letterSpacing:'0.12em',marginBottom:4}}>STEP {f.step}</div>
@@ -532,7 +645,7 @@ function SectionPlan({s}: {s: GitSection}) {
         ))}
       </div>
       {/* Next lesson + integration */}
-      <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:14}}>
+      <div className="plan-grid">
         <div style={{border:'1px solid var(--blue)',padding:'16px 18px'}}>
           <div style={{fontFamily:'var(--serif)',fontStyle:'italic',fontSize:13,fontWeight:700,color:'var(--blue)',marginBottom:10}}>🚀 Next Lesson</div>
           {s.next?.map((n,i)=>(
@@ -593,20 +706,20 @@ export default function GitLesson() {
 
       {/* ── TOPBAR ── */}
       <header style={{position:'sticky',top:0,zIndex:50,background:'var(--ink)',borderBottom:'3px solid var(--amber)'}}>
-        <div style={{maxWidth:1000,margin:'0 auto',padding:'0 20px',display:'flex',alignItems:'center',justifyContent:'space-between',height:52}}>
+        <div className="header-content" style={{maxWidth:1000,margin:'0 auto',padding:'0 20px',display:'flex',alignItems:'center',justifyContent:'space-between',height:52}}>
           {/* Brand */}
-          <div style={{display:'flex',alignItems:'center',gap:12}}>
+          <div className="header-brand" style={{display:'flex',alignItems:'center',gap:12}}>
             <div style={{fontFamily:'var(--serif)',fontStyle:'italic',fontSize:22,fontWeight:700,color:'var(--paper)',letterSpacing:'-0.01em'}}>
               Git<span style={{color:'var(--amber)'}}>.</span>
             </div>
-            <div style={{width:1,height:18,background:'rgba(255,255,255,0.15)'}}/>
-            <div style={{fontFamily:'var(--mono)',fontSize:9,fontWeight:700,color:'#6a7a8a',letterSpacing:'0.12em',textTransform:'uppercase'}}>
+            <div className="hide-xs" style={{width:1,height:18,background:'rgba(255,255,255,0.15)'}}/>
+            <div className="hide-xs" style={{fontFamily:'var(--mono)',fontSize:9,fontWeight:700,color:'#6a7a8a',letterSpacing:'0.12em',textTransform:'uppercase'}}>
               University Lesson ─ Beginner
             </div>
           </div>
           {/* Progress */}
           <div style={{display:'flex',alignItems:'center',gap:8}}>
-            <div style={{display:'flex',gap:3}}>
+            <div className="hide-xs" style={{display:'flex',gap:3}}>
               {SECTIONS.map((s,i)=>(
                 <div key={s.id} onClick={()=>setActive(s.id)} style={{width:i===idx?20:5,height:5,background:i===idx?'var(--amber)':i<idx?'#4a6070':'rgba(255,255,255,0.1)',transition:'all 0.3s',cursor:'pointer'}}/>
               ))}
@@ -621,18 +734,17 @@ export default function GitLesson() {
         </div>
       </header>
 
-      <div style={{maxWidth:1000,margin:'0 auto',display:'flex',position:'relative',zIndex:1}}>
-
+      <div className="main-layout">
         {/* ── SIDEBAR ── */}
-        <aside style={{width:190,flexShrink:0,borderRight:'1px solid var(--rule)',minHeight:'calc(100vh - 52px)',position:'sticky',top:52,height:'calc(100vh - 52px)',overflowY:'auto',background:'var(--paper)'}}>
+        <aside className="sidebar">
           <div style={{padding:'16px 0'}}>
-            <div style={{fontFamily:'var(--mono)',fontSize:8,fontWeight:700,letterSpacing:'0.18em',color:'var(--rule)',padding:'0 14px',marginBottom:12}}>SECTIONS</div>
+            <div className="hide-xs" style={{fontFamily:'var(--mono)',fontSize:8,fontWeight:700,letterSpacing:'0.18em',color:'var(--rule)',padding:'0 14px',marginBottom:12}}>SECTIONS</div>
             {SECTIONS.map((s,i)=>(
               <button key={s.id} className={`nav-tab ${active===s.id?'active':''}`} onClick={()=>setActive(s.id)}
                 style={{width:'100%',textAlign:'left',padding:'9px 14px',display:'flex',gap:8,alignItems:'center',borderLeft:active===s.id?`3px solid ${s.color}`:'3px solid transparent',background:active===s.id?'var(--ink)':'transparent',transition:'all 0.15s'}}>
                 <s.icon size={16} strokeWidth={2.5} style={{color:active===s.id?s.color:'#666'}} />
                 <div>
-                  <div style={{fontFamily:'var(--mono)',fontSize:8,color:active===s.id?'rgba(255,255,255,0.4)':'var(--rule)',letterSpacing:'0.1em'}}>{s.num}</div>
+                  <div className="hide-xs" style={{fontFamily:'var(--mono)',fontSize:8,color:active===s.id?'rgba(255,255,255,0.4)':'var(--rule)',letterSpacing:'0.1em'}}>{s.num}</div>
                   <div style={{fontFamily:'var(--mono)',fontSize:11,fontWeight:600,color:active===s.id?'var(--paper)':'var(--ink)',lineHeight:1.3}}>{s.label}</div>
                 </div>
               </button>
@@ -641,7 +753,7 @@ export default function GitLesson() {
         </aside>
 
         {/* ── MAIN CONTENT ── */}
-        <main style={{flex:1,padding:'32px 28px',minWidth:0}}>
+        <main className="content-area">
 
           {/* Section header */}
           <div style={{marginBottom:28,paddingBottom:20,borderBottom:'2px solid var(--ink)'}}>
