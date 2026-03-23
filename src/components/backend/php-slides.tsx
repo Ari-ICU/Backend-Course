@@ -225,6 +225,42 @@ Generated at: 13:50:42 UTC
 // ──────────────────────────────────────────`,
   },
   {
+    num: "01B", chapter: "Foundations", chapterColor: BLUE,
+    tag: "Benefit", tagColor: GREEN, icon: "💡",
+    title: "Why Learn PHP?",
+    subtitle: "Job Market · Performance · Ease of Use · Ecosystem",
+    body: `ហេតុអ្វីបានជាយើងនៅតែប្រើ PHP? ព្រោះវាជាភាសាបែប **Mature** ដែលមានស្ថិរភាពខ្ពស់ និងងាយស្រួលរៀនសម្រាប់អ្នកចាប់ផ្ដើមដំបូង។ ជាមួយ **Modern PHP 8.x**, វាមានល្បឿនលឿន និងមាន Tool ខ្លាំងៗដូចជា **Laravel** ដែលធ្វើឱ្យការបង្កើត Web App កម្រិតពិភពលោកក្លាយជារឿងសាមញ្ញ។`,
+    bullets: [
+      { icon: "💰", label: "Job Opportunities", desc: "PHP គ្របដណ្ដប់លើ Web សកលលោក ផ្តល់ឱកាសការងារច្រើនលើសលប់។" },
+      { icon: "🐣", label: "Beginner Friendly", desc: "Syntax ងាយស្រួលយល់ និងមិនសូវស្មុគស្មាញដូចភាសាផ្សេងៗទៀត។" },
+      { icon: "🚀", label: "Fast Development", desc: "អ្នកអាចបង្កើត Project ចេញជារូបរាងបានលឿនបំផុត (Quick Prototyping)។" },
+      { icon: "👥", label: "Massive Community", desc: "មានឯកសារយោង និងសហគមន៍ជួយដោះស្រាយបញ្ហាគ្រប់ពេលវេលា។" },
+    ],
+    explanation: [
+      { title: "Market Share", desc: "PHP គឺជាឆ្អឹងខ្នងនៃ Web ─ ប្រសិនបើអ្នកចេះ PHP អ្នកអាចគ្រប់គ្រងលើ Web ច្រើនជាង ៧៧%។" },
+      { title: "Laravel Power", desc: "Framework លេខ ១ ក្នុងលោកគឺ Laravel ដែលជួយឲ្យកូដរបស់អ្នកមានសោភ័ណភាព និងសុវត្ថិភាពខ្ពស់។" },
+      { title: "Learning Curve", desc: "អ្នកចំណាយពេលតិចដើម្បីចាប់ផ្ដើមសរសេរ Script ដំបូង បើធៀបនឹង Java ឬ C#។" },
+      { title: "Hosting cost", desc: "គ្រប់ Server ទាំងអស់គាំទ្រ PHP ─ វាគឺជាភាសាដែលងាយស្រួលសម្រាប់ដាក់ឱ្យប្រើប្រាស់ (Deploy) បំផុត។" }
+    ],
+    code: `<?php
+/**
+ * Modern PHP 8.3 Feature Example
+ */
+$status = 200;
+
+// Shorthand logic with Match (PHP 8+)
+$response = match($status) {
+    200, 201 => "✅ Success",
+    404      => "❌ Not Found",
+    default  => "⚠️ Unknown"
+};
+
+echo "Current Status: $response";
+?>`,
+    output: `Current Status: ✅ Success`,
+    tip: "PHP គឺជាភាសាតែមួយគត់ដែលបង្កើតឡើងសម្រាប់តែ 'Web' ជាពិសេស ដូច្នេះវាមានភាពវៃឆ្លាតបំផុតក្នុងរឿង Web!",
+  },
+  {
     num: "02", chapter: "Foundations", chapterColor: BLUE,
     tag: "Execution", tagColor: GREEN, icon: "🚀",
     title: "Syntax & Anatomy",
@@ -445,7 +481,7 @@ echo "Ready to start the lab!";
     body: `**Operators** ត្រូវបានប្រើសម្រាប់អនុវត្តប្រតិបត្តិការលើ Variable ដូចជា ការគណនា ការប្រៀបធៀប និងការបញ្ជា Logic។ ចំណុចសំខាន់មួយគឺ === (Strict Equality) ដែលធ្វើការត្រួតពិនិត្យទាំង តម្លៃ (Value) និង ប្រភេទទិន្នន័យ (Type) ក្នុងពេលតែមួយ ដើម្បីជៀសវាងកំហុស Logic ដែលអាចកើតឡើងពីការប្រែប្រួលប្រភេទទិន្នន័យ។`,
     bullets: [
       { icon: "➕", label: "Arithmetic", desc: "+, -, *, /, % (modulo), ** (power) សម្រាប់គណនា។" },
-      { icon: "⚖️", label: "Strict Compare", desc: "=== និង !== មានសុវត្ថិភាពជាង == និង != ក្នុង PHP។" },
+      { icon: "⚖️", label: "Strict Compare", desc: "=== និង !== បញ្ជាក់ទាំងតម្លៃ និងប្រភេទ, មានសុវត្ថិភាពខ្ពស់ជាង == និង != ក្នុង PHP។" },
       { icon: "🔗", label: "Logical", desc: "&& (AND), || (OR), ! (NOT) សម្រាប់លក្ខខណ្ឌស្មុគស្មាញ។" },
       { icon: "⚡", label: "Coalescing ??", desc: "ដើម្បីទាញតម្លៃដំបូងប្រសិនបើមាន/មិន null, បើមិនមានទទួល fallback។" },
     ],
@@ -512,10 +548,10 @@ bool(false)`,
     subtitle: "Branching · Multi-conditions · Nested Logic",
     body: `**Conditionals** អនុញ្ញាតឲ្យកម្មវិធីអាចជ្រើសរើសផ្លូវដំណើរការផ្សេងៗគ្នាតាមលក្ខខណ្ឌ។ **if** នឹងដំណើរការកូដតែប៉ុណ្ណោះ នៅពេលលក្ខខណ្ឌមានតម្លៃជា **true**។ ប្រសិនបើលក្ខខណ្ឌដំបូងមិនបានបំពេញ អ្នកអាចប្រើ **elseif** ដើម្បីពិនិត្យលក្ខខណ្ឌបន្ទាប់ៗ និងប្រើ **else** សម្រាប់ករណីចុងក្រោយ នៅពេលគ្មានលក្ខខណ្ឌណាមួយត្រូវបានបំពេញ។`,
     bullets: [
-      { icon: "❓", label: "if block", desc: "ចំណុចចូលសម្រាប់អនុវត្តលក្ខខណ្ឌ។" },
-      { icon: "🛤️", label: "elseif", desc: "ពិនិត្យលក្ខខណ្ឌបន្ថែម ប្រសិនបើលក្ខខណ្ឌមុនមិនត្រូវ។" },
-      { icon: "🏁", label: "else", desc: "Block 'catch-all' ប្រសិនបើគ្មានលក្ខខណ្ឌណាត្រូវ។" },
-      { icon: "📐", label: "Nesting", desc: "ដាក់ if-statements ខាងក្នុង if-statements ផ្សេងទៀត។" },
+      { icon: "❓", label: "if block", desc: "ប្រើសម្រាប់អនុវត្តកូដ បើលក្ខខណ្ឌត្រឹមត្រូវ។" },
+      { icon: "🛤️", label: "elseif", desc: "ពិនិត្យលក្ខខណ្ឌបន្ថែម ប្រសិនបើ if មុនមិនត្រូវ។" },
+      { icon: "🏁", label: "else", desc: "ប្រតិបត្តិកូដ catch-all ប្រសិនបើគ្មានលក្ខខណ្ឌណាត្រូវ។" },
+      { icon: "📐", label: "Nesting", desc: "ដាក់ if ខាងក្នុង if ផ្សេងទៀត ដើម្បីចែក logic ជាដុំៗ។" }
     ],
     explanation: [
       { title: "Evaluation", desc: "PHP ពិនិត្យលក្ខខណ្ឌក្នុងវង់ក្រចក ( ). ប្រសិនបើ True, វាអនុវត្តកូដក្នុង { }។" },
@@ -953,14 +989,106 @@ echo "Welcome to " . $data['app'];
     output: `Welcome to PHP Lab`,
     tip: "ចូរកុំភ្លេចប្រើ [] ជំនួសឱ្យ array_push() សម្រាប់បច្ចេកទេសសរសេរកូដបែបសម័យថ្មី (Modern PHP)!",
   },
+  {
+    num: "12", chapter: "Ecosystem", chapterColor: BLUE,
+    tag: "Tooling", tagColor: GREEN, icon: "🎼",
+    title: "Installing Composer",
+    subtitle: "Dependency Manager · PHP Package Control · Multi-OS Setup",
+    body: `**Composer** គឺជាអ្នកគ្រប់គ្រងបណ្ណាល័យ (Dependency Manager) សម្រាប់ PHP។ វាជួយយើងដំឡើង និងគ្រប់គ្រង Package ផ្សេងៗក្នុង Project (ដូច npm របស់ Node.js)។ ដើម្បីប្រើប្រាស់ Laravel ឬ Library ផ្សេងៗ, ការដំឡើង Composer គឺជាជំហានចាំបាច់បំផុត។`,
+    bullets: [
+      { icon: "🍎", label: "macOS Setup", desc: "ប្រើ Terminal: `brew install composer` ឬប្រើ script ពី getcomposer.org។" },
+      { icon: "🪟", label: "Windows Setup", desc: "ទាញយក `Composer-Setup.exe` រួចដំឡើងដូចកម្មវិធីទូទៅ (GUI)។" },
+      { icon: "🌍", label: "Global Access", desc: "ធានាថាអ្នកបានដាក់វាទៅក្នុង PATH ដើម្បីហៅប្រើ 'composer' ពីគ្រប់ទីកន្លែង។" },
+      { icon: "✅", label: "Verification", desc: "វាយពាក្យ `composer -v` ក្នុង Terminal ដើម្បីពិនិត្យមើលលទ្ធផលនៃការដំឡើង។" },
+    ],
+    explanation: [
+      { title: "macOS Installation", desc: "មធ្យោបាយងាយបំផុតគឺប្រើ Homebrew (brew install composer) ឬទាញយកតាមរយៈ curl command។" },
+      { title: "Windows Installer", desc: "កម្មវិធី Installer នឹងរៀបចំ PATH ឱ្យអ្នកដោយស្វ័យប្រវត្តិ។ អ្នកគ្រាន់តែត្រូវប្រាប់ទីតាំង php.exe ប៉ុណ្ណោះ។" },
+      { title: "Universal Check", desc: "បើអ្នកឃើញរូប Logo Composer (រូបបុរសកាន់ថាស) បង្ហាញក្នុង Terminal គឺការដំឡើងបានជោគជ័យ។" },
+      { title: "Final Step", desc: "ប្រសិនបើ Terminal រកមិនឃើញពាក្យ 'composer', អ្នកត្រូវ Restart Terminal ឬ Check PATH Environment។" }
+    ],
+    code: `// --- Option A: macOS (via Homebrew) ---
+// $ brew install composer
+
+// --- Option B: Windows (Installer) ---
+// 1. Visit: https://getcomposer.org/download/
+// 2. Download & Run: Composer-Setup.exe
+
+// --- Verification (Run this after install) ---
+// $ composer --version`,
+    output: `Composer version 2.7.2 2024-03-11 17:12:18
+PHP version 8.3.4 (/usr/local/bin/php)`,
+    tip: "ចងចាំថា Composer ត្រូវការ PHP ដើម្បីដំណើរការ! ដូច្នេះសូមប្រាកដថាអ្នកបានដំឡើង PHP រួចរាល់ជាមុនសិន!",
+  },
+  {
+    num: "12B", chapter: "Ecosystem", chapterColor: BLUE,
+    tag: "IDE", tagColor: BLUE, icon: "💻",
+    title: "IDE: VS Code Setup",
+    subtitle: "Extensions · Intelephense · Debugging · Productivity",
+    body: `ដើម្បីសរសេរកូដ PHP ឱ្យមានប្រសិទ្ធភាព អ្នកត្រូវការកម្មវិធីសរសេរកូដ (IDE) ដែលល្អ។ **VS Code** គឺជាជម្រើសដ៏ពេញនិយម និងមិនគិតថ្លៃ។ វាមានទម្ងាន់ស្រាល និងអាចបន្ថែមមុខងារផ្សេងៗតាមរយៈ **Extensions** ដើម្បីពង្រីកសមត្ថភាពរបស់វា។`,
+    bullets: [
+      { icon: "🎨", label: "VS Code", desc: "ឥតគិតថ្លៃ និងមាន Extension ច្រើនសម្រាប់សហគមន៍ PHP។" },
+      { icon: "🔌", label: "Intelephense", desc: "ដំឡើង Intelephense ដើម្បីទទួលបាន Auto-complete ដ៏ឆ្លាតវៃ។" },
+      { icon: "🛠️", label: "PHP Debug", desc: "ជួយអ្នកស្វែងរកកំហុសក្នុងកូដ step-by-step (Xdebug)។" },
+      { icon: "⚡", label: "Terminal", desc: "ប្រើ Integrated Terminal ក្នុង VS Code ដើម្បីសន្សំសំចៃពេលវេលា។" },
+    ],
+    explanation: [
+      { title: "Installation", desc: "ទាញយកពី code.visualstudio.com និងដំឡើងតាមការណែនាំ។" },
+      { title: "Essential Plugins", desc: "ដំឡើង 'PHP Intelephense' និង 'PHP Sniffer' ដើម្បីឱ្យកូដរបស់អ្នកមានស្តង់ដារ។" },
+      { title: "Shell integration", desc: "រៀបចំឲ្យអាចហៅប្រើពាក្យ `code .` ក្នុង Terminal ដើម្បីបើក Project បានភ្លាមៗ។" },
+      { title: "Customization", desc: "ប្រើ Font ដូចជា Fira Code ឬ JetBrains Mono ដើម្បីឱ្យកូដមើលទៅស្រួលភ្នែក។" }
+    ],
+    code: `// --- Essential Extensions ID ---
+// 1. bmewburn.vscode-intelephense
+// 2. xdebug.php-debug
+// 3. MehediDracula.php-namespace-resolver
+
+// Opening folder in VS Code via terminal:
+$ code my-project-folder`,
+    output: `VS Code is ready for PHP development!`,
+    tip: "កុំដំឡើង Extension ច្រើនពេក ─ ជ្រើសរើសតែអ្វីដែលចាំបាច់ដើម្បីកុំឱ្យកម្មវិធីដើរយឺត!",
+  },
+  {
+    num: "12C", chapter: "Ecosystem", chapterColor: BLUE,
+    tag: "AI Assistant", tagColor: BLUE, icon: "🤖",
+    title: "AI Help: Antigravity",
+    subtitle: "Pair Programming · Real-time Debugging · Smart Mentorship",
+    body: `**Antigravity** គឺជាជំនួយការ AI ដ៏ឆ្លាតវៃដែលជួយអ្នកក្នុងការស្វែងយល់ពីកូដស្មុគស្មាញ, ជួយ Debug, និងផ្ដល់ជា Mentor ផ្ទាល់ខ្លួនរបស់អ្នកគ្រប់ពេលដែលអ្នកជួបបញ្ហាបច្ចេកទេស ឬចង់បង្កើនសមត្ថភាពសរសេរកូដ។`,
+    bullets: [
+      { icon: "🏎️", label: "Antigravity AI", desc: "ជួយបង្កើត functions, debug errors និងពន្យល់ពី logic យ៉ាងលម្អិត។" },
+      { icon: "🤝", label: "Pair Programming", desc: "សហការជាមួយ AI ដើម្បីសរសេរកូដបានលឿន និងមានប្រសិទ្ធភាពខ្ពស់។" },
+      { icon: "🎓", label: "Smart Mentorship", desc: "សួរ AI រាល់សំណួរដែលអ្នកមិនយល់ ─ វាដូចជាមានគ្រូនៅក្បែរ ២៤ ម៉ោង។" },
+      { icon: "🛠️", label: "Code Refactor", desc: "ប្រើ AI ដើម្បីកែលម្អកូដរបស់អ្នកឱ្យកាន់តែស្អាត និងដើរបានលឿនបំផុត។" },
+    ],
+    explanation: [
+      { title: "Real-time Help", desc: "អ្នកអាចសួររកដំណោះស្រាយភ្លាមៗរាល់ពេល Error បង្ហាញក្នុង Terminal។" },
+      { title: "Deep Insight", desc: "Antigravity នឹងពន្យល់អ្នកពី 'ហេតុអ្វី' បានជាកូដនោះដើរបែបនេះ។" },
+      { title: "Personalized Learning", desc: "AI នឹងសម្របតាមកម្រិតចំណេះដឹងរបស់អ្នក ដើម្បីផ្ដល់ការណែនាំដែលងាយយល់។" },
+      { title: "Building Portfolio", desc: "ប្រើ AI ដើម្បីជួយផ្ដល់គំនិតក្នុងកិច្ចការ Project ធំៗដែលអ្នកចង់បង្កើត។" }
+    ],
+    code: `// Asking Antigravity:
+// "How do I connect to a database using PDO?"
+
+// Antigravity will generate:
+try {
+    $db = new PDO("mysql:host=localhost;dbname=test", "user", "pass");
+} catch(Exception $e) {
+    echo "Connection failed!";
+}`,
+    output: `AI Status: Active ⚡️
+Mentorship Mode: On
+Antigravity is ready to assist you!`,
+    tip: "ចូរប្រើ AI ជាជំនួយការសម្រាប់រៀន ─ កុំគ្រាន់តែ Copy កូដ, តែត្រូវសួរនាំដើម្បីយល់ពីរបៀបដែលវាដំណើរការ!",
+  },
 ];
 
 
 
 const CHAPTERS: ChapterData[] = [
-  { name: "Foundations", color: BLUE, nums: ["01", "02", "03", "04", "04-L"], icon: "🧱" },
+  { name: "Foundations", color: BLUE, nums: ["01", "01B", "02", "03", "04", "04-L"], icon: "🧱" },
   { name: "Operators & Flow", color: ORANGE, nums: ["05", "06", "07", "08", "08-L"], icon: "⚙️" },
   { name: "Functions & Arrays", color: PINK, nums: ["09", "10", "11"], icon: "📦" },
+  { name: "Ecosystem & Tools", color: TEAL, nums: ["12", "12B", "12C"], icon: "🌐" },
 ];
 
 // ── SYNTAX HIGHLIGHTER ────────────────────────────────────────
