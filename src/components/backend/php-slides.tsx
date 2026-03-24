@@ -990,7 +990,350 @@ echo "Welcome to " . $data['app'];
     tip: "ចូរកុំភ្លេចប្រើ [] ជំនួសឱ្យ array_push() សម្រាប់បច្ចេកទេសសរសេរកូដបែបសម័យថ្មី (Modern PHP)!",
   },
   {
-    num: "12", chapter: "Ecosystem", chapterColor: BLUE,
+    num: "12", chapter: "Object-Oriented Programming", chapterColor: PURPLE,
+    tag: "Structure", tagColor: PURPLE, icon: "🏗️",
+    title: "OOP: Classes & Objects",
+    subtitle: "Blueprints · Instances · Organization · Modularity",
+    body: `**OOP** គឺជាបច្ចេកទេសសរសេរកូដដែលផ្ដោតលើ **Objects** (វត្ថុ)។ យើងបង្កើត **Class** ជាប្លង់មេ (Blueprint) ហើយបង្កើត **Object** ចេញពីវា។ វាជួយឲ្យកូដរបស់យើងមានលំដាប់លំដោយ ងាយស្រួលយល់ និងអាចប្រើឡើងវិញបានច្រើនដង។`,
+    bullets: [
+      { icon: "🏛️", label: "The Class", desc: "ប្លង់មេសម្រាប់បង្កើត Object (ឧ. Class 'Car')។" },
+      { icon: "🚗", label: "The Object", desc: "Instance ជាក់ស្តែងដែលកើតចេញពី Class (ឧ. '$myCar')។" },
+      { icon: "✨", label: "Instantiation", desc: "ប្រើ keyword **new** ដើម្បីបង្កើត object ចេញពី class។" },
+      { icon: "🧩", label: "Modularity", desc: "បំបែកកូដជាផ្នែកៗដែលងាយស្រួលគ្រប់គ្រង និងជួសជុល។" },
+    ],
+    explanation: [
+      { title: "The Blueprint", desc: "Class គឺដូចជាគំនូរប្លង់ផ្ទះ ─ វាមិនមែនជាផ្ទះពិតទេ តែវាប្រាប់ថាផ្ទះមានអ្វីខ្លះ។" },
+      { title: "The Materialization", desc: "Object គឺជាផ្ទះពិតដែលសាងសង់តាមប្លង់ ─ អ្នកអាចសាងសង់ផ្ទះច្រើនពីប្លង់តែមួយ។" },
+      { title: "Memory Allocation", desc: "រាល់ពេលប្រើ 'new', PHP បង្កើតកន្លែងថ្មីក្នុង Memory សម្រាប់ Object នោះ។" },
+      { title: "Organization", desc: "OOP ជួយកុំឱ្យកូដរបស់អ្នករញ៉េរញ៉ៃ (Spaghetti Code) ដូចការសរសេរជាជួរវែងៗ។" }
+    ],
+    code: `<?php
+/**
+ * Simple Class & Object
+ */
+class Student {
+    public string $name;
+}
+
+// Instantiate (បង្កើត Object)
+$s1 = new Student();
+$s1->name = "Dara";
+
+$s2 = new Student();
+$s2->name = "Sok";
+
+echo "Student 1: " . $s1->name . "\\n";
+echo "Student 2: " . $s2->name;
+?>`,
+    output: `Student 1: Dara
+Student 2: Sok`,
+    syntax: `// ── OOP Foundation Syntax ──────────────────
+//
+//  class Name { } : Define a template
+//  new Name()     : Create instance
+//  ->             : Object operator (Access member)
+//  $obj->prop     : Access property
+//
+// ──────────────────────────────────────────`,
+    tip: "ចងចាំថា Class គ្រាន់តែជា 'គំរូ' ─ អ្នកមិនអាចប្រើវាដោយផ្ទាល់បានទេ ទាល់តែបង្កើតជា Object ជាមុនសិន!",
+    workflow: `// ── OOP Creation Flow ──────────────────────
+//
+// 1. Define: Write class template (បង្កើតប្លង់មេ)
+// 2. Instantiate: Call 'new' (បង្កើត Object)
+// 3. Assign: Set property values (ផ្ដល់តម្លៃទិន្នន័យ)
+// 4. Access: Read/Use object data (យកទិន្នន័យមកប្រើ)
+// 5. Repeat: Create another instance (បង្កើត object ផ្សេងទៀត)
+//
+// ──────────────────────────────────────────`,
+  },
+  {
+    num: "13", chapter: "Object-Oriented Programming", chapterColor: PURPLE,
+    tag: "Behavior", tagColor: GREEN, icon: "⚙️",
+    title: "Properties & Methods",
+    subtitle: "Class State · Object Actions · The $this Keyword",
+    body: `**Properties** គឺជា Variable ដែលផ្ទុកទិន្នន័យក្នុង Class, ចំណែក **Methods** គឺជា Function ក្នុង Class សម្រាប់ធ្វើសកម្មភាព។ យើងប្រើ **$this** ដើម្បីបញ្ជាក់ថា យើងចង់ហៅ Member ដែលស្ថិតនៅក្នុង Object បច្ចុប្បន្ន។`,
+    bullets: [
+      { icon: "📦", label: "Properties", desc: "អថេរដែលកំណត់លក្ខណៈរបស់ Object (ឧ. velocity, color)។" },
+      { icon: "🎬", label: "Methods", desc: "មុខងារសម្រាប់ឲ្យ Object ធ្វើការងារអ្វីមួយ (ឧ. drive(), stop())។" },
+      { icon: "👉", label: "$this", desc: "Pseudo-variable សម្រាប់យោងទៅកាន់ object បច្ចុប្បន្ន។" },
+      { icon: "🔓", label: "Public", desc: "Visibility ដែលអនុញ្ញាតឲ្យចូលប្រើពីខាងក្រៅ class បាន។" },
+    ],
+    explanation: [
+      { title: "Local Context", desc: "នៅក្នុង Method, variable ធម្មតាជា local ─ តែ $this->prop គឺជា property របស់ object។" },
+      { title: "Method Calls", desc: "អ្នកអាចហៅ method មួយ ពីក្នុង method មួយទៀតបានតាមរយៈ $this->methodName()។" },
+      { title: "Encapsulation", desc: "ការចងមេថូដ និងទិន្នន័យចូលគ្នា ជួយឱ្យកូដមានសុវត្ថិភាព និងងាយស្រួលរក្សាកូដ។" },
+      { title: "Property Types", desc: "PHP 8 អាចកំណត់ Type ឱ្យ Property បាន (int, string) ដូច variable ធម្មតា។" }
+    ],
+    code: `<?php
+class Robot {
+    public string $name = "BasicBot";
+
+    public function sayHi(): string {
+        return "Hello, I am " . $this->name;
+    }
+
+    public function setName(string $newName): void {
+        $this->name = $newName;
+    }
+}
+
+$r = new Robot();
+echo $r->sayHi() . "\\n";
+
+$r->setName("Alpha-01");
+echo $r->sayHi();
+?>`,
+    output: `Hello, I am BasicBot
+Hello, I am Alpha-01`,
+    syntax: `// ── Members Access Syntax ──────────────────
+//
+//  public $p;           : Property decl
+//  public function m()  : Method decl
+//  $this->p             : Internal access
+//  $obj->m()            : External call
+//
+// ──────────────────────────────────────────`,
+    tip: "ប្រើ $this-> ជានិច្ចនៅពេលចង់ហៅអថេររបស់ Class ពីខាងក្នុង Method ─ បើមិនប្រើវាទេ PHP នឹងស្វែងរក Variable មូលដ្ឋានជំនួសវិញ!",
+  },
+  {
+    num: "14", chapter: "Object-Oriented Programming", chapterColor: PURPLE,
+    tag: "Lifecycle", tagColor: ORANGE, icon: "🐣",
+    title: "The Constructor",
+    subtitle: "Automatic Initialization · Setting State · Magic Methods",
+    body: `**Constructor** គឺជា Method ពិសេស (Magic Method) ដែលដំណើរការភ្លាមៗនៅពេលអ្នកប្រើ keyword **new**។ វាស័ក្តិសមបំផុតសម្រាប់ផ្ដល់តម្លៃដំបូងដល់ Object ឬ រៀបចំការតភ្ជាប់ផ្សេងៗ (ដូចជា Database Connection)។`,
+    bullets: [
+      { icon: "🪄", label: "__construct", desc: "ឈ្មោះ Method ពិសេសដែល PHP កំណត់ទុកជាមុន។" },
+      { icon: "⚡", label: "Auto-Run", desc: "ដើរដោយស្វ័យប្រវត្តិ មិនបាច់ហៅឈ្មោះវានោះទេ។" },
+      { icon: "📥", label: "Injection", desc: "អាចទទួល parameters ដើម្បីរៀបចំ Object ឲ្យរួចរាល់ភ្លាមៗ។" },
+      { icon: "🛠️", label: "Initialization", desc: "ជួយការពារកំហុស 'undefined property' ពេលប្រើ Object ដំបូង។" },
+    ],
+    explanation: [
+      { title: "Creation Phase", desc: "នៅពេល Object កើតមក, constructor ជាកូដដំបូងបង្អស់ដែលត្រូវបានអនុវត្ត។" },
+      { title: "Passing Data", desc: "យើងអាចបញ្ជូនទិន្នន័យតាមរយៈ $obj = new Class('Data') ─ ទិន្នន័យនេះនឹងទៅដល់ constructor។" },
+      { title: "Property Promotion", desc: "PHP 8 អាចប្រកាស និងផ្ដល់តម្លៃ Property ក្នុង Constructor រួមគ្នាក្នុងបន្ទាត់តែមួយ (ខ្លីខ្លាំង)។" },
+      { title: "Validation", desc: "អ្នកអាចពិនិត្យទិន្នន័យក្នុង constructor បើមិនត្រឹមត្រូវ អាចបញ្ឈប់ការបង្កើត object បាន។" }
+    ],
+    code: `<?php
+class Car {
+    public string $brand;
+    public int $year;
+
+    // Constructor gets called on 'new'
+    public function __construct(string $b, int $y) {
+        $this->brand = $b;
+        $this->year  = $y;
+        echo "LOG: New car added! \\n";
+    }
+
+    public function info(): string {
+        return "Car: {$this->brand} ({$this->year})";
+    }
+}
+
+// Data passed to the constructor parenthesis
+$c = new Car("Toyota", 2024);
+echo $c->info();
+?>`,
+    output: `LOG: New car added! 
+Car: Toyota (2024)`,
+    tip: "ចូរប្រើ Constructor ដើម្បីធានាថា Object របស់អ្នកតែងតែមានទិន្នន័យចាំបាច់ មុនពេលវាត្រូវបានយកទៅប្រើប្រាស់!",
+  },
+  {
+    num: "15", chapter: "Object-Oriented Programming", chapterColor: PURPLE,
+    tag: "Reusability", tagColor: BLUE, icon: "👪",
+    title: "Inheritance: Extends",
+    subtitle: "Parent & Child · Protected · Public vs Private",
+    body: `**Inheritance** អនុញ្ញាតឲ្យ Class មួយ (Child) ទាញយកសមត្ថភាពពី Class មួយទៀត (Parent)។ វាជួយកាត់បន្ថយការសរសេរកូដដដែលៗ (DRY Principle)។ ជាមួយគ្នាដែរ យើងប្រើ **Visibility Modifiers** ដើម្បីកំណត់ដែនកំណត់នៃសិទ្ធិចូលប្រើទិន្នន័យ។`,
+    bullets: [
+      { icon: "🧬", label: "Extends", desc: "Keyword សម្រាប់ទាញយកសមត្ថភាពពី Parent Class។" },
+      { icon: "🔓", label: "Public", desc: "ប្រើបានគ្រប់ទីកន្លែង (ក្នុង Class, ក្រៅ Class, Child Class)។" },
+      { icon: "🔐", label: "Protected", desc: "ប្រើបានតែក្នុង Class ខ្លួនឯង និង Child Class ប៉ុណ្ណោះ។" },
+      { icon: "🚫", label: "Private", desc: "ប្រើបានតែក្នុង Class ខ្លួនឯងប៉ុណ្ណោះ ─ Child ក៏មើលមិនឃើញដែរ។" },
+    ],
+    explanation: [
+      { title: "The Child Power", desc: "Child Class ទទួលបានគ្រប់ public និង protected members ពី Parent ដោយស្វ័យប្រវត្តិ។" },
+      { title: "Method Overriding", desc: "Child អាចសរសេរ Method ថ្មីដែលមានឈ្មោះដូច Parent ដើម្បីប្ដូរសកម្មភាព (Behavior)។" },
+      { title: "Parent Reference", desc: "ប្រើ parent::methodName() ដើម្បីហៅ method ដើមរបស់ Parent ពីក្នុង Child។" },
+      { title: "When to use", desc: "ប្រើនៅពេលអ្នកមាន objects ច្រើនដែលមានលក្ខណៈរួមគ្នាខ្លះ (ឧ. User -> Customer, User -> Admin)។" }
+    ],
+    code: `<?php
+class User {
+    protected string $username;
+
+    public function __construct($u) { $this->username = $u; }
+}
+
+class Admin extends User {
+    public function deleteProfile() {
+        // Can access $username because it's protected
+        echo "Admin '{$this->username}' is deleting profile...";
+    }
+}
+
+$a = new Admin("Ratha_Admin");
+$a->deleteProfile();
+?>`,
+    output: `Admin 'Ratha_Admin' is deleting profile...`,
+    tip: "ប្រើ 'Protected' ជំនួសឱ្យ 'Public' ប្រសិនបើអ្នកចង់ឱ្យ Class កូនៗប្រើវាបាន តែមិនចង់ឱ្យខាងក្រៅមើលឃើញវា!",
+  },
+  {
+    num: "16", chapter: "Object-Oriented Programming", chapterColor: PURPLE,
+    tag: "Practice", tagColor: GREEN, icon: "🧪",
+    title: "Lab: OOP Practice",
+    subtitle: "Class Design · Constructor · Methods · Implementation",
+    body: `ក្នុងលំហាត់នេះ យើងនឹងអនុវត្តការបង្កើត **Class Product** សម្រាប់ប្រព័ន្ធលក់ទំនិញសាមញ្ញមួយ។ អ្នកនឹងរៀនពីរបៀបចងក្រងទិន្នន័យទំនិញ (ឈ្មោះ តម្លៃ) និងបង្កើត Method សម្រាប់គណនាតម្លៃសរុប។`,
+    bullets: [
+      { icon: "🏗️", label: "Class Design", desc: "បង្កើតរចនាសម្ព័ន្ធ Class សម្រាប់តំណាងឱ្យ Product។" },
+      { icon: "📥", label: "Data Injection", desc: "ប្រើ Constructor ដើម្បីទទួលតម្លៃពេលបង្កើត Object។" },
+      { icon: "🧮", label: "Business Logic", desc: "សរសេរ Method សម្រាប់គណនាបញ្ចុះតម្លៃ ឬ ពន្ធ។" },
+      { icon: "🖥️", label: "Execution", desc: "បង្កើត Object ច្រើន និងបង្ហាញលទ្ធផលតាមរយៈ Output។" },
+    ],
+    lab: {
+      title: "Building a Product Management Class",
+      titleKh: "ការបង្កើត Class សម្រាប់គ្រប់គ្រងទិន្នន័យទំនិញ",
+      duration: "45 min",
+      objective: "យល់ពីរបៀបប្រើប្រាស់ OOP ក្នុងករណីប្រើប្រាស់ជាក់ស្តែង (Real-world use case)។",
+      steps: [
+        "បង្កើត class Product ដែលមាន properties: $name, $price។",
+        "បង្កើត __construct ដើម្បីផ្ដល់តម្លៃឱ្យ properties ទាំងពីរ។",
+        "បង្កើត method getFormattedPrice() ដើម្បីបង្ហាញតម្លៃជាមួយសញ្ញា $។",
+        "បន្ថែម method applyDiscount($percent) ដើម្បីបន្ថយតម្លៃទំនិញ។",
+        "បង្កើត Product object ចំនួន ២ និងបង្ហាញព័ត៌មានរបស់វា។"
+      ],
+      code: `<?php
+class Product {
+    public string $name;
+    public float $price;
+
+    public function __construct($n, $p) {
+        $this->name  = $n;
+        $this->price = $p;
+    }
+
+    public function getFormattedPrice(): string {
+        return "$" . number_format($this->price, 2);
+    }
+
+    public function applyDiscount($percent): void {
+        $this->price -= ($this->price * ($percent / 100));
+    }
+}
+
+$p1 = new Product("Laptop", 1200);
+$p1->applyDiscount(10); // 10% OFF
+
+echo "Product: " . $p1->name . "\\n";
+echo "Final Price: " . $p1->getFormattedPrice();
+?>`,
+      output: `Product: Laptop
+Final Price: $1,080.00`
+    },
+    code: `<?php
+// Practice OOP here
+echo "Ready for Class implementation!";
+?>`,
+    output: `Ready for Class implementation!`,
+    tip: "ការប្រើ OOP ធ្វើឱ្យកម្មវិធីរបស់អ្នកងាយស្រួលក្នុងការពង្រីក (Scalable) នៅថ្ងៃអនាគត!",
+  },
+  {
+    num: "17", chapter: "Project Research", chapterColor: PINK,
+    tag: "Architecture", tagColor: PINK, icon: "🏗️",
+    title: "Project: MVC & Database",
+    subtitle: "Model-View-Controller · MySQL · CRUD Operations",
+    body: `សម្រាប់ការ Build App ឱ្យមានរចនាសម្ព័ន្ធរឹងមាំ និងមានរបៀបរៀបរយ យើងប្រើប្រាស់ **MVC Pattern**។ ដើម្បីឱ្យកូដរបស់វាដំណើរការបាន យើងត្រូវប្រើ **Web Server (XAMPP)** ដោយដាក់ File ក្នុង Folder **htdocs** រួចហៅតាមរយៈ **localhost**។ ក្រៅពីនេះ យើងនឹងប្រើ **MySQL** ជាឃ្លាំងសម្រាប់រក្សាទុកទិន្នន័យពិតប្រាកដ។`,
+    bullets: [
+      { icon: "🏛️", label: "MVC Pattern", desc: "Model (DB), View (UI), Controller (Logic)។" },
+      { icon: "🗄️", label: "MySQL / PDO", desc: "ការតភ្ជាប់ និងទាញយកទិន្នន័យពី Database។" },
+      { icon: "📥", label: "GET & POST", desc: "វិធីសាស្រ្តបញ្ជូនទិន្នន័យពី Form ទៅកាន់ Server។" },
+      { icon: "🌍", label: "Web Server", desc: "ប្រើ XAMPP (Apache) ដើម្បីដំណើរការកូដលើ Localhost។" },
+    ],
+    explanation: [
+      { title: "1. User Request", desc: "User វាយ URL ឬចុចប៊ូតុង ដើម្បីផ្ញើ HTTP Request ទៅកាន់ Server។" },
+      { title: "2. Controller (Brain)", desc: "គឺជាអ្នកទទួល Request ហើយសម្រេចចិត្តថាត្រូវហៅ Model ណា ឬបង្ហាញ View មួយណា។" },
+      { title: "3. Service (Logic)", desc: "កន្លែងសម្រាប់គណនា Logic ស្មុគស្មាញ ឬច្បាប់អាជីវកម្ម (Business Rules) មុននឹងរក្សាទុក។" },
+      { title: "4. Model (Data)", desc: "ធ្វើការផ្ទាល់ជាមួយ MySQL Database ដើម្បីទាញយក ឬរក្សាទុកទិន្នន័យ (CRUD)។" },
+      { title: "5. View (Interface)", desc: "ទទួលទិន្នន័យពី Controller រួចរៀបចំជា HTML ដើម្បីបង្ហាញទៅកាន់ User វិញ។" }
+    ],
+    code: null,
+    concept: `
+ ┌──────────┐       ┌──────────────┐
+ │  USER    │ ───►  │  CONTROLLER  │
+ └──────────┘       └──────┬───────┘
+     ▲                     │
+     │               ┌─────┴─────┐
+     │               ▼           ▼
+ ┌───┴───┐     ┌───────────┐  ┌──────────┐
+ │ VIEW  │ ◄───┤  SERVICE  │  │  MODEL   │
+ └───────┘     └───────────┘  └──────────┘
+    (UI)          (Logic)      (Database)
+
+1. User Request: User វាយ URL ឬចុចប៊ូតុង។
+2. Controller (Brain): អ្នកទទួល & សម្រេចចិត្ត។
+3. Service (Logic): គណនា Logic & Business Rules។
+4. Model (Data): ធ្វើការផ្ទាល់ជាមួយ MySQL (CRUD)។
+5. View (Interface): រៀបចំ HTML បង្ហាញទៅ User។
+`,
+    output: null,
+    tip: "ចងចាំថាត្រូវប្រើ POST ជានិច្ចនៅពេលផ្ញើទិន្នន័យទៅរក្សាទុកក្នុង Database ដើម្បីសុវត្ថិភាព!",
+  },
+  {
+    num: "17B", chapter: "Project Research", chapterColor: PINK,
+    tag: "Full CRUD", tagColor: RED, icon: "🛠️",
+    title: "Complete Product CRUD",
+    subtitle: "Create · Read · Update · Delete · Database Integration",
+    body: `ដើម្បីគ្រប់គ្រងទិន្នន័យបានពេញលេញ យើងត្រូវអនុវត្តនូវប្រតិបត្តិការទាំង ៤ នៃ **CRUD**៖ **បង្កើត (Create)**, **ទាញបង្ហាញ (Read)**, **កែប្រែ (Update)** និង **លុប (Delete)**។ នេះគឺជាបេះដូងនៃរាល់កម្មវិធីគ្រប់គ្រងទិន្នន័យ (Management Systems) ទាំងអស់។`,
+    bullets: [
+      { icon: "📥", label: "Create", desc: "បញ្ចូលទិន្នន័យទំនិញថ្មីទៅក្នុង Database។" },
+      { icon: "📄", label: "Read", desc: "បង្ហាញបញ្ជីទំនិញទាំងអស់ដែលរក្សាទុកក្នុងប្រព័ន្ធ។" },
+      { icon: "📝", label: "Update", desc: "កែសម្រួលព័ត៌មានទំនិញដែលមានស្រាប់ឱ្យទាន់សម័យ។" },
+      { icon: "🗑️", label: "Delete", desc: "លុបទិន្នន័យដែលលែងត្រូវការចេញពីប្រព័ន្ធ។" },
+    ],
+    explanation: [
+      { title: "List (Read)", desc: "ហៅ SQL: SELECT * FROM products ដើម្បីបង្ហាញទំនិញទាំងអស់។" },
+      { title: "Add (Create)", desc: "ប្រើ SQL: INSERT INTO products (name, price) VALUES (...) ដើម្បីបន្ថែមថ្មី។" },
+      { title: "Edit (Update)", desc: "ប្រើ SQL: UPDATE products SET ... WHERE id = :id ដើម្បីកែប្រែ។" },
+      { title: "Remove (Delete)", desc: "ប្រើ SQL: DELETE FROM products WHERE id = :id ដើម្បីលុបទិន្នន័យ។" }
+    ],
+    code: `<?php
+// 1. DATABASE CONNECTION
+$pdo = new PDO("mysql:host=localhost;dbname=shop", "root", "");
+
+// 2. CREATE (Add)
+if (isset($_POST['add'])) {
+    $pdo->query("INSERT INTO products (name) VALUES ('".$_POST['name']."')");
+}
+
+// 3. DELETE (Remove)
+if (isset($_GET['del'])) {
+    $pdo->query("DELETE FROM products WHERE id = " . $_GET['del']);
+}
+
+// 4. READ (List All)
+$products = $pdo->query("SELECT * FROM products")->fetchAll();
+?>
+
+<h3>Product List</h3>
+<ul>
+  <?php foreach($products as $p): ?>
+    <li>
+      <?= $p['name'] ?> 
+      <a href="?del=<?= $p['id'] ?>">❌</a>
+    </li>
+  <?php endforeach; ?>
+</ul>
+
+<form method="POST">
+    <input type="text" name="name" placeholder="New Product">
+    <button name="add">Add Product</button>
+</form>`,
+    output: `[iPhone 15] ❌
+[MacBook M3] ❌
+[AirPods Pro] ❌
+(Form attached for Adding New Product)`,
+    tip: "ចូរប្រើ SQL Prepared Statements ជានិច្ច ដើម្បីការពារការវាយប្រហារបែប SQL Injection!",
+  },
+  {
+    num: "18", chapter: "Ecosystem", chapterColor: BLUE,
     tag: "Tooling", tagColor: GREEN, icon: "🎼",
     title: "Installing Composer",
     subtitle: "Dependency Manager · PHP Package Control · Multi-OS Setup",
@@ -1021,7 +1364,7 @@ PHP version 8.3.4 (/usr/local/bin/php)`,
     tip: "ចងចាំថា Composer ត្រូវការ PHP ដើម្បីដំណើរការ! ដូច្នេះសូមប្រាកដថាអ្នកបានដំឡើង PHP រួចរាល់ជាមុនសិន!",
   },
   {
-    num: "12B", chapter: "Ecosystem", chapterColor: BLUE,
+    num: "18B", chapter: "Ecosystem", chapterColor: BLUE,
     tag: "IDE", tagColor: BLUE, icon: "💻",
     title: "IDE: VS Code Setup",
     subtitle: "Extensions · Intelephense · Debugging · Productivity",
@@ -1049,7 +1392,7 @@ $ code my-project-folder`,
     tip: "កុំដំឡើង Extension ច្រើនពេក ─ ជ្រើសរើសតែអ្វីដែលចាំបាច់ដើម្បីកុំឱ្យកម្មវិធីដើរយឺត!",
   },
   {
-    num: "12C", chapter: "Ecosystem", chapterColor: BLUE,
+    num: "18C", chapter: "Ecosystem", chapterColor: BLUE,
     tag: "AI Assistant", tagColor: BLUE, icon: "🤖",
     title: "AI Help: Antigravity",
     subtitle: "Pair Programming · Real-time Debugging · Smart Mentorship",
@@ -1080,6 +1423,37 @@ Mentorship Mode: On
 Antigravity is ready to assist you!`,
     tip: "ចូរប្រើ AI ជាជំនួយការសម្រាប់រៀន ─ កុំគ្រាន់តែ Copy កូដ, តែត្រូវសួរនាំដើម្បីយល់ពីរបៀបដែលវាដំណើរការ!",
   },
+  {
+    num: "18D", chapter: "Ecosystem", chapterColor: BLUE,
+    tag: "Server", tagColor: ORANGE, icon: "🐘",
+    title: "Local Server: XAMPP",
+    subtitle: "Apache · MySQL · PHP · Localhost Environment",
+    body: `ដើម្បីដំណើរការកូដ PHP និង Database លើម៉ាស៊ីនផ្ទាល់ខ្លួន យើងត្រូវការ **Local Server**។ **XAMPP** គឺជាកញ្ចប់ Software ដែលរួមបញ្ចូលទាំង Apache (Web Server), MySQL (Database), និង PHP Engine មកជាមួយគ្នាតែម្ដង ដែលផ្ដល់ភាពងាយស្រួលបំផុត។`,
+    bullets: [
+      { icon: "📦", label: "All-in-One", desc: "មានទាំង Web Server និង Database ក្នុងកម្មវិធីតែមួយ។" },
+      { icon: "🚥", label: "Control Panel", desc: "ងាយស្រួល Start/Stop សេវាកម្មផ្សេងៗដោយគ្រាន់តែចុច Button។" },
+      { icon: "📂", label: "htdocs Folder", desc: "រាល់ File .php ត្រូវតែដាក់ក្នុង Folder htdocs ដើម្បីដំណើរការ។" },
+      { icon: "🌐", label: "Localhost", desc: "ចូលទៅកាន់ Browser ហើយវាយ http://localhost ដើម្បីមើលលទ្ធផល។" },
+    ],
+    explanation: [
+      { title: "Installation", desc: "ទាញយកពី apachefriends.org និងដំឡើងតាមជំហានធម្មតា (Next, Next...)។" },
+      { title: "Service Startup", desc: "បើក XAMPP Control Panel ហើយចុច 'Start' លើ Apache និង MySQL។" },
+      { title: "Directory Path", desc: "Windows: C:/xampp/htdocs | macOS: /Applications/XAMPP/htdocs។" },
+      { title: "Web Interface", desc: "ប្រើ phpMyAdmin តាមរយៈ http://localhost/phpmyadmin ដើម្បីគ្រប់គ្រង Database។" }
+    ],
+    code: `// --- XAMPP Workflow ---
+// 1. Open XAMPP Control Panel
+// 2. Start [Apache] & [MySQL]
+// 3. Put your file in: htdocs/my-folder/index.php
+// 4. Browsing: http://localhost/my-folder/index.php
+
+// Testing if server is running:
+<?php
+  echo "XAMPP is running successfully! 🚀";
+?>`,
+    output: `XAMPP is running successfully! 🚀`,
+    tip: "ប្រសិនបើ Apache មិនព្រម Start, សូមពិនិត្យមើលថាមានកម្មវិធីផ្សេង (ដូចជា Skype) កំពុងប្រើ Port 80 ឬអត់!",
+  },
 ];
 
 
@@ -1088,7 +1462,19 @@ const CHAPTERS: ChapterData[] = [
   { name: "Foundations", color: BLUE, nums: ["01", "01B", "02", "03", "04", "04-L"], icon: "🧱" },
   { name: "Operators & Flow", color: ORANGE, nums: ["05", "06", "07", "08", "08-L"], icon: "⚙️" },
   { name: "Functions & Arrays", color: PINK, nums: ["09", "10", "11"], icon: "📦" },
-  { name: "Ecosystem & Tools", color: TEAL, nums: ["12", "12B", "12C"], icon: "🌐" },
+  {
+    name: "Object-Oriented Programming",
+    color: PURPLE,
+    nums: ["12", "13", "14", "15", "16"],
+    icon: "🧠"
+  },
+  {
+    name: "Project Research",
+    color: PINK,
+    nums: ["17", "17B"],
+    icon: "🔬"
+  },
+  { name: "Ecosystem & Tools", color: TEAL, nums: ["18", "18B", "18C", "18D"], icon: "🌐" },
 ];
 
 // ── SYNTAX HIGHLIGHTER ────────────────────────────────────────
